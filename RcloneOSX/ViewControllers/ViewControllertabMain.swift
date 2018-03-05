@@ -84,7 +84,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // HiddenID task, set when row is selected
     private var hiddenID: Int?
     // Reference to Schedules object
-    private var schedulessorted: ScheduleSortedAndExpand?
+    private var schedulesortedandexpanded: ScheduleSortedAndExpand?
     // Bool if one or more remote server is offline
     // Schedules in progress
     private var scheduledJobInProgress: Bool = false
@@ -96,6 +96,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private var loadProfileMenu: Bool = false
     // Which kind of task
     private var processtermination: ProcessTermination?
+    @IBOutlet weak var info: NSTextField!
 
     @IBAction func quickbackup(_ sender: NSButton) {
         self.processtermination = .quicktask
@@ -146,6 +147,23 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 // Reset in tabSchedule
                 self.reloadtable(vcontroller: .vctabschedule)
             }
+        }
+    }
+
+    private func info(num: Int) {
+        switch num {
+        case 1:
+            self.info.stringValue = "Select a task...."
+        case 2:
+            self.info.stringValue = "Possible error logging..."
+        case 3:
+            self.info.stringValue = "No rsync in path..."
+        case 4:
+            self.info.stringValue = "⌘A to abort or wait..."
+        case 5:
+            self.info.stringValue = "Menu app is either running or not enabled..."
+        default:
+            self.info.stringValue = ""
         }
     }
 
@@ -425,7 +443,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.schedules = Schedules(profile: nil)
             return
         }
-        // self.schedules?.cancelTaskWaiting()
         if let profile = self.configurations!.getProfile() {
             self.schedules = nil
             self.schedules = Schedules(profile: profile)
@@ -433,10 +450,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.schedules = nil
             self.schedules = Schedules(profile: nil)
         }
-        self.schedulessorted = ScheduleSortedAndExpand()
-        self.infoschedulessorted = InfoScheduleSortedAndExpand(sortedandexpanded: self.schedulessorted)
-        self.schedules?.scheduledTasks = self.schedulessorted?.allscheduledtasks()
-        ViewControllerReference.shared.scheduledTask = self.schedulessorted?.allscheduledtasks()
+        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
+        self.schedules?.scheduledTasks = self.schedulesortedandexpanded?.firstscheduledtask()
+        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
     }
 
     func createandreloadconfigurations() {
@@ -478,9 +494,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
             return object[tableColumn!.identifier] as? Int!
         } else if markdays == true && tableColumn!.identifier.rawValue == "daysID" {
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        } else if self.testTCP(row) {
-            guard celltext != nil else {return nil}
-            return self.attributedstring(str: celltext!, color: NSColor.red, align: .left)
         } else if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
             return "localhost"
         } else if tableColumn!.identifier.rawValue == "schedCellID" {
@@ -1014,17 +1027,10 @@ extension ViewControllertabMain: GetSchedulesObject {
     func createschedulesobject(profile: String?) -> Schedules? {
         self.schedules = nil
         self.schedules = Schedules(profile: profile)
-        self.schedulessorted = ScheduleSortedAndExpand()
-        self.infoschedulessorted = InfoScheduleSortedAndExpand(sortedandexpanded: self.schedulessorted)
-        self.schedules?.scheduledTasks = self.schedulessorted?.allscheduledtasks()
-        ViewControllerReference.shared.scheduledTask = self.schedulessorted?.allscheduledtasks()
+        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
+        self.schedules?.scheduledTasks = self.schedulesortedandexpanded?.firstscheduledtask()
+        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
         return self.schedules
-    }
-}
-
-extension  ViewControllertabMain: GetHiddenID {
-    func gethiddenID() -> Int? {
-        return self.hiddenID
     }
 }
 
@@ -1064,5 +1070,11 @@ extension ViewControllertabMain: StartNextTask {
         ViewControllerReference.shared.timerTaskWaiting?.invalidate()
         ViewControllerReference.shared.dispatchTaskWaiting?.cancel()
         _ = OperationFactory(factory: self.configurations!.operation)
+    }
+}
+
+extension  ViewControllertabMain: GetHiddenID {
+    func gethiddenID() -> Int? {
+        return self.hiddenID
     }
 }
