@@ -67,7 +67,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var newfiles: NSTextField!
     // Delete files
     @IBOutlet weak var deletefiles: NSTextField!
-
     @IBOutlet weak var rcloneversionshort: NSTextField!
 
     // Reference to Process task
