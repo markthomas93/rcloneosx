@@ -3248,7 +3248,7 @@ DQ
                                 </connections>
                             </datePicker>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfr-0M-eUI">
-                                <rect key="frame" x="861" y="8" width="213" height="17"/>
+                                <rect key="frame" x="861" y="2" width="213" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Operation method: " id="j4V-vV-TZF">
                                     <font key="font" metaFont="smallSystem"/>
@@ -3276,6 +3276,7 @@ DQ
                         <outlet property="info" destination="oxI-hV-xVj" id="olJ-lJ-oAP"/>
                         <outlet property="mainTableView" destination="M2k-eh-eJR" id="gST-S2-fQo"/>
                         <outlet property="oncebutton" destination="tXQ-RV-Af6" id="Oua-k2-FaV"/>
+                        <outlet property="operation" destination="sfr-0M-eUI" id="4Zf-HR-1uy"/>
                         <outlet property="profilInfo" destination="5vw-0e-A6P" id="2r7-rd-2e1"/>
                         <outlet property="startdate" destination="xHj-UP-XJf" id="77g-rP-WZJ"/>
                         <outlet property="starttime" destination="cqn-FI-yWE" id="VcH-n2-T4W"/>
