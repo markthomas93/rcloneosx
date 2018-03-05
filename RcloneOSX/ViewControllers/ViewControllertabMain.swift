@@ -67,8 +67,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var newfiles: NSTextField!
     // Delete files
     @IBOutlet weak var deletefiles: NSTextField!
-    @IBOutlet weak var selecttask: NSTextField!
-    @IBOutlet weak var norsync: NSTextField!
+
     @IBOutlet weak var rcloneversionshort: NSTextField!
 
     // Reference to Process task
@@ -107,7 +106,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 self.presentViewControllerAsSheet(self.editViewController!)
             })
         } else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
         }
     }
 
@@ -118,14 +117,14 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 self.presentViewControllerAsSheet(self.viewControllerRsyncParams!)
             })
         } else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
         }
     }
 
     @IBAction func delete(_ sender: NSButton) {
         self.reset()
         guard self.hiddenID != nil else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
             return
         }
         let answer = Alerts.dialogOKCancel("Delete selected task?", text: "Cancel or OK")
@@ -214,16 +213,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBAction func executetasknow(_ sender: NSButton) {
         self.processtermination = .singlequicktask
         guard self.scheduledJobInProgress == false else {
-            self.selecttask.stringValue = "⌘A to abort or wait..."
-            self.selecttask.isHidden = false
+            self.info(num: 4)
             return
         }
         guard self.hiddenID != nil else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
             return
         }
         guard self.index != nil else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
             return
         }
         guard self.configurations!.getConfigurations()[self.index!].task != "move" else {
@@ -318,8 +316,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private func executeSingleTask() {
         self.processtermination = .singletask
         guard self.scheduledJobInProgress == false else {
-            self.selecttask.stringValue = "⌘A to abort or wait..."
-            self.selecttask.isHidden = false
+            self.info(num: 4)
             return
         }
         guard ViewControllerReference.shared.norsync == false else {
@@ -345,8 +342,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBAction func executeBatch(_ sender: NSToolbarItem) {
         self.processtermination = .batchtask
         guard self.scheduledJobInProgress == false else {
-            self.selecttask.stringValue = "⌘A to abort or wait..."
-            self.selecttask.isHidden = false
+            self.info(num: 4)
             return
         }
         guard ViewControllerReference.shared.norsync == false else {
@@ -392,7 +388,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.abortOperations()
         }
         self.readyforexecution = true
-        self.selecttask.isHidden = true
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
@@ -563,8 +558,7 @@ extension ViewControllertabMain: ScheduledTaskWorking {
     func completed() {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = false
-            self.selecttask.stringValue = "Select a task...."
-            self.selecttask.isHidden = true
+            self.info(num: 1)
             self.scheduledJobworking.stopAnimation(nil)
         })
     }
@@ -972,9 +966,9 @@ extension ViewControllertabMain: GetSchedulesObject {
 extension ViewControllertabMain: Verifyrsync {
     internal func verifyrsync() {
         if ViewControllerReference.shared.norsync == true {
-            self.norsync.isHidden = false
+            self.info(num: 3)
         } else {
-            self.norsync.isHidden = true
+            self.info(num: 0)
         }
     }
 }
