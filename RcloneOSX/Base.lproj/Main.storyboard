@@ -3273,11 +3273,12 @@ DQ
                     </view>
                     <connections>
                         <outlet property="dailybutton" destination="gdt-Z5-oOs" id="GiQ-8f-jUz"/>
+                        <outlet property="info" destination="oxI-hV-xVj" id="olJ-lJ-oAP"/>
                         <outlet property="mainTableView" destination="M2k-eh-eJR" id="gST-S2-fQo"/>
                         <outlet property="oncebutton" destination="tXQ-RV-Af6" id="Oua-k2-FaV"/>
                         <outlet property="profilInfo" destination="5vw-0e-A6P" id="2r7-rd-2e1"/>
-                        <outlet property="stopdate" destination="xHj-UP-XJf" id="8WA-aa-8DM"/>
-                        <outlet property="stoptime" destination="cqn-FI-yWE" id="7Hf-fC-JYD"/>
+                        <outlet property="startdate" destination="xHj-UP-XJf" id="77g-rP-WZJ"/>
+                        <outlet property="starttime" destination="cqn-FI-yWE" id="VcH-n2-T4W"/>
                         <outlet property="weeklybutton" destination="Ikx-eC-7aI" id="m0o-D0-LMK"/>
                     </connections>
                 </viewController>
