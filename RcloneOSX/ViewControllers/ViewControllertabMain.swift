@@ -85,7 +85,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private var hiddenID: Int?
     // Reference to Schedules object
     private var schedulessorted: ScheduleSortedAndExpand?
-    private var infoschedulessorted: InfoScheduleSortedAndExpand?
     // Bool if one or more remote server is offline
     // Schedules in progress
     private var scheduledJobInProgress: Bool = false
@@ -477,21 +476,24 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         celltext = object[tableColumn!.identifier] as? String
         if tableColumn!.identifier.rawValue == "batchCellID" {
             return object[tableColumn!.identifier] as? Int!
-        }
-        if markdays == true && tableColumn!.identifier.rawValue == "daysID" {
+        } else if markdays == true && tableColumn!.identifier.rawValue == "daysID" {
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        }
-        if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
-            celltext =  "localhost"
-        }
-        if tableColumn!.identifier.rawValue == "schedCellID" {
-            if let obj = self.schedulessorted {
-                if obj.countscheduledtasks(hiddenID) > 0 {
-                    return #imageLiteral(resourceName: "green")
+        } else if self.testTCP(row) {
+            guard celltext != nil else {return nil}
+            return self.attributedstring(str: celltext!, color: NSColor.red, align: .left)
+        } else if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
+            return "localhost"
+        } else if tableColumn!.identifier.rawValue == "schedCellID" {
+            if let obj = self.schedulesortedandexpanded {
+                if obj.numberoftasks(hiddenID).0 > 0 {
+                    if obj.numberoftasks(hiddenID).1 > 3600 {
+                        return #imageLiteral(resourceName: "yellow")
+                    } else {
+                        return #imageLiteral(resourceName: "green")
+                    }
                 }
             }
-        }
-        if tableColumn!.identifier.rawValue == "statCellID" {
+        } else if tableColumn!.identifier.rawValue == "statCellID" {
             if row == self.index {
                 if self.scheduledJobInProgress == true {
                     return #imageLiteral(resourceName: "green")
@@ -502,10 +504,11 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
                     return #imageLiteral(resourceName: "green")
                 }
             }
+        } else {
+            return object[tableColumn!.identifier] as? String
         }
-        return object[tableColumn!.identifier] as? String
+        return nil
     }
-
     // Toggling batch
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         if self.process != nil {

@@ -22,7 +22,7 @@ extension NextTask {
     weak var nexttaskDelegate: StartNextTask? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-
+    
     func startnexttask() {
         self.nexttaskDelegate?.startfirstcheduledtask()
     }
@@ -45,7 +45,7 @@ extension SetScheduledTask {
     weak var scheduleJob: ScheduledTaskWorking? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-
+    
     func notify(config: Configuration?) {
         self.scheduleJob?.notifyScheduledTask(config: config)
     }
@@ -56,17 +56,17 @@ protocol SecondsBeforeStart {
 }
 
 extension SecondsBeforeStart {
-
+    
     func secondsbeforestart() -> Double {
         var secondsToWait: Double?
         let scheduledJobs = ScheduleSortedAndExpand()
-        if let dict = scheduledJobs.allscheduledtasks() {
+        if let dict = scheduledJobs.firstscheduledtask() {
             let dateStart: Date = (dict.value(forKey: "start") as? Date)!
             secondsToWait = Tools().timeDoubleSeconds(dateStart, enddate: nil)
         }
         return secondsToWait ?? 0
     }
-
+    
 }
 
 enum OperationObject {
@@ -80,10 +80,10 @@ protocol Sendprocessreference: class {
 }
 
 class OperationFactory {
-
+    
     var operationTimer: ScheduleOperationTimer?
     var operationDispatch: ScheduleOperationDispatch?
-
+    
     init(factory: OperationObject) {
         switch factory {
         case .timer:
@@ -92,8 +92,9 @@ class OperationFactory {
             self.operationDispatch = ScheduleOperationDispatch()
         }
     }
-
+    
     init() {
         self.operationDispatch = ScheduleOperationDispatch(seconds: 0)
     }
 }
+
