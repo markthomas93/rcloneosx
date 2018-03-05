@@ -37,7 +37,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var tools: Tools?
     // Delegate function getting batchTaskObject
     weak var batchObjectDelegate: getNewBatchTask?
-    @IBOutlet weak var statuslight: NSImageView!
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -70,7 +69,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var deletefiles: NSTextField!
     @IBOutlet weak var selecttask: NSTextField!
     @IBOutlet weak var norsync: NSTextField!
-    @IBOutlet weak var possibleerroroutput: NSTextField!
     @IBOutlet weak var rcloneversionshort: NSTextField!
 
     // Reference to Process task
@@ -90,10 +88,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private var scheduledJobInProgress: Bool = false
     // Ready for execute again
     private var readyforexecution: Bool = true
-    // Can load profiles
-    // Load profiles only when testing for connections are done.
-    // Application crash if not
-    private var loadProfileMenu: Bool = false
     // Which kind of task
     private var processtermination: ProcessTermination?
     @IBOutlet weak var info: NSTextField!
@@ -157,11 +151,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         case 2:
             self.info.stringValue = "Possible error logging..."
         case 3:
-            self.info.stringValue = "No rsync in path..."
+            self.info.stringValue = "No rclone in path..."
         case 4:
             self.info.stringValue = "⌘A to abort or wait..."
-        case 5:
-            self.info.stringValue = "Menu app is either running or not enabled..."
         default:
             self.info.stringValue = ""
         }
@@ -172,7 +164,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.outputprocess = nil
         self.setNumbers(output: nil)
         self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
         self.process = nil
         self.singletask = nil
     }
@@ -201,14 +192,10 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Selecting profiles
     @IBAction func profiles(_ sender: NSButton) {
-        if self.loadProfileMenu == true {
-            self.showProcessInfo(info: .changeprofile)
-            globalMainQueue.async(execute: { () -> Void in
-                self.presentViewControllerAsSheet(self.viewControllerProfile!)
-            })
-        } else {
-            self.displayProfile()
-        }
+        self.showProcessInfo(info: .changeprofile)
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerProfile!)
+        })
     }
 
     // Logg records
@@ -292,7 +279,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
         self.displayDryRun.state = .on
-        self.loadProfileMenu = true
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
@@ -309,7 +295,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         // Allow notify about Scheduled jobs
         self.configurations!.allowNotifyinMain = true
         self.setInfo(info: "", color: .black)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
         if self.configurations!.configurationsDataSourcecount() > 0 {
             globalMainQueue.async(execute: { () -> Void in
                 self.mainTableView.reloadData()
@@ -319,7 +304,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
-        self.possibleerroroutput.isHidden = true
     }
 
     // Execute tasks by double click in table
@@ -381,11 +365,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private func displayProfile() {
         weak var localprofileinfo: SetProfileinfo?
         weak var localprofileinfo2: SetProfileinfo?
-        guard self.loadProfileMenu == true else {
-            self.profilInfo.stringValue = "Profile: please wait..."
-            self.profilInfo.textColor = .blue
-            return
-        }
         if let profile = self.configurations!.getProfile() {
             self.profilInfo.stringValue = "Profile: " + profile
             self.profilInfo.textColor = .blue
@@ -429,7 +408,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.singletask = nil
         self.batchtaskObject = nil
         self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
         self.showProcessInfo(info: .blank)
         self.setRsyncCommandDisplay()
         globalMainQueue.async(execute: { () -> Void in
@@ -531,7 +509,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.singletask = nil
         self.batchtaskObject = nil
         self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
     }
 }
 
@@ -571,42 +548,6 @@ extension ViewControllertabMain: RsyncUserParams {
 extension ViewControllertabMain: GetSelecetedIndex {
     func getindex() -> Int? {
         return self.index
-    }
-}
-
-// New profile is loaded.
-extension ViewControllertabMain: NewProfile {
-    // Function is called from profiles when new or default profiles is seleceted
-    func newProfile(profile: String?) {
-        self.process = nil
-        self.outputprocess = nil
-        self.outputbatch = nil
-        self.singletask = nil
-        self.setNumbers(output: nil)
-        self.setRsyncCommandDisplay()
-        self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
-        self.setNumbers(output: nil)
-        self.deselect()
-        // Read configurations and Scheduledata
-        self.configurations = self.createconfigurationsobject(profile: profile)
-        self.schedules = self.createschedulesobject(profile: profile)
-        // Make sure loading profile
-        self.loadProfileMenu = true
-        self.displayProfile()
-        self.reloadtabledata()
-        // Reset in tabSchedule
-        self.reloadtable(vcontroller: .vctabschedule)
-        self.deselectrowtable(vcontroller: .vctabschedule)
-        // We have to start any Scheduled process again - if any
-        self.startfirstcheduledtask()
-    }
-
-    func enableProfileMenu() {
-        self.loadProfileMenu = true
-        globalMainQueue.async(execute: { () -> Void in
-            self.displayProfile()
-        })
     }
 }
 
@@ -675,7 +616,6 @@ extension ViewControllertabMain: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismissViewController(viewcontroller)
         // Reset radiobuttons
-        self.loadProfileMenu = true
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
             self.displayProfile()
@@ -774,7 +714,6 @@ extension ViewControllertabMain: RsyncError {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
             self.setInfo(info: "Error", color: .red)
-            self.statuslight.image = #imageLiteral(resourceName: "red")
             self.showProcessInfo(info: .error)
             self.setRsyncCommandDisplay()
             self.deselect()
@@ -803,7 +742,6 @@ extension ViewControllertabMain: Fileerror {
                 self.rsyncCommand.stringValue = Filerrors(errortype: errortype).errordescription()
             } else {
                 self.setInfo(info: "Error", color: .red)
-                self.statuslight.image = #imageLiteral(resourceName: "red")
                 self.showProcessInfo(info: .error)
                 self.rsyncCommand.stringValue = Filerrors(errortype: errortype).errordescription() + "\n" + errorstr
             }
@@ -824,7 +762,6 @@ extension ViewControllertabMain: AbortOperations {
             self.process = nil
             // Create workqueu and add abort
             self.setInfo(info: "Abort", color: .red)
-            self.statuslight.image = #imageLiteral(resourceName: "red")
             self.rsyncCommand.stringValue = ""
         } else {
             self.working.stopAnimation(nil)
@@ -839,7 +776,6 @@ extension ViewControllertabMain: AbortOperations {
             self.configurations!.deleteBatchData()
             self.process = nil
             self.setInfo(info: "Abort", color: .red)
-            self.statuslight.image = #imageLiteral(resourceName: "red")
         }
     }
 }
@@ -867,7 +803,6 @@ extension ViewControllertabMain: SingleTaskProgress {
             switch info {
             case .estimating:
                 self.processInfo.stringValue = "Estimating"
-                self.statuslight.image = #imageLiteral(resourceName: "green")
             case .executing:
                 self.processInfo.stringValue = "Executing"
             case .loggingrun:
@@ -1046,7 +981,7 @@ extension ViewControllertabMain: Verifyrsync {
 
 extension ViewControllertabMain: ErrorOutput {
     func erroroutput() {
-        self.possibleerroroutput.isHidden = false
+        ///
     }
 }
 
@@ -1076,5 +1011,35 @@ extension ViewControllertabMain: StartNextTask {
 extension  ViewControllertabMain: GetHiddenID {
     func gethiddenID() -> Int? {
         return self.hiddenID
+    }
+}
+
+// New profile is loaded.
+extension ViewControllertabMain: NewProfile {
+    // Function is called from profiles when new or default profiles is seleceted
+    func newProfile(profile: String?) {
+        self.process = nil
+        self.outputprocess = nil
+        self.outputbatch = nil
+        self.singletask = nil
+        self.setRsyncCommandDisplay()
+        self.setInfo(info: "Estimate", color: .blue)
+        self.deselect()
+        // Read configurations and Scheduledata
+        self.configurations = self.createconfigurationsobject(profile: profile)
+        self.schedules = self.createschedulesobject(profile: profile)
+        self.displayProfile()
+        self.reloadtabledata()
+        // Reset in tabSchedule
+        self.reloadtable(vcontroller: .vctabschedule)
+        self.deselectrowtable(vcontroller: .vctabschedule)
+        // We have to start any Scheduled process again - if any
+        self.startfirstcheduledtask()
+    }
+
+    func enableProfileMenu() {
+        globalMainQueue.async(execute: { () -> Void in
+            self.displayProfile()
+        })
     }
 }
