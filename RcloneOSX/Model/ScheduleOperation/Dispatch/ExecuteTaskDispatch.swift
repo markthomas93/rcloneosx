@@ -52,8 +52,12 @@ class ExecuteTaskDispatch: SetSchedules, SetConfigurations, SetScheduledTask {
                             sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
                         }
                     })
+                } else {
+                    _ = Notifications().showNotification(message: "Scheduled backup did not execute")
                 }
             }
+        } else {
+            _ = Notifications().showNotification(message: "Scheduled backup did not execute")
         }
     }
 

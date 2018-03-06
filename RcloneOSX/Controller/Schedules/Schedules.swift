@@ -1,7 +1,4 @@
 //
-//  SharingManagerSchedule.swift
-//  RsyncOSX
-//
 //  This object stays in memory runtime and holds key data and operations on Schedules.
 //  The obect is the model for the Schedules but also acts as Controller when
 //  the ViewControllers reads or updates data.
@@ -9,7 +6,6 @@
 //  Created by Thomas Evensen on 09/05/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable syntactic_sugar
 
 import Foundation
 import Cocoa
@@ -35,6 +31,12 @@ protocol GetSchedulesObject: class {
     func reloadschedulesobject()
 }
 
+enum Scheduletype {
+    case once
+    case daily
+    case weekly
+}
+
 class Schedules: ScheduleWriteLoggData {
 
     var scheduledTasks: NSDictionary?
@@ -42,7 +44,7 @@ class Schedules: ScheduleWriteLoggData {
 
     // Return reference to Schedule data
     // self.Schedule is privat data
-    func getSchedule()-> Array<ConfigurationSchedule> {
+    func getSchedule() -> [ConfigurationSchedule] {
         return self.schedules ?? []
     }
 
@@ -52,13 +54,26 @@ class Schedules: ScheduleWriteLoggData {
     /// - parameter schedule: schedule
     /// - parameter start: start date and time
     /// - parameter stop: stop date and time
-    func addschedule (_ hiddenID: Int, schedule: String, start: Date, stop: Date) {
+    func addschedule (_ hiddenID: Int, schedule: Scheduletype, start: Date) {
+        var stop: Date?
         let dateformatter = Tools().setDateformat()
+        if schedule == .once {
+            stop = start
+        } else {
+            stop = dateformatter.date(from: "01 Jan 2100 00:00") as Date!
+        }
         let dict = NSMutableDictionary()
         dict.setObject(hiddenID, forKey: "hiddenID" as NSCopying)
         dict.setObject(dateformatter.string(from: start), forKey: "dateStart" as NSCopying)
-        dict.setObject(dateformatter.string(from: stop), forKey: "dateStop" as NSCopying)
-        dict.setObject(schedule, forKey: "schedule" as NSCopying)
+        dict.setObject(dateformatter.string(from: stop!), forKey: "dateStop" as NSCopying)
+        switch schedule {
+        case .once:
+            dict.setObject("once", forKey: "schedule" as NSCopying)
+        case .daily:
+            dict.setObject("daily", forKey: "schedule" as NSCopying)
+        case .weekly:
+            dict.setObject("weekly", forKey: "schedule" as NSCopying)
+        }
         let newSchedule = ConfigurationSchedule(dictionary: dict, log: nil)
         self.schedules!.append(newSchedule)
         self.storageapi!.saveScheduleFromMemory()
@@ -87,10 +102,10 @@ class Schedules: ScheduleWriteLoggData {
     /// Function reads all Schedule data for one task by hiddenID
     /// - parameter hiddenID : hiddenID for task
     /// - returns : array of Schedules sorted after startDate
-    func readscheduleonetask (_ hiddenID: Int?) -> Array<NSMutableDictionary>? {
+    func readscheduleonetask (_ hiddenID: Int?) -> [NSMutableDictionary]? {
         guard hiddenID != nil else { return nil }
         var row: NSMutableDictionary
-        var data = Array<NSMutableDictionary>()
+        var data = [NSMutableDictionary]()
         for i in 0 ..< self.schedules!.count {
             if self.schedules![i].hiddenID == hiddenID {
                 row = [
@@ -128,7 +143,7 @@ class Schedules: ScheduleWriteLoggData {
 
     /// Function either deletes or stops Schedules.
     /// - parameter data : array of Schedules which some of them are either marked for stop or delete
-    func deleteorstopschedule(data: Array<NSMutableDictionary>) {
+    func deleteorstopschedule(data: [NSMutableDictionary]) {
         var update: Bool = false
         if (data.count) > 0 {
             let stop = data.filter({ return (($0.value(forKey: "stopCellID") as? Int) == 1)})
@@ -198,7 +213,7 @@ class Schedules: ScheduleWriteLoggData {
     // Returning the set of executed tasks for å schedule.
     // Used for recalcutlate the parent key when task change schedule
     // from active to "stopped"
-    private func getScheduleExecuted(_ hiddenID: Int) -> Array<NSMutableDictionary>? {
+    private func getScheduleExecuted(_ hiddenID: Int) -> [NSMutableDictionary]? {
         var result = self.schedules!.filter({return ($0.hiddenID == hiddenID) && ($0.schedule == "stopped")})
         if result.count > 0 {
             let schedule = result.removeFirst()
@@ -211,9 +226,9 @@ class Schedules: ScheduleWriteLoggData {
     // Function for reading all jobs for schedule and all history of past executions.
     // Schedules are stored in self.schedules. Schedules are sorted after hiddenID.
     private func readschedules() {
-        var store: Array<ConfigurationSchedule>? = self.storageapi!.getScheduleandhistory()
+        var store: [ConfigurationSchedule]? = self.storageapi!.getScheduleandhistory()
         guard store != nil else { return }
-        var data = Array<ConfigurationSchedule>()
+        var data = [ConfigurationSchedule]()
         for i in 0 ..< store!.count {
             data.append(store![i])
         }
@@ -229,7 +244,7 @@ class Schedules: ScheduleWriteLoggData {
         self.schedules = data
     }
 
-     init(profile: String?) {
+    init(profile: String?) {
         super.init()
         self.profile = profile
         self.storageapi = PersistentStorageAPI(profile: self.profile)

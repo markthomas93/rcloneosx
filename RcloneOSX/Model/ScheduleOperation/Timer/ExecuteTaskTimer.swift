@@ -53,7 +53,11 @@ class ExecuteTaskTimer: Operation, SetSchedules, SetConfigurations, SetScheduled
                         }
                     })
                 }
+            } else {
+                _ = Notifications().showNotification(message: "Scheduled backup did not execute")
             }
+        } else {
+            _ = Notifications().showNotification(message: "Scheduled backup did not execute")
         }
     }
 }

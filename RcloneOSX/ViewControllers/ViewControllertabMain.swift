@@ -37,11 +37,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var tools: Tools?
     // Delegate function getting batchTaskObject
     weak var batchObjectDelegate: getNewBatchTask?
-    @IBOutlet weak var statuslight: NSImageView!
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
     @IBOutlet weak var working: NSProgressIndicator!
+    @IBOutlet weak var estimating: NSTextField!
     // Displays the rsyncCommand
     @IBOutlet weak var rsyncCommand: NSTextField!
     // If On result of Dryrun is presented before
@@ -49,10 +49,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var dryRunOrRealRun: NSTextField!
     // Progressbar scheduled task
     @IBOutlet weak var scheduledJobworking: NSProgressIndicator!
-    // number of files to be transferred
-    @IBOutlet weak var transferredNumber: NSTextField!
-    // size of files to be transferred
-    @IBOutlet weak var transferredNumberSizebytes: NSTextField!
+    @IBOutlet weak var executing: NSTextField!
     // total number of files in remote volume
     @IBOutlet weak var totalNumber: NSTextField!
     // total size of files in remote volume
@@ -64,13 +61,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Showing info about double clik or not
     // Just showing process info
     @IBOutlet weak var processInfo: NSTextField!
-    // New files
-    @IBOutlet weak var newfiles: NSTextField!
-    // Delete files
-    @IBOutlet weak var deletefiles: NSTextField!
-    @IBOutlet weak var selecttask: NSTextField!
-    @IBOutlet weak var norsync: NSTextField!
-    @IBOutlet weak var possibleerroroutput: NSTextField!
     @IBOutlet weak var rcloneversionshort: NSTextField!
 
     // Reference to Process task
@@ -84,19 +74,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // HiddenID task, set when row is selected
     private var hiddenID: Int?
     // Reference to Schedules object
-    private var schedulessorted: ScheduleSortedAndExpand?
-    private var infoschedulessorted: InfoScheduleSortedAndExpand?
+    private var schedulesortedandexpanded: ScheduleSortedAndExpand?
     // Bool if one or more remote server is offline
     // Schedules in progress
     private var scheduledJobInProgress: Bool = false
     // Ready for execute again
     private var readyforexecution: Bool = true
-    // Can load profiles
-    // Load profiles only when testing for connections are done.
-    // Application crash if not
-    private var loadProfileMenu: Bool = false
     // Which kind of task
     private var processtermination: ProcessTermination?
+    @IBOutlet weak var info: NSTextField!
 
     @IBAction func quickbackup(_ sender: NSButton) {
         self.processtermination = .quicktask
@@ -113,7 +99,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 self.presentViewControllerAsSheet(self.editViewController!)
             })
         } else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
         }
     }
 
@@ -124,14 +110,14 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 self.presentViewControllerAsSheet(self.viewControllerRsyncParams!)
             })
         } else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
         }
     }
 
     @IBAction func delete(_ sender: NSButton) {
         self.reset()
         guard self.hiddenID != nil else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
             return
         }
         let answer = Alerts.dialogOKCancel("Delete selected task?", text: "Cancel or OK")
@@ -150,12 +136,26 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         }
     }
 
+    private func info(num: Int) {
+        switch num {
+        case 1:
+            self.info.stringValue = "Select a task...."
+        case 2:
+            self.info.stringValue = "Possible error logging..."
+        case 3:
+            self.info.stringValue = "No rclone in path..."
+        case 4:
+            self.info.stringValue = "⌘A to abort or wait..."
+        default:
+            self.info.stringValue = ""
+        }
+    }
+
     // Menus as Radiobuttons for Edit functions in tabMainView
     private func reset() {
         self.outputprocess = nil
         self.setNumbers(output: nil)
         self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
         self.process = nil
         self.singletask = nil
     }
@@ -184,14 +184,10 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Selecting profiles
     @IBAction func profiles(_ sender: NSButton) {
-        if self.loadProfileMenu == true {
-            self.showProcessInfo(info: .changeprofile)
-            globalMainQueue.async(execute: { () -> Void in
-                self.presentViewControllerAsSheet(self.viewControllerProfile!)
-            })
-        } else {
-            self.displayProfile()
-        }
+        self.showProcessInfo(info: .changeprofile)
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerProfile!)
+        })
     }
 
     // Logg records
@@ -210,16 +206,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBAction func executetasknow(_ sender: NSButton) {
         self.processtermination = .singlequicktask
         guard self.scheduledJobInProgress == false else {
-            self.selecttask.stringValue = "⌘A to abort or wait..."
-            self.selecttask.isHidden = false
+            self.info(num: 4)
             return
         }
         guard self.hiddenID != nil else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
             return
         }
         guard self.index != nil else {
-            self.selecttask.isHidden = false
+            self.info(num: 1)
             return
         }
         guard self.configurations!.getConfigurations()[self.index!].task != "move" else {
@@ -275,7 +270,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
         self.displayDryRun.state = .on
-        self.loadProfileMenu = true
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
@@ -286,13 +280,13 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         super.viewDidAppear()
         guard self.scheduledJobInProgress == false else {
             self.scheduledJobworking.startAnimation(nil)
+            self.executing.isHidden = false
             return
         }
         self.showProcessInfo(info: .blank)
         // Allow notify about Scheduled jobs
         self.configurations!.allowNotifyinMain = true
         self.setInfo(info: "", color: .black)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
         if self.configurations!.configurationsDataSourcecount() > 0 {
             globalMainQueue.async(execute: { () -> Void in
                 self.mainTableView.reloadData()
@@ -302,7 +296,13 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
-        self.possibleerroroutput.isHidden = true
+        self.info(num: 0)
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        // Do not allow notify in Main
+        self.configurations!.allowNotifyinMain = false
     }
 
     // Execute tasks by double click in table
@@ -317,8 +317,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private func executeSingleTask() {
         self.processtermination = .singletask
         guard self.scheduledJobInProgress == false else {
-            self.selecttask.stringValue = "⌘A to abort or wait..."
-            self.selecttask.isHidden = false
+            self.info(num: 4)
             return
         }
         guard ViewControllerReference.shared.norsync == false else {
@@ -344,8 +343,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBAction func executeBatch(_ sender: NSToolbarItem) {
         self.processtermination = .batchtask
         guard self.scheduledJobInProgress == false else {
-            self.selecttask.stringValue = "⌘A to abort or wait..."
-            self.selecttask.isHidden = false
+            self.info(num: 4)
             return
         }
         guard ViewControllerReference.shared.norsync == false else {
@@ -364,11 +362,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private func displayProfile() {
         weak var localprofileinfo: SetProfileinfo?
         weak var localprofileinfo2: SetProfileinfo?
-        guard self.loadProfileMenu == true else {
-            self.profilInfo.stringValue = "Profile: please wait..."
-            self.profilInfo.textColor = .blue
-            return
-        }
         if let profile = self.configurations!.getProfile() {
             self.profilInfo.stringValue = "Profile: " + profile
             self.profilInfo.textColor = .blue
@@ -396,7 +389,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.abortOperations()
         }
         self.readyforexecution = true
-        self.selecttask.isHidden = true
+        self.info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
@@ -412,12 +405,10 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.singletask = nil
         self.batchtaskObject = nil
         self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
         self.showProcessInfo(info: .blank)
         self.setRsyncCommandDisplay()
-        globalMainQueue.async(execute: { () -> Void in
-            self.mainTableView.reloadData()
-        })
+        self.reloadtabledata()
+        self.configurations!.allowNotifyinMain = true
     }
 
     func createandreloadschedules() {
@@ -426,7 +417,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.schedules = Schedules(profile: nil)
             return
         }
-        // self.schedules?.cancelTaskWaiting()
         if let profile = self.configurations!.getProfile() {
             self.schedules = nil
             self.schedules = Schedules(profile: profile)
@@ -434,10 +424,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.schedules = nil
             self.schedules = Schedules(profile: nil)
         }
-        self.schedulessorted = ScheduleSortedAndExpand()
-        self.infoschedulessorted = InfoScheduleSortedAndExpand(sortedandexpanded: self.schedulessorted)
-        self.schedules?.scheduledTasks = self.schedulessorted?.allscheduledtasks()
-        ViewControllerReference.shared.scheduledTask = self.schedulessorted?.allscheduledtasks()
+        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
+        self.schedules?.scheduledTasks = self.schedulesortedandexpanded?.firstscheduledtask()
+        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
     }
 
     func createandreloadconfigurations() {
@@ -477,21 +466,21 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         celltext = object[tableColumn!.identifier] as? String
         if tableColumn!.identifier.rawValue == "batchCellID" {
             return object[tableColumn!.identifier] as? Int!
-        }
-        if markdays == true && tableColumn!.identifier.rawValue == "daysID" {
+        } else if markdays == true && tableColumn!.identifier.rawValue == "daysID" {
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        }
-        if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
-            celltext =  "localhost"
-        }
-        if tableColumn!.identifier.rawValue == "schedCellID" {
-            if let obj = self.schedulessorted {
-                if obj.countscheduledtasks(hiddenID) > 0 {
-                    return #imageLiteral(resourceName: "green")
+        } else if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
+            return "localhost"
+        } else if tableColumn!.identifier.rawValue == "schedCellID" {
+            if let obj = self.schedulesortedandexpanded {
+                if obj.numberoftasks(hiddenID).0 > 0 {
+                    if obj.numberoftasks(hiddenID).1 > 3600 {
+                        return #imageLiteral(resourceName: "yellow")
+                    } else {
+                        return #imageLiteral(resourceName: "green")
+                    }
                 }
             }
-        }
-        if tableColumn!.identifier.rawValue == "statCellID" {
+        } else if tableColumn!.identifier.rawValue == "statCellID" {
             if row == self.index {
                 if self.scheduledJobInProgress == true {
                     return #imageLiteral(resourceName: "green")
@@ -502,10 +491,11 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
                     return #imageLiteral(resourceName: "green")
                 }
             }
+        } else {
+            return object[tableColumn!.identifier] as? String
         }
-        return object[tableColumn!.identifier] as? String
+        return nil
     }
-
     // Toggling batch
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         if self.process != nil {
@@ -515,7 +505,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.singletask = nil
         self.batchtaskObject = nil
         self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
     }
 }
 
@@ -558,57 +547,22 @@ extension ViewControllertabMain: GetSelecetedIndex {
     }
 }
 
-// New profile is loaded.
-extension ViewControllertabMain: NewProfile {
-    // Function is called from profiles when new or default profiles is seleceted
-    func newProfile(profile: String?) {
-        self.process = nil
-        self.outputprocess = nil
-        self.outputbatch = nil
-        self.singletask = nil
-        self.setNumbers(output: nil)
-        self.setRsyncCommandDisplay()
-        self.setInfo(info: "Estimate", color: .blue)
-        self.statuslight.image = #imageLiteral(resourceName: "yellow")
-        self.setNumbers(output: nil)
-        self.deselect()
-        // Read configurations and Scheduledata
-        self.configurations = self.createconfigurationsobject(profile: profile)
-        self.schedules = self.createschedulesobject(profile: profile)
-        // Make sure loading profile
-        self.loadProfileMenu = true
-        self.displayProfile()
-        self.reloadtabledata()
-        // Reset in tabSchedule
-        self.reloadtable(vcontroller: .vctabschedule)
-        self.deselectrowtable(vcontroller: .vctabschedule)
-        // We have to start any Scheduled process again - if any
-        self.startfirstcheduledtask()
-    }
-
-    func enableProfileMenu() {
-        self.loadProfileMenu = true
-        globalMainQueue.async(execute: { () -> Void in
-            self.displayProfile()
-        })
-    }
-}
-
 // A scheduled task is executed
 extension ViewControllertabMain: ScheduledTaskWorking {
     func start() {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = true
             self.scheduledJobworking.startAnimation(nil)
+            self.executing.isHidden = false
         })
     }
 
     func completed() {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = false
-            self.selecttask.stringValue = "Select a task...."
-            self.selecttask.isHidden = true
+            self.info(num: 1)
             self.scheduledJobworking.stopAnimation(nil)
+            self.executing.isHidden = true
         })
     }
 
@@ -619,6 +573,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
                     Alerts.showInfo("Scheduled backup DID not execute?")
                 })
             } else {
+                if self.processtermination == nil {
+                    self.processtermination = .singlequicktask
+                }
                 if self.processtermination! != .quicktask {
                     globalMainQueue.async(execute: {() -> Void in
                         self.presentViewControllerAsSheet(self.viewControllerScheduledBackupInWork!)
@@ -659,7 +616,6 @@ extension ViewControllertabMain: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismissViewController(viewcontroller)
         // Reset radiobuttons
-        self.loadProfileMenu = true
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
             self.displayProfile()
@@ -758,7 +714,6 @@ extension ViewControllertabMain: RsyncError {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
             self.setInfo(info: "Error", color: .red)
-            self.statuslight.image = #imageLiteral(resourceName: "red")
             self.showProcessInfo(info: .error)
             self.setRsyncCommandDisplay()
             self.deselect()
@@ -787,7 +742,6 @@ extension ViewControllertabMain: Fileerror {
                 self.rsyncCommand.stringValue = Filerrors(errortype: errortype).errordescription()
             } else {
                 self.setInfo(info: "Error", color: .red)
-                self.statuslight.image = #imageLiteral(resourceName: "red")
                 self.showProcessInfo(info: .error)
                 self.rsyncCommand.stringValue = Filerrors(errortype: errortype).errordescription() + "\n" + errorstr
             }
@@ -808,7 +762,6 @@ extension ViewControllertabMain: AbortOperations {
             self.process = nil
             // Create workqueu and add abort
             self.setInfo(info: "Abort", color: .red)
-            self.statuslight.image = #imageLiteral(resourceName: "red")
             self.rsyncCommand.stringValue = ""
         } else {
             self.working.stopAnimation(nil)
@@ -823,7 +776,6 @@ extension ViewControllertabMain: AbortOperations {
             self.configurations!.deleteBatchData()
             self.process = nil
             self.setInfo(info: "Abort", color: .red)
-            self.statuslight.image = #imageLiteral(resourceName: "red")
         }
     }
 }
@@ -833,14 +785,24 @@ extension ViewControllertabMain: AbortOperations {
 extension ViewControllertabMain: StartStopProgressIndicatorSingleTask {
     func startIndicator() {
         self.working.startAnimation(nil)
+        self.estimating.isHidden = false
     }
 
     func stopIndicator() {
         self.working.stopAnimation(nil)
+        self.estimating.isHidden = true
     }
 }
 
 extension ViewControllertabMain: SingleTaskProgress {
+    func gettransferredNumber() -> String {
+        return ""
+    }
+
+    func gettransferredNumberSizebytes() -> String {
+         return ""
+    }
+
     func getProcessReference(process: Process) {
         self.process = process
     }
@@ -851,7 +813,6 @@ extension ViewControllertabMain: SingleTaskProgress {
             switch info {
             case .estimating:
                 self.processInfo.stringValue = "Estimating"
-                self.statuslight.image = #imageLiteral(resourceName: "green")
             case .executing:
                 self.processInfo.stringValue = "Executing"
             case .loggingrun:
@@ -907,34 +868,16 @@ extension ViewControllertabMain: SingleTaskProgress {
     func setNumbers(output: OutputProcess?) {
         globalMainQueue.async(execute: { () -> Void in
             guard output != nil else {
-                self.transferredNumber.stringValue = ""
-                self.transferredNumberSizebytes.stringValue = ""
                 self.totalNumber.stringValue = ""
                 self.totalNumberSizebytes.stringValue = ""
                 self.totalDirs.stringValue = ""
-                self.newfiles.stringValue = ""
-                self.deletefiles.stringValue = ""
                 return
             }
             let number = Numbers(output: output)
-            self.transferredNumber.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.decimal)
-            self.transferredNumberSizebytes.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
             self.totalNumber.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
             self.totalNumberSizebytes.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumberSizebytes)), number: NumberFormatter.Style.decimal)
             self.totalDirs.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
-            self.newfiles.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.decimal)
-            self.deletefiles.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.decimal)
         })
-    }
-
-    // Returns number set from dryrun to use in logging run 
-    // after a real run. Logging is in newSingleTask object.
-    func gettransferredNumber() -> String {
-        return self.transferredNumber.stringValue
-    }
-
-    func gettransferredNumberSizebytes() -> String {
-        return self.transferredNumberSizebytes.stringValue
     }
 
 }
@@ -1011,33 +954,26 @@ extension ViewControllertabMain: GetSchedulesObject {
     func createschedulesobject(profile: String?) -> Schedules? {
         self.schedules = nil
         self.schedules = Schedules(profile: profile)
-        self.schedulessorted = ScheduleSortedAndExpand()
-        self.infoschedulessorted = InfoScheduleSortedAndExpand(sortedandexpanded: self.schedulessorted)
-        self.schedules?.scheduledTasks = self.schedulessorted?.allscheduledtasks()
-        ViewControllerReference.shared.scheduledTask = self.schedulessorted?.allscheduledtasks()
+        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
+        self.schedules?.scheduledTasks = self.schedulesortedandexpanded?.firstscheduledtask()
+        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
         return self.schedules
-    }
-}
-
-extension  ViewControllertabMain: GetHiddenID {
-    func gethiddenID() -> Int? {
-        return self.hiddenID
     }
 }
 
 extension ViewControllertabMain: Verifyrsync {
     internal func verifyrsync() {
         if ViewControllerReference.shared.norsync == true {
-            self.norsync.isHidden = false
+            self.info(num: 3)
         } else {
-            self.norsync.isHidden = true
+            self.info(num: 0)
         }
     }
 }
 
 extension ViewControllertabMain: ErrorOutput {
     func erroroutput() {
-        self.possibleerroroutput.isHidden = false
+        self.info(num: 2)
     }
 }
 
@@ -1061,5 +997,41 @@ extension ViewControllertabMain: StartNextTask {
         ViewControllerReference.shared.timerTaskWaiting?.invalidate()
         ViewControllerReference.shared.dispatchTaskWaiting?.cancel()
         _ = OperationFactory(factory: self.configurations!.operation)
+    }
+}
+
+extension  ViewControllertabMain: GetHiddenID {
+    func gethiddenID() -> Int? {
+        return self.hiddenID
+    }
+}
+
+// New profile is loaded.
+extension ViewControllertabMain: NewProfile {
+    // Function is called from profiles when new or default profiles is seleceted
+    func newProfile(profile: String?) {
+        self.process = nil
+        self.outputprocess = nil
+        self.outputbatch = nil
+        self.singletask = nil
+        self.setRsyncCommandDisplay()
+        self.setInfo(info: "Estimate", color: .blue)
+        self.deselect()
+        // Read configurations and Scheduledata
+        self.configurations = self.createconfigurationsobject(profile: profile)
+        self.schedules = self.createschedulesobject(profile: profile)
+        self.displayProfile()
+        self.reloadtabledata()
+        // Reset in tabSchedule
+        self.reloadtable(vcontroller: .vctabschedule)
+        self.deselectrowtable(vcontroller: .vctabschedule)
+        // We have to start any Scheduled process again - if any
+        self.startfirstcheduledtask()
+    }
+
+    func enableProfileMenu() {
+        globalMainQueue.async(execute: { () -> Void in
+            self.displayProfile()
+        })
     }
 }
