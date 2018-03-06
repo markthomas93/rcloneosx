@@ -103,7 +103,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
                         dict.setObject(result, forKey: "resultExecuted" as NSCopying)
                         self.schedules![i].logrecords.append(dict)
                         if schedule == "daily" || schedule == "weekly" || schedule == "once" {
-                            _ = Notifications().showNotification(message: date + " " + resultannotaded!)
+                            _ = Notifications().showNotification(message: date + " " + result)
                         }
                         self.storageapi!.saveScheduleFromMemory()
                         break loop
