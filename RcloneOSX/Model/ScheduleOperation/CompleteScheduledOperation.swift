@@ -14,6 +14,7 @@ import Foundation
 final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetScheduledTask {
 
     weak var startTimerDelegate: StartTimer?
+    weak var taskDelegate: SingleTaskProgress?
     private var date: Date?
     private var dateStart: Date?
     private var dateformatter: DateFormatter?
@@ -31,6 +32,7 @@ final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetSche
         let number = Numbers(output: outputprocess)
         let numberstring = number.stats()
         self.schedules!.addresultschedule(self.hiddenID!, dateStart: dateStartstring, result: numberstring, date: datestring, schedule: schedule!)
+        self.taskDelegate?.setNumbers(output: outputprocess)
         // Writing timestamp to configuration
         _ = self.configurations!.setCurrentDateonConfiguration(self.index!)
         _ = Logging(outputprocess: outputprocess)
@@ -49,5 +51,6 @@ final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetSche
         self.hiddenID = (dict.value(forKey: "hiddenID") as? Int)!
         self.schedule = dict.value(forKey: "schedule") as? String
         self.index = self.configurations!.getIndex(hiddenID!)
+        self.taskDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 }
