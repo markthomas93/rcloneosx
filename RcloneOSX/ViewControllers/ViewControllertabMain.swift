@@ -41,6 +41,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
     @IBOutlet weak var working: NSProgressIndicator!
+    @IBOutlet weak var estimating: NSTextField!
     // Displays the rsyncCommand
     @IBOutlet weak var rsyncCommand: NSTextField!
     // If On result of Dryrun is presented before
@@ -48,6 +49,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var dryRunOrRealRun: NSTextField!
     // Progressbar scheduled task
     @IBOutlet weak var scheduledJobworking: NSProgressIndicator!
+    @IBOutlet weak var executing: NSTextField!
     // number of files to be transferred
     @IBOutlet weak var transferredNumber: NSTextField!
     // size of files to be transferred
@@ -286,6 +288,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         super.viewDidAppear()
         guard self.scheduledJobInProgress == false else {
             self.scheduledJobworking.startAnimation(nil)
+            self.executing.isHidden = false
             return
         }
         self.showProcessInfo(info: .blank)
@@ -551,14 +554,16 @@ extension ViewControllertabMain: ScheduledTaskWorking {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = true
             self.scheduledJobworking.startAnimation(nil)
+            self.executing.isHidden = false
         })
     }
 
     func completed() {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = false
-            self.info(num: 1)
             self.scheduledJobworking.stopAnimation(nil)
+            self.executing.isHidden = true
+            self.info(num: 1)
         })
     }
 
@@ -778,10 +783,12 @@ extension ViewControllertabMain: AbortOperations {
 extension ViewControllertabMain: StartStopProgressIndicatorSingleTask {
     func startIndicator() {
         self.working.startAnimation(nil)
+        self.estimating.isHidden = false
     }
 
     func stopIndicator() {
         self.working.stopAnimation(nil)
+        self.estimating.isHidden = true
     }
 }
 

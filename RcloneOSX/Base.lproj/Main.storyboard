@@ -769,14 +769,14 @@
                                 </constraints>
                             </box>
                             <box title="Edit configurations" translatesAutoresizingMaskIntoConstraints="NO" id="SLh-r7-WsT">
-                                <rect key="frame" x="9" y="164" width="130" height="119"/>
+                                <rect key="frame" x="9" y="175" width="130" height="108"/>
                                 <view key="contentView" id="wTZ-hn-IUZ">
-                                    <rect key="frame" x="2" y="2" width="126" height="102"/>
+                                    <rect key="frame" x="2" y="2" width="126" height="91"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="124" id="h4a-AN-fUQ"/>
-                                    <constraint firstAttribute="height" constant="115" id="yGZ-DZ-XLZ"/>
+                                    <constraint firstAttribute="height" constant="104" id="yGZ-DZ-XLZ"/>
                                 </constraints>
                             </box>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jkA-og-5x2">
@@ -850,7 +850,7 @@
                             <constraint firstItem="KX4-b1-AYu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="20" symbolic="YES" id="9Oy-93-lK5"/>
                             <constraint firstItem="ajb-fx-OK1" firstAttribute="baseline" secondItem="SiX-5v-JHf" secondAttribute="firstBaseline" id="9bM-da-8yd"/>
                             <constraint firstItem="D1P-rD-gU0" firstAttribute="leading" secondItem="bVP-Nd-WlD" secondAttribute="trailing" constant="78" id="9ts-AC-cC0"/>
-                            <constraint firstItem="fyc-hd-Fqh" firstAttribute="top" secondItem="SLh-r7-WsT" secondAttribute="bottom" constant="65" id="Cb3-Yn-Uvr"/>
+                            <constraint firstItem="fyc-hd-Fqh" firstAttribute="top" secondItem="SLh-r7-WsT" secondAttribute="bottom" constant="76" id="Cb3-Yn-Uvr"/>
                             <constraint firstItem="jkA-og-5x2" firstAttribute="leading" secondItem="JJ3-k0-9od" secondAttribute="leading" id="DuA-9i-NTV"/>
                             <constraint firstItem="9xL-Jl-ccr" firstAttribute="top" secondItem="ihR-vZ-M7c" secondAttribute="top" id="GiY-sW-7JN"/>
                             <constraint firstItem="3DG-2b-5po" firstAttribute="leading" secondItem="g7r-rp-4kz" secondAttribute="trailing" constant="23" id="IIU-sZ-54A"/>
@@ -871,7 +871,7 @@
                             <constraint firstItem="WbP-J3-f5z" firstAttribute="baseline" secondItem="TTa-S0-fjX" secondAttribute="baseline" id="UOD-JE-08F"/>
                             <constraint firstItem="H9R-yL-P6I" firstAttribute="leading" secondItem="wSD-Dl-gPc" secondAttribute="trailing" constant="5" id="V3H-fZ-8px"/>
                             <constraint firstItem="qvG-4r-Ae6" firstAttribute="baseline" secondItem="bVP-Nd-WlD" secondAttribute="baseline" id="VIM-59-Tdf"/>
-                            <constraint firstItem="SLh-r7-WsT" firstAttribute="centerY" secondItem="Hq4-Zn-A1K" secondAttribute="centerY" id="VJE-Dv-Y52"/>
+                            <constraint firstItem="SLh-r7-WsT" firstAttribute="centerY" secondItem="Hq4-Zn-A1K" secondAttribute="centerY" constant="-5.5" id="VJE-Dv-Y52"/>
                             <constraint firstItem="7n8-es-jH6" firstAttribute="leading" secondItem="ZMP-pU-PWi" secondAttribute="trailing" constant="42" id="VQi-lo-IVT"/>
                             <constraint firstItem="ZMP-pU-PWi" firstAttribute="leading" secondItem="D1P-rD-gU0" secondAttribute="trailing" constant="5" id="X1i-3L-LYz"/>
                             <constraint firstItem="wSD-Dl-gPc" firstAttribute="trailing" secondItem="qvG-4r-Ae6" secondAttribute="trailing" id="XHy-VL-UGn"/>
@@ -918,6 +918,8 @@
                         <outlet property="displayDryRun" destination="g7r-rp-4kz" id="f5g-Og-Anv"/>
                         <outlet property="displayRealRun" destination="3DG-2b-5po" id="hO9-C5-Wbp"/>
                         <outlet property="dryRunOrRealRun" destination="9xL-Jl-ccr" id="mP2-1A-Kaf"/>
+                        <outlet property="estimating" destination="5mv-zN-6NF" id="HL3-uo-we1"/>
+                        <outlet property="executing" destination="o7z-cC-ahl" id="gg1-ty-zj0"/>
                         <outlet property="info" destination="eXj-oO-jDD" id="wHh-aK-7sK"/>
                         <outlet property="mainTableView" destination="gd0-mk-eEg" id="V0X-hS-6qu"/>
                         <outlet property="newfiles" destination="AyX-Ou-VvT" id="NmE-4m-2Rs"/>
