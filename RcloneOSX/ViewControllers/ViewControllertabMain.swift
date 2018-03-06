@@ -296,6 +296,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
+        self.info(num: 0)
     }
     
     override func viewDidDisappear() {
@@ -388,6 +389,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.abortOperations()
         }
         self.readyforexecution = true
+        self.info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
@@ -558,9 +560,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
     func completed() {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = false
+            self.info(num: 1)
             self.scheduledJobworking.stopAnimation(nil)
             self.executing.isHidden = true
-            self.info(num: 1)
         })
     }
 
@@ -971,7 +973,7 @@ extension ViewControllertabMain: Verifyrsync {
 
 extension ViewControllertabMain: ErrorOutput {
     func erroroutput() {
-        ///
+        self.info(num: 2)
     }
 }
 
