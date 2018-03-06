@@ -504,13 +504,13 @@
                                 </tableHeaderView>
                             </scrollView>
                             <box title="Numbers transferred" translatesAutoresizingMaskIntoConstraints="NO" id="TTa-S0-fjX">
-                                <rect key="frame" x="140" y="14" width="347" height="89"/>
+                                <rect key="frame" x="140" y="24" width="347" height="69"/>
                                 <view key="contentView" id="dkH-y5-Lww">
-                                    <rect key="frame" x="2" y="2" width="343" height="72"/>
+                                    <rect key="frame" x="2" y="2" width="343" height="52"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFg-Xf-ODx">
-                                            <rect key="frame" x="20" y="37" width="303" height="22"/>
+                                            <rect key="frame" x="20" y="17" width="303" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="FR9-kG-Y79">
                                                 <font key="font" metaFont="system"/>
@@ -521,7 +521,7 @@
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="85" id="41T-bM-ceC"/>
+                                    <constraint firstAttribute="height" constant="65" id="41T-bM-ceC"/>
                                     <constraint firstAttribute="width" constant="341" id="LhP-Kb-rLF"/>
                                 </constraints>
                             </box>
@@ -714,7 +714,7 @@
                             <constraint firstItem="jA8-9b-U5I" firstAttribute="leading" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="977" id="ZdZ-bW-hH9"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="top" secondItem="KX4-b1-AYu" secondAttribute="bottom" constant="1" id="aqD-A2-eKa"/>
                             <constraint firstItem="SLh-r7-WsT" firstAttribute="leading" secondItem="9xL-Jl-ccr" secondAttribute="leading" id="awz-Ym-aLz"/>
-                            <constraint firstAttribute="bottom" secondItem="TTa-S0-fjX" secondAttribute="bottom" constant="18" id="bfV-2p-q5R"/>
+                            <constraint firstAttribute="bottom" secondItem="TTa-S0-fjX" secondAttribute="bottom" constant="28" id="bfV-2p-q5R"/>
                             <constraint firstItem="SLh-r7-WsT" firstAttribute="top" secondItem="95g-rM-8Og" secondAttribute="bottom" constant="6" id="cZV-kz-XwR"/>
                             <constraint firstItem="JJ3-k0-9od" firstAttribute="top" secondItem="Hq4-Zn-A1K" secondAttribute="bottom" constant="2" id="eQC-FY-WOe"/>
                             <constraint firstItem="eXj-oO-jDD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jA8-9b-U5I" secondAttribute="trailing" id="fSp-Vh-KVs"/>
@@ -726,7 +726,7 @@
                             <constraint firstItem="SLh-r7-WsT" firstAttribute="centerX" secondItem="JJ3-k0-9od" secondAttribute="centerX" id="kn8-Lw-BYQ"/>
                             <constraint firstItem="SLh-r7-WsT" firstAttribute="centerX" secondItem="jkA-og-5x2" secondAttribute="centerX" id="o14-vd-0Xa"/>
                             <constraint firstItem="eXj-oO-jDD" firstAttribute="centerY" secondItem="3DG-2b-5po" secondAttribute="centerY" id="qPI-jn-DDc"/>
-                            <constraint firstItem="TTa-S0-fjX" firstAttribute="top" secondItem="ihR-vZ-M7c" secondAttribute="bottom" constant="11" id="tFB-c4-a5N"/>
+                            <constraint firstItem="TTa-S0-fjX" firstAttribute="top" secondItem="ihR-vZ-M7c" secondAttribute="bottom" constant="21" id="tFB-c4-a5N"/>
                             <constraint firstItem="SLh-r7-WsT" firstAttribute="leading" secondItem="95g-rM-8Og" secondAttribute="leading" id="tw8-58-EIY"/>
                             <constraint firstAttribute="trailing" secondItem="7n8-es-jH6" secondAttribute="trailing" constant="16" id="ugT-aA-3vP"/>
                             <constraint firstAttribute="bottom" secondItem="7n8-es-jH6" secondAttribute="bottom" constant="18" id="uub-2m-MbE"/>
