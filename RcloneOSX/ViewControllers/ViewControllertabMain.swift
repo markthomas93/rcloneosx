@@ -53,9 +53,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // total number of files in remote volume
     @IBOutlet weak var totalNumber: NSTextField!
     // total size of files in remote volume
-    @IBOutlet weak var totalNumberSizebytes: NSTextField!
-    // total number of directories remote volume
-    @IBOutlet weak var totalDirs: NSTextField!
     // Showing info about profile
     @IBOutlet weak var profilInfo: NSTextField!
     // Showing info about double clik or not
@@ -869,14 +866,10 @@ extension ViewControllertabMain: SingleTaskProgress {
         globalMainQueue.async(execute: { () -> Void in
             guard output != nil else {
                 self.totalNumber.stringValue = ""
-                self.totalNumberSizebytes.stringValue = ""
-                self.totalDirs.stringValue = ""
                 return
             }
             let number = Numbers(output: output)
-            self.totalNumber.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
-            self.totalNumberSizebytes.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumberSizebytes)), number: NumberFormatter.Style.decimal)
-            self.totalDirs.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
+            self.totalNumber.stringValue = number.stats()
         })
     }
 

@@ -151,6 +151,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                     self.configurations!.setCurrentDateonConfiguration(self.index!)
                     self.schedules!.addlogtaskmanuel(hiddenID, result: number.stats())
                     _ = Logging(outputprocess: self.outputprocess)
+                    self.taskDelegate?.setNumbers(output: self.outputprocess)
                 }
             case .empty:
                 self.workload = nil
