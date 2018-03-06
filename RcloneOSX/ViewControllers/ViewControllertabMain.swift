@@ -50,10 +50,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Progressbar scheduled task
     @IBOutlet weak var scheduledJobworking: NSProgressIndicator!
     @IBOutlet weak var executing: NSTextField!
-    // number of files to be transferred
-    @IBOutlet weak var transferredNumber: NSTextField!
-    // size of files to be transferred
-    @IBOutlet weak var transferredNumberSizebytes: NSTextField!
     // total number of files in remote volume
     @IBOutlet weak var totalNumber: NSTextField!
     // total size of files in remote volume
@@ -65,10 +61,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Showing info about double clik or not
     // Just showing process info
     @IBOutlet weak var processInfo: NSTextField!
-    // New files
-    @IBOutlet weak var newfiles: NSTextField!
-    // Delete files
-    @IBOutlet weak var deletefiles: NSTextField!
     @IBOutlet weak var rcloneversionshort: NSTextField!
 
     // Reference to Process task
@@ -793,6 +785,14 @@ extension ViewControllertabMain: StartStopProgressIndicatorSingleTask {
 }
 
 extension ViewControllertabMain: SingleTaskProgress {
+    func gettransferredNumber() -> String {
+        return ""
+    }
+
+    func gettransferredNumberSizebytes() -> String {
+         return ""
+    }
+
     func getProcessReference(process: Process) {
         self.process = process
     }
@@ -858,34 +858,16 @@ extension ViewControllertabMain: SingleTaskProgress {
     func setNumbers(output: OutputProcess?) {
         globalMainQueue.async(execute: { () -> Void in
             guard output != nil else {
-                self.transferredNumber.stringValue = ""
-                self.transferredNumberSizebytes.stringValue = ""
                 self.totalNumber.stringValue = ""
                 self.totalNumberSizebytes.stringValue = ""
                 self.totalDirs.stringValue = ""
-                self.newfiles.stringValue = ""
-                self.deletefiles.stringValue = ""
                 return
             }
             let number = Numbers(output: output)
-            self.transferredNumber.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumber)), number: NumberFormatter.Style.decimal)
-            self.transferredNumberSizebytes.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .transferredNumberSizebytes)), number: NumberFormatter.Style.decimal)
             self.totalNumber.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumber)), number: NumberFormatter.Style.decimal)
             self.totalNumberSizebytes.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalNumberSizebytes)), number: NumberFormatter.Style.decimal)
             self.totalDirs.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .totalDirs)), number: NumberFormatter.Style.decimal)
-            self.newfiles.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .new)), number: NumberFormatter.Style.decimal)
-            self.deletefiles.stringValue = NumberFormatter.localizedString(from: NSNumber(value: number.getTransferredNumbers(numbers: .delete)), number: NumberFormatter.Style.decimal)
         })
-    }
-
-    // Returns number set from dryrun to use in logging run 
-    // after a real run. Logging is in newSingleTask object.
-    func gettransferredNumber() -> String {
-        return self.transferredNumber.stringValue
-    }
-
-    func gettransferredNumberSizebytes() -> String {
-        return self.transferredNumberSizebytes.stringValue
     }
 
 }
