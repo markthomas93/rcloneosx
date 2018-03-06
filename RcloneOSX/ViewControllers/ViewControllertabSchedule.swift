@@ -165,7 +165,7 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
         if let index = indexes.first {
             // Set index
             self.index = index
-            let dict = self.configurations!.getConfigurationsDataSource()![index]
+            let dict = self.configurations!.getConfigurationsDataSourcecountBackupOnly()![index]
             self.hiddenID = dict.value(forKey: "hiddenID") as? Int
         } else {
             self.index = nil

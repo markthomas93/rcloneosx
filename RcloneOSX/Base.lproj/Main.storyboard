@@ -583,7 +583,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gg2-se-FkF">
-                                <rect key="frame" x="141" y="388" width="51" height="17"/>
+                                <rect key="frame" x="141" y="388" width="173" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Profile :" id="60W-M7-Vqr">
                                     <font key="font" metaFont="system"/>
@@ -708,7 +708,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ihh-RL-unb">
-                                <rect key="frame" x="318" y="388" width="563" height="17"/>
+                                <rect key="frame" x="418" y="388" width="463" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Double click  on row or shortcut ⌘R to execute task" id="ZcE-hI-Fdm">
                                     <font key="font" metaFont="smallSystem"/>
@@ -3016,11 +3016,11 @@ DQ
                                 <rect key="frame" x="256" y="29" width="816" height="349"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="JUi-l6-l4a">
-                                    <rect key="frame" x="2" y="25" width="812" height="322"/>
+                                    <rect key="frame" x="2" y="2" width="812" height="345"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="qdw-g3-XFb" id="RRb-kx-o1s">
-                                            <rect key="frame" x="0.0" y="0.0" width="820" height="322"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="821" height="322"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3130,7 +3130,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="qdw-g3-XFb">
-                                    <rect key="frame" x="0.0" y="0.0" width="820" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="821" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
