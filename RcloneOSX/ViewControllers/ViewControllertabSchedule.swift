@@ -71,6 +71,10 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
     }
 
     private func addschedule() {
+        guard self.hiddenID != nil else {
+            self.info(num: 1)
+            return
+        }
         let answer = Alerts.dialogOKCancel("Add Schedule?", text: "Cancel or OK")
         if answer {
             let seconds: TimeInterval = self.starttime.dateValue.timeIntervalSinceNow
