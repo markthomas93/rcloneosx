@@ -297,6 +297,12 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
     }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        // Do not allow notify in Main
+        self.configurations!.allowNotifyinMain = false
+    }
 
     // Execute tasks by double click in table
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
@@ -399,9 +405,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.setInfo(info: "Estimate", color: .blue)
         self.showProcessInfo(info: .blank)
         self.setRsyncCommandDisplay()
-        globalMainQueue.async(execute: { () -> Void in
-            self.mainTableView.reloadData()
-        })
+        self.reloadtabledata()
+        self.configurations!.allowNotifyinMain = true
     }
 
     func createandreloadschedules() {
