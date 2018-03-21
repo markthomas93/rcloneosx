@@ -295,7 +295,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         if self.tools == nil { self.tools = Tools()}
         self.info(num: 0)
     }
-    
+
     override func viewDidDisappear() {
         super.viewDidDisappear()
         // Do not allow notify in Main
