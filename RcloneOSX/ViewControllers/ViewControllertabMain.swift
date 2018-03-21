@@ -295,7 +295,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         if self.tools == nil { self.tools = Tools()}
         self.info(num: 0)
     }
-    
+
     override func viewDidDisappear() {
         super.viewDidDisappear()
         // Do not allow notify in Main
@@ -633,8 +633,9 @@ extension ViewControllertabMain: UpdateProgress {
     // Protocol UpdateProgress two functions, ProcessTermination() and FileHandler()
     func processTermination() {
         self.readyforexecution = true
-        // NB: must check if single run or batch run
-        // NB: must check if single run or batch run
+        if self.processtermination == nil {
+            self.processtermination = .singlequicktask
+        }
         switch self.processtermination! {
         case .singletask:
             guard self.singletask != nil else { return }
@@ -650,6 +651,7 @@ extension ViewControllertabMain: UpdateProgress {
             self.process = self.batchtaskObject!.process
             self.batchtaskObject!.processTermination()
         case .quicktask:
+            guard ViewControllerReference.shared.completeoperation != nil else { return }
             ViewControllerReference.shared.completeoperation!.finalizeScheduledJob(outputprocess: self.outputprocess)
             // After logging is done set reference to object = nil
             ViewControllerReference.shared.completeoperation = nil
@@ -657,6 +659,7 @@ extension ViewControllertabMain: UpdateProgress {
             processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
             processterminationDelegate?.processTermination()
         case .singlequicktask:
+            guard ViewControllerReference.shared.completeoperation != nil else { return }
             ViewControllerReference.shared.completeoperation!.finalizeScheduledJob(outputprocess: self.outputprocess)
             // After logging is done set reference to object = nil
             ViewControllerReference.shared.completeoperation = nil
@@ -668,11 +671,14 @@ extension ViewControllertabMain: UpdateProgress {
     // Function is triggered when Process outputs data in filehandler
     // Process is either in singleRun or batchRun
     func fileHandler() {
-        weak var localprocessupdateDelegate: UpdateProgress?
-        localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcprogressview) as? ViewControllerProgressProcess
+        if self.processtermination == nil {
+            self.processtermination = .singlequicktask
+        }
         switch self.processtermination! {
         case .singletask:
             guard self.singletask != nil else { return }
+            weak var localprocessupdateDelegate: UpdateProgress?
+            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcprogressview) as? ViewControllerProgressProcess
             self.outputprocess = self.singletask!.outputprocess
             self.process = self.singletask!.process
             localprocessupdateDelegate?.fileHandler()
@@ -689,7 +695,9 @@ extension ViewControllertabMain: UpdateProgress {
                 }
             }
         case .quicktask:
-            return
+            weak var localprocessupdateDelegate: UpdateProgress?
+            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
+            localprocessupdateDelegate?.fileHandler()
         case .singlequicktask:
             return
         }
