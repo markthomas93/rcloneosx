@@ -194,10 +194,9 @@ class Configurations: ReloadTable {
 
     func getConfigurationsDataSourcecountBackupOnlyRemote() -> [NSDictionary]? {
         let configurations: [Configuration] = self.configurations!.filter({return ($0.task == "copy" || $0.task == "sync" && $0.offsiteServer.isEmpty == false)})
-        var row =  NSDictionary()
         var data = Array<NSDictionary>()
         for i in 0 ..< configurations.count {
-            row = [
+            let row: NSDictionary = [
                 "taskCellID": configurations[i].task,
                 "hiddenID": configurations[i].hiddenID,
                 "localCatalogCellID": configurations[i].localCatalog,
@@ -392,7 +391,6 @@ class Configurations: ReloadTable {
             self.argumentAllConfigurations!.add(rsyncArgumentsOneConfig)
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
-        var row =  NSMutableDictionary()
         var data = Array<NSMutableDictionary>()
         self.configurationsDataSource = nil
         var batch: Int = 0
@@ -402,7 +400,7 @@ class Configurations: ReloadTable {
             } else {
                 batch = 0
             }
-            row = [
+            let row: NSMutableDictionary = [
                 "taskCellID": self.configurations![i].task,
                 "batchCellID": batch,
                 "localCatalogCellID": self.configurations![i].localCatalog,
