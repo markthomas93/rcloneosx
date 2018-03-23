@@ -6,7 +6,7 @@
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
 //  SwiftLint: OK 31 July 2017
-//  swiftlint:disable syntactic_sugar line_length
+//  swiftlint:disable line_length
 
 import Foundation
 
@@ -20,7 +20,7 @@ import Foundation
 class ExecuteTaskDispatch: SetSchedules, SetConfigurations, SetScheduledTask {
 
     let outputprocess = OutputProcess()
-    var arguments: Array<String>?
+    var arguments: [String]?
     var config: Configuration?
 
     private func executeTaskDispatch() {

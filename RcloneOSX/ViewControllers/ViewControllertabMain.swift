@@ -6,7 +6,7 @@
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable syntactic_sugar file_length line_length type_body_length cyclomatic_complexity
+//  swiftlint:disable  file_length line_length type_body_length cyclomatic_complexity
 
 import Foundation
 import Cocoa
@@ -508,7 +508,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
 // Get output from rsync command
 extension ViewControllertabMain: Information {
     // Get information from rsync output.
-    func getInformation() -> Array<String> {
+    func getInformation() -> [String] {
         if self.outputbatch != nil {
             return self.outputbatch!.getOutput()
         } else if self.outputprocess != nil {

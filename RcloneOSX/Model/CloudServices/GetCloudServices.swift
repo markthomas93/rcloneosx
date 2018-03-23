@@ -5,14 +5,13 @@
 //  Created by Thomas Evensen on 09.11.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable syntactic_sugar
 
 import Foundation
 
 final class GetCloudServices {
 
     var process: CloudServices?
-    private var arguments: Array<String>?
+    private var arguments: [String]?
     private var outputprocess: OutputProcess?
 
     private func getCloudServices() {

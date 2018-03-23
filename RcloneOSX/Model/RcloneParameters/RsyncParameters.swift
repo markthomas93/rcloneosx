@@ -27,14 +27,14 @@ final class RsyncParameters {
         ("--no-gzip-encoding", 0)]
 
     // Array storing combobox values
-    private var comboBoxValues: Array<String>?
+    private var comboBoxValues: [String]?
     // Reference to config
     private var config: Configuration?
 
     /// Function for getting for rsync arguments to use in ComboBoxes in ViewControllerRsyncParameters
     /// - parameter none: none
     /// - return : array of String
-    func getComboBoxValues() -> Array<String> {
+    func getComboBoxValues() -> [String] {
         return self.comboBoxValues ?? [""]
     }
 
@@ -83,7 +83,7 @@ final class RsyncParameters {
     }
 
     // Split an Rsync argument into argument and value
-    private func split (_ str: String) -> Array<String> {
+    private func split (_ str: String) -> [String] {
         let argument: String?
         let value: String?
         var split = str.components(separatedBy: "=")
@@ -102,7 +102,7 @@ final class RsyncParameters {
         guard parameter != nil else {
             return (0, "")
         }
-        let splitstr: Array<String> = self.split(parameter!)
+        let splitstr: [String] = self.split(parameter!)
         guard splitstr.count > 1 else {
             return (0, "")
         }
@@ -171,7 +171,7 @@ final class RsyncParameters {
         self.config = config
         // Set string array for Comboboxes
         self.comboBoxValues = nil
-        self.comboBoxValues = Array<String>()
+        self.comboBoxValues = [String]()
         for i in 0 ..< self.rsyncArguments.count {
             self.comboBoxValues!.append(self.rsyncArguments[i].0)
         }

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 //  SwiftLint: OK 31 July 2017
-//  swiftlint:disable syntactic_sugar line_length
+//  swiftlint:disable line_length
 
 import Foundation
 
@@ -17,13 +17,13 @@ enum Enumscopyfiles {
 
 final class CopyFileArguments: SetConfigurations {
 
-    private var arguments: Array<String>?
-    private var argDisplaydryRun: Array<String>?
-    private var argdryRun: Array<String>?
+    private var arguments: [String]?
+    private var argDisplaydryRun: [String]?
+    private var argdryRun: [String]?
     private var remotefile: String?
     private var localCatalog: String?
 
-    func getArguments() -> Array<String>? {
+    func getArguments() -> [String]? {
         guard self.arguments!.count > 2 else {
             return self.arguments
         }
@@ -32,7 +32,7 @@ final class CopyFileArguments: SetConfigurations {
         return self.arguments
     }
 
-    func getArgumentsdryRun() -> Array<String>? {
+    func getArgumentsdryRun() -> [String]? {
         self.argdryRun![1] = self.argdryRun![1] + "/" + self.remotefile!
         self.argdryRun?.insert(self.localCatalog!, at: 2)
         return self.argdryRun

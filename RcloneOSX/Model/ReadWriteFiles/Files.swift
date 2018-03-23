@@ -67,8 +67,8 @@ class Files: Reportfileerror {
     }
 
     // Function for returning files in path as array of Strings
-    func getFileStrings() -> Array<String>? {
-        var array: Array<String>?
+    func getFileStrings() -> [String]? {
+        var array: [String]?
         if let filePath = self.rootpath {
             let fileManager = FileManager.default
             var isDir: ObjCBool = false
@@ -76,7 +76,7 @@ class Files: Reportfileerror {
                 guard isDir.boolValue else { return nil }
             } else { return nil }
             if let fileURLs = self.getfileURLs(path: filePath) {
-                array = Array<String>()
+                array = [String]()
                 for i in 0 ..< fileURLs.count where fileURLs[i].isFileURL {
                     array!.append(fileURLs[i].path)
                 }
@@ -87,8 +87,8 @@ class Files: Reportfileerror {
     }
 
     // Function for returning profiles as array of Strings
-    func getDirectorysStrings()-> Array<String> {
-        var array: Array<String> = Array<String>()
+    func getDirectorysStrings() -> [String] {
+        var array: [String] = [String]()
         if let filePath = self.rootpath {
             if let fileURLs = self.getfileURLs(path: filePath) {
                 for i in 0 ..< fileURLs.count where fileURLs[i].hasDirectoryPath {
