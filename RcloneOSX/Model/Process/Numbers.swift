@@ -8,7 +8,7 @@
 //  Class for crunching numbers from rsyn output.  Numbers are
 //  informal only, either used in main view or for logging purposes.
 //
-//  swiftlint:disable syntactic_sugar line_length
+//  swiftlint:disable line_length
 
 import Foundation
 
@@ -25,7 +25,7 @@ enum EnumNumbers {
 
 final class Numbers: SetConfigurations {
 
-    private var output: Array<String>?
+    private var output: [String]?
     // numbers after dryrun and stats
     var totNum: Int?
     var totDir: Int?

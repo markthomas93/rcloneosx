@@ -5,7 +5,7 @@
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 //  swiftlint OK - 17 July 2017
-//  swiftlint:disable syntactic_sugar line_length
+//  swiftlint:disable line_length
 
 import Foundation
 
@@ -16,14 +16,14 @@ import Foundation
 struct ArgumentsOneConfiguration {
 
     var config: Configuration?
-    var arg: Array<String>?
-    var argdryRun: Array<String>?
-    var argDisplay: Array<String>?
-    var argdryRunDisplay: Array<String>?
-    var argslistRemotefiles: Array<String>?
-    var argsRestorefiles: Array<String>?
-    var argsRestorefilesdryRun: Array<String>?
-    var argsRestorefilesdryRunDisplay: Array<String>?
+    var arg: [String]?
+    var argdryRun: [String]?
+    var argDisplay: [String]?
+    var argdryRunDisplay: [String]?
+    var argslistRemotefiles: [String]?
+    var argsRestorefiles: [String]?
+    var argsRestorefilesdryRun: [String]?
+    var argsRestorefilesdryRunDisplay: [String]?
 
     init(config: Configuration) {
         // The configuration

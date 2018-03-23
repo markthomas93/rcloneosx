@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 19.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable syntactic_sugar
 
 import Foundation
 import Cocoa
@@ -13,7 +12,7 @@ import Cocoa
 class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
 
     var storageapi: PersistentStorageAPI?
-    var schedules: Array<ConfigurationSchedule>?
+    var schedules: [ConfigurationSchedule]?
 
     func deletelogrow(parent: Int, sibling: Int) {
         guard parent < self.schedules!.count else {
@@ -117,6 +116,6 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
     }
 
     init() {
-        self.schedules = Array<ConfigurationSchedule>()
+        self.schedules = [ConfigurationSchedule]()
     }
 }

@@ -6,13 +6,13 @@
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
 //  SwiftLint: OK 31 July 2017
-//  swiftlint:disable syntactic_sugar cyclomatic_complexity
+//  swiftlint:disable cyclomatic_complexity
 
 import Foundation
 
 class RsyncProcessArguments {
 
-    private var arguments: Array<String>?
+    private var arguments: [String]?
     var localCatalog: String?
     var offsiteCatalog: String?
     var offsiteUsername: String?
@@ -88,7 +88,7 @@ class RsyncProcessArguments {
     /// - parameter dryRun: true if compute dryrun arguments, false if compute arguments for real run
     /// - paramater forDisplay: true if for display, false if not
     /// - returns: Array of Strings
-    func argumentsRsync(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> Array<String> {
+    func argumentsRsync(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = config.localCatalog
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -113,7 +113,7 @@ class RsyncProcessArguments {
         return self.arguments!
     }
 
-    func argumentsRsynclistfile(_ config: Configuration) -> Array<String> {
+    func argumentsRsynclistfile(_ config: Configuration) -> [String] {
         self.localCatalog = nil
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -123,7 +123,7 @@ class RsyncProcessArguments {
         return self.arguments!
     }
 
-    func argumentsRsyncrestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> Array<String> {
+    func argumentsRsyncrestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = nil
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -139,6 +139,6 @@ class RsyncProcessArguments {
 
     init () {
         self.arguments = nil
-        self.arguments = Array<String>()
+        self.arguments = [String]()
     }
 }
