@@ -14,6 +14,7 @@ struct Configuration {
     var task: String
     var localCatalog: String
     var offsiteCatalog: String
+    var offsiteUsername: String
     var offsiteServer: String
     var backupID: String
     var batch: String
@@ -34,6 +35,7 @@ struct Configuration {
     var parameter14: String?
     var dayssincelastbackup: String?
     var markdays: Bool = false
+    var profile: String?
 
     private func calculatedays(date: String) -> Double? {
         guard date != "" else {
@@ -51,10 +53,12 @@ struct Configuration {
         self.task = (dictionary.object(forKey: "task") as? String)!
         self.localCatalog = (dictionary.object(forKey: "localCatalog") as? String)!
         self.offsiteCatalog = (dictionary.object(forKey: "offsiteCatalog") as? String)!
+        self.offsiteUsername = (dictionary.object(forKey: "offsiteUsername") as? String) ?? ""
         self.batch = (dictionary.object(forKey: "batch") as? String)!
         self.dryrun = (dictionary.object(forKey: "dryrun") as? String)!
         self.offsiteServer = (dictionary.object(forKey: "offsiteServer") as? String)!
         self.backupID = (dictionary.object(forKey: "backupID") as? String)!
+        // Last run of task
         // Last run of task
         if let dateRun = dictionary.object(forKey: "dateRun") {
             self.dateRun = dateRun as? String
@@ -64,8 +68,6 @@ struct Configuration {
                     self.markdays = true
                 }
             }
-        } else {
-            self.dateRun = ""
         }
         if let parameter1 = dictionary.object(forKey: "parameter1") {
             self.parameter1 = parameter1 as? String

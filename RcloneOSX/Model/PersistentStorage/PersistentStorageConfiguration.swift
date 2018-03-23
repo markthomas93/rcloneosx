@@ -5,15 +5,13 @@
 //  Created by Thomas Evensen on 09/12/15.
 //  Copyright © 2015 Thomas Evensen. All rights reserved.
 //
-//  SwiftLint: OK 31 July 2017
-//  swiftlint:disable syntactic_sugar function_body_length cyclomatic_complexity
 
 import Foundation
 
 final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
 
     /// Variable holds all configuration data from persisten storage
-    private var configurationsAsNSDict: [NSDictionary]?
+    private var configurationsasdictionary: [NSDictionary]?
 
     /// Variable computes max hiddenID used
     /// MaxhiddenID is used when new configurations are added.
@@ -38,13 +36,13 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
     /// Function reads configurations from permanent store
     /// - returns : array of NSDictonarys, return might be nil if configuration is already in memory
     func readConfigurationsFromPermanentStore() -> [NSDictionary]? {
-        return self.configurationsAsNSDict
+        return self.configurationsasdictionary
     }
 
     // Saving Configuration from MEMORY to persistent store
     // Reads Configurations from MEMORY and saves to persistent Store
     func saveconfigInMemoryToPersistentStore() {
-        var array = Array<NSDictionary>()
+        var array = [NSDictionary]()
         // Reading Configurations from memory
         let configs: [Configuration] = self.configurations!.getConfigurations()
         for i in 0 ..< configs.count {
@@ -57,16 +55,29 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
     // Add new configuration in memory to permanent storage
     // NB : Function does NOT store Configurations to persistent store
     func newConfigurations (_ dict: NSMutableDictionary) {
-        var array = Array<NSDictionary>()
+        let singleFile = dict.value(forKey: "singleFile") as? Int
+        let snapshot = dict.value(forKey: "task") as? String
+        var array = [NSDictionary]()
         // Get existing configurations from memory
         let configs: [Configuration] = self.configurations!.getConfigurations()
         // copy existing backups before adding
         for i in 0 ..< configs.count {
             array.append(self.dictionaryFromconfig(index: i))
         }
+        // backup part
         dict.setObject(self.maxhiddenID + 1, forKey: "hiddenID" as NSCopying)
+        dict.removeObject(forKey: "singleFile")
         array.append(dict)
-        self.configurations!.appendconfigurationstomemory(dict: array[array.count - 1])
+        if singleFile == 0 && snapshot == "backup" {
+            array.append(self.setRestorePart(dict: dict))
+            // Append the two records to Configuration i memory
+            self.configurations!.appendconfigurationstomemory(dict: array[array.count - 2])
+            self.configurations!.appendconfigurationstomemory(dict: array[array.count - 1])
+        } else {
+            // singlefile Configuration - only adds the copy part
+            // snapshot Configuration - only adds the copy part
+            self.configurations!.appendconfigurationstomemory(dict: array[array.count - 1])
+        }
     }
 
     // Function for returning a NSMutabledictionary from a configuration record
@@ -79,34 +90,17 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
             "offsiteCatalog": config.offsiteCatalog,
             "batch": config.batch,
             "offsiteServer": config.offsiteServer,
+            "offsiteUsername": config.offsiteUsername,
+            "parameter1": config.parameter1 ?? "",
+            "parameter2": config.parameter2 ?? "",
+            "parameter3": config.parameter3 ?? "",
+            "parameter4": config.parameter4 ?? "",
+            "parameter5": config.parameter5 ?? "",
+            "parameter6": config.parameter6 ?? "",
             "dryrun": config.dryrun,
             "dateRun": config.dateRun!,
             "hiddenID": config.hiddenID]
         // All parameters parameter8 - parameter14 are set
-        config.parameter1 = self.checkparameter(param: config.parameter1)
-        if config.parameter1 != nil {
-            dict.setObject(config.parameter1!, forKey: "parameter1" as NSCopying)
-        }
-        config.parameter2 = self.checkparameter(param: config.parameter2)
-        if config.parameter2 != nil {
-            dict.setObject(config.parameter2!, forKey: "parameter2" as NSCopying)
-        }
-        config.parameter3 = self.checkparameter(param: config.parameter3)
-        if config.parameter3 != nil {
-            dict.setObject(config.parameter3!, forKey: "parameter3" as NSCopying)
-        }
-        config.parameter4 = self.checkparameter(param: config.parameter4)
-        if config.parameter4 != nil {
-            dict.setObject(config.parameter4!, forKey: "parameter4" as NSCopying)
-        }
-        config.parameter5 = self.checkparameter(param: config.parameter5)
-        if config.parameter5 != nil {
-            dict.setObject(config.parameter5!, forKey: "parameter5" as NSCopying)
-        }
-        config.parameter6 = self.checkparameter(param: config.parameter6)
-        if config.parameter6 != nil {
-            dict.setObject(config.parameter6!, forKey: "parameter6" as NSCopying)
-        }
         config.parameter8 = self.checkparameter(param: config.parameter8)
         if config.parameter8 != nil {
             dict.setObject(config.parameter8!, forKey: "parameter8" as NSCopying)
@@ -142,7 +136,9 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
         if let parameter = param {
             guard parameter.isEmpty == false else { return nil }
             return parameter
-        } else { return nil }
+        } else {
+            return nil
+        }
     }
 
     // Function for setting the restore part of newly created added configuration
@@ -156,27 +152,15 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
             "batch": dict.value(forKey: "batch")!,
             "offsiteServer": dict.value(forKey: "offsiteServer")!,
             "offsiteUsername": dict.value(forKey: "offsiteUsername")!,
+            "parameter1": dict.value(forKey: "parameter1")!,
+            "parameter2": dict.value(forKey: "parameter2")!,
+            "parameter3": dict.value(forKey: "parameter3")!,
+            "parameter4": dict.value(forKey: "parameter4")!,
+            "parameter5": dict.value(forKey: "parameter5")!,
+            "parameter6": dict.value(forKey: "parameter6")!,
             "dryrun": dict.value(forKey: "dryrun")!,
             "dateRun": "",
             "hiddenID": self.maxhiddenID + 2]
-        if dict.value(forKey: "parameter1") != nil {
-            restore.setObject(dict.value(forKey: "parameter1")!, forKey: "parameter1" as NSCopying)
-        }
-        if dict.value(forKey: "parameter2") != nil {
-            restore.setObject(dict.value(forKey: "parameter2")!, forKey: "parameter2" as NSCopying)
-        }
-        if dict.value(forKey: "parameter3") != nil {
-            restore.setObject(dict.value(forKey: "parameter3")!, forKey: "parameter3" as NSCopying)
-        }
-        if dict.value(forKey: "parameter4") != nil {
-            restore.setObject(dict.value(forKey: "parameter4")!, forKey: "parameter4" as NSCopying)
-        }
-        if dict.value(forKey: "parameter5") != nil {
-            restore.setObject(dict.value(forKey: "parameter5")!, forKey: "parameter5" as NSCopying)
-        }
-        if dict.value(forKey: "parameter6") != nil {
-            restore.setObject(dict.value(forKey: "parameter6")!, forKey: "parameter6" as NSCopying)
-        }
         if dict.value(forKey: "parameter8") != nil {
             restore.setObject(dict.value(forKey: "parameter8")!, forKey: "parameter8" as NSCopying)
         }
@@ -201,12 +185,15 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
         if dict.value(forKey: "rsyncdaemon") != nil {
             restore.setObject(dict.value(forKey: "rsyncdaemon")!, forKey: "rsyncdaemon" as NSCopying)
         }
+        if dict.value(forKey: "sshport") != nil {
+            restore.setObject(dict.value(forKey: "sshport")!, forKey: "sshport" as NSCopying)
+        }
         return restore
     }
 
     // Writing configuration to persistent store
-    // Configuration is Array<NSDictionary>
-    private func writeToStore (_ array: Array<NSDictionary>) {
+    // Configuration is [NSDictionary]
+    private func writeToStore (_ array: [NSDictionary]) {
         if (self.writeDatatoPersistentStorage(array, task: .configuration)) {
             self.configurationsDelegate?.reloadconfigurationsobject()
         }
@@ -215,7 +202,12 @@ final class PersistentStorageConfiguration: Readwritefiles, SetConfigurations {
     init (profile: String?) {
         super.init(task: .configuration, profile: profile)
         if self.configurations == nil {
-            self.configurationsAsNSDict = self.getDatafromfile()
+            self.configurationsasdictionary = self.getDatafromfile()
         }
+    }
+
+    init(profile: String?, forceread: Bool) {
+        super.init(task: .configuration, profile: profile)
+        self.configurationsasdictionary = self.getDatafromfile()
     }
 }
