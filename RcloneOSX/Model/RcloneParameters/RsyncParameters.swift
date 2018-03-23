@@ -5,8 +5,6 @@
 //  Created by Thomas Evensen on 03/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  SwiftLint: OK 31 July 2017
-//  swiftlint:disable syntactic_sugar
 
 import Foundation
 
@@ -15,7 +13,7 @@ final class RsyncParameters {
     // Tuple for rsync argument and value
     typealias Argument = (String, Int)
     // Static initial arguments, DO NOT change order
-    private let rsyncArguments: Array<Argument> = [
+    private let rsyncArguments: [Argument] = [
         ("user", 1),
         ("delete", 0),
         ("--bwlimit", 1),
