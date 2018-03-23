@@ -34,9 +34,6 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
 
     @IBOutlet weak var viewParameter1: NSTextField!
     @IBOutlet weak var viewParameter2: NSTextField!
-    @IBOutlet weak var viewParameter3: NSTextField!
-    @IBOutlet weak var viewParameter4: NSTextField!
-    @IBOutlet weak var viewParameter5: NSTextField!
     // user selected parameter
     @IBOutlet weak var viewParameter8: NSTextField!
     @IBOutlet weak var viewParameter9: NSTextField!
@@ -77,9 +74,6 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
             self.comboBoxValues = parameters!.getComboBoxValues()
             self.viewParameter1.stringValue = configurations[index].parameter1 ?? ""
             self.viewParameter2.stringValue = configurations[index].parameter2 ?? ""
-            self.viewParameter3.stringValue = configurations[index].parameter3 ?? ""
-            self.viewParameter4.stringValue = configurations[index].parameter4 ?? ""
-            self.viewParameter5.stringValue = configurations[index].parameter5 ?? ""
             // There are seven user seleected rsync parameters
             self.setValueComboBox(combobox: self.parameter8, index: self.parameters!.getParameter(rsyncparameternumber: 8).0)
             self.viewParameter8.stringValue = self.parameters!.getParameter(rsyncparameternumber: 8).1
