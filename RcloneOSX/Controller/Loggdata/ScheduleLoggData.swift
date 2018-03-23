@@ -8,66 +8,39 @@
 //  Object for sorting and holding logg data about all tasks.
 //  Detailed logging must be set on if logging data.
 //
-//  swiftlint:disable syntactic_sugar line_length
+//  swiftlint:disable line_length
 
 import Foundation
 
-protocol Readfiltereddata: class {
-    func readfiltereddata(data: Filtereddata)
-}
-
-enum Filterlogs {
-    case localCatalog
-    case remoteServer
-    case executeDate
+enum Sortandfilter {
+    case remotecatalog
+    case localcatalog
+    case profile
+    case remoteserver
+    case task
+    case backupid
     case numberofdays
-    case remoteCatalog
+    case executedate
 }
 
-struct Filtereddata {
-    var filtereddata: [NSMutableDictionary]?
-}
+final class ScheduleLoggData: SetConfigurations, SetSchedules, Sorting {
 
-final class ScheduleLoggData: SetConfigurations, SetSchedules {
-
-    private var loggdata: Array<NSMutableDictionary>?
-    weak var readfiltereddataDelegate: Readfiltereddata?
-
-    func getallloggdata() -> [NSMutableDictionary]? {
-        return self.loggdata
-    }
+    var loggdata: [NSMutableDictionary]?
 
     // Function for filter loggdata
-    func filter(search: String?, what: Filterlogs?) {
-        guard search != nil || self.loggdata != nil else { return }
-        self.readfiltereddataDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
+    func filter(search: String?, filterby: Sortandfilter?) {
+        guard search != nil && self.loggdata != nil && filterby != nil else { return }
         globalDefaultQueue.async(execute: {() -> Void in
-            var filtereddata = Filtereddata()
-            switch what! {
-            case .executeDate:
-                filtereddata.filtereddata =  self.loggdata?.filter({
-                    ($0.value(forKey: "dateExecuted") as? String)!.contains(search!)
-                })
-            case .localCatalog:
-                filtereddata.filtereddata = self.loggdata?.filter({
-                    ($0.value(forKey: "localCatalog") as? String)!.contains(search!)
-                })
-            case .remoteServer:
-                filtereddata.filtereddata = self.loggdata?.filter({
-                    ($0.value(forKey: "offsiteServer") as? String)!.contains(search!)
-                })
-            case .numberofdays:
-                return
-            case .remoteCatalog:
-                return
-            }
-            self.readfiltereddataDelegate?.readfiltereddata(data: filtereddata)
+            let valueforkey = self.filterbystring(filterby: filterby!)
+            self.loggdata = self.loggdata?.filter({
+                ($0.value(forKey: valueforkey) as? String)!.contains(search!)
+            })
         })
     }
 
     // Loggdata is only read and sorted once
     private func readAndSortAllLoggdata() {
-        var data = Array<NSMutableDictionary>()
+        var data = [NSMutableDictionary]()
         let input: [ConfigurationSchedule] = self.schedules!.getSchedule()
         for i in 0 ..< input.count {
             let hiddenID = self.schedules!.getSchedule()[i].hiddenID
@@ -77,6 +50,8 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules {
                     let logdetail: NSMutableDictionary = [
                         "localCatalog": self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog),
                         "offsiteServer": self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer),
+                        "task": self.configurations!.getResourceConfiguration(hiddenID, resource: .task),
+                        "backupID": self.configurations!.getResourceConfiguration(hiddenID, resource: .backupid),
                         "dateExecuted": (dict.value(forKey: "dateExecuted") as? String)!,
                         "resultExecuted": (dict.value(forKey: "resultExecuted") as? String)!,
                         "hiddenID": hiddenID,
@@ -86,17 +61,7 @@ final class ScheduleLoggData: SetConfigurations, SetSchedules {
                 }
             }
         }
-        let dateformatter = Tools().setDateformat()
-        self.loggdata = data.sorted { (dict1, dict2) -> Bool in
-            guard dateformatter.date(from: (dict1.value(forKey: "dateExecuted") as? String)!) != nil && (dateformatter.date(from: (dict2.value(forKey: "dateExecuted") as? String)!) != nil) else {
-                return true
-            }
-            if (dateformatter.date(from: (dict1.value(forKey: "dateExecuted") as? String)!))!.timeIntervalSince(dateformatter.date(from: (dict2.value(forKey: "dateExecuted") as? String)!)!) > 0 {
-                return true
-            } else {
-                return false
-            }
-        }
+        self.loggdata = self.sortbyrundate(notsorted: data, sortdirection: true)
     }
 
     init () {

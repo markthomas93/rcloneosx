@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 28.10.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length
+// swiftlint:disable line_length file_length
 
 import Foundation
 import Cocoa
@@ -353,4 +353,75 @@ extension NewRsync {
 
 protocol Createandreloadconfigurations: class {
     func createandreloadconfigurations()
+}
+// Protocol for sorting
+protocol Sorting {
+    func sortbyrundate(notsorted: [NSMutableDictionary]?, sortdirection: Bool) -> [NSMutableDictionary]?
+    func sortbystring(notsorted: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]?
+    func filterbystring(filterby: Sortandfilter) -> String
+}
+
+extension Sorting {
+    func sortbyrundate(notsorted: [NSMutableDictionary]?, sortdirection: Bool) -> [NSMutableDictionary]? {
+        guard notsorted != nil else { return nil }
+        let dateformatter = Tools().setDateformat()
+        let sorted = notsorted!.sorted { (dict1, dict2) -> Bool in
+            let date1 = (dateformatter.date(from: (dict1.value(forKey: "dateExecuted") as? String) ?? "") ?? dateformatter.date(from: "01 Jan 1900 00:00")!)
+            let date2 = (dateformatter.date(from: (dict2.value(forKey: "dateExecuted") as? String) ?? "") ?? dateformatter.date(from: "01 Jan 1900 00:00")!)
+            if date1.timeIntervalSince(date2) > 0 {
+                return sortdirection
+            } else {
+                return !sortdirection
+            }
+        }
+        return sorted
+    }
+
+    func sortbystring(notsorted: [NSMutableDictionary]?, sortby: Sortandfilter, sortdirection: Bool) -> [NSMutableDictionary]? {
+        guard notsorted != nil else { return nil }
+        var sortstring: String?
+        switch sortby {
+        case .localcatalog:
+            sortstring = "localCatalog"
+        case .remoteserver:
+            sortstring = "offsiteServer"
+        case .task:
+            sortstring = "task"
+        case .backupid:
+            sortstring = "backupID"
+        case .profile:
+            sortstring = "profile"
+        default:
+            sortstring = ""
+        }
+        let sorted = notsorted!.sorted { (dict1, dict2) -> Bool in
+            if (dict1.value(forKey: sortstring!) as? String) ?? "" > (dict2.value(forKey: sortstring!) as? String) ?? "" {
+                return sortdirection
+            } else {
+                return !sortdirection
+            }
+        }
+        return sorted
+    }
+
+    func filterbystring(filterby: Sortandfilter) -> String {
+        switch filterby {
+        case .localcatalog:
+            return "localCatalog"
+        case .profile:
+            return "profile"
+        case .remotecatalog:
+            return "offsiteCatalog"
+        case .remoteserver:
+            return "offsiteServer"
+        case .task:
+            return "task"
+        case .backupid:
+            return "backupID"
+        case .numberofdays:
+            return ""
+        case .executedate:
+            return "dateExecuted"
+        }
+    }
 }

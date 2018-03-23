@@ -119,31 +119,35 @@ class QuickBackup: SetConfigurations {
     }
 
     // Function for filter
-    func filter(search: String?, what: Filterlogs?) {
-        guard search != nil || self.sortedlist != nil else { return }
+    func filter(search: String?, filterby: Sortandfilter?) {
+        guard search != nil && self.sortedlist != nil && filterby != nil else { return }
         globalDefaultQueue.async(execute: {() -> Void in
-            var filtereddata = Filtereddata()
-            switch what! {
-            case .executeDate:
+            switch filterby! {
+            case .executedate:
                 return
-            case .localCatalog:
-                filtereddata.filtereddata = self.sortedlist?.filter({
+            case .localcatalog:
+                self.sortedlist = self.sortedlist?.filter({
                     ($0.value(forKey: "localCatalogCellID") as? String)!.contains(search!)
                 })
-            case .remoteServer:
-                filtereddata.filtereddata = self.sortedlist?.filter({
+            case .remoteserver:
+                self.sortedlist = self.sortedlist?.filter({
                     ($0.value(forKey: "offsiteServerCellID") as? String)!.contains(search!)
                 })
             case .numberofdays:
-                filtereddata.filtereddata = self.sortedlist?.filter({
+                self.sortedlist = self.sortedlist?.filter({
                     ($0.value(forKey: "daysID") as? String)!.contains(search!)
                 })
-            case .remoteCatalog:
-                filtereddata.filtereddata = self.sortedlist?.filter({
+            case .remotecatalog:
+                self.sortedlist = self.sortedlist?.filter({
                     ($0.value(forKey: "offsiteCatalogCellID") as? String)!.contains(search!)
                 })
+            case .task:
+                return
+            case .backupid:
+                return
+            case .profile:
+                return
             }
-            self.sortedlist = filtereddata.filtereddata
             self.reloadtableDelegate?.reloadtabledata()
         })
     }
