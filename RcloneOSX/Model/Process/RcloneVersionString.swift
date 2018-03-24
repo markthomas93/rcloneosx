@@ -14,7 +14,7 @@ final class RcloneVersionString: ProcessCmd {
     init () {
         super.init(command: nil, arguments: ["--version"])
         let outputprocess = OutputProcess()
-        if ViewControllerReference.shared.norsync == false {
+        if ViewControllerReference.shared.norclone == false {
             self.updateDelegate = nil
             self.executeProcess(outputprocess: outputprocess)
             self.delayWithSeconds(0.25) {

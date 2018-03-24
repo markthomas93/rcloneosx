@@ -90,7 +90,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     }
 
     private func loadCloudServices() {
-        guard ViewControllerReference.shared.norsync == false else {
+        guard ViewControllerReference.shared.norclone == false else {
             return
         }
         self.outputprocess = nil

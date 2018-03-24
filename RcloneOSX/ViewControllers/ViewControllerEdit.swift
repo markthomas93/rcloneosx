@@ -55,7 +55,7 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Get
     }
 
     private func loadCloudServices() {
-        guard ViewControllerReference.shared.norsync == false else {
+        guard ViewControllerReference.shared.norclone == false else {
             return
         }
         self.outputprocess = nil

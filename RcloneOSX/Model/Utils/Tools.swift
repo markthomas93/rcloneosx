@@ -75,22 +75,22 @@ final class Tools: SetConfigurations {
         let path: String?
         // If not in /usr/bin or /usr/local/bin
         // rsyncPath is set if none of the above
-        if let rsyncPath = ViewControllerReference.shared.rsyncPath {
-            path = rsyncPath + ViewControllerReference.shared.rsync
-        } else if ViewControllerReference.shared.rsyncVer3 {
-            path = "/usr/local/bin/" + ViewControllerReference.shared.rsync
+        if let rsyncPath = ViewControllerReference.shared.rclonePath {
+            path = rsyncPath + ViewControllerReference.shared.rclone
+        } else if ViewControllerReference.shared.rcloneopt {
+            path = "/usr/local/bin/" + ViewControllerReference.shared.rclone
         } else {
-            path = "/usr/bin/" + ViewControllerReference.shared.rsync
+            path = "/usr/bin/" + ViewControllerReference.shared.rclone
         }
-        guard ViewControllerReference.shared.rsyncVer3 == true else {
-            ViewControllerReference.shared.norsync = false
+        guard ViewControllerReference.shared.rcloneopt == true else {
+            ViewControllerReference.shared.norclone = false
             self.verifyrsyncDelegate?.verifyrsync()
             return
         }
         if fileManager.fileExists(atPath: path!) == false {
-            ViewControllerReference.shared.norsync = true
+            ViewControllerReference.shared.norclone = true
         } else {
-            ViewControllerReference.shared.norsync = false
+            ViewControllerReference.shared.norclone = false
         }
         self.verifyrsyncDelegate?.verifyrsync()
     }
@@ -123,19 +123,19 @@ final class Tools: SetConfigurations {
     /// default value.
     /// - returns : full path of rsync command
     func rsyncpath() -> String {
-        if ViewControllerReference.shared.rsyncVer3 {
-            if ViewControllerReference.shared.rsyncPath == nil {
-                return ViewControllerReference.shared.usrlocalbinrsync
+        if ViewControllerReference.shared.rcloneopt {
+            if ViewControllerReference.shared.rclonePath == nil {
+                return ViewControllerReference.shared.usrlocalbinrclone
             } else {
-                return ViewControllerReference.shared.rsyncPath! + ViewControllerReference.shared.rsync
+                return ViewControllerReference.shared.rclonePath! + ViewControllerReference.shared.rclone
             }
         } else {
-            return ViewControllerReference.shared.usrbinrsync
+            return ViewControllerReference.shared.usrbinrclone
         }
     }
 
     func noRsync() {
-        if let rsync = ViewControllerReference.shared.rsyncPath {
+        if let rsync = ViewControllerReference.shared.rclonePath {
             Alerts.showInfo("ERROR: no rclone in " + rsync)
         } else {
             Alerts.showInfo("ERROR: no rclone in /usr/local/bin")
