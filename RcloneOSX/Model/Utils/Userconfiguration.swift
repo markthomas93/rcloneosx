@@ -25,7 +25,7 @@ final class Userconfiguration {
         }
         // Optional path for rsync
         if let rsyncPath = dict.value(forKey: "rsyncPath") as? String {
-            ViewControllerReference.shared.rsyncPath = rsyncPath
+            ViewControllerReference.shared.rclonePath = rsyncPath
         }
         // Temporary path for restores single files or directory
         if let restorePath = dict.value(forKey: "restorePath") as? String {

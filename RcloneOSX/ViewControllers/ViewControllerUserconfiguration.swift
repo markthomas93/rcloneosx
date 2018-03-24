@@ -100,10 +100,10 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         if self.rsyncPath.stringValue.isEmpty == false {
             if rsyncPath.stringValue.hasSuffix("/") == false {
                 rsyncPath.stringValue += "/"
-                ViewControllerReference.shared.rsyncPath = rsyncPath.stringValue
+                ViewControllerReference.shared.rclonePath = rsyncPath.stringValue
             }
         } else {
-            ViewControllerReference.shared.rsyncPath = nil
+            ViewControllerReference.shared.rclonePath = nil
         }
         self.dirty = true
     }
@@ -113,24 +113,24 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         let fileManager = FileManager.default
         if self.rsyncPath.stringValue.isEmpty == false {
             if self.rsyncPath.stringValue.hasSuffix("/") == false {
-                rsyncpath = self.rsyncPath.stringValue + "/" + ViewControllerReference.shared.rsync
+                rsyncpath = self.rsyncPath.stringValue + "/" + ViewControllerReference.shared.rclone
             } else {
-                rsyncpath = self.rsyncPath.stringValue + ViewControllerReference.shared.rsync
+                rsyncpath = self.rsyncPath.stringValue + ViewControllerReference.shared.rclone
             }
         } else {
             rsyncpath = nil
         }
         guard rsyncpath != nil else {
             self.noRsync.isHidden = true
-            ViewControllerReference.shared.norsync = false
+            ViewControllerReference.shared.norclone = false
             return
         }
         if fileManager.fileExists(atPath: rsyncpath!) {
             self.noRsync.isHidden = true
-            ViewControllerReference.shared.norsync = false
+            ViewControllerReference.shared.norclone = false
         } else {
             self.noRsync.isHidden = false
-            ViewControllerReference.shared.norsync = true
+            ViewControllerReference.shared.norclone = true
         }
     }
 
@@ -173,8 +173,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser,
         } else {
             self.detailedlogging.state = .off
         }
-        if ViewControllerReference.shared.rsyncPath != nil {
-            self.rsyncPath.stringValue = ViewControllerReference.shared.rsyncPath!
+        if ViewControllerReference.shared.rclonePath != nil {
+            self.rsyncPath.stringValue = ViewControllerReference.shared.rclonePath!
         } else {
             self.rsyncPath.stringValue = ""
         }

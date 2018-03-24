@@ -37,12 +37,12 @@ class ViewControllerReference {
     var scheduledTask: NSDictionary?
     // Download URL if new version is avaliable
     var URLnewVersion: String?
-    // True if version 3.2.1 of rsync in /usr/local/bin
-    var rsyncVer3: Bool = true
-    // Optional path to rsync
-    var rsyncPath: String?
-    // No valid rsyncPath - true if no valid rsync is found
-    var norsync: Bool = false
+    // True if rclone in /usr/local/bin
+    var rcloneopt: Bool = true
+    // Optional path to rclone
+    var rclonePath: String?
+    // No valid rsyncPath - true if no valid rclone is found
+    var norclone: Bool = false
     // Detailed logging
     var detailedlogging: Bool = true
     // Temporary path for restore
@@ -53,9 +53,9 @@ class ViewControllerReference {
     // Reference is set in when Scheduled task is executed
     var completeoperation: CompleteScheduledOperation?
     // rclone command
-    var rsync: String = "rclone"
-    var usrbinrsync: String = "/usr/bin/rclone"
-    var usrlocalbinrsync: String = "/usr/local/bin/rclone"
+    var rclone: String = "rclone"
+    var usrbinrclone: String = "/usr/bin/rclone"
+    var usrlocalbinrclone: String = "/usr/local/bin/rclone"
     var configpath: String = "/Rclone/"
     // Loggfile
     var minimumlogging: Bool = false

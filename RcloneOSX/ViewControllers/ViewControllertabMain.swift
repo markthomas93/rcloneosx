@@ -317,7 +317,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.info(num: 4)
             return
         }
-        guard ViewControllerReference.shared.norsync == false else {
+        guard ViewControllerReference.shared.norclone == false else {
             self.tools!.noRsync()
             return
         }
@@ -343,7 +343,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.info(num: 4)
             return
         }
-        guard ViewControllerReference.shared.norsync == false else {
+        guard ViewControllerReference.shared.norclone == false else {
             self.tools!.noRsync()
             return
         }
@@ -964,7 +964,7 @@ extension ViewControllertabMain: GetSchedulesObject {
 
 extension ViewControllertabMain: Verifyrsync {
     internal func verifyrsync() {
-        if ViewControllerReference.shared.norsync == true {
+        if ViewControllerReference.shared.norclone == true {
             self.info(num: 3)
         } else {
             self.info(num: 0)

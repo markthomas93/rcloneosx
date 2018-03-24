@@ -27,7 +27,7 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         var restorePath: String?
         var marknumberofdayssince: String?
 
-        if ViewControllerReference.shared.rsyncVer3 {
+        if ViewControllerReference.shared.rcloneopt {
             version3Rsync = 1
         } else {
             version3Rsync = 0
@@ -37,8 +37,8 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         } else {
             detailedlogging = 0
         }
-        if ViewControllerReference.shared.rsyncPath != nil {
-            rsyncPath = ViewControllerReference.shared.rsyncPath!
+        if ViewControllerReference.shared.rclonePath != nil {
+            rsyncPath = ViewControllerReference.shared.rclonePath!
         }
         if ViewControllerReference.shared.restorePath != nil {
             restorePath = ViewControllerReference.shared.restorePath!
