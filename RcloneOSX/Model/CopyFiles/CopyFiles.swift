@@ -50,7 +50,7 @@ final class CopyFiles: SetConfigurations {
     func getCommandDisplayinView(remotefile: String, localCatalog: String) -> String {
         guard self.config != nil else { return "" }
         guard self.index != nil else { return "" }
-        self.commandDisplay = Tools().rsyncpath() + " " + CopyFileArguments(task: .restorerclone, config: self.config!, remotefile: remotefile, localCatalog: localCatalog).getcommandDisplay()
+        self.commandDisplay = Tools().rclonepath() + " " + CopyFileArguments(task: .restorerclone, config: self.config!, remotefile: remotefile, localCatalog: localCatalog).getcommandDisplay()
         return self.commandDisplay ?? " "
     }
 

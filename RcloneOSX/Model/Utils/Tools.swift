@@ -56,7 +56,7 @@ final class Tools: SetConfigurations {
     weak var testconnectionsDelegate: Connections?
     weak var newprofileDelegate: NewProfile?
     private var macSerialNumber: String?
-    weak var verifyrsyncDelegate: Verifyrsync?
+    weak var verifyrcloneDelegate: Verifyrsync?
 
     // Setting date format
     func setDateformat() -> DateFormatter {
@@ -70,7 +70,7 @@ final class Tools: SetConfigurations {
     }
 
     // Function to verify full rsyncpath
-    func verifyrsyncpath() {
+    func verifyrclonepath() {
         let fileManager = FileManager.default
         let path: String?
         // If not in /usr/bin or /usr/local/bin
@@ -84,7 +84,7 @@ final class Tools: SetConfigurations {
         }
         guard ViewControllerReference.shared.rcloneopt == true else {
             ViewControllerReference.shared.norclone = false
-            self.verifyrsyncDelegate?.verifyrsync()
+            self.verifyrcloneDelegate?.verifyrsync()
             return
         }
         if fileManager.fileExists(atPath: path!) == false {
@@ -92,23 +92,23 @@ final class Tools: SetConfigurations {
         } else {
             ViewControllerReference.shared.norclone = false
         }
-        self.verifyrsyncDelegate?.verifyrsync()
+        self.verifyrcloneDelegate?.verifyrsync()
     }
 
     // Display the correct command to execute
     // Used for displaying the commands only
-    func rsyncpathtodisplay(index: Int, dryRun: Bool) -> String {
+    func rclonepathtodisplay(index: Int, dryRun: Bool) -> String {
         var str: String?
         let config = self.configurations!.getargumentAllConfigurations()[index]
         if dryRun {
-            str = self.rsyncpath() + " "
+            str = self.rclonepath() + " "
             if let count = config.argdryRunDisplay?.count {
                 for i in 0 ..< count {
                     str = str! + config.argdryRunDisplay![i]
                 }
             }
         } else {
-            str = self.rsyncpath() + " "
+            str = self.rclonepath() + " "
             if let count = config.argDisplay?.count {
                 for i in 0 ..< count {
                     str = str! + config.argDisplay![i]
@@ -122,7 +122,7 @@ final class Tools: SetConfigurations {
     /// according to configuration set by user or
     /// default value.
     /// - returns : full path of rsync command
-    func rsyncpath() -> String {
+    func rclonepath() -> String {
         if ViewControllerReference.shared.rcloneopt {
             if ViewControllerReference.shared.rclonePath == nil {
                 return ViewControllerReference.shared.usrlocalbinrclone
@@ -134,7 +134,7 @@ final class Tools: SetConfigurations {
         }
     }
 
-    func noRsync() {
+    func noclone() {
         if let rsync = ViewControllerReference.shared.rclonePath {
             Alerts.showInfo("ERROR: no rclone in " + rsync)
         } else {
@@ -247,7 +247,7 @@ final class Tools: SetConfigurations {
     }
 
     init() {
-        self.verifyrsyncDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        self.verifyrcloneDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         self.newprofileDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 }

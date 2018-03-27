@@ -246,9 +246,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 return
             }
             if self.displayDryRun.state == .on {
-                self.rsyncCommand.stringValue = self.tools!.rsyncpathtodisplay(index: index, dryRun: true)
+                self.rsyncCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: true)
             } else {
-                self.rsyncCommand.stringValue = self.tools!.rsyncpathtodisplay(index: index, dryRun: false)
+                self.rsyncCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: false)
             }
         } else {
             self.rsyncCommand.stringValue = ""
@@ -318,7 +318,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.noRsync()
+            self.tools!.noclone()
             return
         }
         guard self.index != nil else {
@@ -344,7 +344,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.noRsync()
+            self.tools!.noclone()
             return
         }
         self.singletask = nil
