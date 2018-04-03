@@ -11,7 +11,7 @@ import Foundation
 import Cocoa
 
 protocol SetSchedules {
-    weak var schedulesDelegate: GetSchedulesObject? {get}
+    var schedulesDelegate: GetSchedulesObject? {get}
     var schedules: Schedules? {get}
 }
 
