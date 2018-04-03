@@ -206,7 +206,7 @@ extension ViewControllertabSchedule: NSTableViewDelegate, Attributedestring {
                 return schedule ?? ""
             }
         case "batchCellID" :
-            return object[tableColumn!.identifier] as? Int!
+            return object[tableColumn!.identifier]
         case "offsiteServerCellID":
             if (object[tableColumn!.identifier] as? String)!.isEmpty {
                 return "localhost"
