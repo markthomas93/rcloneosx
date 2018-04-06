@@ -24,7 +24,7 @@ protocol GetConfigurationsObject: class {
 }
 
 protocol SetConfigurations {
-    weak var configurationsDelegate: GetConfigurationsObject? { get }
+    var configurationsDelegate: GetConfigurationsObject? { get }
     var configurations: Configurations? { get }
 }
 
@@ -43,10 +43,10 @@ protocol Reloadandrefresh: class {
 }
 
 protocol ReloadTable {
-    weak var reloadDelegateMain: Reloadandrefresh? { get }
-    weak var reloadDelegateSchedule: Reloadandrefresh? { get }
-    weak var reloadDelegateBatch: Reloadandrefresh? { get }
-    weak var reloadDelegateLogData: Reloadandrefresh? { get }
+    var reloadDelegateMain: Reloadandrefresh? { get }
+    var reloadDelegateSchedule: Reloadandrefresh? { get }
+    var reloadDelegateBatch: Reloadandrefresh? { get }
+    var reloadDelegateLogData: Reloadandrefresh? { get }
     func reloadtable(vcontroller: ViewController)
 }
 

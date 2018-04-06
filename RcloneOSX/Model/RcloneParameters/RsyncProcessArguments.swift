@@ -93,10 +93,16 @@ class RsyncProcessArguments {
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
         if self.offsiteServer!.isEmpty == false {
-            self.remoteargs = self.offsiteServer! + ":" + self.offsiteCatalog!
+            if config.localCatalog.isEmpty == true {
+                self.remoteargs = self.offsiteServer! + ":"
+            } else {
+                self.remoteargs = self.offsiteServer! + ":" + self.offsiteCatalog!
+            }
         }
         self.rclonecommand(config, dryRun: dryRun, forDisplay: forDisplay)
-        self.arguments!.append(self.localCatalog!)
+        if self.localCatalog?.isEmpty == false {
+            self.arguments!.append(self.localCatalog!)
+        }
         if self.offsiteServer!.isEmpty {
             if forDisplay {self.arguments!.append(" ")}
             self.arguments!.append(self.offsiteCatalog!)
@@ -104,6 +110,10 @@ class RsyncProcessArguments {
         } else {
             if forDisplay {self.arguments!.append(" ")}
             self.arguments!.append(remoteargs!)
+            if config.localCatalog.isEmpty == true {
+                if forDisplay {self.arguments!.append(" ")}
+                self.arguments!.append(self.offsiteCatalog ?? "")
+            }
             if forDisplay {self.arguments!.append(" ")}
         }
         if dryRun {

@@ -133,7 +133,7 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
     // the correct index is set.
     private func setValueComboBox (combobox: NSComboBox, index: Int) {
         combobox.removeAllItems()
-        combobox.addItems(withObjectValues: self.comboBoxValues as [String]!)
+        combobox.addItems(withObjectValues: self.comboBoxValues)
         combobox.selectItem(at: index)
     }
 

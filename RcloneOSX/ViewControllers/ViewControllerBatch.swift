@@ -129,7 +129,7 @@ extension ViewControllerBatch: NSTableViewDelegate, Attributedestring {
         }
         let object: NSMutableDictionary = (self.batchTask?.configurations!.getupdatedbatchQueue()![row])!
         if tableColumn!.identifier.rawValue == "estimatedCellID" || tableColumn!.identifier.rawValue == "completedCellID" {
-            return object[tableColumn!.identifier] as? Int!
+            return object[tableColumn!.identifier]
         } else {
             if row == self.batchTask?.configurations!.getbatchQueue()!.getRow() && tableColumn!.identifier.rawValue == "taskCellID" {
                 let text = (object[tableColumn!.identifier] as? String)!
