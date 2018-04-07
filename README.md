@@ -12,7 +12,7 @@ A short [intro](https://github.com/rsyncOSX/Documentation/blob/master/docs/Rclon
 
 ### Application icon
 
-The application icon is created by [Forrest Walter](http://www.forrestwalter.com/). All rights reserved to Forrest Walter.
+The application icon is created by [Zsolt Sándor](https://github.com/graphis). All rights reserved to Zsolt Sándor.
 
 ### Changelog
 
