@@ -15,6 +15,11 @@ class ViewControllerAbout: NSViewController, SetDismisser {
     @IBOutlet weak var downloadbutton: NSButton!
     @IBOutlet weak var thereisanewversion: NSTextField!
     @IBOutlet weak var rcloneversionstring: NSTextField!
+    @IBOutlet weak var copyright: NSTextField!
+    @IBOutlet weak var iconby: NSTextField!
+    
+    var copyrigthstring: String = "Copyright © 2018 Thomas Evensen"
+    var iconbystring: String = "Icon by: Zsolt Sándor"
 
     var checkfornewversion: Checkfornewversion?
     // External resources as documents, download
@@ -49,6 +54,8 @@ class ViewControllerAbout: NSViewController, SetDismisser {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.copyright.stringValue = self.copyrigthstring
+        self.iconby.stringValue = self.iconbystring
         ViewControllerReference.shared.setvcref(viewcontroller: .vcabout, nsviewcontroller: self)
         self.resource = Resources()
     }
