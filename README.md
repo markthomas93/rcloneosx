@@ -8,7 +8,7 @@ RcloneOSX is compiled with support for macOS version 10.11 - 10.13. The applicat
 
 RcloneOSX is built upon the code for [RsyncOSX](https://github.com/rsyncOSX/RsyncOSX).
 
-A short [intro](https://github.com/rsyncOSX/Documentation/blob/master/docs/RcloneOSX/Intro/Intro.md) about what RcloneOSX is.
+A short [intro](https://rsyncosx.github.io/RcloneIntro) about what RcloneOSX is.
 
 ### Application icon
 
@@ -16,4 +16,4 @@ The application icon is created by [Zsolt Sándor](https://github.com/graphis). 
 
 ### Changelog
 
-Please see [Changelog](https://github.com/rsyncOSX/Documentation/blob/master/docs/RcloneOSX/Changelog.md)
+Please see [Changelog](https://rsyncosx.github.io/RcloneChangelog)
