@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E91E8BED1FC4B0AE00D23EFD /* Fileerrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91E8BEC1FC4B0AE00D23EFD /* Fileerrors.swift */; };
 		E931186C1FC2BCC1007D1C1B /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931186B1FC2BCC1007D1C1B /* Logging.swift */; };
 		E93DB0C4204E6FE80008B6C2 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93DB0C3204E6FE80008B6C2 /* Notifications.swift */; };
 		E954F7D51FF411A6003DF6C0 /* RcloneVersionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */; };
@@ -86,7 +85,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E91E8BEC1FC4B0AE00D23EFD /* Fileerrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Fileerrors.swift; path = RcloneOSX/Model/Logging/Fileerrors.swift; sourceTree = SOURCE_ROOT; };
 		E931186B1FC2BCC1007D1C1B /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Logging.swift; path = RcloneOSX/Model/Logging/Logging.swift; sourceTree = SOURCE_ROOT; };
 		E93DB0C3204E6FE80008B6C2 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RcloneVersionString.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				E931186B1FC2BCC1007D1C1B /* Logging.swift */,
-				E91E8BEC1FC4B0AE00D23EFD /* Fileerrors.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -621,7 +618,6 @@
 				E960CB2B1FB091DE0008D12E /* SingleTaskWorkQueu.swift in Sources */,
 				E960CB4E1FB091DE0008D12E /* NewConfigurations.swift in Sources */,
 				E9CB92381FEE2A8D0047F9CA /* QuickBackup.swift in Sources */,
-				E91E8BED1FC4B0AE00D23EFD /* Fileerrors.swift in Sources */,
 				E9A7958B1FBF285300AF8A5F /* ViewControllerCopyFiles.swift in Sources */,
 				E960CB2D1FB091DE0008D12E /* Alerts.swift in Sources */,
 				E99AA3831FAFA28900C1E86A /* AppDelegate.swift in Sources */,
