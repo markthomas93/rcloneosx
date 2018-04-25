@@ -117,11 +117,10 @@ extension ViewControllerScheduleDetails: NSTableViewDataSource {
 
 }
 
-extension ViewControllerScheduleDetails: NSTableViewDelegate, Attributedestring {
-
+extension ViewControllerScheduleDetails: NSTableViewDelegate {
+    
     // TableView delegates
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        // If active schedule color row red
         var active: Bool = false
         guard self.data != nil else { return nil }
         if row < self.data!.count {
@@ -141,16 +140,33 @@ extension ViewControllerScheduleDetails: NSTableViewDelegate, Attributedestring 
                 return object[tableColumn!.identifier] as? Int
             } else {
                 if active {
-                    let text = object[tableColumn!.identifier] as? String
-                    return self.attributedstring(str: text!, color: NSColor.red, align: .left)
+                    if tableColumn!.identifier.rawValue == "active" {
+                        return #imageLiteral(resourceName: "complete")
+                    } else {
+                        return object[tableColumn!.identifier] as? String
+                    }
                 } else {
-                    return object[tableColumn!.identifier] as? String
+                    if tableColumn!.identifier.rawValue == "dateStart" {
+                        if object[tableColumn!.identifier] as? String == "01 Jan 1900 00:00" {
+                            return "no startdate"
+                        } else {
+                            return object[tableColumn!.identifier] as? String
+                        }
+                    } else if tableColumn!.identifier.rawValue == "dateStop" {
+                        if object[tableColumn!.identifier] as? String == "01 Jan 2100 00:00" {
+                            return "no stopdate"
+                        } else {
+                            return object[tableColumn!.identifier] as? String
+                        }
+                    } else {
+                        return object[tableColumn!.identifier] as? String
+                    }
                 }
             }
         }
         return nil
     }
-
+    
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         if tableColumn!.identifier.rawValue == "stopCellID" || tableColumn!.identifier.rawValue == "deleteCellID" {
             var stop: Int = (self.data![row].value(forKey: "stopCellID") as? Int)!
@@ -167,5 +183,4 @@ extension ViewControllerScheduleDetails: NSTableViewDelegate, Attributedestring 
             }
         }
     }
-
 }
