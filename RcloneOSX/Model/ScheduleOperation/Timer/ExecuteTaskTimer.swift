@@ -1,6 +1,6 @@
 //
 //  executeTask.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 20/01/2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -39,7 +39,7 @@ class ExecuteTaskTimer: Operation, SetSchedules, SetConfigurations, SetScheduled
                 self.scheduleJob?.start()
                 self.notify(config: config)
                 if hiddenID >= 0 && config != nil {
-                    arguments = RcloneProcessArguments().argumentsRsync(config!, dryRun: false, forDisplay: false)
+                    arguments = RcloneProcessArguments().argumentsRclone(config!, dryRun: false, forDisplay: false)
                     // Setting reference to finalize the job, finalize job is done when rsynctask ends (in process termination)
                     ViewControllerReference.shared.completeoperation = CompleteScheduledOperation(dict: dict)
                     globalMainQueue.async(execute: {

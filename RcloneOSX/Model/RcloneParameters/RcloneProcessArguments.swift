@@ -1,6 +1,6 @@
 //
-//  rsyncProcessArguments.swift
-//  Rsync
+//  rcloneProcessArguments.swift
+//  rclone
 //
 //  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -80,15 +80,15 @@ class RcloneProcessArguments {
         }
     }
 
-    /// Function for initialize arguments array. RsyncOSX computes four argumentstrings
-    /// two arguments for dryrun, one for rsync and one for display
-    /// two arguments for realrun, one for rsync and one for display
+    /// Function for initialize arguments array. rcloneOSX computes four argumentstrings
+    /// two arguments for dryrun, one for rclone and one for display
+    /// two arguments for realrun, one for rclone and one for display
     /// which argument to compute is set in parameter to function
     /// - parameter config: structure (configuration) holding configuration for one task
     /// - parameter dryRun: true if compute dryrun arguments, false if compute arguments for real run
     /// - paramater forDisplay: true if for display, false if not
     /// - returns: Array of Strings
-    func argumentsRsync(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
+    func argumentsRclone(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = config.localCatalog
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -123,7 +123,7 @@ class RcloneProcessArguments {
         return self.arguments!
     }
 
-    func argumentsRsynclistfile(_ config: Configuration) -> [String] {
+    func argumentsRclonelistfile(_ config: Configuration) -> [String] {
         self.localCatalog = nil
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -133,7 +133,7 @@ class RcloneProcessArguments {
         return self.arguments!
     }
 
-    func argumentsRsyncrestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
+    func argumentsRclonerestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = nil
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer

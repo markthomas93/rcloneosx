@@ -1,6 +1,6 @@
 //
 //  ViewControllerProgressProcess.swift
-//  RsyncOSXver30
+//  rcloneOSXver30
 //
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.

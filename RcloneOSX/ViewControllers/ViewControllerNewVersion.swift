@@ -1,6 +1,6 @@
 //
 //  ViewControllerNewVersion.swift
-//  RsyncOSXver30
+//  rcloneOSXver30
 //
 //  Created by Thomas Evensen on 02/09/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.

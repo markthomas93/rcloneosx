@@ -1,6 +1,6 @@
 //
 //  FileDialog.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 21/09/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  PersistentStoreageUserconfiguration.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 26/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -21,16 +21,16 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
 
     // Saving user configuration
     func saveUserconfiguration () {
-        var version3Rsync: Int?
+        var versionclone: Int?
         var detailedlogging: Int?
-        var rsyncPath: String?
+        var rclonePath: String?
         var restorePath: String?
         var marknumberofdayssince: String?
 
         if ViewControllerReference.shared.rcloneopt {
-            version3Rsync = 1
+            versionclone = 1
         } else {
-            version3Rsync = 0
+            versionclone = 0
         }
         if ViewControllerReference.shared.detailedlogging {
             detailedlogging = 1
@@ -38,7 +38,7 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
             detailedlogging = 0
         }
         if ViewControllerReference.shared.rclonePath != nil {
-            rsyncPath = ViewControllerReference.shared.rclonePath!
+            rclonePath = ViewControllerReference.shared.rclonePath!
         }
         if ViewControllerReference.shared.restorePath != nil {
             restorePath = ViewControllerReference.shared.restorePath!
@@ -47,12 +47,12 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         var array = [NSDictionary]()
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
-            "version3Rsync": version3Rsync! as Int,
+            "version3Rsync": versionclone! as Int,
             "detailedlogging": detailedlogging! as Int,
             "marknumberofdayssince": marknumberofdayssince ?? "5.0"]
 
-        if rsyncPath != nil {
-            dict.setObject(rsyncPath!, forKey: "rsyncPath" as NSCopying)
+        if rclonePath != nil {
+            dict.setObject(rclonePath!, forKey: "rsyncPath" as NSCopying)
         }
         if restorePath != nil {
             dict.setObject(restorePath!, forKey: "restorePath" as NSCopying)

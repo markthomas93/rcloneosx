@@ -1,6 +1,6 @@
 //
 //  userconfiguration.swift
-//  RsyncOSXver30
+//  rcloneOSXver30
 //
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-// Reading userconfiguration from file into RsyncOSX
+// Reading userconfiguration from file into rcloneOSX
 final class Userconfiguration {
 
     weak var rsyncchangedDelegate: RcloneChanged?
@@ -59,9 +59,9 @@ final class Userconfiguration {
         }
     }
 
-    init (userconfigRsyncOSX: [NSDictionary]) {
-        if userconfigRsyncOSX.count > 0 {
-            self.readUserconfiguration(dict: userconfigRsyncOSX[0])
+    init (userconfigrcloneOSX: [NSDictionary]) {
+        if userconfigrcloneOSX.count > 0 {
+            self.readUserconfiguration(dict: userconfigrcloneOSX[0])
         }
         // If userconfiguration is read from disk update info in main view
         self.rsyncchangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain

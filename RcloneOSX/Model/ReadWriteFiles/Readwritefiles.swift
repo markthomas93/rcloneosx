@@ -1,13 +1,13 @@
 //
 //  Readwritefiles.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 25/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  let str = "/Rsync/" + serialNumber + profile? + "/scheduleRsync.plist"
-//  let str = "/Rsync/" + serialNumber + profile? + "/configRsync.plist"
-//  let str = "/Rsync/" + serialNumber + "/config.plist"
+//  let str = "/Rclone/" + serialNumber + profile? + "/scheduleRsync.plist"
+//  let str = "/Rclone/" + serialNumber + profile? + "/configRsync.plist"
+//  let str = "/Rclone/" + serialNumber + "/config.plist"
 //
 //  swiftlint:disable line_length
 

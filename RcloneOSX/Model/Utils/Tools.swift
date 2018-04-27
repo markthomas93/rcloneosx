@@ -1,6 +1,6 @@
 //
 //  Tools.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 22.07.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -46,8 +46,8 @@ protocol Connections: class {
     func displayConnections()
 }
 
-protocol Verifyrsync: class {
-    func verifyrsync()
+protocol Verifyrclone: class {
+    func verifyrclone()
 }
 
 final class Tools: SetConfigurations {
@@ -56,7 +56,7 @@ final class Tools: SetConfigurations {
     weak var testconnectionsDelegate: Connections?
     weak var newprofileDelegate: NewProfile?
     private var macSerialNumber: String?
-    weak var verifyrcloneDelegate: Verifyrsync?
+    weak var verifyrcloneDelegate: Verifyrclone?
 
     // Setting date format
     func setDateformat() -> DateFormatter {
@@ -84,7 +84,7 @@ final class Tools: SetConfigurations {
         }
         guard ViewControllerReference.shared.rcloneopt == true else {
             ViewControllerReference.shared.norclone = false
-            self.verifyrcloneDelegate?.verifyrsync()
+            self.verifyrcloneDelegate?.verifyrclone()
             return
         }
         if fileManager.fileExists(atPath: path!) == false {
@@ -92,7 +92,7 @@ final class Tools: SetConfigurations {
         } else {
             ViewControllerReference.shared.norclone = false
         }
-        self.verifyrcloneDelegate?.verifyrsync()
+        self.verifyrcloneDelegate?.verifyrclone()
     }
 
     // Display the correct command to execute

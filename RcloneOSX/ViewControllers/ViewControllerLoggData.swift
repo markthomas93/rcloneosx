@@ -1,6 +1,6 @@
 //
 //  ViewControllerLoggData.swift
-//  RsyncOSX
+//  rcloneOSX
 //  The ViewController is the logview
 //
 //  Created by Thomas Evensen on 23/09/2016.

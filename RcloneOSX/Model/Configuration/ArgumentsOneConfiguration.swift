@@ -30,13 +30,13 @@ struct ArgumentsOneConfiguration {
         self.config = config
         // All arguments for rsync is computed, two sets. One for dry-run and one for real run.
         // the parameter forDisplay = true computes arguments to display in view.
-        self.arg = RcloneProcessArguments().argumentsRsync(config, dryRun: false, forDisplay: false)
-        self.argDisplay = RcloneProcessArguments().argumentsRsync(config, dryRun: false, forDisplay: true)
-        self.argdryRun = RcloneProcessArguments().argumentsRsync(config, dryRun: true, forDisplay: false)
-        self.argdryRunDisplay = RcloneProcessArguments().argumentsRsync(config, dryRun: true, forDisplay: true)
-        self.argslistRemotefiles = RcloneProcessArguments().argumentsRsynclistfile(config)
-        self.argsRestorefiles = RcloneProcessArguments().argumentsRsyncrestore(config, dryRun: false, forDisplay: false)
-        self.argsRestorefilesdryRun = RcloneProcessArguments().argumentsRsyncrestore(config, dryRun: true, forDisplay: false)
-        self.argsRestorefilesdryRunDisplay = RcloneProcessArguments().argumentsRsyncrestore(config, dryRun: true, forDisplay: true)
+        self.arg = RcloneProcessArguments().argumentsRclone(config, dryRun: false, forDisplay: false)
+        self.argDisplay = RcloneProcessArguments().argumentsRclone(config, dryRun: false, forDisplay: true)
+        self.argdryRun = RcloneProcessArguments().argumentsRclone(config, dryRun: true, forDisplay: false)
+        self.argdryRunDisplay = RcloneProcessArguments().argumentsRclone(config, dryRun: true, forDisplay: true)
+        self.argslistRemotefiles = RcloneProcessArguments().argumentsRclonelistfile(config)
+        self.argsRestorefiles = RcloneProcessArguments().argumentsRclonerestore(config, dryRun: false, forDisplay: false)
+        self.argsRestorefilesdryRun = RcloneProcessArguments().argumentsRclonerestore(config, dryRun: true, forDisplay: false)
+        self.argsRestorefilesdryRunDisplay = RcloneProcessArguments().argumentsRclonerestore(config, dryRun: true, forDisplay: true)
     }
 }

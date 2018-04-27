@@ -1,6 +1,6 @@
 //
 //  Notifications.swift
-//  RsyncOSXsched
+//  rcloneOSXsched
 //
 //  Created by Thomas Evensen on 21.02.2018.
 //  Copyright © 2018 Maxim. All rights reserved.
