@@ -30,13 +30,13 @@ struct ArgumentsOneConfiguration {
         self.config = config
         // All arguments for rsync is computed, two sets. One for dry-run and one for real run.
         // the parameter forDisplay = true computes arguments to display in view.
-        self.arg = RsyncProcessArguments().argumentsRsync(config, dryRun: false, forDisplay: false)
-        self.argDisplay = RsyncProcessArguments().argumentsRsync(config, dryRun: false, forDisplay: true)
-        self.argdryRun = RsyncProcessArguments().argumentsRsync(config, dryRun: true, forDisplay: false)
-        self.argdryRunDisplay = RsyncProcessArguments().argumentsRsync(config, dryRun: true, forDisplay: true)
-        self.argslistRemotefiles = RsyncProcessArguments().argumentsRsynclistfile(config)
-        self.argsRestorefiles = RsyncProcessArguments().argumentsRsyncrestore(config, dryRun: false, forDisplay: false)
-        self.argsRestorefilesdryRun = RsyncProcessArguments().argumentsRsyncrestore(config, dryRun: true, forDisplay: false)
-        self.argsRestorefilesdryRunDisplay = RsyncProcessArguments().argumentsRsyncrestore(config, dryRun: true, forDisplay: true)
+        self.arg = RcloneProcessArguments().argumentsRsync(config, dryRun: false, forDisplay: false)
+        self.argDisplay = RcloneProcessArguments().argumentsRsync(config, dryRun: false, forDisplay: true)
+        self.argdryRun = RcloneProcessArguments().argumentsRsync(config, dryRun: true, forDisplay: false)
+        self.argdryRunDisplay = RcloneProcessArguments().argumentsRsync(config, dryRun: true, forDisplay: true)
+        self.argslistRemotefiles = RcloneProcessArguments().argumentsRsynclistfile(config)
+        self.argsRestorefiles = RcloneProcessArguments().argumentsRsyncrestore(config, dryRun: false, forDisplay: false)
+        self.argsRestorefilesdryRun = RcloneProcessArguments().argumentsRsyncrestore(config, dryRun: true, forDisplay: false)
+        self.argsRestorefilesdryRunDisplay = RcloneProcessArguments().argumentsRsyncrestore(config, dryRun: true, forDisplay: true)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class RsyncParameters {
+final class RcloneParameters {
 
     // Tuple for rsync argument and value
     typealias Argument = (String, Int)
@@ -41,7 +41,7 @@ final class RsyncParameters {
     /// - parameter indexComboBox: index of selected ComboBox
     /// - parameter value: the value of rsync parameter
     /// - return: array of String
-    func getRsyncParameter (indexComboBox: Int, value: String?) -> String {
+    func getRcloneParameter (indexComboBox: Int, value: String?) -> String {
         guard  indexComboBox < self.rsyncArguments.count && indexComboBox > -1 else {
             return ""
         }
@@ -139,12 +139,12 @@ final class RsyncParameters {
     /// value in combobox and the corrosponding rsync value when rsync parameters are presented
     /// - parameter rsyncparameternumber : which stored rsync parameter, integer 8 - 14
     /// - returns : touple with index for combobox and corresponding rsync value
-    func getParameter (rsyncparameternumber: Int) -> (Int, String) {
+    func getParameter (rcloneparameternumber: Int) -> (Int, String) {
         var indexandvalue: (Int, String)?
         guard self.config != nil else {
             return (0, "")
         }
-        switch rsyncparameternumber {
+        switch rcloneparameternumber {
         case 8:
            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter8)
         case 9:

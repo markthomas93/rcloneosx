@@ -289,7 +289,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 self.mainTableView.reloadData()
             })
         }
-        self.rsyncchanged()
+        self.rclonechanged()
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
@@ -530,9 +530,9 @@ extension ViewControllertabMain: Reloadandrefresh {
 }
 
 // Parameters to rsync is changed
-extension ViewControllertabMain: RsyncUserParams {
+extension ViewControllertabMain: RcloneUserParams {
     // Do a reread of all Configurations
-    func rsyncuserparamsupdated() {
+    func rcloneuserparamsupdated() {
         self.setRsyncCommandDisplay()
     }
 }
@@ -584,9 +584,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
 }
 
 // Rsync path is changed, update displayed rsync command
-extension ViewControllertabMain: RsyncChanged {
+extension ViewControllertabMain: RcloneChanged {
     // If row is selected an update rsync command in view
-    func rsyncchanged() {
+    func rclonechanged() {
         // Update rsync command in display
         self.setRsyncCommandDisplay()
         self.verifyrsync()

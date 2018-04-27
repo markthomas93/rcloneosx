@@ -10,7 +10,7 @@
 
 import Foundation
 
-class RsyncProcessArguments {
+class RcloneProcessArguments {
 
     private var arguments: [String]?
     var localCatalog: String?

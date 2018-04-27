@@ -60,11 +60,11 @@ final class CopyFileArguments: SetConfigurations {
         let index = self.configurations?.getIndex(config.hiddenID)
         switch task {
         case .restorerclone:
-            self.arguments = self.configurations?.arguments4rsync(index: index!, argtype: .argrestore)
-            self.argdryRun = self.configurations?.arguments4rsync(index: index!, argtype: .argrestoredryRun)
-            self.argDisplaydryRun = self.configurations?.arguments4rsync(index: index!, argtype: .argrestoreDisplaydryRun)
+            self.arguments = self.configurations?.arguments4rclone(index: index!, argtype: .argrestore)
+            self.argdryRun = self.configurations?.arguments4rclone(index: index!, argtype: .argrestoredryRun)
+            self.argDisplaydryRun = self.configurations?.arguments4rclone(index: index!, argtype: .argrestoreDisplaydryRun)
         case .listrclone:
-            self.arguments = self.configurations?.arguments4rsync(index: index!, argtype: .arglistfiles)
+            self.arguments = self.configurations?.arguments4rclone(index: index!, argtype: .arglistfiles)
         }
     }
 }

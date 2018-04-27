@@ -78,7 +78,7 @@ extension ReloadTable {
 }
 
 // Used to select argument
-enum ArgumentsRsync {
+enum ArgumentsRclone {
     case arg
     case argdryRun
     case arglistfiles
@@ -227,7 +227,7 @@ class Configurations: ReloadTable {
     /// - parameter index: index of Configuration
     /// - parameter argtype : either .arg or .argdryRun (of enumtype argumentsRsync)
     /// - returns : array of Strings holding all computed arguments
-    func arguments4rsync (index: Int, argtype: ArgumentsRsync) -> [String] {
+    func arguments4rclone (index: Int, argtype: ArgumentsRclone) -> [String] {
         let allarguments = self.argumentAllConfigurations![index]
         switch argtype {
         case .arg:
