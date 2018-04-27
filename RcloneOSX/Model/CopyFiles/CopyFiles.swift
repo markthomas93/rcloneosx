@@ -17,8 +17,6 @@ final class CopyFiles: SetConfigurations {
     private var files: [String]?
     private var arguments: [String]?
     private var command: String?
-    private var argumentsRsync: [String]?
-    private var argymentsRsyncDrynRun: [String]?
     private var commandDisplay: String?
     weak var progressDelegate: StartStopProgressIndicator?
     var process: CommandCopyFiles?
