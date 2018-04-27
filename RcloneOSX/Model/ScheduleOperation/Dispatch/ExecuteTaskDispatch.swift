@@ -46,7 +46,7 @@ class ExecuteTaskDispatch: SetSchedules, SetConfigurations, SetScheduledTask {
                         if self.arguments != nil {
                             weak var sendprocess: Sendprocessreference?
                             sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                            let process = RsyncScheduled(arguments: self.arguments)
+                            let process = RcloneScheduled(arguments: self.arguments)
                             process.executeProcess(outputprocess: self.outputprocess)
                             sendprocess?.sendprocessreference(process: process.getProcess())
                             sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)

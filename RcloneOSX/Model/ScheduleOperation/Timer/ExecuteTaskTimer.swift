@@ -46,7 +46,7 @@ class ExecuteTaskTimer: Operation, SetSchedules, SetConfigurations, SetScheduled
                         if arguments != nil {
                             weak var sendprocess: Sendprocessreference?
                             sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                            let process = RsyncScheduled(arguments: arguments)
+                            let process = RcloneScheduled(arguments: arguments)
                             process.executeProcess(outputprocess: outputprocess)
                             sendprocess?.sendprocessreference(process: process.getProcess())
                             sendprocess?.sendoutputprocessreference(outputprocess: outputprocess)

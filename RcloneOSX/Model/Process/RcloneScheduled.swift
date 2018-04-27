@@ -10,7 +10,7 @@
 
 import Foundation
 
-final class RsyncScheduled: ProcessCmd {
+final class RcloneScheduled: ProcessCmd {
     init (arguments: [String]?) {
         super.init(command: nil, arguments: arguments)
         self.updateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
