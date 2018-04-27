@@ -222,10 +222,10 @@ class Configurations: ReloadTable {
         return self.configurations!.filter({return ($0.task == "copy" || $0.task == "sync") && ($0.batch == "yes")})
     }
 
-    /// Function computes arguments for rsync, either arguments for
+    /// Function computes arguments for rclone, either arguments for
     /// real runn or arguments for --dry-run for Configuration at selected index
     /// - parameter index: index of Configuration
-    /// - parameter argtype : either .arg or .argdryRun (of enumtype argumentsRsync)
+    /// - parameter argtype : either .arg or .argdryRun (of enumtype argumentsrclone)
     /// - returns : array of Strings holding all computed arguments
     func arguments4rclone (index: Int, argtype: ArgumentsRclone) -> [String] {
         let allarguments = self.argumentAllConfigurations![index]
@@ -373,7 +373,7 @@ class Configurations: ReloadTable {
     }
 
     /// Function is reading all Configurations into memory from permanent store and
-    /// prepare all arguments for rsync. All configurations are stored in the private
+    /// prepare all arguments for rclone. All configurations are stored in the private
     /// variable within object.
     /// Function is destroying any previous Configurations before loading new and computing new arguments.
     /// - parameter none: none
@@ -384,8 +384,8 @@ class Configurations: ReloadTable {
         guard store != nil else { return }
         for i in 0 ..< store!.count {
             self.configurations!.append(store![i])
-            let rsyncArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
-            self.argumentAllConfigurations!.append(rsyncArgumentsOneConfig)
+            let rcloneArgumentsOneConfig = ArgumentsOneConfiguration(config: store![i])
+            self.argumentAllConfigurations!.append(rcloneArgumentsOneConfig)
         }
         // Then prepare the datasource for use in tableviews as Dictionarys
         var data = [NSMutableDictionary]()

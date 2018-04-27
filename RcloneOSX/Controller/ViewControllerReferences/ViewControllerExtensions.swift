@@ -64,7 +64,7 @@ extension VcMain {
         return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
     }
 
-    // Information about rsync output
+    // Information about rclone output
     // self.presentViewControllerAsSheet(self.ViewControllerInformation)
     var viewControllerInformation: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardInformationID"))
@@ -92,8 +92,8 @@ extension VcMain {
             as? NSViewController)!
     }
 
-    // Rsync userparams
-    // self.presentViewControllerAsSheet(self.ViewControllerRsyncParams)
+    // Rclone userparams
+    // self.presentViewControllerAsSheet(self.viewControllerRcloneParams)
     var viewControllerRcloneParams: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRsyncParamsID"))
             as? NSViewController)!
@@ -160,7 +160,7 @@ extension VcCopyFiles {
         return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
     }
 
-    // Information about rsync output
+    // Information about rclone output
     // self.presentViewControllerAsSheet(self.ViewControllerInformation)
     var viewControllerInformation: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardInformationCopyFilesID")) as? NSViewController)!
@@ -331,7 +331,7 @@ extension GetInformation {
         }
     }
 }
-// Protocol for doing updates when optional path for rsync is changed
+// Protocol for doing updates when optional path for rclone is changed
 // or user enable or disable doubleclick to execte
 protocol RcloneChanged: class {
     func rclonechanged()
