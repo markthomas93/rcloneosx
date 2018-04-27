@@ -22,7 +22,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
 
     var copyFiles: CopyFiles?
     var index: Int?
-    var rsync: Bool = false
+    var rclone: Bool = false
     var estimated: Bool = false
     private var tabledata: [String]?
 
@@ -63,7 +63,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
             return
         }
         if self.copyFiles != nil {
-            self.rsync = true
+            self.rclone = true
             self.workingRsync.startAnimation(nil)
             if self.estimated == false {
                 self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: true)
@@ -112,7 +112,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
         self.displayRemoteserver(index: nil)
         self.remoteCatalog.stringValue = ""
         self.selectButton.title = "Get source"
-        self.rsync = false
+        self.rclone = false
         self.copyButton.isEnabled = true
         self.error.isHidden = true
     }
@@ -174,7 +174,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
         if answer {
             self.copyButton.title = "Execute"
             self.copyButton.isEnabled = false
-            self.rsync = true
+            self.rclone = true
             self.workingRsync.startAnimation(nil)
             self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
         }
@@ -308,7 +308,7 @@ extension ViewControllerCopyFiles: StartStopProgressIndicator {
 
 extension ViewControllerCopyFiles: UpdateProgress {
     func processTermination() {
-        if self.rsync == false {
+        if self.rclone == false {
             self.copyFiles!.setRemoteFileList()
             self.reloadtabledata()
             self.stop()

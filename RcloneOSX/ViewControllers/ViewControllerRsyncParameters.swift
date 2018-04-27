@@ -12,8 +12,8 @@ import Foundation
 import Cocoa
 
 // protocol for returning if userparams is updated or not
-protocol RsyncUserParams: class {
-    func rsyncuserparamsupdated()
+protocol RcloneUserParams: class {
+    func rcloneuserparamsupdated()
 }
 
 // Protocol for sending selected index in tableView
@@ -26,9 +26,9 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
 
     var storageapi: PersistentStorageAPI?
     // Object for calculating rsync parameters
-    var parameters: RsyncParameters?
+    var parameters: RcloneParameters?
     // Delegate returning params updated or not
-    weak var userparamsupdatedDelegate: RsyncUserParams?
+    weak var userparamsupdatedDelegate: RcloneUserParams?
     // Reference to rsync parameters to use in combox
     var comboBoxValues = [String]()
 
@@ -70,7 +70,7 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
         var configurations: [Configuration] = self.configurations!.getConfigurations()
         if let index = self.index() {
             // Create RsyncParameters object and load initial parameters
-            self.parameters = RsyncParameters(config: configurations[index])
+            self.parameters = RcloneParameters(config: configurations[index])
             self.comboBoxValues = parameters!.getComboBoxValues()
             self.viewParameter1.stringValue = configurations[index].parameter1 ?? ""
             self.viewParameter2.stringValue = configurations[index].parameter2 ?? ""
@@ -123,7 +123,7 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
             // Update configuration in memory before saving
             self.configurations!.updateConfigurations(configurations[index], index: index)
             // notify an update
-            self.userparamsupdatedDelegate?.rsyncuserparamsupdated()
+            self.userparamsupdatedDelegate?.rcloneuserparamsupdated()
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }

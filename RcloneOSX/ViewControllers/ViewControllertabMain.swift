@@ -530,9 +530,9 @@ extension ViewControllertabMain: Reloadandrefresh {
 }
 
 // Parameters to rsync is changed
-extension ViewControllertabMain: RsyncUserParams {
+extension ViewControllertabMain: RcloneUserParams {
     // Do a reread of all Configurations
-    func rsyncuserparamsupdated() {
+    func rcloneuserparamsupdated() {
         self.setRsyncCommandDisplay()
     }
 }

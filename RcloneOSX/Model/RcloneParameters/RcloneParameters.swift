@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class RsyncParameters {
+final class RcloneParameters {
 
     // Tuple for rsync argument and value
     typealias Argument = (String, Int)
