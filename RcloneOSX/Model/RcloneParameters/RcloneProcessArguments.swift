@@ -88,7 +88,7 @@ class RcloneProcessArguments {
     /// - parameter dryRun: true if compute dryrun arguments, false if compute arguments for real run
     /// - paramater forDisplay: true if for display, false if not
     /// - returns: Array of Strings
-    func argumentsRsync(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
+    func argumentsRclone(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = config.localCatalog
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -123,7 +123,7 @@ class RcloneProcessArguments {
         return self.arguments!
     }
 
-    func argumentsRsynclistfile(_ config: Configuration) -> [String] {
+    func argumentsRclonelistfile(_ config: Configuration) -> [String] {
         self.localCatalog = nil
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
@@ -133,7 +133,7 @@ class RcloneProcessArguments {
         return self.arguments!
     }
 
-    func argumentsRsyncrestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
+    func argumentsRclonerestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool) -> [String] {
         self.localCatalog = nil
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer

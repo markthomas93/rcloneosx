@@ -236,11 +236,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var displayDryRun: NSButton!
     @IBOutlet weak var displayRealRun: NSButton!
     @IBAction func displayRsyncCommand(_ sender: NSButton) {
-        self.setRsyncCommandDisplay()
+        self.setRcloneCommandDisplay()
     }
 
     // Display correct rsync command in view
-    private func setRsyncCommandDisplay() {
+    private func setRcloneCommandDisplay() {
         if let index = self.index {
             guard index <= self.configurations!.getConfigurations().count else {
                 return
@@ -370,7 +370,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         localprofileinfo2 = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
         localprofileinfo?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         localprofileinfo2?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
-        self.setRsyncCommandDisplay()
+        self.setRcloneCommandDisplay()
     }
 
     // when row is selected
@@ -403,7 +403,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.batchtaskObject = nil
         self.setInfo(info: "Estimate", color: .blue)
         self.showProcessInfo(info: .blank)
-        self.setRsyncCommandDisplay()
+        self.setRcloneCommandDisplay()
         self.reloadtabledata()
         self.configurations!.allowNotifyinMain = true
     }
@@ -533,7 +533,7 @@ extension ViewControllertabMain: Reloadandrefresh {
 extension ViewControllertabMain: RcloneUserParams {
     // Do a reread of all Configurations
     func rcloneuserparamsupdated() {
-        self.setRsyncCommandDisplay()
+        self.setRcloneCommandDisplay()
     }
 }
 
@@ -588,8 +588,8 @@ extension ViewControllertabMain: RcloneChanged {
     // If row is selected an update rsync command in view
     func rclonechanged() {
         // Update rsync command in display
-        self.setRsyncCommandDisplay()
-        self.verifyrsync()
+        self.setRcloneCommandDisplay()
+        self.verifyrclone()
         // Setting shortstring
         self.rcloneversionshort.stringValue = ViewControllerReference.shared.rcloneversionshort ?? ""
     }
@@ -618,7 +618,7 @@ extension ViewControllertabMain: DismissViewController {
             self.displayProfile()
         })
         self.showProcessInfo(info: .blank)
-        self.verifyrsync()
+        self.verifyrclone()
         if viewcontroller == ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) {
             self.configurations!.allowNotifyinMain = true
         }
@@ -720,7 +720,7 @@ extension ViewControllertabMain: RsyncError {
         globalMainQueue.async(execute: { () -> Void in
             self.setInfo(info: "Error", color: .red)
             self.showProcessInfo(info: .error)
-            self.setRsyncCommandDisplay()
+            self.setRcloneCommandDisplay()
             self.deselect()
             // Abort any operations
             if let process = self.process {
@@ -961,8 +961,8 @@ extension ViewControllertabMain: GetSchedulesObject {
     }
 }
 
-extension ViewControllertabMain: Verifyrsync {
-    internal func verifyrsync() {
+extension ViewControllertabMain: Verifyrclone {
+    internal func verifyrclone() {
         if ViewControllerReference.shared.norclone == true {
             self.info(num: 3)
         } else {
@@ -1014,7 +1014,7 @@ extension ViewControllertabMain: NewProfile {
         self.outputprocess = nil
         self.outputbatch = nil
         self.singletask = nil
-        self.setRsyncCommandDisplay()
+        self.setRcloneCommandDisplay()
         self.setInfo(info: "Estimate", color: .blue)
         self.deselect()
         // Read configurations and Scheduledata

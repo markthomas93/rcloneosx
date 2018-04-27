@@ -13,7 +13,7 @@ final class RcloneParameters {
     // Tuple for rsync argument and value
     typealias Argument = (String, Int)
     // Static initial arguments, DO NOT change order
-    private let rsyncArguments: [Argument] = [
+    private let rcloneArguments: [Argument] = [
         ("user", 1),
         ("delete", 0),
         ("--bwlimit", 1),
@@ -42,25 +42,25 @@ final class RcloneParameters {
     /// - parameter value: the value of rsync parameter
     /// - return: array of String
     func getRcloneParameter (indexComboBox: Int, value: String?) -> String {
-        guard  indexComboBox < self.rsyncArguments.count && indexComboBox > -1 else {
+        guard  indexComboBox < self.rcloneArguments.count && indexComboBox > -1 else {
             return ""
         }
-        switch self.rsyncArguments[indexComboBox].1 {
+        switch self.rcloneArguments[indexComboBox].1 {
         case 0:
             // Predefined rsync argument from combobox
             // Must check if DELETE is selected
-            if self.rsyncArguments[indexComboBox].0 == self.rsyncArguments[1].0 {
+            if self.rcloneArguments[indexComboBox].0 == self.rcloneArguments[1].0 {
                 return ""
             } else {
-                return  self.rsyncArguments[indexComboBox].0
+                return  self.rcloneArguments[indexComboBox].0
             }
         case 1:
             // If value == nil value is deleted and return empty string
             guard value != nil else {
                 return ""
             }
-            if self.rsyncArguments[indexComboBox].0 != self.rsyncArguments[0].0 {
-                return self.rsyncArguments[indexComboBox].0 + "=" + value!
+            if self.rcloneArguments[indexComboBox].0 != self.rcloneArguments[0].0 {
+                return self.rcloneArguments[indexComboBox].0 + "=" + value!
             } else {
                 // Userselected argument and value
                 return value!
@@ -73,7 +73,7 @@ final class RcloneParameters {
     // Returns Int value of argument
     private func indexofrsyncparameter (_ argument: String) -> Int {
         var index: Int = -1
-        loop : for i in 0 ..< self.rsyncArguments.count where argument == self.rsyncArguments[i].0 {
+        loop : for i in 0 ..< self.rcloneArguments.count where argument == self.rcloneArguments[i].0 {
             index = i
             break loop
         }
@@ -96,7 +96,7 @@ final class RcloneParameters {
 
     /// Function returns index and value of rsync argument to set the corrospending
     /// value in combobox when rsync parameters are presented and stored in configuration
-    func indexandvaluersyncparameter(_ parameter: String?) -> (Int, String) {
+    func indexandvaluercloneparameter(_ parameter: String?) -> (Int, String) {
         guard parameter != nil else {
             return (0, "")
         }
@@ -146,19 +146,19 @@ final class RcloneParameters {
         }
         switch rcloneparameternumber {
         case 8:
-           indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter8)
+           indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter8)
         case 9:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter9)
+            indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter9)
         case 10:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter10)
+            indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter10)
         case 11:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter11)
+            indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter11)
         case 12:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter12)
+            indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter12)
         case 13:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter13)
+            indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter13)
         case 14:
-            indexandvalue = self.indexandvaluersyncparameter(self.config!.parameter14)
+            indexandvalue = self.indexandvaluercloneparameter(self.config!.parameter14)
         default:
             return (0, "")
         }
@@ -170,8 +170,8 @@ final class RcloneParameters {
         // Set string array for Comboboxes
         self.comboBoxValues = nil
         self.comboBoxValues = [String]()
-        for i in 0 ..< self.rsyncArguments.count {
-            self.comboBoxValues!.append(self.rsyncArguments[i].0)
+        for i in 0 ..< self.rcloneArguments.count {
+            self.comboBoxValues!.append(self.rcloneArguments[i].0)
         }
     }
 }

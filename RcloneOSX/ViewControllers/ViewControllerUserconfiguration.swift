@@ -108,24 +108,24 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         self.dirty = true
     }
 
-    private func verifyrsync() {
-        let rsyncpath: String?
+    private func verifyrclone() {
+        let rclonepath: String?
         let fileManager = FileManager.default
         if self.rclonePath.stringValue.isEmpty == false {
             if self.rclonePath.stringValue.hasSuffix("/") == false {
-                rsyncpath = self.rclonePath.stringValue + "/" + ViewControllerReference.shared.rclone
+                rclonepath = self.rclonePath.stringValue + "/" + ViewControllerReference.shared.rclone
             } else {
-                rsyncpath = self.rclonePath.stringValue + ViewControllerReference.shared.rclone
+                rclonepath = self.rclonePath.stringValue + ViewControllerReference.shared.rclone
             }
         } else {
-            rsyncpath = nil
+            rclonepath = nil
         }
-        guard rsyncpath != nil else {
+        guard rclonepath != nil else {
             self.noRclone.isHidden = true
             ViewControllerReference.shared.norclone = false
             return
         }
-        if fileManager.fileExists(atPath: rsyncpath!) {
+        if fileManager.fileExists(atPath: rclonepath!) {
             self.noRclone.isHidden = true
             ViewControllerReference.shared.norclone = false
         } else {
@@ -162,7 +162,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         super.viewDidAppear()
         self.dirty = false
         self.checkUserConfig()
-        self.verifyrsync()
+        self.verifyrclone()
         self.marknumberofdayssince.stringValue = String(ViewControllerReference.shared.marknumberofdayssince)
     }
 
@@ -197,7 +197,7 @@ extension ViewControllerUserconfiguration: NSTextFieldDelegate {
     override func controlTextDidChange(_ obj: Notification) {
         self.dirty = true
         delayWithSeconds(0.5) {
-            self.verifyrsync()
+            self.verifyrclone()
             self.newrclone()
         }
     }
