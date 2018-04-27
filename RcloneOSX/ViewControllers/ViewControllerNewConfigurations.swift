@@ -1,6 +1,5 @@
 //
 //  ViewControllerNew.swift
-//  Rsync
 //
 //  Created by Thomas Evensen on 13/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.

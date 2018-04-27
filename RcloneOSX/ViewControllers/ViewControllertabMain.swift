@@ -104,7 +104,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.reset()
         if self.index != nil {
             globalMainQueue.async(execute: { () -> Void in
-                self.presentViewControllerAsSheet(self.viewControllerRsyncParams!)
+                self.presentViewControllerAsSheet(self.viewControllerRcloneParams!)
             })
         } else {
             self.info(num: 1)

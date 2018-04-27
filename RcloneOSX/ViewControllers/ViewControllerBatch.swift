@@ -15,7 +15,7 @@ protocol getNewBatchTask: class {
     func getbatchtaskObject() -> BatchTask?
 }
 
-// Dismiss view when rsync error
+// Dismiss view when rclone error
 protocol CloseViewError: class {
     func closeerror()
 }

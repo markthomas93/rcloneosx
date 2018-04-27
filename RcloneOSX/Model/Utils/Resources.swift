@@ -19,8 +19,8 @@ enum ResourceType {
 
 struct Resources {
     // Resource strings
-    private var changelog: String = "https://rsyncosx.github.io/Documentation/docs/RcloneOSX/Changelog.html"
-    private var documents: String = "https://rsyncosx.github.io/rcloneosx/"
+    private var changelog: String = "https://rsyncosx.github.io/RcloneChangelog"
+    private var documents: String = "https://rsyncosx.github.io/RcloneIntro"
     private var urlPlist: String = "https://raw.githubusercontent.com/rsyncOSX/rcloneosx/master/versionRcloneOSX/versionRcloneOSX.plist"
     // Get the resource.
     func getResource (resource: ResourceType) -> String {
