@@ -562,7 +562,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="displayRsyncCommand:" target="egt-C3-u4G" id="UNZ-wQ-EDn"/>
+                                    <action selector="displayRcloneCommand:" target="egt-C3-u4G" id="bvZ-Px-ldw"/>
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="3DG-2b-5po">
@@ -572,7 +572,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="displayRsyncCommand:" target="egt-C3-u4G" id="Zlb-BH-82B"/>
+                                    <action selector="displayRcloneCommand:" target="egt-C3-u4G" id="weD-Bj-1VI"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jA8-9b-U5I">
@@ -640,7 +640,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="edit:" target="egt-C3-u4G" id="hEZ-hB-iXf"/>
+                                    <action selector="rcloneparams:" target="egt-C3-u4G" id="hEZ-hB-iXf"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hq4-Zn-A1K">
@@ -650,7 +650,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="rsyncparams:" target="egt-C3-u4G" id="uJQ-Wp-YwO"/>
+                                    <action selector="rcloneparams:" target="egt-C3-u4G" id="uJQ-Wp-YwO"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JJ3-k0-9od">
@@ -660,7 +660,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="delete:" target="egt-C3-u4G" id="8Rg-f6-I9m"/>
+                                    <action selector="rcloneparams:" target="egt-C3-u4G" id="8Rg-f6-I9m"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ihh-RL-unb">
@@ -744,8 +744,8 @@
                         <outlet property="mainTableView" destination="gd0-mk-eEg" id="V0X-hS-6qu"/>
                         <outlet property="processInfo" destination="KX4-b1-AYu" id="Knr-bH-exp"/>
                         <outlet property="profilInfo" destination="Gg2-se-FkF" id="XIe-l3-YkS"/>
+                        <outlet property="rcloneCommand" destination="7n8-es-jH6" id="bH0-3W-ECU"/>
                         <outlet property="rcloneversionshort" destination="jA8-9b-U5I" id="7cG-eg-57G"/>
-                        <outlet property="rsyncCommand" destination="7n8-es-jH6" id="bH0-3W-ECU"/>
                         <outlet property="scheduledJobworking" destination="2TV-7g-FdW" id="uOO-MQ-NFL"/>
                         <outlet property="totalNumber" destination="IFg-Xf-ODx" id="PEU-mH-vGF"/>
                         <outlet property="working" destination="Ks0-BU-fmE" id="TJq-su-mKx"/>

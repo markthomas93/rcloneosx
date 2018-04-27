@@ -41,7 +41,7 @@ class ViewControllerReference {
     var rcloneopt: Bool = true
     // Optional path to rclone
     var rclonePath: String?
-    // No valid rsyncPath - true if no valid rclone is found
+    // No valid rclonePath - true if no valid rclone is found
     var norclone: Bool = false
     // Detailed logging
     var detailedlogging: Bool = true

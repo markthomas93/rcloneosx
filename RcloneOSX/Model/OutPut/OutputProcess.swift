@@ -9,8 +9,8 @@
 
 import Foundation
 
-protocol RsyncError: class {
-    func rsyncerror()
+protocol RcloneError: class {
+    func rcloneerror()
 }
 
 enum Trim {
@@ -77,7 +77,7 @@ final class OutputProcess {
                 let error = self.output![i].contains("ERROR")
                 if error {
                     self.errorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                    self.errorDelegate?.rsyncerror()
+                    self.errorDelegate?.rcloneerror()
                 }
             }
             self.endIndex = out.count
