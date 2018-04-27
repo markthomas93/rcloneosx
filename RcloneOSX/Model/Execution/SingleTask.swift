@@ -46,7 +46,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
     var process: Process?
     // Index to selected row, index is set when row is selected
     private var index: Int?
-    // Getting output from rsync
+    // Getting output from rclone
     var outputprocess: OutputProcess?
     // Holding max count
     private var maxcount: Int = 0

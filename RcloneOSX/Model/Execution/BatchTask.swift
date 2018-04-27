@@ -35,7 +35,7 @@ final class BatchTask: SetSchedules, SetConfigurations, Delay {
     weak var taskDelegate: SingleTaskProgress?
     // Reference to Process task
     var process: Process?
-    // Getting output from rsync
+    // Getting output from rclone
     var outputprocess: OutputProcess?
     // Getting output from batchrun
     private var outputbatch: OutputBatch?
@@ -55,7 +55,7 @@ final class BatchTask: SetSchedules, SetConfigurations, Delay {
             let work = batchobject.nextBatchCopy()
             // Get the index if given hiddenID (in work.0)
             let index: Int = self.configurations!.getIndex(work.0)
-            // Create the output object for rsync
+            // Create the output object for rclone
             self.outputprocess = nil
             self.outputprocess = OutputProcess()
             switch work.1 {

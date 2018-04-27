@@ -31,7 +31,7 @@ class ProcessCmd: Delay {
     weak var updateDelegate: UpdateProgress?
     // Observer
     weak var notifications: NSObjectProtocol?
-    // Command to be executed, normally rsync
+    // Command to be executed, normally rclone
     var command: String?
     // Arguments to command
     var arguments: [String]?
@@ -43,9 +43,6 @@ class ProcessCmd: Delay {
     func executeProcess (outputprocess: OutputProcess?) {
         // Process
         let task = Process()
-        // Setting the correct path for rsync
-        // If self.command != nil other command than rsync to be executed
-        // Other commands are either ssh or scp (from CopyFiles)
         if let command = self.command {
             task.launchPath = command
         } else {

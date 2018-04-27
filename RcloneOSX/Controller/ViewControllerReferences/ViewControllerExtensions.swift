@@ -95,7 +95,7 @@ extension VcMain {
     // Rclone userparams
     // self.presentViewControllerAsSheet(self.viewControllerRcloneParams)
     var viewControllerRcloneParams: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRsyncParamsID"))
+        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRcloneParamsID"))
             as? NSViewController)!
     }
 
