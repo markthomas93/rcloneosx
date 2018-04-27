@@ -1,6 +1,6 @@
 //
 //  ViewControllerReference.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 05.09.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  ViewControllertabMain.swift
-//  RsyncOSXver30
+//  rcloneOSXver30
 //  The Main ViewController.
 //
 //  Created by Thomas Evensen on 19/08/2016.

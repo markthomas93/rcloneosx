@@ -80,7 +80,7 @@ class RcloneProcessArguments {
         }
     }
 
-    /// Function for initialize arguments array. RsyncOSX computes four argumentstrings
+    /// Function for initialize arguments array. rcloneOSX computes four argumentstrings
     /// two arguments for dryrun, one for rsync and one for display
     /// two arguments for realrun, one for rsync and one for display
     /// which argument to compute is set in parameter to function

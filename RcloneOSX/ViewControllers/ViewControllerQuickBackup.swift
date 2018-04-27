@@ -1,6 +1,6 @@
 //
 //  ViewControllerQuickBackup.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 22.12.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.

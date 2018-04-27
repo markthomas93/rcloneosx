@@ -1,6 +1,6 @@
 //
 //  scpNSTaskArguments.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 27/06/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.

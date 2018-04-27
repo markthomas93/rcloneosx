@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Read user configuration
         storage = PersistentStorageAPI(profile: nil)
         if let userConfiguration =  storage?.getUserconfiguration(readfromstorage: true) {
-            _ = Userconfiguration(userconfigRsyncOSX: userConfiguration)
+            _ = Userconfiguration(userconfigrcloneOSX: userConfiguration)
         }
     }
 

@@ -1,6 +1,6 @@
 //
 //  Batchoutput.swift
-//  RsyncOSX
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 12.03.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.

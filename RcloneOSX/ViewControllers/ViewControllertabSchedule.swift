@@ -1,6 +1,6 @@
 //
 //  ViewControllertabSchedule.swift
-//  RsyncOSXver30
+//  rcloneOSXver30
 //
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
