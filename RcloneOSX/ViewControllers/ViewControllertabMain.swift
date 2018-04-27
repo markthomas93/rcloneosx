@@ -64,7 +64,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private var process: Process?
     // Index to selected row, index is set when row is selected
     private var index: Int?
-    // Getting output from rsync 
+    // Getting output from rclone
     private var outputprocess: OutputProcess?
     // Getting output from batchrun
     private var outputbatch: OutputBatch?
@@ -100,7 +100,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         }
     }
 
-    @IBAction func rsyncparams(_ sender: NSButton) {
+    @IBAction func rcloneparams(_ sender: NSButton) {
         self.reset()
         if self.index != nil {
             globalMainQueue.async(execute: { () -> Void in
@@ -231,15 +231,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         })
     }
 
-    // Function for display rsync command
+    // Function for display rclone command
     // Either --dry-run or real run
     @IBOutlet weak var displayDryRun: NSButton!
     @IBOutlet weak var displayRealRun: NSButton!
-    @IBAction func displayRsyncCommand(_ sender: NSButton) {
+    @IBAction func displayRcloneCommand(_ sender: NSButton) {
         self.setRcloneCommandDisplay()
     }
 
-    // Display correct rsync command in view
+    // Display correct rclone command in view
     private func setRcloneCommandDisplay() {
         if let index = self.index {
             guard index <= self.configurations!.getConfigurations().count else {
@@ -505,9 +505,9 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
     }
 }
 
-// Get output from rsync command
+// Get output from rclone command
 extension ViewControllertabMain: Information {
-    // Get information from rsync output.
+    // Get information from rclone output.
     func getInformation() -> [String] {
         if self.outputbatch != nil {
             return self.outputbatch!.getOutput()
@@ -529,7 +529,7 @@ extension ViewControllertabMain: Reloadandrefresh {
     }
 }
 
-// Parameters to rsync is changed
+// Parameters to rclone is changed
 extension ViewControllertabMain: RcloneUserParams {
     // Do a reread of all Configurations
     func rcloneuserparamsupdated() {
@@ -583,11 +583,11 @@ extension ViewControllertabMain: ScheduledTaskWorking {
     }
 }
 
-// Rsync path is changed, update displayed rsync command
+// rclone path is changed, update displayed rclone command
 extension ViewControllertabMain: RcloneChanged {
-    // If row is selected an update rsync command in view
+    // If row is selected an update rclone command in view
     func rclonechanged() {
-        // Update rsync command in display
+        // Update rclone command in display
         self.setRcloneCommandDisplay()
         self.verifyrclone()
         // Setting shortstring
@@ -627,7 +627,7 @@ extension ViewControllertabMain: DismissViewController {
 
 // Called when either a terminatopn of Process is
 // discovered or data is availiable in the filehandler
-// See file rsyncProcess.swift.
+// See file rcloneProcess.swift.
 extension ViewControllertabMain: UpdateProgress {
     // Delegate functions called from the Process object
     // Protocol UpdateProgress two functions, ProcessTermination() and FileHandler()
@@ -713,7 +713,7 @@ extension ViewControllertabMain: DeselectRowTable {
     }
 }
 
-// If rsync throws any error
+// If rclone throws any error
 extension ViewControllertabMain: RcloneError {
     func rcloneerror() {
         // Set on or off in user configuration
