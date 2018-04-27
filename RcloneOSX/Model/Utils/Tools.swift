@@ -69,14 +69,14 @@ final class Tools: SetConfigurations {
         return dateformatter
     }
 
-    // Function to verify full rsyncpath
+    // Function to verify full rclonepath
     func verifyrclonepath() {
         let fileManager = FileManager.default
         let path: String?
         // If not in /usr/bin or /usr/local/bin
-        // rsyncPath is set if none of the above
-        if let rsyncPath = ViewControllerReference.shared.rclonePath {
-            path = rsyncPath + ViewControllerReference.shared.rclone
+        // rclonePath is set if none of the above
+        if let rclonePath = ViewControllerReference.shared.rclonePath {
+            path = rclonePath + ViewControllerReference.shared.rclone
         } else if ViewControllerReference.shared.rcloneopt {
             path = "/usr/local/bin/" + ViewControllerReference.shared.rclone
         } else {
@@ -118,10 +118,10 @@ final class Tools: SetConfigurations {
         return str!
     }
 
-    /// Function returns the correct path for rsync
+    /// Function returns the correct path for rclone
     /// according to configuration set by user or
     /// default value.
-    /// - returns : full path of rsync command
+    /// - returns : full path of rclone command
     func rclonepath() -> String {
         if ViewControllerReference.shared.rcloneopt {
             if ViewControllerReference.shared.rclonePath == nil {
@@ -134,9 +134,9 @@ final class Tools: SetConfigurations {
         }
     }
 
-    func noclone() {
-        if let rsync = ViewControllerReference.shared.rclonePath {
-            Alerts.showInfo("ERROR: no rclone in " + rsync)
+    func norclone() {
+        if let rclone = ViewControllerReference.shared.rclonePath {
+            Alerts.showInfo("ERROR: no rclone in " + rclone)
         } else {
             Alerts.showInfo("ERROR: no rclone in /usr/local/bin")
         }

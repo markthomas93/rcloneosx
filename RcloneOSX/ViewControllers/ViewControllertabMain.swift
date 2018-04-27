@@ -318,7 +318,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.noclone()
+            self.tools!.norclone()
             return
         }
         guard self.index != nil else {
@@ -344,7 +344,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.noclone()
+            self.tools!.norclone()
             return
         }
         self.singletask = nil

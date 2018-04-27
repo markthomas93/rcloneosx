@@ -12,7 +12,7 @@ import Foundation
 // Reading userconfiguration from file into rcloneOSX
 final class Userconfiguration {
 
-    weak var rsyncchangedDelegate: RcloneChanged?
+    weak var rclonechangedDelegate: RcloneChanged?
 
     private func readUserconfiguration(dict: NSDictionary) {
         // Detailed logging
@@ -24,8 +24,8 @@ final class Userconfiguration {
             }
         }
         // Optional path for rsync
-        if let rsyncPath = dict.value(forKey: "rsyncPath") as? String {
-            ViewControllerReference.shared.rclonePath = rsyncPath
+        if let rclonePath = dict.value(forKey: "rsyncPath") as? String {
+            ViewControllerReference.shared.rclonePath = rclonePath
         }
         // Temporary path for restores single files or directory
         if let restorePath = dict.value(forKey: "restorePath") as? String {
@@ -64,8 +64,8 @@ final class Userconfiguration {
             self.readUserconfiguration(dict: userconfigrcloneOSX[0])
         }
         // If userconfiguration is read from disk update info in main view
-        self.rsyncchangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.rsyncchangedDelegate?.rclonechanged()
+        self.rclonechangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        self.rclonechangedDelegate?.rclonechanged()
         // Check for rsync
         Tools().verifyrclonepath()
         _ = RcloneVersionString()
