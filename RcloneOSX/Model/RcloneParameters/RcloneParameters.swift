@@ -1,6 +1,6 @@
 //
-//  RsyncParameters.swift
-//  RsyncOSX
+//  rcloneParameters.swift
+//  rcloneOSX
 //
 //  Created by Thomas Evensen on 03/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 
 final class RcloneParameters {
 
-    // Tuple for rsync argument and value
+    // Tuple for rclone argument and value
     typealias Argument = (String, Int)
     // Static initial arguments, DO NOT change order
     private let rcloneArguments: [Argument] = [
@@ -29,17 +29,17 @@ final class RcloneParameters {
     // Reference to config
     private var config: Configuration?
 
-    /// Function for getting for rsync arguments to use in ComboBoxes in ViewControllerRsyncParameters
+    /// Function for getting for rclone arguments to use in ComboBoxes in ViewControllerrcloneParameters
     /// - parameter none: none
     /// - return : array of String
     func getComboBoxValues() -> [String] {
         return self.comboBoxValues ?? [""]
     }
 
-    // Computes the raw argument for rsync to save in configuration
-    /// Function for computing the raw argument for rsync to save in configuration
+    // Computes the raw argument for rclone to save in configuration
+    /// Function for computing the raw argument for rclone to save in configuration
     /// - parameter indexComboBox: index of selected ComboBox
-    /// - parameter value: the value of rsync parameter
+    /// - parameter value: the value of rclone parameter
     /// - return: array of String
     func getRcloneParameter (indexComboBox: Int, value: String?) -> String {
         guard  indexComboBox < self.rcloneArguments.count && indexComboBox > -1 else {
@@ -47,7 +47,7 @@ final class RcloneParameters {
         }
         switch self.rcloneArguments[indexComboBox].1 {
         case 0:
-            // Predefined rsync argument from combobox
+            // Predefined rclone argument from combobox
             // Must check if DELETE is selected
             if self.rcloneArguments[indexComboBox].0 == self.rcloneArguments[1].0 {
                 return ""
@@ -71,7 +71,7 @@ final class RcloneParameters {
     }
 
     // Returns Int value of argument
-    private func indexofrsyncparameter (_ argument: String) -> Int {
+    private func indexofrcloneparameter (_ argument: String) -> Int {
         var index: Int = -1
         loop : for i in 0 ..< self.rcloneArguments.count where argument == self.rcloneArguments[i].0 {
             index = i
@@ -80,7 +80,7 @@ final class RcloneParameters {
         return index
     }
 
-    // Split an Rsync argument into argument and value
+    // Split an rclone argument into argument and value
     private func split (_ str: String) -> [String] {
         let argument: String?
         let value: String?
@@ -94,8 +94,8 @@ final class RcloneParameters {
         return [argument!, value!]
     }
 
-    /// Function returns index and value of rsync argument to set the corrospending
-    /// value in combobox when rsync parameters are presented and stored in configuration
+    /// Function returns index and value of rclone argument to set the corrospending
+    /// value in combobox when rclone parameters are presented and stored in configuration
     func indexandvaluercloneparameter(_ parameter: String?) -> (Int, String) {
         guard parameter != nil else {
             return (0, "")
@@ -109,11 +109,11 @@ final class RcloneParameters {
         var returnvalue: String?
         var returnindex: Int?
 
-        if argument != value && self.indexofrsyncparameter(argument) >= 0 {
+        if argument != value && self.indexofrcloneparameter(argument) >= 0 {
             returnvalue = value
-            returnindex =  self.indexofrsyncparameter(argument)
+            returnindex =  self.indexofrcloneparameter(argument)
         } else {
-            if self.indexofrsyncparameter(splitstr[0]) >= 0 {
+            if self.indexofrcloneparameter(splitstr[0]) >= 0 {
                 returnvalue = "\"" + argument + "\" " + "no arguments"
             } else {
                 if argument == value {
@@ -122,11 +122,11 @@ final class RcloneParameters {
                     returnvalue = argument + "=" + value
                 }
             }
-            if argument != value && self.indexofrsyncparameter(argument) >= 0 {
-                returnindex =  self.indexofrsyncparameter(argument)
+            if argument != value && self.indexofrcloneparameter(argument) >= 0 {
+                returnindex =  self.indexofrcloneparameter(argument)
             } else {
-                if self.indexofrsyncparameter(splitstr[0]) >= 0 {
-                    returnindex = self.indexofrsyncparameter(argument)
+                if self.indexofrcloneparameter(splitstr[0]) >= 0 {
+                    returnindex = self.indexofrcloneparameter(argument)
                 } else {
                     returnindex = 0
                 }
@@ -135,10 +135,10 @@ final class RcloneParameters {
         return (returnindex!, returnvalue!)
     }
 
-    /// Function returns value of rsync a touple to set the corrosponding
-    /// value in combobox and the corrosponding rsync value when rsync parameters are presented
-    /// - parameter rsyncparameternumber : which stored rsync parameter, integer 8 - 14
-    /// - returns : touple with index for combobox and corresponding rsync value
+    /// Function returns value of rclone a touple to set the corrosponding
+    /// value in combobox and the corrosponding rclone value when rclone parameters are presented
+    /// - parameter rcloneparameternumber : which stored rclone parameter, integer 8 - 14
+    /// - returns : touple with index for combobox and corresponding rclone value
     func getParameter (rcloneparameternumber: Int) -> (Int, String) {
         var indexandvalue: (Int, String)?
         guard self.config != nil else {
