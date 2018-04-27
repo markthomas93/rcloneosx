@@ -333,21 +333,21 @@ extension GetInformation {
 }
 // Protocol for doing updates when optional path for rsync is changed
 // or user enable or disable doubleclick to execte
-protocol RsyncChanged: class {
-    func rsyncchanged()
+protocol RcloneChanged: class {
+    func rclonechanged()
 }
 
-protocol NewRsync {
-    var newRsyncDelegate: RsyncChanged? {get}
+protocol NewRclone {
+    var newRcloneDelegate: RcloneChanged? {get}
 }
 
-extension NewRsync {
-    weak var newRsyncDelegate: RsyncChanged? {
+extension NewRclone {
+    weak var newRcloneDelegate: RcloneChanged? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 
-    func newrsync() {
-        self.newRsyncDelegate?.rsyncchanged()
+    func newrclone() {
+        self.newRcloneDelegate?.rclonechanged()
     }
 }
 

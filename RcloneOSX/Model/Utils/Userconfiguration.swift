@@ -12,7 +12,7 @@ import Foundation
 // Reading userconfiguration from file into RsyncOSX
 final class Userconfiguration {
 
-    weak var rsyncchangedDelegate: RsyncChanged?
+    weak var rsyncchangedDelegate: RcloneChanged?
 
     private func readUserconfiguration(dict: NSDictionary) {
         // Detailed logging
@@ -65,7 +65,7 @@ final class Userconfiguration {
         }
         // If userconfiguration is read from disk update info in main view
         self.rsyncchangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.rsyncchangedDelegate?.rsyncchanged()
+        self.rsyncchangedDelegate?.rclonechanged()
         // Check for rsync
         Tools().verifyrclonepath()
         _ = RcloneVersionString()

@@ -13,7 +13,7 @@ import Cocoa
 protocol OperationChanged: class {
     func operationsmethod()
 }
-class ViewControllerUserconfiguration: NSViewController, NewRsync, SetDismisser, Delay {
+class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay {
 
     var storageapi: PersistentStorageAPI?
     var dirty: Bool = false
@@ -198,7 +198,7 @@ extension ViewControllerUserconfiguration: NSTextFieldDelegate {
         self.dirty = true
         delayWithSeconds(0.5) {
             self.verifyrsync()
-            self.newrsync()
+            self.newrclone()
         }
     }
 }
