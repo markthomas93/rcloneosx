@@ -22,9 +22,9 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false
 
-    @IBOutlet weak var rsyncPath: NSTextField!
+    @IBOutlet weak var rclonePath: NSTextField!
     @IBOutlet weak var detailedlogging: NSButton!
-    @IBOutlet weak var noRsync: NSTextField!
+    @IBOutlet weak var noRclone: NSTextField!
     @IBOutlet weak var operation: NSButton!
     @IBOutlet weak var restorePath: NSTextField!
     @IBOutlet weak var minimumlogging: NSButton!
@@ -44,7 +44,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
     @IBAction func close(_ sender: NSButton) {
         if self.dirty {
             // Before closing save changed configuration
-            self.setRsyncPath()
+            self.setRclonePath()
             self.setRestorePath()
             self.setmarknumberofdayssince()
             _ = self.storageapi!.saveUserconfiguration()
@@ -96,11 +96,11 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         }
     }
 
-    private func setRsyncPath() {
-        if self.rsyncPath.stringValue.isEmpty == false {
-            if rsyncPath.stringValue.hasSuffix("/") == false {
-                rsyncPath.stringValue += "/"
-                ViewControllerReference.shared.rclonePath = rsyncPath.stringValue
+    private func setRclonePath() {
+        if self.rclonePath.stringValue.isEmpty == false {
+            if rclonePath.stringValue.hasSuffix("/") == false {
+                rclonePath.stringValue += "/"
+                ViewControllerReference.shared.rclonePath = rclonePath.stringValue
             }
         } else {
             ViewControllerReference.shared.rclonePath = nil
@@ -111,25 +111,25 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
     private func verifyrsync() {
         let rsyncpath: String?
         let fileManager = FileManager.default
-        if self.rsyncPath.stringValue.isEmpty == false {
-            if self.rsyncPath.stringValue.hasSuffix("/") == false {
-                rsyncpath = self.rsyncPath.stringValue + "/" + ViewControllerReference.shared.rclone
+        if self.rclonePath.stringValue.isEmpty == false {
+            if self.rclonePath.stringValue.hasSuffix("/") == false {
+                rsyncpath = self.rclonePath.stringValue + "/" + ViewControllerReference.shared.rclone
             } else {
-                rsyncpath = self.rsyncPath.stringValue + ViewControllerReference.shared.rclone
+                rsyncpath = self.rclonePath.stringValue + ViewControllerReference.shared.rclone
             }
         } else {
             rsyncpath = nil
         }
         guard rsyncpath != nil else {
-            self.noRsync.isHidden = true
+            self.noRclone.isHidden = true
             ViewControllerReference.shared.norclone = false
             return
         }
         if fileManager.fileExists(atPath: rsyncpath!) {
-            self.noRsync.isHidden = true
+            self.noRclone.isHidden = true
             ViewControllerReference.shared.norclone = false
         } else {
-            self.noRsync.isHidden = false
+            self.noRclone.isHidden = false
             ViewControllerReference.shared.norclone = true
         }
     }
@@ -150,7 +150,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.rsyncPath.delegate = self
+        self.rclonePath.delegate = self
         self.restorePath.delegate = self
         self.marknumberofdayssince.delegate = self
         self.storageapi = PersistentStorageAPI(profile: nil)
@@ -174,9 +174,9 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             self.detailedlogging.state = .off
         }
         if ViewControllerReference.shared.rclonePath != nil {
-            self.rsyncPath.stringValue = ViewControllerReference.shared.rclonePath!
+            self.rclonePath.stringValue = ViewControllerReference.shared.rclonePath!
         } else {
-            self.rsyncPath.stringValue = ""
+            self.rclonePath.stringValue = ""
         }
         if ViewControllerReference.shared.restorePath != nil {
             self.restorePath.stringValue = ViewControllerReference.shared.restorePath!

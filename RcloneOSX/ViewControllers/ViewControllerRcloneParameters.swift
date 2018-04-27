@@ -1,7 +1,7 @@
 //
-//  ViewControllerRsyncParameters.swift
-//  Rsync
-//  The ViewController for rsync parameters.
+//  ViewControllerRcloneParameters.swift
+//
+//  The ViewController for rclone parameters.
 //
 //  Created by Thomas Evensen on 13/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
@@ -25,11 +25,11 @@ protocol GetSelecetedIndex: class {
 class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDismisser, GetIndex {
 
     var storageapi: PersistentStorageAPI?
-    // Object for calculating rsync parameters
+    // Object for calculating rclone parameters
     var parameters: RcloneParameters?
     // Delegate returning params updated or not
     weak var userparamsupdatedDelegate: RcloneUserParams?
-    // Reference to rsync parameters to use in combox
+    // Reference to rclone parameters to use in combox
     var comboBoxValues = [String]()
 
     @IBOutlet weak var viewParameter1: NSTextField!
@@ -69,12 +69,12 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
         }
         var configurations: [Configuration] = self.configurations!.getConfigurations()
         if let index = self.index() {
-            // Create RsyncParameters object and load initial parameters
+            // Create RcloneParameters object and load initial parameters
             self.parameters = RcloneParameters(config: configurations[index])
             self.comboBoxValues = parameters!.getComboBoxValues()
             self.viewParameter1.stringValue = configurations[index].parameter1 ?? ""
             self.viewParameter2.stringValue = configurations[index].parameter2 ?? ""
-            // There are seven user seleected rsync parameters
+            // There are seven user seleected rclone parameters
             self.setValueComboBox(combobox: self.parameter8, index: self.parameters!.getParameter(rcloneparameternumber: 8).0)
             self.viewParameter8.stringValue = self.parameters!.getParameter(rcloneparameternumber: 8).1
             self.setValueComboBox(combobox: self.parameter9, index: self.parameters!.getParameter(rcloneparameternumber: 9).0)
@@ -137,7 +137,7 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
         combobox.selectItem(at: index)
     }
 
-    // Returns nil or value from stringvalue (rsync parameters)
+    // Returns nil or value from stringvalue (rclone parameters)
     private func getValue(value: String) -> String? {
         if value.isEmpty {
             return nil

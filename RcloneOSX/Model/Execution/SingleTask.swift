@@ -79,7 +79,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 // Start animation and show process info
                 self.indicatorDelegate?.startIndicator()
                 self.taskDelegate?.showProcessInfo(info: .estimating)
-                arguments = self.configurations!.arguments4rsync(index: index, argtype: .argdryRun)
+                arguments = self.configurations!.arguments4rclone(index: index, argtype: .argdryRun)
                 let process = Rsync(arguments: arguments)
                 self.outputprocess = OutputProcess()
                 process.executeProcess(outputprocess: self.outputprocess)
@@ -92,7 +92,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
             if let index = self.index {
                 // Show progress view
                 self.taskDelegate?.presentViewProgress()
-                arguments = self.configurations!.arguments4rsync(index: index, argtype: .arg)
+                arguments = self.configurations!.arguments4rclone(index: index, argtype: .arg)
                 self.outputprocess = OutputProcess()
                 let process = Rsync(arguments: arguments)
                 process.executeProcess(outputprocess: self.outputprocess)

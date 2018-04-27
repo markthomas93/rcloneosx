@@ -50,8 +50,8 @@ final class Checkfornewversion {
         })
     }
 
-    // Return version of RsyncOSX
-    func rsyncOSXversion() -> String? {
+    // Return version of RcloneOSX
+    func rcloneOSXversion() -> String? {
         return self.runningVersion
     }
 
