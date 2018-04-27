@@ -22,7 +22,7 @@ protocol GetSelecetedIndex: class {
     func getindex() -> Int?
 }
 
-class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDismisser, GetIndex {
+class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDismisser, GetIndex {
 
     var storageapi: PersistentStorageAPI?
     // Object for calculating rsync parameters
@@ -75,20 +75,20 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
             self.viewParameter1.stringValue = configurations[index].parameter1 ?? ""
             self.viewParameter2.stringValue = configurations[index].parameter2 ?? ""
             // There are seven user seleected rsync parameters
-            self.setValueComboBox(combobox: self.parameter8, index: self.parameters!.getParameter(rsyncparameternumber: 8).0)
-            self.viewParameter8.stringValue = self.parameters!.getParameter(rsyncparameternumber: 8).1
-            self.setValueComboBox(combobox: self.parameter9, index: self.parameters!.getParameter(rsyncparameternumber: 9).0)
-            self.viewParameter9.stringValue = self.parameters!.getParameter(rsyncparameternumber: 9).1
-            self.setValueComboBox(combobox: self.parameter10, index: self.parameters!.getParameter(rsyncparameternumber: 10).0)
-            self.viewParameter10.stringValue = self.parameters!.getParameter(rsyncparameternumber: 10).1
-            self.setValueComboBox(combobox: self.parameter11, index: self.parameters!.getParameter(rsyncparameternumber: 11).0)
-            self.viewParameter11.stringValue = self.parameters!.getParameter(rsyncparameternumber: 11).1
-            self.setValueComboBox(combobox: self.parameter12, index: self.parameters!.getParameter(rsyncparameternumber: 12).0)
-            self.viewParameter12.stringValue = self.parameters!.getParameter(rsyncparameternumber: 12).1
-            self.setValueComboBox(combobox: self.parameter13, index: self.parameters!.getParameter(rsyncparameternumber: 13).0)
-            self.viewParameter13.stringValue = self.parameters!.getParameter(rsyncparameternumber: 13).1
-            self.setValueComboBox(combobox: self.parameter14, index: self.parameters!.getParameter(rsyncparameternumber: 14).0)
-            self.viewParameter14.stringValue = self.parameters!.getParameter(rsyncparameternumber: 14).1
+            self.setValueComboBox(combobox: self.parameter8, index: self.parameters!.getParameter(rcloneparameternumber: 8).0)
+            self.viewParameter8.stringValue = self.parameters!.getParameter(rcloneparameternumber: 8).1
+            self.setValueComboBox(combobox: self.parameter9, index: self.parameters!.getParameter(rcloneparameternumber: 9).0)
+            self.viewParameter9.stringValue = self.parameters!.getParameter(rcloneparameternumber: 9).1
+            self.setValueComboBox(combobox: self.parameter10, index: self.parameters!.getParameter(rcloneparameternumber: 10).0)
+            self.viewParameter10.stringValue = self.parameters!.getParameter(rcloneparameternumber: 10).1
+            self.setValueComboBox(combobox: self.parameter11, index: self.parameters!.getParameter(rcloneparameternumber: 11).0)
+            self.viewParameter11.stringValue = self.parameters!.getParameter(rcloneparameternumber: 11).1
+            self.setValueComboBox(combobox: self.parameter12, index: self.parameters!.getParameter(rcloneparameternumber: 12).0)
+            self.viewParameter12.stringValue = self.parameters!.getParameter(rcloneparameternumber: 12).1
+            self.setValueComboBox(combobox: self.parameter13, index: self.parameters!.getParameter(rcloneparameternumber: 13).0)
+            self.viewParameter13.stringValue = self.parameters!.getParameter(rcloneparameternumber: 13).1
+            self.setValueComboBox(combobox: self.parameter14, index: self.parameters!.getParameter(rcloneparameternumber: 14).0)
+            self.viewParameter14.stringValue = self.parameters!.getParameter(rcloneparameternumber: 14).1
 
         }
     }
@@ -106,19 +106,19 @@ class ViewControllerRsyncParameters: NSViewController, SetConfigurations, SetDis
         }
         // Get the index of selected configuration
         if let index = self.index() {
-            configurations[index].parameter8 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter8 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter8.indexOfSelectedItem, value: getValue(value: self.viewParameter8.stringValue))
-            configurations[index].parameter9 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter9 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter9.indexOfSelectedItem, value: getValue(value: self.viewParameter9.stringValue))
-            configurations[index].parameter10 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter10 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter10.indexOfSelectedItem, value: getValue(value: self.viewParameter10.stringValue))
-            configurations[index].parameter11 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter11 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter11.indexOfSelectedItem, value: getValue(value: self.viewParameter11.stringValue))
-            configurations[index].parameter12 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter12 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter12.indexOfSelectedItem, value: getValue(value: self.viewParameter12.stringValue))
-            configurations[index].parameter13 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter13 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter13.indexOfSelectedItem, value: getValue(value: self.viewParameter13.stringValue))
-            configurations[index].parameter14 = self.parameters!.getRsyncParameter(indexComboBox:
+            configurations[index].parameter14 = self.parameters!.getRcloneParameter(indexComboBox:
                 self.parameter14.indexOfSelectedItem, value: getValue(value: self.viewParameter14.stringValue))
             // Update configuration in memory before saving
             self.configurations!.updateConfigurations(configurations[index], index: index)

@@ -1991,7 +1991,7 @@ DQ
         <!--RcloneOSX parameters-->
         <scene sceneID="lYn-Uy-8Sa">
             <objects>
-                <viewController title="RcloneOSX parameters" storyboardIdentifier="StoryboardRsyncParamsID" id="K9c-yf-VMY" customClass="ViewControllerRsyncParameters" customModule="rcloneosx" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="RcloneOSX parameters" storyboardIdentifier="StoryboardRsyncParamsID" id="K9c-yf-VMY" customClass="ViewControllerRcloneParameters" customModule="rcloneosx" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gfp-a1-tlg">
                         <rect key="frame" x="0.0" y="0.0" width="706" height="266"/>
                         <autoresizingMask key="autoresizingMask"/>
