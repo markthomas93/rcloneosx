@@ -1,5 +1,5 @@
 //
-//  RsyncCopyFiles.swift
+//  CommandCopyFiles.swift
 //  rcloneOSX
 //
 //  Created by Thomas Evensen on 10.03.2017.

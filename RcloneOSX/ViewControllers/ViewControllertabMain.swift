@@ -42,8 +42,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Progressbar indicating work
     @IBOutlet weak var working: NSProgressIndicator!
     @IBOutlet weak var estimating: NSTextField!
-    // Displays the rsyncCommand
-    @IBOutlet weak var rsyncCommand: NSTextField!
+    // Displays the rcloneCommand
+    @IBOutlet weak var rcloneCommand: NSTextField!
     // If On result of Dryrun is presented before
     // executing the real run
     @IBOutlet weak var dryRunOrRealRun: NSTextField!
@@ -246,12 +246,12 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 return
             }
             if self.displayDryRun.state == .on {
-                self.rsyncCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: true)
+                self.rcloneCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: true)
             } else {
-                self.rsyncCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: false)
+                self.rcloneCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: false)
             }
         } else {
-            self.rsyncCommand.stringValue = ""
+            self.rcloneCommand.stringValue = ""
         }
     }
 
@@ -714,8 +714,8 @@ extension ViewControllertabMain: DeselectRowTable {
 }
 
 // If rsync throws any error
-extension ViewControllertabMain: RsyncError {
-    func rsyncerror() {
+extension ViewControllertabMain: RcloneError {
+    func rcloneerror() {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
             self.setInfo(info: "Error", color: .red)
@@ -743,11 +743,11 @@ extension ViewControllertabMain: Fileerror {
     func errormessage(errorstr: String, errortype: Fileerrortype ) {
         globalMainQueue.async(execute: { () -> Void in
             if errortype == .openlogfile {
-                self.rsyncCommand.stringValue = self.errordescription(errortype: errortype)
+                self.rcloneCommand.stringValue = self.errordescription(errortype: errortype)
             } else {
                 self.setInfo(info: "Error", color: .red)
                 self.showProcessInfo(info: .error)
-                self.rsyncCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
+                self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
         })
     }
@@ -766,10 +766,10 @@ extension ViewControllertabMain: AbortOperations {
             self.process = nil
             // Create workqueu and add abort
             self.setInfo(info: "Abort", color: .red)
-            self.rsyncCommand.stringValue = ""
+            self.rcloneCommand.stringValue = ""
         } else {
             self.working.stopAnimation(nil)
-            self.rsyncCommand.stringValue = "Selection out of range - aborting"
+            self.rcloneCommand.stringValue = "Selection out of range - aborting"
             self.process = nil
             self.index = nil
         }

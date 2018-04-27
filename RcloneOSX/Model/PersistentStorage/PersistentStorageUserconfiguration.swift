@@ -21,16 +21,16 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
 
     // Saving user configuration
     func saveUserconfiguration () {
-        var versionclone: Int?
+        var optionalpathrclone: Int?
         var detailedlogging: Int?
         var rclonePath: String?
         var restorePath: String?
         var marknumberofdayssince: String?
 
         if ViewControllerReference.shared.rcloneopt {
-            versionclone = 1
+            optionalpathrclone = 1
         } else {
-            versionclone = 0
+            optionalpathrclone = 0
         }
         if ViewControllerReference.shared.detailedlogging {
             detailedlogging = 1
@@ -47,7 +47,7 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         var array = [NSDictionary]()
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
-            "version3Rsync": versionclone! as Int,
+            "optionalpathrclone": optionalpathrclone! as Int,
             "detailedlogging": detailedlogging! as Int,
             "marknumberofdayssince": marknumberofdayssince ?? "5.0"]
 
