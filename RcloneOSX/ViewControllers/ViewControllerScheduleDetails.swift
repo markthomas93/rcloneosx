@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 06/09/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable line_length
+//  swiftlint:disable line_length cyclomatic_complexity
 
 import Foundation
 import Cocoa
@@ -118,7 +118,7 @@ extension ViewControllerScheduleDetails: NSTableViewDataSource {
 }
 
 extension ViewControllerScheduleDetails: NSTableViewDelegate {
-    
+
     // TableView delegates
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         var active: Bool = false
@@ -166,7 +166,7 @@ extension ViewControllerScheduleDetails: NSTableViewDelegate {
         }
         return nil
     }
-    
+
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         if tableColumn!.identifier.rawValue == "stopCellID" || tableColumn!.identifier.rawValue == "deleteCellID" {
             var stop: Int = (self.data![row].value(forKey: "stopCellID") as? Int)!

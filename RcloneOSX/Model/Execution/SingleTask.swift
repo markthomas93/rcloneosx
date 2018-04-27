@@ -46,7 +46,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
     var process: Process?
     // Index to selected row, index is set when row is selected
     private var index: Int?
-    // Getting output from rsync
+    // Getting output from rclone
     var outputprocess: OutputProcess?
     // Holding max count
     private var maxcount: Int = 0
@@ -80,7 +80,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 self.indicatorDelegate?.startIndicator()
                 self.taskDelegate?.showProcessInfo(info: .estimating)
                 arguments = self.configurations!.arguments4rclone(index: index, argtype: .argdryRun)
-                let process = Rsync(arguments: arguments)
+                let process = Rclone(arguments: arguments)
                 self.outputprocess = OutputProcess()
                 process.executeProcess(outputprocess: self.outputprocess)
                 self.process = process.getProcess()
@@ -94,7 +94,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 self.taskDelegate?.presentViewProgress()
                 arguments = self.configurations!.arguments4rclone(index: index, argtype: .arg)
                 self.outputprocess = OutputProcess()
-                let process = Rsync(arguments: arguments)
+                let process = Rclone(arguments: arguments)
                 process.executeProcess(outputprocess: self.outputprocess)
                 self.process = process.getProcess()
                 self.taskDelegate?.getProcessReference(process: self.process!)

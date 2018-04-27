@@ -46,7 +46,7 @@ final class SingleTaskWorkQueu {
         return self.work!.removeFirst()
     }
 
-    // rsync error
+    // rclone error
     // Pushing error token ontop of stack
     func error() {
         guard self.work != nil else {

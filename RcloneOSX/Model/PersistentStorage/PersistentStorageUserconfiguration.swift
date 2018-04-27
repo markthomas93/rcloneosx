@@ -52,7 +52,7 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
             "marknumberofdayssince": marknumberofdayssince ?? "5.0"]
 
         if rclonePath != nil {
-            dict.setObject(rclonePath!, forKey: "rsyncPath" as NSCopying)
+            dict.setObject(rclonePath!, forKey: "rclonePath" as NSCopying)
         }
         if restorePath != nil {
             dict.setObject(restorePath!, forKey: "restorePath" as NSCopying)

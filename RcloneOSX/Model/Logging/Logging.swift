@@ -29,7 +29,7 @@ extension Reportfileerror {
     weak var errorDelegate: Fileerror? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-    
+
     func error(error: String, errortype: Fileerrortype) {
         self.errorDelegate?.errormessage(errorstr: error, errortype: errortype)
     }

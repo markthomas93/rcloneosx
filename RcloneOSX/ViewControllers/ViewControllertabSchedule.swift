@@ -19,13 +19,14 @@ protocol SetProfileinfo: class {
     func setprofile(profile: String, color: NSColor)
 }
 
-class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedules, Coloractivetask, OperationChanged, VcSchedule, Delay {
+class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedules, Coloractivetask, OperationChanged, VcSchedule, Delay, GetIndex {
 
     private var index: Int?
     private var hiddenID: Int?
     private var schedulessorted: ScheduleSortedAndExpand?
     var tools: Tools?
     var schedule: Scheduletype?
+    private var preselectrow: Bool = false
 
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
@@ -42,6 +43,8 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
             self.info.stringValue = "Select a task..."
         case 2:
             self.info.stringValue = "Scheduled tasks in menu app"
+        case 3:
+            self.info.stringValue = "Preselected row from main view..."
         default:
             self.info.stringValue = ""
         }
@@ -138,6 +141,15 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        self.index = self.index()
+        if self.index != nil {
+            self.hiddenID = self.configurations!.gethiddenID(index: self.index!)
+            self.info(num: 3)
+            self.preselectrow = true
+        } else {
+            self.preselectrow = false
+            self.info(num: 0)
+        }
         self.weeklybutton.isEnabled = false
         self.dailybutton.isEnabled = false
         self.oncebutton.isEnabled = false
@@ -164,6 +176,7 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
     // setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
         self.info(num: 0)
+         self.preselectrow = false
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
@@ -179,6 +192,7 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
 
     // Execute tasks by double click in table
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
+        self.preselectrow = false
         globalMainQueue.async(execute: { () -> Void in
             self.presentViewControllerAsSheet(self.viewControllerScheduleDetails!)
         })
@@ -219,7 +233,12 @@ extension ViewControllertabSchedule: NSTableViewDelegate, Attributedestring {
                 return taskintime ?? ""
             }
         default:
-            return object[tableColumn!.identifier] as? String
+            if self.preselectrow == true && hiddenID == self.hiddenID ?? -1 {
+                let text = object[tableColumn!.identifier] as? String
+                return self.attributedstring(str: text!, color: NSColor.red, align: .left)
+            } else {
+                return object[tableColumn!.identifier] as? String
+            }
         }
         return nil
     }
