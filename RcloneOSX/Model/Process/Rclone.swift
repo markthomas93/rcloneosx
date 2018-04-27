@@ -1,5 +1,5 @@
 //
-//  Rsync.swift
+//  Rclone.swift
 //  rcloneOSX
 //
 //  Created by Thomas Evensen on 10.03.2017.
@@ -10,7 +10,7 @@
 
 import Foundation
 
-final class Rsync: ProcessCmd {
+final class Rclone: ProcessCmd {
 
     init (arguments: [String]?) {
         super.init(command: nil, arguments: arguments)

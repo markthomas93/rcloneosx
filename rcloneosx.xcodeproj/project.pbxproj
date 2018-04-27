@@ -12,7 +12,7 @@
 		E954F7D51FF411A6003DF6C0 /* RcloneVersionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */; };
 		E960CB041FB091DE0008D12E /* OutputProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAB61FB091D30008D12E /* OutputProcess.swift */; };
 		E960CB051FB091DE0008D12E /* RcloneScheduled.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAB71FB091D30008D12E /* RcloneScheduled.swift */; };
-		E960CB061FB091DE0008D12E /* Rsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAB81FB091D30008D12E /* Rsync.swift */; };
+		E960CB061FB091DE0008D12E /* Rclone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAB81FB091D30008D12E /* Rclone.swift */; };
 		E960CB071FB091DE0008D12E /* ScheduleOperationTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAB91FB091D30008D12E /* ScheduleOperationTimer.swift */; };
 		E960CB091FB091DE0008D12E /* ViewControllerProgressProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CABB1FB091D30008D12E /* ViewControllerProgressProcess.swift */; };
 		E960CB0A1FB091DE0008D12E /* ViewControllerScheduledBackupInWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CABC1FB091D30008D12E /* ViewControllerScheduledBackupInWork.swift */; };
@@ -91,7 +91,7 @@
 		E960CAB51FB091D20008D12E /* rcloneosx-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "rcloneosx-Bridging-Header.h"; sourceTree = "<group>"; };
 		E960CAB61FB091D30008D12E /* OutputProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputProcess.swift; sourceTree = "<group>"; };
 		E960CAB71FB091D30008D12E /* RcloneScheduled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RcloneScheduled.swift; sourceTree = "<group>"; };
-		E960CAB81FB091D30008D12E /* Rsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rsync.swift; sourceTree = "<group>"; };
+		E960CAB81FB091D30008D12E /* Rclone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rclone.swift; sourceTree = "<group>"; };
 		E960CAB91FB091D30008D12E /* ScheduleOperationTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleOperationTimer.swift; sourceTree = "<group>"; };
 		E960CABB1FB091D30008D12E /* ViewControllerProgressProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProgressProcess.swift; sourceTree = "<group>"; };
 		E960CABC1FB091D30008D12E /* ViewControllerScheduledBackupInWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerScheduledBackupInWork.swift; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 			children = (
 				E960CABD1FB091D30008D12E /* Numbers.swift */,
 				E960CAB71FB091D30008D12E /* RcloneScheduled.swift */,
-				E960CAB81FB091D30008D12E /* Rsync.swift */,
+				E960CAB81FB091D30008D12E /* Rclone.swift */,
 				E960CACB1FB091D50008D12E /* ProcessCmd.swift */,
 				E9D1F19E1FB49C3B0099D25C /* CloudServices.swift */,
 				E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */,
@@ -610,7 +610,7 @@
 				E960CB3D1FB091DE0008D12E /* ViewControllerLoggData.swift in Sources */,
 				E960CB501FB091DE0008D12E /* SingleTask.swift in Sources */,
 				E960CB2F1FB091DE0008D12E /* OperationFactory.swift in Sources */,
-				E960CB061FB091DE0008D12E /* Rsync.swift in Sources */,
+				E960CB061FB091DE0008D12E /* Rclone.swift in Sources */,
 				E960CB361FB091DE0008D12E /* Configurations.swift in Sources */,
 				E960CB041FB091DE0008D12E /* OutputProcess.swift in Sources */,
 				E960CB251FB091DE0008D12E /* ViewControllerInformation.swift in Sources */,
