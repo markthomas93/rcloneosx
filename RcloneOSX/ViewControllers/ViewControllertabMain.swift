@@ -79,6 +79,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private var readyforexecution: Bool = true
     // Which kind of task
     private var processtermination: ProcessTermination?
+    // remote info tasks
+    var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
+    // Update view estimating
+    weak var estimateupdateDelegate: Updateestimating?
+
     @IBOutlet weak var info: NSTextField!
 
     @IBAction func quickbackup(_ sender: NSButton) {
@@ -198,6 +203,18 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Selecting About
     @IBAction func about (_ sender: NSButton) {
         self.presentViewControllerAsModalWindow(self.viewControllerAbout!)
+    }
+
+    // Selecting automatic backup
+    @IBAction func automaticbackup (_ sender: NSButton) {
+        self.automaticbackup()
+    }
+
+    private func automaticbackup() {
+        self.processtermination = .automaticbackup
+        self.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue()
+        self.presentViewControllerAsSheet(self.viewControllerEstimating!)
+        self.estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
     }
 
     @IBAction func executetasknow(_ sender: NSButton) {
@@ -442,6 +459,14 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.mainTableView.reloadData()
         })
     }
+
+    func openquickbackup() {
+        self.processtermination = .quicktask
+        self.configurations!.allowNotifyinMain = false
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerQuickBackup!)
+        })
+    }
 }
 
 extension ViewControllertabMain: NSTableViewDataSource {
@@ -674,7 +699,18 @@ extension ViewControllertabMain: UpdateProgress {
         case .remoteinfotask:
             return
         case .automaticbackup:
-            return
+            guard self.remoteinfotaskworkqueue != nil else { return }
+            // compute alle estimates
+            if self.remoteinfotaskworkqueue!.stackoftasktobeestimated != nil {
+                self.remoteinfotaskworkqueue?.processTermination()
+                self.estimateupdateDelegate?.updateProgressbar()
+            } else {
+                self.estimateupdateDelegate?.dismissview()
+                self.remoteinfotaskworkqueue?.processTermination()
+                self.remoteinfotaskworkqueue?.selectalltaskswithnumbers()
+                self.remoteinfotaskworkqueue?.setbackuplist()
+                self.openquickbackup()
+            }
         }
     }
 

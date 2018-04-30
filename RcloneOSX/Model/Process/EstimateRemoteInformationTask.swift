@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class EstimateRemoteInformationTask: SetConfigurations {
     init(index: Int, outputprocess: OutputProcess?) {
         let taskDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain

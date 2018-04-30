@@ -21,7 +21,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     var records: [NSMutableDictionary]?
     weak var updateprogressDelegate: UpdateProgress?
     weak var reloadtableDelegate: Reloadandrefresh?
-    weak var enablebackupbuttonDelegate: EnableQuicbackupButton?
+    // weak var enablebackupbuttonDelegate: EnableQuicbackupButton?
     var index: Int?
     var maxnumber: Int?
     var count: Int?
@@ -45,9 +45,9 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         if self.stackoftasktobeestimated?.count == 0 {
             self.stackoftasktobeestimated = nil
         }
-        weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
-        startstopProgressIndicatorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
-        startstopProgressIndicatorDelegate?.start()
+        // weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
+        // startstopProgressIndicatorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        // startstopProgressIndicatorDelegate?.start()
         _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
     }
 
@@ -64,7 +64,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         }
         self.records?.append(record)
         self.configurations?.estimatedlist?.append(record)
-        self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        // self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.updateprogressDelegate?.processTermination()
         guard self.stackoftasktobeestimated != nil else { return }
         self.outputprocess = nil
@@ -123,10 +123,10 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
 
     func selectalltaskswithfilestobackup() {
         self.selectalltaskswithnumbers()
-        self.reloadtableDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
-        self.enablebackupbuttonDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        // self.reloadtableDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        // self.enablebackupbuttonDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.reloadtableDelegate?.reloadtabledata()
-        self.enablebackupbuttonDelegate?.enablequickbackupbutton()
+        // self.enablebackupbuttonDelegate?.enablequickbackupbutton()
     }
 
     init() {

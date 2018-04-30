@@ -27,25 +27,25 @@ protocol DismissViewEstimating: class {
 }
 
 class ViewControllerEstimatingTasks: NSViewController, AbortTask {
-    
+
     var count: Double = 0
     var maxcount: Double = 0
     var calculatedNumberOfFiles: Int?
     var vc: ViewControllertabMain?
     weak var countDelegate: CountEstimating?
     weak var dismissDelegate: DismissViewEstimating?
-    
+
     @IBOutlet weak var abort: NSButton!
     @IBOutlet weak var progress: NSProgressIndicator!
-    
+
     @IBAction func abort(_ sender: NSButton) {
         self.abort()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcestimatingtasks, nsviewcontroller: self)
@@ -58,16 +58,16 @@ class ViewControllerEstimatingTasks: NSViewController, AbortTask {
         self.initiateProgressbar()
         self.abort.isEnabled = true
     }
-    
+
     override func viewWillDisappear() {
         super.viewWillDisappear()
         self.stopProgressbar()
     }
-    
+
     private func stopProgressbar() {
         self.progress.stopAnimation(self)
     }
-    
+
     // Progress bars
     private func initiateProgressbar() {
         if let calculatedNumberOfFiles = self.calculatedNumberOfFiles {
@@ -84,9 +84,8 @@ extension ViewControllerEstimatingTasks: Updateestimating {
         self.stopProgressbar()
         self.dismissDelegate?.dismissestimating(viewcontroller: self)
     }
-    
+
     func updateProgressbar() {
         self.progress.doubleValue = Double(self.calculatedNumberOfFiles! - self.countDelegate!.inprogressCount())
     }
 }
-

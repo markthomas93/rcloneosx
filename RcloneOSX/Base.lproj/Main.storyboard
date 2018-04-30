@@ -485,7 +485,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="9Do-RL-EKP">
-                                    <rect key="frame" x="2" y="255" width="929" height="16"/>
+                                    <rect key="frame" x="2" y="9" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="vxQ-M9-JKv">
@@ -538,7 +538,7 @@
                                 <rect key="frame" x="948" y="386" width="125" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Process :" id="1Z0-Ki-dFI">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -4244,6 +4244,54 @@ DQ
                 <customObject id="GK7-uh-CNT" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1099" y="724"/>
+        </scene>
+        <!--Estimating progress-->
+        <scene sceneID="FfQ-dw-eeO">
+            <objects>
+                <viewController title="Estimating progress" storyboardIdentifier="StoryboardEstimatingID" id="Sgu-KT-PpG" customClass="ViewControllerEstimatingTasks" customModule="rcloneosx" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="PiU-SY-BSO">
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="67"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3e3-vv-evx">
+                                <rect key="frame" x="53" y="38" width="303" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Finding tasks for automatic backup, please wait..." id="T3a-Qt-MxM">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jAs-MW-cxZ">
+                                <rect key="frame" x="20" y="11" width="368" height="20"/>
+                            </progressIndicator>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nth-v1-GO0">
+                                <rect key="frame" x="369" y="34" width="31" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="abort" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dab-bg-HLV">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="abort:" target="Sgu-KT-PpG" id="xjA-Rb-LFu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="jAs-MW-cxZ" firstAttribute="centerX" secondItem="3e3-vv-evx" secondAttribute="centerX" id="2H5-l3-QES"/>
+                            <constraint firstAttribute="bottom" secondItem="jAs-MW-cxZ" secondAttribute="bottom" constant="12" id="7kT-O8-Zfk"/>
+                            <constraint firstItem="jAs-MW-cxZ" firstAttribute="top" secondItem="3e3-vv-evx" secondAttribute="bottom" constant="8" symbolic="YES" id="Gfk-1C-Qub"/>
+                            <constraint firstAttribute="trailing" secondItem="jAs-MW-cxZ" secondAttribute="trailing" constant="20" symbolic="YES" id="O3y-5J-tuH"/>
+                            <constraint firstItem="jAs-MW-cxZ" firstAttribute="leading" secondItem="PiU-SY-BSO" secondAttribute="leading" constant="20" symbolic="YES" id="fbT-hv-wuL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="abort" destination="nth-v1-GO0" id="vhp-Kc-JVo"/>
+                        <outlet property="progress" destination="jAs-MW-cxZ" id="Lef-28-8CF"/>
+                    </connections>
+                </viewController>
+                <customObject id="haK-hO-YTY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1314" y="2003"/>
         </scene>
     </scenes>
     <resources>
