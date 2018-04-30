@@ -114,7 +114,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         guard self.records != nil else { return }
         self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< self.records!.count {
-            if self.records![i].value(forKey: "sync") as? Int == 1 {
+            if self.records![i].value(forKey: "backup") as? Int == 1 {
                 self.configurations?.quickbackuplist!.append((self.records![i].value(forKey: "hiddenID") as? Int)!)
             }
         }
