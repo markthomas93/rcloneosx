@@ -132,9 +132,6 @@
                                         </menuItem>
                                         <menuItem title="Delete" id="KWa-a3-Ylk">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="delete:" target="Ady-hI-5gd" id="0ur-VC-MbI"/>
-                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -280,9 +277,26 @@
                                         <action selector="userconfiguration:" target="Rv5-yv-lsc" id="Mgc-ER-sa1"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="23686C1E-F906-4DA8-87CB-B7682AA8E74F" label="totinfo" paletteLabel="totinfo" image="info" id="bjt-yn-atF" userLabel="tot">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="40" height="25"/>
+                                    <size key="maxSize" width="40" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="d6l-Ul-Hfy">
+                                        <rect key="frame" x="1" y="14" width="40" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="info" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bFn-Ud-Mwm">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="totinfo:" target="Rv5-yv-lsc" id="TtC-zB-O8c"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="zs6-ub-LOa"/>
+                                <toolbarItem reference="bjt-yn-atF"/>
                                 <toolbarItem reference="B6d-En-crM"/>
                                 <toolbarItem reference="Hy6-d3-uyq"/>
                                 <toolbarItem reference="xOh-i2-2ht"/>
@@ -4305,7 +4319,7 @@ DQ
                                 <rect key="frame" x="20" y="61" width="903" height="235"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="K2O-Cr-XBy">
-                                    <rect key="frame" x="2" y="25" width="899" height="208"/>
+                                    <rect key="frame" x="2" y="2" width="899" height="231"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="5AR-1g-h8Y" id="JmE-5l-Gdz">
@@ -4561,6 +4575,7 @@ DQ
         <image name="complete" width="48" height="48"/>
         <image name="config" width="48" height="48"/>
         <image name="fastforward" width="48" height="48"/>
+        <image name="info" width="48" height="48"/>
         <image name="report" width="48" height="48"/>
         <image name="up" width="256" height="256"/>
     </resources>

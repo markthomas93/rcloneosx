@@ -644,7 +644,7 @@ extension ViewControllertabMain: DismissViewController {
     // Function for dismissing a presented view
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismissViewController(viewcontroller)
-        // Reset radiobuttons
+        self.remoteinfotaskworkqueue = nil
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
             self.displayProfile()
@@ -704,7 +704,8 @@ extension ViewControllertabMain: UpdateProgress {
             // Kick off next task
             self.startfirstcheduledtask()
         case .remoteinfotask:
-            return
+            guard self.remoteinfotaskworkqueue != nil else { return }
+            self.remoteinfotaskworkqueue?.processTermination()
         case .automaticbackup:
             guard self.remoteinfotaskworkqueue != nil else { return }
             // compute alle estimates
