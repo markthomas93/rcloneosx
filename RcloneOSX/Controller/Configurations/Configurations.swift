@@ -186,6 +186,12 @@ class Configurations: ReloadTable {
             if (row.value(forKey: "offsiteServerCellID") as? String)?.isEmpty == true {
                 row.setValue("localhost", forKey: "offsiteServerCellID")
             }
+            if self.quickbackuplist != nil {
+                let quickbackup = self.quickbackuplist!.filter({$0 == configurations[i].hiddenID})
+                if quickbackup.count > 0 {
+                    row.setValue(1, forKey: "selectCellID")
+                }
+            }
             data.append(row)
         }
         return data
