@@ -91,9 +91,14 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="6Ac-ti-Bu9"/>
-                                        <menuItem title="Run" keyEquivalent="r" id="R4M-Am-2zt" userLabel="Run">
+                                        <menuItem title="Backup now" keyEquivalent="r" id="R4M-Am-2zt">
                                             <connections>
                                                 <action selector="executetasknow:" target="Ady-hI-5gd" id="7M8-pZ-unb"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Backup all" keyEquivalent="b" id="V04-Gv-A9V">
+                                            <connections>
+                                                <action selector="automaticbackup:" target="Ady-hI-5gd" id="IFo-C9-FJB"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="g3x-dM-XEA"/>
@@ -3754,7 +3759,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
                                                 <tableColumn identifier="offsiteServerCellID" width="89.3515625" minWidth="10" maxWidth="3.4028234663852886e+38" id="ZLv-Ik-qrW" userLabel="Offsite server">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Remote server">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Cloud service">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4565,7 +4570,7 @@ DQ
                 </viewController>
                 <customObject id="bDm-Kc-RPe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-302" y="3389"/>
+            <point key="canvasLocation" x="315" y="2969"/>
         </scene>
     </scenes>
     <resources>
