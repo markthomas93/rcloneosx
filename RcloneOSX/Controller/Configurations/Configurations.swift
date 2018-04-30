@@ -122,6 +122,8 @@ class Configurations: ReloadTable {
     private var batchQueue: BatchTaskWorkQueu?
     // backup list from remote info view
     var quickbackuplist: [Int]?
+    // Estimated backup list, all backups
+    var estimatedlist: [NSMutableDictionary]?
 
     /// Function for getting the profile
     func getProfile() -> String? {

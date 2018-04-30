@@ -19,6 +19,7 @@ enum ViewController {
     case vccopyfiles
     case vcquickbackup
     case vcallprofiles
+    case vcestimatingtasks
 }
 
 class ViewControllerReference {
@@ -91,6 +92,8 @@ class ViewControllerReference {
     private var viewControllerQuickBatch: NSViewController?
     // All profiles
     private var viewControllerAllProfiles: NSViewController?
+    // Estimating tasks
+    private var viewControllerEstimatingTasks: NSViewController?
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {
@@ -114,6 +117,8 @@ class ViewControllerReference {
             return self.viewControllerQuickBatch
         case .vcallprofiles:
             return self.viewControllerAllProfiles
+        case .vcestimatingtasks:
+            return self.viewControllerEstimatingTasks
         }
     }
 
@@ -139,6 +144,8 @@ class ViewControllerReference {
             self.viewControllerQuickBatch = nsviewcontroller
         case .vcallprofiles:
             self.viewControllerAllProfiles = nsviewcontroller
+        case .vcestimatingtasks:
+            self.viewControllerEstimatingTasks = nsviewcontroller
         }
     }
 }

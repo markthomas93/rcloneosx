@@ -625,6 +625,12 @@ extension ViewControllertabMain: DismissViewController {
     }
 }
 
+extension ViewControllertabMain: DismissViewEstimating {
+    func dismissestimating(viewcontroller: NSViewController) {
+        self.dismissViewController(viewcontroller)
+    }
+}
+
 // Called when either a terminatopn of Process is
 // discovered or data is availiable in the filehandler
 // See file rcloneProcess.swift.
@@ -665,6 +671,10 @@ extension ViewControllertabMain: UpdateProgress {
             ViewControllerReference.shared.completeoperation = nil
             // Kick off next task
             self.startfirstcheduledtask()
+        case .remoteinfotask:
+            return
+        case .automaticbackup:
+            return
         }
     }
 
@@ -699,6 +709,10 @@ extension ViewControllertabMain: UpdateProgress {
             localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
             localprocessupdateDelegate?.fileHandler()
         case .singlequicktask:
+            return
+        case .remoteinfotask:
+            return
+        case .automaticbackup:
             return
         }
     }
