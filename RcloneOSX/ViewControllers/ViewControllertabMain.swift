@@ -6,7 +6,7 @@
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable  file_length line_length type_body_length cyclomatic_complexity
+//  swiftlint:disable  file_length line_length type_body_length cyclomatic_complexity function_body_length
 
 import Foundation
 import Cocoa
@@ -86,7 +86,22 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     @IBOutlet weak var info: NSTextField!
 
+    @IBAction func totinfo(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norclone == false else {
+            self.tools!.norclone()
+            return
+        }
+        self.processtermination = .remoteinfotask
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerRemoteInfo!)
+        })
+    }
+
     @IBAction func quickbackup(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norclone == false else {
+            self.tools!.norclone()
+            return
+        }
         self.processtermination = .quicktask
         self.configurations!.allowNotifyinMain = false
         globalMainQueue.async(execute: { () -> Void in
@@ -457,14 +472,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         }
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
-        })
-    }
-
-    func openquickbackup() {
-        self.processtermination = .quicktask
-        self.configurations!.allowNotifyinMain = false
-        globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerQuickBackup!)
         })
     }
 }
@@ -1083,5 +1090,21 @@ extension ViewControllertabMain: NewProfile {
         globalMainQueue.async(execute: { () -> Void in
             self.displayProfile()
         })
+    }
+}
+
+extension ViewControllertabMain: OpenQuickBackup {
+    func openquickbackup() {
+        self.processtermination = .quicktask
+        self.configurations!.allowNotifyinMain = false
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerQuickBackup!)
+        })
+    }
+}
+
+extension ViewControllertabMain: SetRemoteInfo {
+    func setremoteinfo(remoteinfotask: RemoteInfoTaskWorkQueue?) {
+        self.remoteinfotaskworkqueue = remoteinfotask
     }
 }
