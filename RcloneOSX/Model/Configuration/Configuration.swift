@@ -58,7 +58,6 @@ struct Configuration {
         self.offsiteServer = (dictionary.object(forKey: "offsiteServer") as? String)!
         self.backupID = (dictionary.object(forKey: "backupID") as? String)!
         // Last run of task
-        // Last run of task
         if let dateRun = dictionary.object(forKey: "dateRun") {
             self.dateRun = dateRun as? String
             if let secondssince = self.calculatedays(date: self.dateRun!) {
