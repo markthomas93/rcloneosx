@@ -4,6 +4,8 @@
 //
 //  Created by Thomas Evensen on 05.09.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
+//
+// swiftlint:disable cyclomatic_complexity
 
 import Foundation
 import Cocoa
@@ -19,6 +21,8 @@ enum ViewController {
     case vccopyfiles
     case vcquickbackup
     case vcallprofiles
+    case vcestimatingtasks
+    case vcremoteinfo
 }
 
 class ViewControllerReference {
@@ -91,6 +95,10 @@ class ViewControllerReference {
     private var viewControllerQuickBatch: NSViewController?
     // All profiles
     private var viewControllerAllProfiles: NSViewController?
+    // Estimating tasks
+    private var viewControllerEstimatingTasks: NSViewController?
+    // Remote info
+    private var viewControllerRemoteInfo: NSViewController?
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {
@@ -114,6 +122,10 @@ class ViewControllerReference {
             return self.viewControllerQuickBatch
         case .vcallprofiles:
             return self.viewControllerAllProfiles
+        case .vcestimatingtasks:
+            return self.viewControllerEstimatingTasks
+        case .vcremoteinfo:
+            return self.viewControllerRemoteInfo
         }
     }
 
@@ -139,6 +151,10 @@ class ViewControllerReference {
             self.viewControllerQuickBatch = nsviewcontroller
         case .vcallprofiles:
             self.viewControllerAllProfiles = nsviewcontroller
+        case .vcestimatingtasks:
+            self.viewControllerEstimatingTasks = nsviewcontroller
+        case .vcremoteinfo:
+            self.viewControllerRemoteInfo = nsviewcontroller
         }
     }
 }

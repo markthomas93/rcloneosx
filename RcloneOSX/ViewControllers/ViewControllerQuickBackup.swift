@@ -1,10 +1,11 @@
 //
 //  ViewControllerQuickBackup.swift
-//  rcloneOSX
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 22.12.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -16,12 +17,14 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
     var filterby: Sortandfilter?
     var quickbackuplist: QuickBackup?
     var executing: Bool = false
+    weak var inprogresscountDelegate: Count?
 
     @IBOutlet weak var mainTableView: NSTableView!
-    @IBOutlet weak var working: NSProgressIndicator!
     @IBOutlet weak var executeButton: NSButton!
     @IBOutlet weak var abortbutton: NSButton!
     @IBOutlet weak var search: NSSearchField!
+    @IBOutlet weak var progress: NSProgressIndicator!
+    @IBOutlet weak var noestimates: NSTextField!
 
     // Either abort or close
     @IBAction func abort(_ sender: NSButton) {
@@ -34,33 +37,44 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
     @IBAction func execute(_ sender: NSButton) {
         self.executing = true
         self.executeButton.isEnabled = false
-        self.working.startAnimation(nil)
         self.quickbackuplist?.prepareandstartexecutetasks()
+        if self.checkforestimates() == true {
+            self.initiateProgressbar()
+        }
         self.reloadtabledata()
     }
 
     private func loadtasks() {
         self.quickbackuplist = QuickBackup()
-        self.working.stopAnimation(nil)
     }
 
     // Initial functions viewDidLoad and viewDidAppear
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        // Setting delegates and datasource
+        self.inprogresscountDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        ViewControllerReference.shared.setvcref(viewcontroller: .vcquickbackup, nsviewcontroller: self)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.search.delegate = self
-        ViewControllerReference.shared.setvcref(viewcontroller: .vcquickbackup, nsviewcontroller: self)
         self.loadtasks()
     }
 
     override func viewDidAppear() {
         super.viewDidAppear()
         self.executeButton.isEnabled = false
+        self.progress.isHidden = true
+        if let execute = self.enableexecutebutton() {
+            if execute {
+                self.executing = true
+                self.executeButton.isEnabled = false
+                self.quickbackuplist?.prepareandstartexecutetasks()
+                if self.checkforestimates() == true {
+                    self.initiateProgressbar()
+                }
+            }
+        }
         self.reloadtabledata()
-        self.enableexecutebutton()
+        _ = self.checkforestimates()
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -84,14 +98,42 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
         }
     }
 
-    private func enableexecutebutton() {
+    private func enableexecutebutton() -> Bool? {
         let backup = self.quickbackuplist?.sortedlist!.filter({$0.value(forKey: "selectCellID") as? Int == 1})
-        guard backup != nil else { return }
-        guard self.executing == false else { return }
+        guard backup != nil else { return nil }
+        guard self.executing == false else { return nil }
         if backup!.count > 0 {
             self.executeButton.isEnabled = true
+            return true
         } else {
             self.executeButton.isEnabled = false
+            return false
+        }
+    }
+
+    // Progress bars
+    private func initiateProgressbar() {
+        self.progress.isHidden = false
+        if let calculatedNumberOfFiles = self.quickbackuplist?.maxcount {
+            self.progress.maxValue = Double(calculatedNumberOfFiles)
+        }
+        self.progress.minValue = 0
+        self.progress.doubleValue = 0
+        self.progress.startAnimation(self)
+    }
+
+    private func updateProgressbar() {
+        let value = Double((self.inprogresscountDelegate?.inprogressCount())!)
+        self.progress.doubleValue = value
+    }
+
+    private func checkforestimates() -> Bool {
+        if self.quickbackuplist?.maxcount != nil && self.quickbackuplist?.maxcount ?? 0  > 0 {
+            self.noestimates.isHidden = true
+            return true
+        } else {
+            self.noestimates.isHidden = false
+            return false
         }
     }
 
@@ -138,7 +180,7 @@ extension ViewControllerQuickBackup: NSTableViewDelegate, Attributedestring {
             if select == 0 { select = 1 } else if select == 1 { select = 0 }
             self.quickbackuplist?.sortedlist![row].setValue(select, forKey: "selectCellID")
         }
-        self.enableexecutebutton()
+        _ = self.enableexecutebutton()
     }
 }
 
@@ -146,7 +188,7 @@ extension ViewControllerQuickBackup: Reloadandrefresh {
 
     // Updates tableview according to progress of batch
     func reloadtabledata() {
-        self.enableexecutebutton()
+        _ = self.enableexecutebutton()
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
@@ -162,28 +204,22 @@ extension ViewControllerQuickBackup: CloseViewError {
 }
 
 extension ViewControllerQuickBackup: UpdateProgress {
+
     func processTermination() {
         self.quickbackuplist?.setcompleted()
         self.quickbackuplist?.processTermination()
+        guard self.quickbackuplist?.stackoftasktobeexecuted != nil else {
+            self.progress.isHidden = true
+            return
+        }
+        if self.checkforestimates() == true {
+            self.progress.stopAnimation(self)
+            self.initiateProgressbar()
+        }
     }
 
     func fileHandler() {
-        // nothing
-    }
-}
-
-extension ViewControllerQuickBackup: StartStopProgressIndicator {
-    func start() {
-        // nothing
-    }
-
-    func stop() {
-        self.working.stopAnimation(nil)
-        self.executeButton.isEnabled = false
-    }
-
-    func complete() {
-        // nothing
+        self.updateProgressbar()
     }
 }
 
@@ -211,5 +247,4 @@ extension ViewControllerQuickBackup: NSSearchFieldDelegate {
             self.loadtasks()
         })
     }
-
 }

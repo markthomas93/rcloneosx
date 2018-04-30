@@ -122,6 +122,8 @@ class Configurations: ReloadTable {
     private var batchQueue: BatchTaskWorkQueu?
     // backup list from remote info view
     var quickbackuplist: [Int]?
+    // Estimated backup list, all backups
+    var estimatedlist: [NSMutableDictionary]?
 
     /// Function for getting the profile
     func getProfile() -> String? {
@@ -183,6 +185,12 @@ class Configurations: ReloadTable {
             ]
             if (row.value(forKey: "offsiteServerCellID") as? String)?.isEmpty == true {
                 row.setValue("localhost", forKey: "offsiteServerCellID")
+            }
+            if self.quickbackuplist != nil {
+                let quickbackup = self.quickbackuplist!.filter({$0 == configurations[i].hiddenID})
+                if quickbackup.count > 0 {
+                    row.setValue(1, forKey: "selectCellID")
+                }
             }
             data.append(row)
         }

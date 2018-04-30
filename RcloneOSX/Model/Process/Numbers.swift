@@ -84,7 +84,7 @@ final class Numbers: SetConfigurations {
 
     // Collecting statistics about job
     func stats() -> String {
-        self.prepareresult()
+        // self.prepareresult()
         let num = self.transferNum ?? "0"
         let size = self.transferNumSize ?? "0"
         let byte = self.transferNumSizeByte ?? "bytes"
@@ -93,8 +93,7 @@ final class Numbers: SetConfigurations {
     }
 
     init (output: OutputProcess?) {
-        // Default number of files
         self.output = output!.getOutput()
-        self.transferNum = String(self.output!.count)
+        self.prepareresult()
     }
 }

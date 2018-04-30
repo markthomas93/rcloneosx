@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9062E732097192D00D65748 /* ViewControllerRemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */; };
+		E92B18B62096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18B42096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift */; };
+		E92B18B72096F4DE001DBFAF /* RemoteInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18B52096F4DE001DBFAF /* RemoteInfoTask.swift */; };
+		E92B18B92096F643001DBFAF /* ViewControllerEstimatingTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */; };
+		E92B18BB2096F83F001DBFAF /* EstimateRemoteInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18BA2096F83F001DBFAF /* EstimateRemoteInformationTask.swift */; };
 		E931186C1FC2BCC1007D1C1B /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931186B1FC2BCC1007D1C1B /* Logging.swift */; };
 		E93DB0C4204E6FE80008B6C2 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93DB0C3204E6FE80008B6C2 /* Notifications.swift */; };
 		E954F7D51FF411A6003DF6C0 /* RcloneVersionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */; };
@@ -85,6 +90,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRemoteInfo.swift; sourceTree = "<group>"; };
+		E92B18B42096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteInfoTaskWorkQueue.swift; sourceTree = "<group>"; };
+		E92B18B52096F4DE001DBFAF /* RemoteInfoTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteInfoTask.swift; sourceTree = "<group>"; };
+		E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerEstimatingTasks.swift; sourceTree = "<group>"; };
+		E92B18BA2096F83F001DBFAF /* EstimateRemoteInformationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateRemoteInformationTask.swift; sourceTree = "<group>"; };
 		E931186B1FC2BCC1007D1C1B /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Logging.swift; path = RcloneOSX/Model/Logging/Logging.swift; sourceTree = SOURCE_ROOT; };
 		E93DB0C3204E6FE80008B6C2 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RcloneVersionString.swift; sourceTree = "<group>"; };
@@ -176,6 +186,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E92B18B32096F393001DBFAF /* RemoteInformation */ = {
+			isa = PBXGroup;
+			children = (
+				E92B18B52096F4DE001DBFAF /* RemoteInfoTask.swift */,
+				E92B18B42096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift */,
+			);
+			path = RemoteInformation;
+			sourceTree = "<group>";
+		};
 		E931186A1FC2BCA4007D1C1B /* Logging */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +283,7 @@
 				E960CACB1FB091D50008D12E /* ProcessCmd.swift */,
 				E9D1F19E1FB49C3B0099D25C /* CloudServices.swift */,
 				E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */,
+				E92B18BA2096F83F001DBFAF /* EstimateRemoteInformationTask.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";
@@ -366,6 +386,8 @@
 				E960CACE1FB091D60008D12E /* ViewControllertabSchedule.swift */,
 				E960CACF1FB091D60008D12E /* ViewControllerUserconfiguration.swift */,
 				E9CB92341FEE29800047F9CA /* ViewControllerQuickBackup.swift */,
+				E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */,
+				E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -373,6 +395,7 @@
 		E960CB531FB092E70008D12E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E92B18B32096F393001DBFAF /* RemoteInformation */,
 				E9BC41E12065175B001DBCC6 /* AllProfiles */,
 				E9CB92361FEE2A720047F9CA /* QuickBackup */,
 				E931186A1FC2BCA4007D1C1B /* Logging */,
@@ -576,6 +599,7 @@
 				E960CB0D1FB091DE0008D12E /* Files.swift in Sources */,
 				E960CB091FB091DE0008D12E /* ViewControllerProgressProcess.swift in Sources */,
 				E9D1F19F1FB49C3B0099D25C /* CloudServices.swift in Sources */,
+				E92B18B72096F4DE001DBFAF /* RemoteInfoTask.swift in Sources */,
 				E960CB0F1FB091DE0008D12E /* ViewControllerExtensions.swift in Sources */,
 				E960CB1F1FB091DE0008D12E /* BatchTaskWorkQueu.swift in Sources */,
 				E960CB481FB091DE0008D12E /* PersistentStorageAPI.swift in Sources */,
@@ -588,8 +612,10 @@
 				E960CB111FB091DE0008D12E /* Configuration.swift in Sources */,
 				E954F7D51FF411A6003DF6C0 /* RcloneVersionString.swift in Sources */,
 				E960CB381FB091DE0008D12E /* PersistentStorageConfiguration.swift in Sources */,
+				E9062E732097192D00D65748 /* ViewControllerRemoteInfo.swift in Sources */,
 				E960CB4A1FB091DE0008D12E /* ViewControllerBatch.swift in Sources */,
 				E960CB411FB091DE0008D12E /* ConfigurationSchedule.swift in Sources */,
+				E92B18BB2096F83F001DBFAF /* EstimateRemoteInformationTask.swift in Sources */,
 				E960CB341FB091DE0008D12E /* ViewControllerNewConfigurations.swift in Sources */,
 				E960CB321FB091DE0008D12E /* ViewControllerScheduleDetails.swift in Sources */,
 				E960CB431FB091DE0008D12E /* PersistentStorageScheduling.swift in Sources */,
@@ -606,7 +632,9 @@
 				E9CB92351FEE29800047F9CA /* ViewControllerQuickBackup.swift in Sources */,
 				E960CB0C1FB091DE0008D12E /* ScheduleWriteLoggData.swift in Sources */,
 				E960CB3A1FB091DE0008D12E /* ScheduleLoggData.swift in Sources */,
+				E92B18B62096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift in Sources */,
 				E960CB0E1FB091DE0008D12E /* RcloneParameters.swift in Sources */,
+				E92B18B92096F643001DBFAF /* ViewControllerEstimatingTasks.swift in Sources */,
 				E960CB3D1FB091DE0008D12E /* ViewControllerLoggData.swift in Sources */,
 				E960CB501FB091DE0008D12E /* SingleTask.swift in Sources */,
 				E960CB2F1FB091DE0008D12E /* OperationFactory.swift in Sources */,

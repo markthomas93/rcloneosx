@@ -6,7 +6,7 @@
 //  Created by Thomas Evensen on 19/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-//  swiftlint:disable  file_length line_length type_body_length cyclomatic_complexity
+//  swiftlint:disable  file_length line_length type_body_length cyclomatic_complexity function_body_length
 
 import Foundation
 import Cocoa
@@ -79,9 +79,29 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     private var readyforexecution: Bool = true
     // Which kind of task
     private var processtermination: ProcessTermination?
+    // remote info tasks
+    var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
+    // Update view estimating
+    weak var estimateupdateDelegate: Updateestimating?
+
     @IBOutlet weak var info: NSTextField!
 
+    @IBAction func totinfo(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norclone == false else {
+            self.tools!.norclone()
+            return
+        }
+        self.processtermination = .remoteinfotask
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerRemoteInfo!)
+        })
+    }
+
     @IBAction func quickbackup(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norclone == false else {
+            self.tools!.norclone()
+            return
+        }
         self.processtermination = .quicktask
         self.configurations!.allowNotifyinMain = false
         globalMainQueue.async(execute: { () -> Void in
@@ -198,6 +218,18 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Selecting About
     @IBAction func about (_ sender: NSButton) {
         self.presentViewControllerAsModalWindow(self.viewControllerAbout!)
+    }
+
+    // Selecting automatic backup
+    @IBAction func automaticbackup (_ sender: NSButton) {
+        self.automaticbackup()
+    }
+
+    private func automaticbackup() {
+        self.processtermination = .automaticbackup
+        self.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue()
+        self.presentViewControllerAsSheet(self.viewControllerEstimating!)
+        self.estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
     }
 
     @IBAction func executetasknow(_ sender: NSButton) {
@@ -612,7 +644,7 @@ extension ViewControllertabMain: DismissViewController {
     // Function for dismissing a presented view
     func dismiss_view(viewcontroller: NSViewController) {
         self.dismissViewController(viewcontroller)
-        // Reset radiobuttons
+        self.remoteinfotaskworkqueue = nil
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
             self.displayProfile()
@@ -622,6 +654,12 @@ extension ViewControllertabMain: DismissViewController {
         if viewcontroller == ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) {
             self.configurations!.allowNotifyinMain = true
         }
+    }
+}
+
+extension ViewControllertabMain: DismissViewEstimating {
+    func dismissestimating(viewcontroller: NSViewController) {
+        self.dismissViewController(viewcontroller)
     }
 }
 
@@ -665,6 +703,22 @@ extension ViewControllertabMain: UpdateProgress {
             ViewControllerReference.shared.completeoperation = nil
             // Kick off next task
             self.startfirstcheduledtask()
+        case .remoteinfotask:
+            guard self.remoteinfotaskworkqueue != nil else { return }
+            self.remoteinfotaskworkqueue?.processTermination()
+        case .automaticbackup:
+            guard self.remoteinfotaskworkqueue != nil else { return }
+            // compute alle estimates
+            if self.remoteinfotaskworkqueue!.stackoftasktobeestimated != nil {
+                self.remoteinfotaskworkqueue?.processTermination()
+                self.estimateupdateDelegate?.updateProgressbar()
+            } else {
+                self.estimateupdateDelegate?.dismissview()
+                self.remoteinfotaskworkqueue?.processTermination()
+                self.remoteinfotaskworkqueue?.selectalltaskswithnumbers()
+                self.remoteinfotaskworkqueue?.setbackuplist()
+                self.openquickbackup()
+            }
         }
     }
 
@@ -699,6 +753,10 @@ extension ViewControllertabMain: UpdateProgress {
             localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
             localprocessupdateDelegate?.fileHandler()
         case .singlequicktask:
+            return
+        case .remoteinfotask:
+            return
+        case .automaticbackup:
             return
         }
     }
@@ -1033,5 +1091,33 @@ extension ViewControllertabMain: NewProfile {
         globalMainQueue.async(execute: { () -> Void in
             self.displayProfile()
         })
+    }
+}
+
+extension ViewControllertabMain: OpenQuickBackup {
+    func openquickbackup() {
+        self.processtermination = .quicktask
+        self.configurations!.allowNotifyinMain = false
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerQuickBackup!)
+        })
+    }
+}
+
+extension ViewControllertabMain: SetRemoteInfo {
+    func setremoteinfo(remoteinfotask: RemoteInfoTaskWorkQueue?) {
+        self.remoteinfotaskworkqueue = remoteinfotask
+    }
+}
+
+extension ViewControllertabMain: Count {
+    func maxCount() -> Int {
+        guard self.outputprocess != nil else { return 0 }
+        return self.outputprocess!.getMaxcount()
+    }
+
+    func inprogressCount() -> Int {
+        guard self.outputprocess != nil else { return 0 }
+        return self.outputprocess!.count()
     }
 }
