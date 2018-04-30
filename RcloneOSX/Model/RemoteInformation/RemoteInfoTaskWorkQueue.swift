@@ -21,7 +21,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     var records: [NSMutableDictionary]?
     weak var updateprogressDelegate: UpdateProgress?
     weak var reloadtableDelegate: Reloadandrefresh?
-    // weak var enablebackupbuttonDelegate: EnableQuicbackupButton?
+    weak var enablebackupbuttonDelegate: EnableQuicbackupButton?
     var index: Int?
     var maxnumber: Int?
     var count: Int?
@@ -30,8 +30,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         self.stackoftasktobeestimated = nil
         self.stackoftasktobeestimated = [Row]()
         for i in 0 ..< self.configurations!.getConfigurations().count {
-            if self.configurations!.getConfigurations()[i].task == "backup" ||
-            self.configurations!.getConfigurations()[i].task == "snapshot" {
+            if self.configurations!.getConfigurations()[i].task == "sync" {
                 self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
             }
         }
@@ -45,9 +44,9 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         if self.stackoftasktobeestimated?.count == 0 {
             self.stackoftasktobeestimated = nil
         }
-        // weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
-        // startstopProgressIndicatorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
-        // startstopProgressIndicatorDelegate?.start()
+        weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
+        startstopProgressIndicatorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        startstopProgressIndicatorDelegate?.start()
         _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
     }
 
@@ -64,7 +63,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         }
         self.records?.append(record)
         self.configurations?.estimatedlist?.append(record)
-        // self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.updateprogressDelegate?.processTermination()
         guard self.stackoftasktobeestimated != nil else { return }
         self.outputprocess = nil
@@ -115,7 +114,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         guard self.records != nil else { return }
         self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< self.records!.count {
-            if self.records![i].value(forKey: "backup") as? Int == 1 {
+            if self.records![i].value(forKey: "sync") as? Int == 1 {
                 self.configurations?.quickbackuplist!.append((self.records![i].value(forKey: "hiddenID") as? Int)!)
             }
         }
@@ -123,10 +122,10 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
 
     func selectalltaskswithfilestobackup() {
         self.selectalltaskswithnumbers()
-        // self.reloadtableDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
-        // self.enablebackupbuttonDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        self.reloadtableDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
+        self.enablebackupbuttonDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.reloadtableDelegate?.reloadtabledata()
-        // self.enablebackupbuttonDelegate?.enablequickbackupbutton()
+        self.enablebackupbuttonDelegate?.enablequickbackupbutton()
     }
 
     init() {
