@@ -59,6 +59,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Just showing process info
     @IBOutlet weak var processInfo: NSTextField!
     @IBOutlet weak var rcloneversionshort: NSTextField!
+    @IBOutlet weak var remoteinfo1: NSTextField!
+    @IBOutlet weak var remoteinfo2: NSTextField!
 
     // Reference to Process task
     private var process: Process?
@@ -420,7 +422,17 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.setRcloneCommandDisplay()
     }
 
-    // when row is selected
+    // Setting remote info
+    private func remoteinfo(reset: Bool) {
+        guard self.outputprocess?.getOutput()?.count ?? 0 > 1 || reset == false else {
+            self.remoteinfo1.stringValue = ""
+            self.remoteinfo2.stringValue = ""
+            return
+        }
+        self.remoteinfo1.stringValue = self.outputprocess?.getOutput()![0] ?? ""
+        self.remoteinfo2.stringValue = self.outputprocess?.getOutput()![1] ?? ""
+    }
+
     // setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard self.scheduledJobInProgress == false else {
@@ -453,6 +465,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.setRcloneCommandDisplay()
         self.reloadtabledata()
         self.configurations!.allowNotifyinMain = true
+        self.remoteinfo(reset: true)
     }
 
     func createandreloadschedules() {
@@ -735,6 +748,7 @@ extension ViewControllertabMain: UpdateProgress {
                 self.openquickbackup()
             }
         case .rclonesize:
+            self.remoteinfo(reset: false)
             self.working.stopAnimation(nil)
         }
     }
