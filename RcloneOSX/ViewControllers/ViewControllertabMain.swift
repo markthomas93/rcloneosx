@@ -97,6 +97,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.processtermination = .rclonesize
             self.outputprocess = OutputProcess()
             self.working.startAnimation(nil)
+            self.estimating.isHidden = false
             _ = RcloneSize(index: self.index!, outputprocess: self.outputprocess)
         } else {
             self.info(num: 1)
@@ -750,6 +751,7 @@ extension ViewControllertabMain: UpdateProgress {
         case .rclonesize:
             self.remoteinfo(reset: false)
             self.working.stopAnimation(nil)
+            self.estimating.isHidden = true
         }
     }
 
