@@ -86,6 +86,21 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     @IBOutlet weak var info: NSTextField!
 
+    @IBAction func getremoteinfo(_ sender: NSButton) {
+        guard ViewControllerReference.shared.norclone == false else {
+            self.tools!.norclone()
+            return
+        }
+        if self.index != nil {
+            self.processtermination = .rclonesize
+            self.outputprocess = OutputProcess()
+            self.working.startAnimation(nil)
+            _ = RcloneSize(index: self.index!, outputprocess: self.outputprocess)
+        } else {
+            self.info(num: 1)
+        }
+    }
+
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norclone == false else {
             self.tools!.norclone()
@@ -719,6 +734,8 @@ extension ViewControllertabMain: UpdateProgress {
                 self.remoteinfotaskworkqueue?.setbackuplist()
                 self.openquickbackup()
             }
+        case .rclonesize:
+            self.working.stopAnimation(nil)
         }
     }
 
@@ -757,6 +774,8 @@ extension ViewControllertabMain: UpdateProgress {
         case .remoteinfotask:
             return
         case .automaticbackup:
+            return
+        case .rclonesize:
             return
         }
     }

@@ -18,12 +18,8 @@ final class RcloneVersionString: ProcessCmd {
             self.updateDelegate = nil
             self.executeProcess(outputprocess: outputprocess)
             self.delayWithSeconds(0.25) {
-                guard outputprocess.getOutput() != nil else {
-                    return
-                }
-                guard outputprocess.getOutput()!.count > 0 else {
-                    return
-                }
+                guard outputprocess.getOutput() != nil else { return }
+                guard outputprocess.getOutput()!.count > 0 else { return }
                 ViewControllerReference.shared.rcloneversionshort = outputprocess.getOutput()![0]
                 ViewControllerReference.shared.rcloneversionstring = outputprocess.getOutput()!.joined(separator: "\n")
                 weak var shortstringDelegate: RcloneChanged?
