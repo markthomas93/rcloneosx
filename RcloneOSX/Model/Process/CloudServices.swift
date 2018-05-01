@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 09.11.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable
 import Foundation
 
 final class CloudServices: ProcessCmd {
