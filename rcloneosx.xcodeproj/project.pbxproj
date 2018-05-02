@@ -73,6 +73,7 @@
 		E960CB4C1FB091DE0008D12E /* ViewControllertabMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAFE1FB091DD0008D12E /* ViewControllertabMain.swift */; };
 		E960CB4E1FB091DE0008D12E /* NewConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CB001FB091DE0008D12E /* NewConfigurations.swift */; };
 		E960CB501FB091DE0008D12E /* SingleTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CB021FB091DE0008D12E /* SingleTask.swift */; };
+		E96D7398209A35D7002C19B1 /* RcloneSizeRemoteInformationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D7397209A35D7002C19B1 /* RcloneSizeRemoteInformationTask.swift */; };
 		E99AA3831FAFA28900C1E86A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99AA3821FAFA28900C1E86A /* AppDelegate.swift */; };
 		E99AA3871FAFA28900C1E86A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99AA3861FAFA28900C1E86A /* Assets.xcassets */; };
 		E99AA38A1FAFA28900C1E86A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99AA3881FAFA28900C1E86A /* Main.storyboard */; };
@@ -158,6 +159,7 @@
 		E960CAFE1FB091DD0008D12E /* ViewControllertabMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllertabMain.swift; sourceTree = "<group>"; };
 		E960CB001FB091DE0008D12E /* NewConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewConfigurations.swift; sourceTree = "<group>"; };
 		E960CB021FB091DE0008D12E /* SingleTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleTask.swift; sourceTree = "<group>"; };
+		E96D7397209A35D7002C19B1 /* RcloneSizeRemoteInformationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RcloneSizeRemoteInformationTask.swift; sourceTree = "<group>"; };
 		E99AA37F1FAFA28900C1E86A /* rcloneosx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rcloneosx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99AA3821FAFA28900C1E86A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99AA3861FAFA28900C1E86A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */,
 				E92B18BA2096F83F001DBFAF /* EstimateRemoteInformationTask.swift */,
 				E905FE63209836C60008450C /* RcloneSize.swift */,
+				E96D7397209A35D7002C19B1 /* RcloneSizeRemoteInformationTask.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				E960CB0A1FB091DE0008D12E /* ViewControllerScheduledBackupInWork.swift in Sources */,
 				E960CB151FB091DE0008D12E /* ViewControllerAbout.swift in Sources */,
 				E960CB451FB091DE0008D12E /* CompleteScheduledOperation.swift in Sources */,
+				E96D7398209A35D7002C19B1 /* RcloneSizeRemoteInformationTask.swift in Sources */,
 				E960CB3F1FB091DE0008D12E /* ExecuteTaskDispatch.swift in Sources */,
 				E960CB141FB091DE0008D12E /* Readwritefiles.swift in Sources */,
 				E960CB261FB091DE0008D12E /* ViewControllerProfile.swift in Sources */,
