@@ -25,6 +25,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     var index: Int?
     var maxnumber: Int?
     var count: Int?
+    var getremoteinfo: Bool = false
 
     private func prepareandstartexecutetasks() {
         self.stackoftasktobeestimated = nil
@@ -51,6 +52,25 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     }
 
     func processTermination() {
+        if self.getremoteinfo == false {
+            self.appendrecord()
+            self.outputprocess = nil
+            self.outputprocess = OutputProcess()
+            if self.stackoftasktobeestimated?.count == 0 { self.stackoftasktobeestimated = nil }
+            // Now get remote info
+            self.getremoteinfo = true
+            _ = RcloneSize(index: self.index!, outputprocess: self.outputprocess)
+            self.index = self.stackoftasktobeestimated?.remove(at: 0).1
+        } else {
+            // Update record with remote info
+            self.updaterecord()
+            self.getremoteinfo = false
+            guard self.stackoftasktobeestimated != nil else { return }
+            _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
+        }
+    }
+
+    private func appendrecord() {
         self.count = self.stackoftasktobeestimated?.count
         let record = RemoteInfoTask(outputprocess: self.outputprocess).record()
         record.setValue(self.configurations?.getConfigurations()[self.index!].localCatalog, forKey: "localCatalog")
@@ -63,16 +83,16 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         }
         self.records?.append(record)
         self.configurations?.estimatedlist?.append(record)
+    }
+
+    private func updaterecord() {
+        guard self.outputprocess?.getOutput()?.count ?? 0 > 1 else { return }
+        let index = self.records!.count - 1
+        self.records?[index].setValue(self.outputprocess?.getOutput()![0] ?? "", forKey: "totalNumber")
+        self.records?[index].setValue(self.outputprocess?.getOutput()![1] ?? "", forKey: "totalNumberSizebytes")
+        // Update table in view
         self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.updateprogressDelegate?.processTermination()
-        guard self.stackoftasktobeestimated != nil else { return }
-        self.outputprocess = nil
-        self.outputprocess = OutputProcess()
-        self.index = self.stackoftasktobeestimated?.remove(at: 0).1
-        if self.stackoftasktobeestimated?.count == 0 {
-            self.stackoftasktobeestimated = nil
-        }
-        _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
     }
 
     func setbackuplist(list: [NSMutableDictionary]) {
