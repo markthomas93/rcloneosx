@@ -432,8 +432,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         }
         let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
         guard size != nil else { return }
-        self.remoteinfo1.stringValue = String(size!.count)
-        self.remoteinfo2.stringValue = String(size!.bytes/1024)
+        NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal)
+        self.remoteinfo1.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
+        self.remoteinfo2.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
     }
 
     // setting which table row is selected
