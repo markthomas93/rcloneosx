@@ -13,7 +13,7 @@ protocol SetRemoteInfo: class {
     func setremoteinfo(remoteinfotask: RemoteInfoTaskWorkQueue?)
 }
 
-class RemoteInfoTaskWorkQueue: SetConfigurations {
+class RemoteInfoTaskWorkQueue: SetConfigurations, Remoterclonesize {
     // (hiddenID, index)
     typealias Row = (Int, Int)
     var stackoftasktobeestimated: [Row]?
@@ -86,10 +86,12 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     }
 
     private func updaterecord() {
-        guard self.outputprocess?.getOutput()?.count ?? 0 > 1 else { return }
+        guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
         let index = self.records!.count - 1
-        self.records?[index].setValue(self.outputprocess?.getOutput()![0] ?? "", forKey: "totalNumber")
-        self.records?[index].setValue(self.outputprocess?.getOutput()![1] ?? "", forKey: "totalNumberSizebytes")
+        let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
+        guard size != nil else { return }
+        self.records?[index].setValue(String(size!.count), forKey: "totalNumber")
+        self.records?[index].setValue(String(size!.bytes/1024), forKey: "totalNumberSizebytes")
         // Update table in view
         self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.updateprogressDelegate?.processTermination()

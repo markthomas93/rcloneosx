@@ -25,7 +25,7 @@ protocol UpdateProgress: class {
     func fileHandler()
 }
 
-class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractivetask, VcMain, Fileerrormessage {
+class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractivetask, VcMain, Fileerrormessage, Remoterclonesize {
 
     // Configurations object
     var configurations: Configurations?
@@ -425,13 +425,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Setting remote info
     private func remoteinfo(reset: Bool) {
-        guard self.outputprocess?.getOutput()?.count ?? 0 > 1 || reset == false else {
+        guard self.outputprocess?.getOutput()?.count ?? 0 > 0 || reset == false else {
             self.remoteinfo1.stringValue = ""
             self.remoteinfo2.stringValue = ""
             return
         }
-        self.remoteinfo1.stringValue = self.outputprocess?.getOutput()![0] ?? ""
-        self.remoteinfo2.stringValue = self.outputprocess?.getOutput()![1] ?? ""
+        let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
+        guard size != nil else { return }
+        self.remoteinfo1.stringValue = String(size!.count)
+        self.remoteinfo2.stringValue = String(size!.bytes/1024)
     }
 
     // setting which table row is selected

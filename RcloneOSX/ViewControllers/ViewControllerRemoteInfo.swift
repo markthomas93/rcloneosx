@@ -86,7 +86,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
 
     private func number() -> String {
         let max = self.remoteinfotask?.maxnumber ?? 0
-        return "Number of tasks to estimate: " + String(describing: max) + ", this may take some time, please be patient..."
+        return "Number of tasks to estimate: " + String(describing: max) + ", this may take time..."
     }
 
     private func dobackups() -> [NSMutableDictionary]? {

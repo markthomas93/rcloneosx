@@ -439,3 +439,15 @@ extension Sorting {
         }
     }
 }
+
+protocol Remoterclonesize: class {
+    // empty
+}
+
+extension Remoterclonesize {
+    func remoterclonesize(input: String) -> Size? {
+        let data: Data = input.data(using: String.Encoding.utf8)!
+        guard let size = try? JSONDecoder().decode(Size.self, from: data) else { return nil}
+        return size
+    }
+}
