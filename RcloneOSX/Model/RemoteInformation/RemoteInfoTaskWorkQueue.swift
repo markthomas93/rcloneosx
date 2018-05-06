@@ -90,8 +90,10 @@ class RemoteInfoTaskWorkQueue: SetConfigurations, Remoterclonesize {
         let index = self.records!.count - 1
         let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
         guard size != nil else { return }
-        self.records?[index].setValue(String(size!.count), forKey: "totalNumber")
-        self.records?[index].setValue(String(size!.bytes/1024), forKey: "totalNumberSizebytes")
+        let totalnumber = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
+        let totalsize = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
+        self.records?[index].setValue(totalnumber, forKey: "totalNumber")
+        self.records?[index].setValue(totalsize, forKey: "totalNumberSizebytes")
         // Update table in view
         self.updateprogressDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.updateprogressDelegate?.processTermination()
