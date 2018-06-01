@@ -67,7 +67,7 @@ class ViewControllerAbout: NSViewController, SetDismisser {
         if let version = self.checkfornewversion!.rcloneOSXversion() {
             self.version.stringValue = "RcloneOSX ver: " + version
         }
-        self.thereisanewversion.stringValue = "No new version: "
+        self.thereisanewversion.stringValue = "You have the latest ..."
         self.rcloneversionstring.stringValue = ViewControllerReference.shared.rcloneversionstring ?? ""
     }
 
