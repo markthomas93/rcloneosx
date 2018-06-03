@@ -48,8 +48,8 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
     // Either abort or close
     @IBAction func abort(_ sender: NSButton) {
         if self.remoteinfotask?.stackoftasktobeestimated != nil {
-            self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: nil)
             self.abort()
+            self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: nil)
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
