@@ -30,7 +30,8 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
     // remote info tasks
     private var remoteinfotask: RemoteInfoTaskWorkQueue?
     weak var remoteinfotaskDelegate: SetRemoteInfo?
-     var selected: Bool = false
+    var selected: Bool = false
+    var loaded: Bool = false
 
     @IBAction func execute(_ sender: NSButton) {
         if let backup = self.dobackups() {
@@ -48,6 +49,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
     @IBAction func abort(_ sender: NSButton) {
         if self.remoteinfotask?.stackoftasktobeestimated != nil {
             self.abort()
+            self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: nil)
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
@@ -64,14 +66,17 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
     // Initial functions viewDidLoad and viewDidAppear
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        // Setting delegates and datasource
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         ViewControllerReference.shared.setvcref(viewcontroller: .vcremoteinfo, nsviewcontroller: self)
         self.remoteinfotaskDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.remoteinfotask = RemoteInfoTaskWorkQueue()
-        self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
+        if let remoteinfotask = self.remoteinfotaskDelegate?.getremoteinfo() {
+            self.remoteinfotask = remoteinfotask
+            self.loaded = true
+        } else {
+            self.remoteinfotask = RemoteInfoTaskWorkQueue()
+            self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
+        }
     }
 
     override func viewDidAppear() {
@@ -82,7 +87,11 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
         self.count.stringValue = self.number()
         self.enableexecutebutton()
         self.initiateProgressbar()
-        self.selectalltaskswithfilestobackupbutton.isEnabled = false
+        if self.loaded {
+            self.selectalltaskswithfilestobackupbutton.isEnabled = true
+        } else {
+            self.selectalltaskswithfilestobackupbutton.isEnabled = false
+        }
     }
 
     override func viewDidDisappear() {
@@ -91,8 +100,12 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
     }
 
     private func number() -> String {
-        let max = self.remoteinfotask?.maxnumber ?? 0
-        return "Number of tasks to estimate: " + String(describing: max) + ", this may take time..."
+        if self.loaded {
+            return "Loaded"
+        } else {
+            let max = self.remoteinfotask?.maxnumber ?? 0
+            return "Number of tasks to estimate: " + String(describing: max) + ", this may take time..."
+        }
     }
 
     private func dobackups() -> [NSMutableDictionary]? {
