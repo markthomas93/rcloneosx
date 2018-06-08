@@ -26,21 +26,36 @@ class ViewControllerLoggData: NSViewController, SetSchedules, Delay {
 
     @IBOutlet weak var scheduletable: NSTableView!
     @IBOutlet weak var search: NSSearchField!
-    @IBOutlet weak var sorting: NSProgressIndicator!
     @IBOutlet weak var numberOflogfiles: NSTextField!
     @IBOutlet weak var sortdirection: NSButton!
+    @IBOutlet weak var selectedrows: NSTextField!
 
-    // Delete row
-    @IBOutlet weak var deleteButton: NSButton!
-    @IBAction func deleteRow(_ sender: NSButton) {
-        guard self.row != nil else {
-            self.deleteButton.state = .off
-            return
+    @IBAction func selectalllogs(_ sender: NSButton) {
+        guard self.scheduleloggdata!.loggdata != nil else { return }
+        for i in 0 ..< self.scheduleloggdata!.loggdata!.count {
+            if self.scheduleloggdata!.loggdata![i].value(forKey: "deleteCellID") as? Int == 1 {
+                self.scheduleloggdata!.loggdata![i].setValue(0, forKey: "deleteCellID")
+            } else {
+                self.scheduleloggdata!.loggdata![i].setValue(1, forKey: "deleteCellID")
+            }
         }
-        self.schedules!.deletelogrow(parent: (self.row!.value(forKey: "parent") as? Int)!, sibling: (self.row!.value(forKey: "sibling") as? Int)!)
-        self.sorting.startAnimation(self)
-        self.deleteButton.state = .off
-        self.deselectRow()
+        globalMainQueue.async(execute: { () -> Void in
+            self.selectedrows.stringValue = "Selected rows: " + self.selectednumber()
+            self.scheduletable.reloadData()
+        })
+    }
+
+    @IBAction func deletealllogs(_ sender: NSButton) {
+        let answer = Alerts.dialogOKCancel("Delete " + self.selectednumber() + " logrecords?", text: "Cancel or OK")
+        if answer {
+            self.deselectRow()
+            self.schedules?.deleteselectedrows(scheduleloggdata: self.scheduleloggdata)
+        }
+    }
+
+    private func selectednumber() -> String {
+        let number = self.scheduleloggdata!.loggdata!.filter({($0.value(forKey: "deleteCellID") as? Int)! == 1}).count
+        return String(number)
     }
 
     @IBAction func sortdirection(_ sender: NSButton) {
@@ -59,7 +74,6 @@ class ViewControllerLoggData: NSViewController, SetSchedules, Delay {
         self.scheduletable.delegate = self
         self.scheduletable.dataSource = self
         self.search.delegate = self
-        self.sorting.usesThreadedAnimation = true
         ViewControllerReference.shared.setvcref(viewcontroller: .vcloggdata, nsviewcontroller: self)
     }
 
@@ -92,18 +106,15 @@ extension ViewControllerLoggData: NSSearchFieldDelegate {
     override func controlTextDidChange(_ obj: Notification) {
         self.delayWithSeconds(0.25) {
             let filterstring = self.search.stringValue
-            self.sorting.startAnimation(self)
             if filterstring.isEmpty {
                 globalMainQueue.async(execute: { () -> Void in
                     self.scheduleloggdata = ScheduleLoggData()
                     self.scheduletable.reloadData()
-                    self.sorting.stopAnimation(self)
                 })
             } else {
                 globalMainQueue.async(execute: { () -> Void in
                     self.scheduleloggdata!.filter(search: filterstring, filterby: self.filterby)
                     self.scheduletable.reloadData()
-                    self.sorting.stopAnimation(self)
                 })
             }
         }
@@ -138,7 +149,11 @@ extension ViewControllerLoggData: NSTableViewDelegate {
         guard self.scheduleloggdata != nil else { return nil }
         guard row < self.scheduleloggdata!.loggdata!.count else { return nil }
         let object: NSDictionary = self.scheduleloggdata!.loggdata![row]
-        return object[tableColumn!.identifier] as? String
+        if tableColumn!.identifier.rawValue == "deleteCellID" {
+            return object[tableColumn!.identifier] as? Int
+        } else {
+            return object[tableColumn!.identifier] as? String
+        }
     }
 
     // setting which table row is selected
@@ -154,13 +169,13 @@ extension ViewControllerLoggData: NSTableViewDelegate {
         switch column {
         case 0:
              self.filterby = .task
-        case 1:
-            self.filterby = .backupid
         case 2:
-            self.filterby = .localcatalog
+            self.filterby = .backupid
         case 3:
-            self.filterby = .remoteserver
+            self.filterby = .localcatalog
         case 4:
+            self.filterby = .remoteserver
+        case 5:
             sortbystring = false
             self.filterby = .executedate
         default:
@@ -197,9 +212,7 @@ extension ViewControllerLoggData: ReadLoggdata {
             globalMainQueue.async(execute: { () -> Void in
                 self.scheduleloggdata = ScheduleLoggData()
                 self.scheduletable.reloadData()
-                self.sorting.stopAnimation(self)
             })
-            self.deleteButton.state = .off
         }
     }
 }

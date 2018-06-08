@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 19.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -14,14 +15,31 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
     var storageapi: PersistentStorageAPI?
     var schedules: [ConfigurationSchedule]?
 
-    func deletelogrow(parent: Int, sibling: Int) {
-        guard parent < self.schedules!.count else {
-            return
+    typealias Row = (Int, Int)
+    func deleteselectedrows(scheduleloggdata: ScheduleLoggData?) {
+        guard scheduleloggdata?.loggdata != nil else { return }
+        var deletes = [Row]()
+        let selectdeletes = scheduleloggdata!.loggdata!.filter({($0.value(forKey: "deleteCellID") as? Int)! == 1}).sorted { (dict1, dict2) -> Bool in
+            if (dict1.value(forKey: "parent") as? Int) ?? 0 > (dict2.value(forKey: "parent") as? Int) ?? 0 {
+                return true
+            } else {
+                return false
+            }
         }
-        guard sibling <  self.schedules![parent].logrecords.count else {
-            return
+        for i in 0 ..< selectdeletes.count {
+            let parent = selectdeletes[i].value(forKey: "parent") as? Int ?? 0
+            let sibling = selectdeletes[i].value(forKey: "sibling") as? Int ?? 0
+            deletes.append((parent, sibling))
         }
-        self.schedules![parent].logrecords.remove(at: sibling)
+        deletes.sort(by: {(obj1, obj2) -> Bool in
+            if obj1.0 == obj2.0 && obj1.1 > obj2.1 {
+                return obj1 > obj2
+            }
+            return obj1 > obj2
+        })
+        for i in 0 ..< deletes.count {
+            self.schedules![deletes[i].0].logrecords.remove(at: deletes[i].1)
+        }
         self.storageapi!.saveScheduleFromMemory()
         self.reloadtable(vcontroller: .vcloggdata)
     }
