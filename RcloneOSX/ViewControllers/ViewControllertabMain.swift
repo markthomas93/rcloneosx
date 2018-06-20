@@ -325,7 +325,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        _ = RcloneVersionString()
         guard self.scheduledJobInProgress == false else {
             self.scheduledJobworking.startAnimation(nil)
             self.executing.isHidden = false
