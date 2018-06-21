@@ -22,6 +22,8 @@ final class GetCloudServices {
     init(outputprocess: OutputProcess?) {
         self.outputprocess = outputprocess
         self.arguments = ["config", "show"]
-        self.getCloudServices()
+        if ViewControllerReference.shared.norclone == false {
+            self.getCloudServices()
+        }
     }
 }

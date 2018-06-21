@@ -155,7 +155,7 @@ extension ViewControllertabMain: RcloneChanged {
     func rclonechanged() {
         // Update rclone command in display
         self.setRcloneCommandDisplay()
-        self.verifyrclone()
+        self.setinfoaboutrclone()
         // Setting shortstring
         self.rcloneversionshort.stringValue = ViewControllerReference.shared.rcloneversionshort ?? ""
     }
@@ -183,7 +183,7 @@ extension ViewControllertabMain: DismissViewController {
             self.displayProfile()
         })
         self.showProcessInfo(info: .blank)
-        self.verifyrclone()
+        self.setinfoaboutrclone()
         if viewcontroller == ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) {
             self.configurations!.allowNotifyinMain = true
         }
@@ -557,8 +557,8 @@ extension ViewControllertabMain: GetSchedulesObject {
     }
 }
 
-extension ViewControllertabMain: Verifyrclone {
-    internal func verifyrclone() {
+extension ViewControllertabMain: Setinfoaboutrclone {
+    internal func setinfoaboutrclone() {
         if ViewControllerReference.shared.norclone == true {
             self.info(num: 3)
         } else {
