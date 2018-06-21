@@ -46,8 +46,8 @@ protocol Connections: class {
     func displayConnections()
 }
 
-protocol Verifyrclone: class {
-    func verifyrclone()
+protocol Setinfoaboutrclone: class {
+    func setinfoaboutrclone()
 }
 
 final class Tools: SetConfigurations {
@@ -56,7 +56,7 @@ final class Tools: SetConfigurations {
     weak var testconnectionsDelegate: Connections?
     weak var newprofileDelegate: NewProfile?
     private var macSerialNumber: String?
-    weak var verifyrcloneDelegate: Verifyrclone?
+    weak var verifyrcloneDelegate: Setinfoaboutrclone?
 
     // Setting date format
     func setDateformat() -> DateFormatter {
@@ -84,7 +84,7 @@ final class Tools: SetConfigurations {
         }
         guard ViewControllerReference.shared.rcloneopt == true else {
             ViewControllerReference.shared.norclone = false
-            self.verifyrcloneDelegate?.verifyrclone()
+            self.verifyrcloneDelegate?.setinfoaboutrclone()
             return
         }
         if fileManager.fileExists(atPath: path!) == false {
@@ -92,7 +92,7 @@ final class Tools: SetConfigurations {
         } else {
             ViewControllerReference.shared.norclone = false
         }
-        self.verifyrcloneDelegate?.verifyrclone()
+        self.verifyrcloneDelegate?.setinfoaboutrclone()
     }
 
     // Display the correct command to execute
