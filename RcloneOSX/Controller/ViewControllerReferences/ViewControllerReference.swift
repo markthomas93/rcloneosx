@@ -72,7 +72,8 @@ class ViewControllerReference {
     var rcloneversionstring: String?
     // Rclone version short
     var rcloneversionshort: String?
-
+    // Mac serialnumer
+    var macserialnumber: String?
     // Reference to main View
     private var viewControllertabMain: NSViewController?
     // Reference to Copy files
