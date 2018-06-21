@@ -45,23 +45,28 @@ class Readwritefiles {
     private func setnameandpath() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         let docuDir = (paths.firstObject as? String)!
+        if ViewControllerReference.shared.macserialnumber == nil {
+            ViewControllerReference.shared.macserialnumber = Tools().getMacSerialNumber() ?? ""
+        }
+        let macserialnumber = ViewControllerReference.shared.macserialnumber
         let profilePath = Profiles()
         profilePath.createDirectory()
         if self.useProfile {
             // Use profile
             if let profile = self.profile {
+                guard profile.isEmpty == false else { return }
                 let profilePath = Profiles()
                 profilePath.createDirectory()
-                self.filepath = ViewControllerReference.shared.configpath + Tools().getMacSerialNumber()! + "/" + profile + "/"
-                self.filename = docuDir + ViewControllerReference.shared.configpath + Tools().getMacSerialNumber()! + "/" + profile + self.name!
+                self.filepath = ViewControllerReference.shared.configpath + macserialnumber! + "/" + profile + "/"
+                self.filename = docuDir + ViewControllerReference.shared.configpath + macserialnumber! + "/" + profile + self.name!
             } else {
                 // If profile not set use no profile
-                self.filename = docuDir +  ViewControllerReference.shared.configpath + Tools().getMacSerialNumber()! + self.name!
+                self.filename = docuDir +  ViewControllerReference.shared.configpath + macserialnumber! + self.name!
             }
         } else {
             // no profile
-            self.filename = docuDir + ViewControllerReference.shared.configpath + Tools().getMacSerialNumber()! + self.name!
-            self.filepath = ViewControllerReference.shared.configpath + Tools().getMacSerialNumber()! + "/"
+            self.filename = docuDir + ViewControllerReference.shared.configpath + macserialnumber! + self.name!
+            self.filepath = ViewControllerReference.shared.configpath + macserialnumber! + "/"
         }
     }
 
