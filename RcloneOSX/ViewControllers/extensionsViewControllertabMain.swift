@@ -664,3 +664,9 @@ extension ViewControllertabMain: Count {
         return self.outputprocess!.count()
     }
 }
+
+extension ViewControllertabMain: GetsortedanexpandedObject {
+    func getsortedanexpandedObject() -> ScheduleSortedAndExpand? {
+        return self.schedulesortedandexpanded
+    }
+}
