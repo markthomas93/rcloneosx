@@ -222,10 +222,10 @@ extension ViewControllerCopyFiles: NSTableViewDataSource {
 
     func numberOfRows(in tableViewMaster: NSTableView) -> Int {
         guard self.tabledata != nil else {
-            self.numberofrows.stringValue = "Number of rows:"
+            self.numberofrows.stringValue = "Number of files:"
             return 0
         }
-        self.numberofrows.stringValue = "Number of rows: " + String(self.tabledata!.count)
+        self.numberofrows.stringValue = "Number of files: " + String(self.tabledata!.count)
         return self.tabledata!.count
     }
 }
