@@ -32,7 +32,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
     @IBOutlet weak var sortdirection: NSButton!
     @IBOutlet weak var selectedrows: NSTextField!
     @IBOutlet weak var info: NSTextField!
-    
+
     private func info(num: Int) {
         switch num {
         case 1:
@@ -62,7 +62,7 @@ class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules,
             }
         }
         globalMainQueue.async(execute: { () -> Void in
-            self.selectedrows.stringValue = "Selected rows: " + self.selectednumber()
+            self.selectedrows.stringValue = "Selected logs: " + self.selectednumber()
             self.scheduletable.reloadData()
         })
     }
@@ -222,7 +222,7 @@ extension ViewControllerLoggData: NSTableViewDelegate {
                 break
             }
             globalMainQueue.async(execute: { () -> Void in
-                self.selectedrows.stringValue = "Selected rows: " + self.selectednumber()
+                self.selectedrows.stringValue = "Selected logs: " + self.selectednumber()
             })
         }
     }
@@ -236,7 +236,7 @@ extension ViewControllerLoggData: Reloadandrefresh {
             self.scheduletable.reloadData()
         })
         self.row = nil
-        self.selectedrows.stringValue = "Selected rows:"
+        self.selectedrows.stringValue = "Selected logs:"
     }
 }
 
