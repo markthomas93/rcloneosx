@@ -18,7 +18,7 @@ class ViewControllerAllProfiles: NSViewController, Delay {
     @IBOutlet weak var sortdirection: NSButton!
     @IBOutlet weak var numberOfprofiles: NSTextField!
 
-    private var allprofiles: AllProfiles?
+    private var allprofiles: AllConfigurations?
     private var column: Int?
     private var filterby: Sortandfilter?
     private var sortedascendigdesending: Bool = true
@@ -40,12 +40,12 @@ class ViewControllerAllProfiles: NSViewController, Delay {
         self.mainTableView.dataSource = self
         self.search.delegate = self
         ViewControllerReference.shared.setvcref(viewcontroller: .vcallprofiles, nsviewcontroller: self)
+        self.sortdirection.image = #imageLiteral(resourceName: "up")
     }
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.allprofiles = AllProfiles()
-        self.sortdirection.image = #imageLiteral(resourceName: "up")
+        self.allprofiles = AllConfigurations()
         self.sortedascendigdesending = true
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
@@ -57,10 +57,10 @@ extension ViewControllerAllProfiles: NSTableViewDataSource {
     // Delegate for size of table
     func numberOfRows(in tableView: NSTableView) -> Int {
         if self.allprofiles?.allconfigurationsasdictionary == nil {
-            self.numberOfprofiles.stringValue = "Number of rows:"
+            self.numberOfprofiles.stringValue = "Number of profiles:"
             return 0
         } else {
-            self.numberOfprofiles.stringValue = "Number of rows: " +
+            self.numberOfprofiles.stringValue = "Number of profiles: " +
                 String(self.allprofiles!.allconfigurationsasdictionary?.count ?? 0)
             return self.allprofiles!.allconfigurationsasdictionary?.count ?? 0
         }
@@ -119,7 +119,7 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
             let filterstring = self.search.stringValue
             if filterstring.isEmpty {
                 globalMainQueue.async(execute: { () -> Void in
-                    self.allprofiles = AllProfiles()
+                    self.allprofiles = AllConfigurations()
                     self.mainTableView.reloadData()
                 })
             } else {
@@ -133,7 +133,7 @@ extension ViewControllerAllProfiles: NSSearchFieldDelegate {
 
     func searchFieldDidEndSearching(_ sender: NSSearchField) {
         globalMainQueue.async(execute: { () -> Void in
-            self.allprofiles = AllProfiles()
+            self.allprofiles = AllConfigurations()
             self.mainTableView.reloadData()
         })
     }
