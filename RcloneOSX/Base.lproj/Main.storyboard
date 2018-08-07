@@ -4176,14 +4176,14 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="groove" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="c1d-lq-omz">
-                                <rect key="frame" x="20" y="44" width="1052" height="306"/>
+                                <rect key="frame" x="20" y="50" width="1052" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="bzO-Q2-vrd">
-                                    <rect key="frame" x="2" y="2" width="1048" height="302"/>
+                                    <rect key="frame" x="2" y="2" width="1048" height="296"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="fJb-pq-eay" id="JaD-tB-eVG">
-                                            <rect key="frame" x="0.0" y="0.0" width="1048" height="279"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1048" height="273"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -4344,7 +4344,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n90-Q2-6Vo">
-                                <rect key="frame" x="389" y="348" width="67" height="32"/>
+                                <rect key="frame" x="557" y="348" width="67" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Select" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hNK-Ry-FIg">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -4352,17 +4352,6 @@ DQ
                                 </buttonCell>
                                 <connections>
                                     <action selector="selectalllogs:" target="Vnt-Io-Ekd" id="JQa-iz-DMg"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6y-u2-hll">
-                                <rect key="frame" x="456" y="348" width="66" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Delete" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Lh-i2-X0i">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="deletealllogs:" target="Vnt-Io-Ekd" id="5Kz-ob-ezp"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-xN-Rqi">
@@ -4375,7 +4364,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUi-lG-rqm">
-                                <rect key="frame" x="528" y="357" width="139" height="17"/>
+                                <rect key="frame" x="393" y="357" width="139" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Selected logs: 0" id="Az5-g2-uSa">
                                     <font key="font" metaFont="system"/>
@@ -4383,6 +4372,17 @@ DQ
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6y-u2-hll">
+                                <rect key="frame" x="618" y="348" width="66" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Delete" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Lh-i2-X0i">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="deletealllogs:" target="Vnt-Io-Ekd" id="5Kz-ob-ezp"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
