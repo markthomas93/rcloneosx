@@ -1,11 +1,11 @@
 //
 //  files.swift
-//  rcloneOSX
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 26.04.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
-//  swiftlint OK - 17 July 2017
-//  swiftlint:disable line_length
+//
+// swiftlint:disable line_length
 
 import Foundation
 
@@ -14,23 +14,74 @@ enum Root {
     case sshRoot
 }
 
-class Files: Reportfileerror {
+enum Fileerrortype {
+    case openlogfile
+    case writelogfile
+    case profilecreatedirectory
+    case profiledeletedirectory
+}
 
+// Protocol for reporting file errors
+protocol Fileerror: class {
+    func errormessage(errorstr: String, errortype: Fileerrortype)
+}
+
+protocol Reportfileerror {
+    var errorDelegate: Fileerror? { get }
+}
+
+extension Reportfileerror {
+    weak var errorDelegate: Fileerror? {
+        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+    }
+    
+    func error(error: String, errortype: Fileerrortype) {
+        self.errorDelegate?.errormessage(errorstr: error, errortype: errortype)
+    }
+}
+
+protocol Fileerrormessage {
+    func errordescription(errortype: Fileerrortype) -> String
+}
+
+extension Fileerrormessage {
+    func errordescription(errortype: Fileerrortype) -> String {
+        switch errortype {
+        case .openlogfile:
+            guard ViewControllerReference.shared.fileURL != nil else {
+                return "No existing logfile, creating a new one"
+            }
+            return "No existing logfile, creating a new one: " + String(describing: ViewControllerReference.shared.fileURL!)
+        case .writelogfile:
+            return "Could not write to logfile"
+        case .profilecreatedirectory:
+            return "Could not create profile directory"
+        case .profiledeletedirectory:
+            return "Could not delete profile directory"
+        }
+    }
+}
+
+class Files: Reportfileerror {
+    
     var root: Root?
     var rootpath: String?
-
+    // config path either
+    // ViewControllerReference.shared.configpath or RcloneReference.shared.configpath
+    private var configpath: String?
+    
     private func setrootpath() {
         switch self.root! {
         case .profileRoot:
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
             let docuDir = (paths.firstObject as? String)!
-            let profilePath = docuDir + ViewControllerReference.shared.configpath + Tools().getMacSerialNumber()!
+            let profilePath = docuDir + self.configpath! + Tools().getMacSerialNumber()!
             self.rootpath = profilePath
         case .sshRoot:
             self.rootpath = NSHomeDirectory() + "/.ssh/"
         }
     }
-
+    
     // Function for returning directorys in path as array of URLs
     func getDirectorysURLs() -> [URL]? {
         var array: [URL]?
@@ -45,7 +96,7 @@ class Files: Reportfileerror {
         }
         return nil
     }
-
+    
     // Function for returning files in path as array of URLs
     func getFilesURLs() -> [URL]? {
         var array: [URL]?
@@ -65,7 +116,7 @@ class Files: Reportfileerror {
         }
         return nil
     }
-
+    
     // Function for returning files in path as array of Strings
     func getFileStrings() -> [String]? {
         var array: [String]?
@@ -85,10 +136,10 @@ class Files: Reportfileerror {
         }
         return nil
     }
-
+    
     // Function for returning profiles as array of Strings
     func getDirectorysStrings() -> [String] {
-        var array: [String] = [String]()
+        var array = [String]()
         if let filePath = self.rootpath {
             if let fileURLs = self.getfileURLs(path: filePath) {
                 for i in 0 ..< fileURLs.count where fileURLs[i].hasDirectoryPath {
@@ -101,7 +152,7 @@ class Files: Reportfileerror {
         }
         return array
     }
-
+    
     // Func that creates directory if not created
     func createDirectory() {
         let fileManager = FileManager.default
@@ -117,7 +168,7 @@ class Files: Reportfileerror {
             }
         }
     }
-
+    
     // Function for getting fileURLs for a given path
     func getfileURLs (path: String) -> [URL]? {
         let fileManager = FileManager.default
@@ -134,7 +185,7 @@ class Files: Reportfileerror {
             return nil
         }
     }
-
+    
     // Check if file exist or not
     func checkFileExist(file: String) -> Bool {
         let fileManager = FileManager.default
@@ -144,10 +195,10 @@ class Files: Reportfileerror {
             return false
         }
     }
-
-    init (root: Root) {
+    
+    init (root: Root, configpath: String) {
+        self.configpath = configpath
         self.root = root
         self.setrootpath()
     }
-
 }

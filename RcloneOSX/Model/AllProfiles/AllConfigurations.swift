@@ -1,6 +1,6 @@
 //
-//  AllProfiles.swift
-//  rcloneOSX
+//  AllConfigurations.swift
+//  RsyncOSX
 //
 //  Created by Thomas Evensen on 04.03.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
@@ -9,20 +9,17 @@
 
 import Foundation
 
-class AllProfiles: Sorting {
+class AllConfigurations: Sorting {
     // Configurations object
     private var allconfigurations: [Configuration]?
     var allconfigurationsasdictionary: [NSMutableDictionary]?
     private var allprofiles: [String]?
-
-    private func getprofiles() {
-        let profile = Files(root: .profileRoot)
-        self.allprofiles = profile.getDirectorysStrings()
-        guard self.allprofiles != nil else { return }
-        self.allprofiles!.append("Default profile")
+    
+    func getallconfigurations() -> [Configuration]? {
+        return self.allconfigurations
     }
-
-    private func getallconfigurations() {
+    
+    private func readallconfigurations() {
         guard self.allprofiles != nil else { return }
         var configurations: [Configuration]?
         for i in 0 ..< self.allprofiles!.count {
@@ -42,10 +39,10 @@ class AllProfiles: Sorting {
             }
         }
     }
-
+    
     private func setConfigurationsDataSourcecountBackupSnapshot() {
         guard self.allconfigurations != nil else { return }
-        var configurations: [Configuration] = self.allconfigurations!.filter({return ($0.task == "sync" || $0.task == "copy" || $0.task == "move")})
+        var configurations: [Configuration] = self.allconfigurations!.filter({return ($0.task == "backup" || $0.task == "snapshot" )})
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
             if configurations[i].offsiteServer.isEmpty == true {
@@ -68,7 +65,7 @@ class AllProfiles: Sorting {
         }
         self.allconfigurationsasdictionary = data
     }
-
+    
     // Function for filter
     func filter(search: String?, column: Int, filterby: Sortandfilter?) {
         guard search != nil && self.allconfigurationsasdictionary != nil && filterby != nil else { return }
@@ -96,11 +93,10 @@ class AllProfiles: Sorting {
             }
         })
     }
-
+    
     init() {
-        self.getprofiles()
-        self.getallconfigurations()
+        self.allprofiles = AllProfilenames().allprofiles
+        self.readallconfigurations()
         self.setConfigurationsDataSourcecountBackupSnapshot()
     }
-
 }

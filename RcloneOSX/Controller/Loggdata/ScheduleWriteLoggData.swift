@@ -94,7 +94,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         dict.setObject(result, forKey: "resultExecuted" as NSCopying)
         let executed = NSMutableArray()
         executed.add(dict)
-        let newSchedule = ConfigurationSchedule(dictionary: masterdict, log: executed)
+        let newSchedule = ConfigurationSchedule(dictionary: masterdict, log: executed, nolog: false)
         self.schedules!.append(newSchedule)
         loggadded = true
         return loggadded
