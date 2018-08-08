@@ -263,7 +263,8 @@ extension ViewControllerCopyFiles: NSTableViewDelegate {
         }
         var split = self.tabledata![row].components(separatedBy: " ")
         if tableColumn == tableView.tableColumns[0] {
-            text = split[0]
+            let num = Double(split[0]) ?? 0
+            text = NumberFormatter.localizedString(from: NSNumber(value: num), number: NumberFormatter.Style.decimal)
             cellIdentifier = "sizeID"
         }
         if tableColumn == tableView.tableColumns[1] {
