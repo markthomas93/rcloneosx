@@ -1,6 +1,6 @@
 //
 //  profiles.swift
-//  RsyncOSX
+//  RcloneOSX
 //
 //  Created by Thomas Evensen on 17/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.

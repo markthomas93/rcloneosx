@@ -1,6 +1,6 @@
 //
 //  AllConfigurations.swift
-//  RsyncOSX
+//  RcloneOSX
 //
 //  Created by Thomas Evensen on 04.03.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
