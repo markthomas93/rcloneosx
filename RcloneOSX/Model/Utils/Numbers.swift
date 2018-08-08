@@ -51,7 +51,8 @@ final class Numbers: SetConfigurations {
             let size = self.totNumSize ?? 0
             return Int(size/1024 )
         case .transferredNumberSizebytes:
-            let size = Int(self.transferNumSize ?? "0" )
+            var size = Int(self.transferNumSize ?? "0")
+            if size == nil { size = 0 }
             return Int(size!/1024)
         case .new:
             let num = self.newfiles ?? 0
