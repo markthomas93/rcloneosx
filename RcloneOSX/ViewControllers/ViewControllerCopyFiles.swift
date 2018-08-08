@@ -257,27 +257,43 @@ extension ViewControllerCopyFiles: NSTableViewDelegate {
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         var text: String?
-        guard self.tabledata != nil else { return nil }
-        let cellIdentifier: String = "fileID"
-        text = self.tabledata![row]
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
+        var cellIdentifier: String?
+        guard self.tabledata != nil else {
+            return nil
+        }
+        var split = self.tabledata![row].components(separatedBy: " ")
+        if tableColumn == tableView.tableColumns[0] {
+            text = split[0]
+            cellIdentifier = "sizeID"
+        }
+        if tableColumn == tableView.tableColumns[1] {
+            if split.count > 1 {
+                text = split[1]
+            } else {
+                text = split[0]
+            }
+            cellIdentifier = "fileID"
+        }
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier!), owner: self) as? NSTableCellView {
             cell.textField?.stringValue = text!
             return cell
+        } else {
+            return nil
         }
-        return nil
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        self.info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
         let indexes = myTableViewFromNotification.selectedRowIndexes
         if let index = indexes.first {
             guard self.tabledata != nil else { return }
-            self.remoteCatalog.stringValue = self.tabledata![index]
-            guard self.remoteCatalog.stringValue.isEmpty == false && self.localCatalog.stringValue.isEmpty == false else {
-                self.info(num: 3)
-                return
+            let split = self.tabledata![index].components(separatedBy: " ")
+            if split.count > 1 {
+                self.remoteCatalog.stringValue = split[1]
+            } else {
+                self.remoteCatalog.stringValue = self.tabledata![index]
             }
+            guard self.remoteCatalog.stringValue.isEmpty == false && self.localCatalog.stringValue.isEmpty == false else { return }
             self.commandString.stringValue = self.copyFiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.localCatalog.stringValue)
             self.estimated = false
             self.copyButton.title = "Estimate"
