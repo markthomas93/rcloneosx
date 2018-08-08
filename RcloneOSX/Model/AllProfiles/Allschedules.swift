@@ -1,5 +1,5 @@
 //  Allschedules.swift
-//  RsyncOSXsched
+//  RcloneOSXsched
 //
 //  Created by Thomas Evensen on 06.05.2018.
 //  Copyright © 2018 Maxim. All rights reserved.

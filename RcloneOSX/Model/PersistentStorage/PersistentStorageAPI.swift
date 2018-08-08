@@ -1,6 +1,6 @@
 //
 //  persistentStoreAPI.swift
-//  RsyncOSX
+//  RcloneOSX
 //
 //  Created by Thomas Evensen on 09/12/15.
 //  Copyright © 2015 Thomas Evensen. All rights reserved.
