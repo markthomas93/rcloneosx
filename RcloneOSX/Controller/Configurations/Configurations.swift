@@ -235,7 +235,7 @@ class Configurations: ReloadTable {
     /// - parameter index: index of Configuration
     /// - parameter argtype : either .arg or .argdryRun (of enumtype argumentsrclone)
     /// - returns : array of Strings holding all computed arguments
-    func arguments4rclone (index: Int, argtype: ArgumentsRclone) -> [String] {
+    func arguments4rclone(index: Int, argtype: ArgumentsRclone) -> [String] {
         let allarguments = self.argumentAllConfigurations![index]
         switch argtype {
         case .arg:
@@ -250,6 +250,30 @@ class Configurations: ReloadTable {
             return allarguments.argsRestorefilesdryRun!
         case .argrestoreDisplaydryRun:
             return allarguments.argsRestorefilesdryRunDisplay!
+        }
+    }
+    
+    func arguments4tmprestore(index: Int, argtype: ArgumentsRclone) -> [String] {
+        let allarguments = self.argumentAllConfigurations![index]
+        switch argtype {
+        case .arg:
+            return allarguments.tmprestore ?? []
+        case .argdryRun:
+            return allarguments.tmprestoredryRun ?? []
+        default:
+            return []
+        }
+    }
+    
+    func arguments4restore(index: Int, argtype: ArgumentsRclone) -> [String] {
+        let allarguments = self.argumentAllConfigurations![index]
+        switch argtype {
+        case .arg:
+            return allarguments.restore ?? []
+        case .argdryRun:
+            return allarguments.restoredryRun ?? []
+        default:
+            return []
         }
     }
 

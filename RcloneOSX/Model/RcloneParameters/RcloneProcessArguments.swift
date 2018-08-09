@@ -146,6 +146,10 @@ class RcloneProcessArguments {
         }
         return self.arguments!
     }
+    
+    func argumentsRestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String] {
+        return self.arguments!
+    }
 
     init () {
         self.arguments = nil
