@@ -85,6 +85,8 @@
 		E9A795941FBF2CDA00AF8A5F /* ViewControllerInformationCopyFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A795931FBF2CDA00AF8A5F /* ViewControllerInformationCopyFiles.swift */; };
 		E9BC41E3206517A5001DBCC6 /* AllConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC41E2206517A5001DBCC6 /* AllConfigurations.swift */; };
 		E9BC41E52065184F001DBCC6 /* ViewControllerAllProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC41E42065184E001DBCC6 /* ViewControllerAllProfiles.swift */; };
+		E9C2029C211BFD8A005E3B11 /* ViewControllerRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2029B211BFD8A005E3B11 /* ViewControllerRestore.swift */; };
+		E9C2029E211BFE1A005E3B11 /* RestoreTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C2029D211BFE1A005E3B11 /* RestoreTask.swift */; };
 		E9CB92351FEE29800047F9CA /* ViewControllerQuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB92341FEE29800047F9CA /* ViewControllerQuickBackup.swift */; };
 		E9CB92381FEE2A8D0047F9CA /* QuickBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB92371FEE2A8D0047F9CA /* QuickBackup.swift */; };
 		E9D1F19F1FB49C3B0099D25C /* CloudServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D1F19E1FB49C3B0099D25C /* CloudServices.swift */; };
@@ -175,6 +177,8 @@
 		E9A795931FBF2CDA00AF8A5F /* ViewControllerInformationCopyFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerInformationCopyFiles.swift; path = RcloneOSX/ViewControllers/ViewControllerInformationCopyFiles.swift; sourceTree = SOURCE_ROOT; };
 		E9BC41E2206517A5001DBCC6 /* AllConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllConfigurations.swift; sourceTree = "<group>"; };
 		E9BC41E42065184E001DBCC6 /* ViewControllerAllProfiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAllProfiles.swift; sourceTree = "<group>"; };
+		E9C2029B211BFD8A005E3B11 /* ViewControllerRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRestore.swift; sourceTree = "<group>"; };
+		E9C2029D211BFE1A005E3B11 /* RestoreTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreTask.swift; sourceTree = "<group>"; };
 		E9CB92341FEE29800047F9CA /* ViewControllerQuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerQuickBackup.swift; sourceTree = "<group>"; };
 		E9CB92371FEE2A8D0047F9CA /* QuickBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickBackup.swift; sourceTree = "<group>"; };
 		E9D1F19E1FB49C3B0099D25C /* CloudServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudServices.swift; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 				E954F7D41FF411A6003DF6C0 /* RcloneVersionString.swift */,
 				E92B18BA2096F83F001DBFAF /* EstimateRemoteInformationTask.swift */,
 				E905FE63209836C60008450C /* RcloneSize.swift */,
+				E9C2029D211BFE1A005E3B11 /* RestoreTask.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				E9CB92341FEE29800047F9CA /* ViewControllerQuickBackup.swift */,
 				E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */,
 				E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */,
+				E9C2029B211BFD8A005E3B11 /* ViewControllerRestore.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -634,6 +640,7 @@
 				E92B18BB2096F83F001DBFAF /* EstimateRemoteInformationTask.swift in Sources */,
 				E960CB341FB091DE0008D12E /* ViewControllerNewConfigurations.swift in Sources */,
 				E960CB321FB091DE0008D12E /* ViewControllerScheduleDetails.swift in Sources */,
+				E9C2029C211BFD8A005E3B11 /* ViewControllerRestore.swift in Sources */,
 				E960CB431FB091DE0008D12E /* PersistentStorageScheduling.swift in Sources */,
 				E960CB0A1FB091DE0008D12E /* ViewControllerScheduledBackupInWork.swift in Sources */,
 				E960CB151FB091DE0008D12E /* ViewControllerAbout.swift in Sources */,
@@ -679,6 +686,7 @@
 				E960CB331FB091DE0008D12E /* PersistentStorageUserconfiguration.swift in Sources */,
 				E960CB3E1FB091DE0008D12E /* Schedules.swift in Sources */,
 				E960CB351FB091DE0008D12E /* Checkfornewversion.swift in Sources */,
+				E9C2029E211BFE1A005E3B11 /* RestoreTask.swift in Sources */,
 				E960CB1D1FB091DE0008D12E /* ViewControllerUserconfiguration.swift in Sources */,
 				E9A7958C1FBF285400AF8A5F /* ViewControllerCopyFilesSource.swift in Sources */,
 				E9BC41E52065184F001DBCC6 /* ViewControllerAllProfiles.swift in Sources */,

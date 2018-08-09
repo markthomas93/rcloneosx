@@ -87,6 +87,24 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     weak var estimateupdateDelegate: Updateestimating?
 
     @IBOutlet weak var info: NSTextField!
+    
+    @IBAction func restore(_ sender: NSButton) {
+        guard self.index != nil else {
+            self.info(num: 1)
+            return
+        }
+        guard ViewControllerReference.shared.norclone == false else {
+            self.tools!.norclone()
+            return
+        }
+        guard self.configurations!.getConfigurations()[self.index!].task == "backup" ||
+            self.configurations!.getConfigurations()[self.index!].task == "snapshot" else {
+                self.info(num: 7)
+                return
+        }
+        self.processtermination = .restore
+        self.presentViewControllerAsSheet(self.restoreViewController!)
+    }
 
     @IBAction func getremoteinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norclone == false else {

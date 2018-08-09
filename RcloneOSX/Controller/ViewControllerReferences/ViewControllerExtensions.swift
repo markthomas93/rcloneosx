@@ -161,6 +161,13 @@ extension VcMain {
         return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardEstimatingID"))
             as? NSViewController)!
     }
+
+    // Restore
+    // self.presentViewControllerAsSheet(self.restoreViewController)
+    var restoreViewController: NSViewController? {
+        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRestoreID"))
+            as? NSViewController)!
+    }
 }
 
 protocol VcCopyFiles {
