@@ -24,6 +24,14 @@ struct ArgumentsOneConfiguration {
     var argsRestorefiles: [String]?
     var argsRestorefilesdryRun: [String]?
     var argsRestorefilesdryRunDisplay: [String]?
+    // Restore
+    var restore: [String]?
+    var restoredryRun: [String]?
+    var restoreDisplay: [String]?
+    var restoredryRunDisplay: [String]?
+    // Temporary restore
+    var tmprestore: [String]?
+    var tmprestoredryRun: [String]?
 
     init(config: Configuration) {
         // The configuration
@@ -38,5 +46,13 @@ struct ArgumentsOneConfiguration {
         self.argsRestorefiles = RcloneProcessArguments().argumentsRclonerestore(config, dryRun: false, forDisplay: false)
         self.argsRestorefilesdryRun = RcloneProcessArguments().argumentsRclonerestore(config, dryRun: true, forDisplay: false)
         self.argsRestorefilesdryRunDisplay = RcloneProcessArguments().argumentsRclonerestore(config, dryRun: true, forDisplay: true)
+        // Restore path
+        self.restore = RcloneProcessArguments().argumentsRestore(config, dryRun: false, forDisplay: false, tmprestore: false)
+        self.restoredryRun = RcloneProcessArguments().argumentsRestore(config, dryRun: true, forDisplay: false, tmprestore: false)
+        self.restoreDisplay = RcloneProcessArguments().argumentsRestore(config, dryRun: false, forDisplay: true, tmprestore: false)
+        self.restoredryRunDisplay = RcloneProcessArguments().argumentsRestore(config, dryRun: true, forDisplay: true, tmprestore: false)
+        // Temporary restore path
+        self.tmprestore = RcloneProcessArguments().argumentsRestore(config, dryRun: false, forDisplay: false, tmprestore: true)
+        self.tmprestoredryRun = RcloneProcessArguments().argumentsRestore(config, dryRun: true, forDisplay: false, tmprestore: true)
     }
 }

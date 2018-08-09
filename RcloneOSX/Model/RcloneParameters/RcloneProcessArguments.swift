@@ -146,9 +146,47 @@ class RcloneProcessArguments {
         }
         return self.arguments!
     }
+    
+    func argumentsRestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String] {
+        if tmprestore == false {
+            self.localCatalog = config.localCatalog
+        } else {
+            self.localCatalog = "placeholder temporary"
+        }
+        self.offsiteCatalog = config.offsiteCatalog
+        self.offsiteServer = config.offsiteServer
+        if self.offsiteServer!.isEmpty == false {
+            if config.localCatalog.isEmpty == true {
+                self.remoteargs = self.offsiteServer! + ":"
+            } else {
+                self.remoteargs = self.offsiteServer! + ":" + self.offsiteCatalog!
+            }
+        }
+        self.rclonecommand(config, dryRun: dryRun, forDisplay: forDisplay)
+        if self.offsiteServer!.isEmpty {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(self.offsiteCatalog!)
+            if forDisplay {self.arguments!.append(" ")}
+        } else {
+            if forDisplay {self.arguments!.append(" ")}
+            self.arguments!.append(remoteargs!)
+            if config.localCatalog.isEmpty == true {
+                if forDisplay {self.arguments!.append(" ")}
+                self.arguments!.append(self.offsiteCatalog ?? "")
+            }
+            if forDisplay {self.arguments!.append(" ")}
+        }
+        if self.localCatalog?.isEmpty == false {
+            self.arguments!.append(self.localCatalog!)
+        }
+        if dryRun {
+            self.dryrunparameter(config, forDisplay: forDisplay)
+        }
+        self.setParameters2To14(config, dryRun: dryRun, forDisplay: forDisplay)
+        return self.arguments!
+    }
 
     init () {
-        self.arguments = nil
         self.arguments = [String]()
     }
 }

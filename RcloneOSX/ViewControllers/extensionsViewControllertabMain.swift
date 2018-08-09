@@ -256,7 +256,12 @@ extension ViewControllertabMain: UpdateProgress {
             self.remoteinfo(reset: false)
             self.working.stopAnimation(nil)
             self.estimating.isHidden = true
+        case .restore:
+            weak var processterminationDelegate: UpdateProgress?
+            processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
+            processterminationDelegate?.processTermination()
         }
+        
     }
 
     // Function is triggered when Process outputs data in filehandler
@@ -297,6 +302,10 @@ extension ViewControllertabMain: UpdateProgress {
             return
         case .rclonesize:
             return
+        case .restore:
+            weak var localprocessupdateDelegate: UpdateProgress?
+            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
+            localprocessupdateDelegate?.fileHandler()
         }
     }
 }
