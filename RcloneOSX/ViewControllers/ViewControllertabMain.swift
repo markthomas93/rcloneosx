@@ -97,8 +97,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.tools!.norclone()
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task == "backup" ||
-            self.configurations!.getConfigurations()[self.index!].task == "snapshot" else {
+        guard self.configurations!.getConfigurations()[self.index!].task == "sync" else {
                 self.info(num: 7)
                 return
         }

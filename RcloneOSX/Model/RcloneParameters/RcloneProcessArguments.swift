@@ -151,7 +151,7 @@ class RcloneProcessArguments {
         if tmprestore == false {
             self.localCatalog = config.localCatalog
         } else {
-            self.localCatalog = ""
+            self.localCatalog = "placeholder temporary"
         }
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer

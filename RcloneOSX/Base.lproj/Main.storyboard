@@ -765,6 +765,25 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vug-tb-c1T">
+                                <rect key="frame" x="35" y="117" width="85" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Restore" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cde-VK-LhR">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="restore:" target="egt-C3-u4G" id="etJ-HE-2jn"/>
+                                </connections>
+                            </button>
+                            <box fixedFrame="YES" title="Restore" translatesAutoresizingMaskIntoConstraints="NO" id="Jud-0A-h9l">
+                                <rect key="frame" x="17" y="110" width="113" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="1sj-2d-hcS">
+                                    <rect key="frame" x="2" y="2" width="109" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </box>
                         </subviews>
                         <constraints>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="trailing" secondItem="7n8-es-jH6" secondAttribute="trailing" id="0Iq-6s-dy3"/>
@@ -4624,7 +4643,7 @@ DQ
         <!--View Controller Restore-->
         <scene sceneID="Vi4-KR-JOB">
             <objects>
-                <viewController storyboardIdentifier="StoryboardRestoreID" id="BOc-qK-ti2" customClass="ViewControllerRestore" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoryboardRestoreID" id="BOc-qK-ti2" customClass="ViewControllerRestore" customModule="rcloneosx" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="OQG-Mc-VIe">
                         <rect key="frame" x="0.0" y="0.0" width="740" height="308"/>
                         <autoresizingMask key="autoresizingMask"/>
