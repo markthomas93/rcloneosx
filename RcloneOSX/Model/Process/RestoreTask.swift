@@ -22,8 +22,7 @@ final class RestoreTask: SetConfigurations {
         } else {
             if tmprestore {
                 self.arguments = self.configurations!.arguments4tmprestore(index: index, argtype: .arg)
-                let lastindex = self.arguments!.count - 1
-                self.arguments![lastindex] = ViewControllerReference.shared.restorePath ?? ""
+                self.arguments![2] = ViewControllerReference.shared.restorePath ?? ""
             } else {
                 self.arguments = self.configurations!.arguments4restore(index: index, argtype: .arg)
             }

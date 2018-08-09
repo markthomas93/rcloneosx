@@ -13,10 +13,8 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     @IBOutlet weak var localCatalog: NSTextField!
     @IBOutlet weak var offsiteCatalog: NSTextField!
-    @IBOutlet weak var offsiteUsername: NSTextField!
     @IBOutlet weak var offsiteServer: NSTextField!
     @IBOutlet weak var backupID: NSTextField!
-    @IBOutlet weak var sshport: NSTextField!
     @IBOutlet weak var working: NSProgressIndicator!
     @IBOutlet weak var gotit: NSTextField!
     
@@ -97,15 +95,12 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.restorebutton.isEnabled = false
         self.localCatalog.stringValue = ""
         self.offsiteCatalog.stringValue = ""
-        self.offsiteUsername.stringValue = ""
         self.offsiteServer.stringValue = ""
         self.backupID.stringValue = ""
-        self.sshport.stringValue = ""
         if let index = self.index() {
             let config: Configuration = self.configurations!.getConfigurations()[index]
             self.localCatalog.stringValue = config.localCatalog
             self.offsiteCatalog.stringValue = config.offsiteCatalog
-            self.offsiteUsername.stringValue = config.offsiteUsername
             self.offsiteServer.stringValue = config.offsiteServer
             self.backupID.stringValue = config.backupID
             self.tmprestore.stringValue = ViewControllerReference.shared.restorePath ?? " ... set in User configuration ..."
