@@ -24,6 +24,7 @@ enum ViewController {
     case vcestimatingtasks
     case vcremoteinfo
     case vcrestore
+    case vcalloutput
 }
 
 class ViewControllerReference {
@@ -103,6 +104,8 @@ class ViewControllerReference {
     private var viewControllerRemoteInfo: NSViewController?
     // Restore
     private var viewControllerRestore: NSViewController?
+    // Alloutput
+    private var viewControllerAlloutput: NSViewController?
 
     func getvcref(viewcontroller: ViewController) -> NSViewController? {
         switch viewcontroller {
@@ -132,6 +135,8 @@ class ViewControllerReference {
             return self.viewControllerRemoteInfo
         case .vcrestore:
             return self.viewControllerRestore
+        case .vcalloutput:
+            return self.viewControllerAlloutput
         }
     }
 
@@ -163,6 +168,8 @@ class ViewControllerReference {
             self.viewControllerRemoteInfo = nsviewcontroller
         case .vcrestore:
             self.viewControllerRestore = nsviewcontroller
+        case .vcalloutput:
+            self.viewControllerAlloutput = nsviewcontroller
         }
     }
 }

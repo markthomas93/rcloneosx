@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class OutputBatch {
+class OutputBatch {
 
     var output: [String]?
 
