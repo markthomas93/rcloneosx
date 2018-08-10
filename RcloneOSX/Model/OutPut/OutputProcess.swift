@@ -41,6 +41,10 @@ final class OutputProcess {
         return self.output?.count ?? 0
     }
 
+    func getrawOutput() -> [String]? {
+        return self.output
+    }
+
     func getOutput() -> [String]? {
         if self.trimmedoutput != nil {
             return self.trimmedoutput
@@ -58,9 +62,6 @@ final class OutputProcess {
         }
         str.enumerateLines { (line, _) in
             self.output!.append(line)
-            if self.outputeverythingDelegate?.appendall() ?? false {
-                self.outputeverythingDelegate?.addline(line: line)
-            }
         }
     }
 
@@ -103,5 +104,8 @@ final class OutputProcess {
     init () {
         self.output = [String]()
         self.outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        if self.outputeverythingDelegate?.appendnow() ?? false {
+            self.outputeverythingDelegate?.kickoff()
+        }
     }
  }
