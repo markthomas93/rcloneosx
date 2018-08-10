@@ -702,7 +702,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <box fixedFrame="YES" title="Remote info" translatesAutoresizingMaskIntoConstraints="NO" id="Fju-EK-Mx8">
+                            <box fixedFrame="YES" title="Remote info (⌘I)" translatesAutoresizingMaskIntoConstraints="NO" id="Fju-EK-Mx8">
                                 <rect key="frame" x="421" y="14" width="166" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="xxr-zL-Mlf">
