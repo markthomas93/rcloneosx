@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E905FE64209836C60008450C /* RcloneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905FE63209836C60008450C /* RcloneSize.swift */; };
 		E9062E732097192D00D65748 /* ViewControllerRemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */; };
+		E9198C37211DC5960071DB3A /* OutputEverything.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9198C36211DC5960071DB3A /* OutputEverything.swift */; };
+		E9198C39211DC5EC0071DB3A /* ViewControllerAllOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */; };
 		E92B18B62096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18B42096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift */; };
 		E92B18B72096F4DE001DBFAF /* RemoteInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18B52096F4DE001DBFAF /* RemoteInfoTask.swift */; };
 		E92B18B92096F643001DBFAF /* ViewControllerEstimatingTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */; };
@@ -98,6 +100,8 @@
 /* Begin PBXFileReference section */
 		E905FE63209836C60008450C /* RcloneSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RcloneSize.swift; sourceTree = "<group>"; };
 		E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRemoteInfo.swift; sourceTree = "<group>"; };
+		E9198C36211DC5960071DB3A /* OutputEverything.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEverything.swift; sourceTree = "<group>"; };
+		E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllOutput.swift; sourceTree = "<group>"; };
 		E92B18B42096F4DE001DBFAF /* RemoteInfoTaskWorkQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteInfoTaskWorkQueue.swift; sourceTree = "<group>"; };
 		E92B18B52096F4DE001DBFAF /* RemoteInfoTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteInfoTask.swift; sourceTree = "<group>"; };
 		E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerEstimatingTasks.swift; sourceTree = "<group>"; };
@@ -404,6 +408,7 @@
 				E92B18B82096F643001DBFAF /* ViewControllerEstimatingTasks.swift */,
 				E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */,
 				E9C2029B211BFD8A005E3B11 /* ViewControllerRestore.swift */,
+				E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -513,6 +518,7 @@
 			children = (
 				E960CAE91FB091DA0008D12E /* OutputBatch.swift */,
 				E960CAB61FB091D30008D12E /* OutputProcess.swift */,
+				E9198C36211DC5960071DB3A /* OutputEverything.swift */,
 			);
 			path = OutPut;
 			sourceTree = "<group>";
@@ -659,6 +665,7 @@
 				E960CB0E1FB091DE0008D12E /* RcloneParameters.swift in Sources */,
 				E92B18B92096F643001DBFAF /* ViewControllerEstimatingTasks.swift in Sources */,
 				E960CB3D1FB091DE0008D12E /* ViewControllerLoggData.swift in Sources */,
+				E9198C37211DC5960071DB3A /* OutputEverything.swift in Sources */,
 				E960CB501FB091DE0008D12E /* SingleTask.swift in Sources */,
 				E960CB2F1FB091DE0008D12E /* OperationFactory.swift in Sources */,
 				E960CB061FB091DE0008D12E /* Rclone.swift in Sources */,
@@ -679,6 +686,7 @@
 				E931186C1FC2BCC1007D1C1B /* Logging.swift in Sources */,
 				E960CB401FB091DE0008D12E /* ViewControllerRcloneParameters.swift in Sources */,
 				E9E4DCCD21195F7600BB3F93 /* Allschedules.swift in Sources */,
+				E9198C39211DC5EC0071DB3A /* ViewControllerAllOutput.swift in Sources */,
 				E960CB291FB091DE0008D12E /* BatchTask.swift in Sources */,
 				E9A7958F1FBF28A500AF8A5F /* CopyFiles.swift in Sources */,
 				E9A795941FBF2CDA00AF8A5F /* ViewControllerInformationCopyFiles.swift in Sources */,

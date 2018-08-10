@@ -25,6 +25,14 @@ protocol UpdateProgress: class {
     func fileHandler()
 }
 
+protocol StoreAllOutput: class {
+    func addline(line: String)
+    func appendall() -> Bool
+    func getalloutput() -> [String]
+    func disableallinfobutton()
+    func enableallinfobutton()
+}
+
 class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractivetask, VcMain, Fileerrormessage, Remoterclonesize {
 
     // Configurations object
@@ -61,7 +69,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var rcloneversionshort: NSTextField!
     @IBOutlet weak var remoteinfo1: NSTextField!
     @IBOutlet weak var remoteinfo2: NSTextField!
-
+    @IBOutlet weak var allinfobutton: NSButton!
+    
     // Reference to Process task
     var process: Process?
     // Index to selected row, index is set when row is selected
@@ -70,6 +79,10 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var outputprocess: OutputProcess?
     // Getting output from batchrun
     var outputbatch: OutputBatch?
+    // Collecting everything
+    var outputeverything: OutputEverything?
+    var appendeverything: Bool = false
+    weak var reloadalloutputDelegate: Reloadandrefresh?
     // HiddenID task, set when row is selected
     var hiddenID: Int?
     // Reference to Schedules object

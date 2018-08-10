@@ -28,6 +28,7 @@ final class OutputProcess {
     private var maxNumber: Int = 0
     weak var errorDelegate: ViewControllertabMain?
     weak var lastrecordDelegate: ViewControllertabMain?
+    weak var outputeverythingDelegate: StoreAllOutput?
 
     func getMaxcount() -> Int {
         if self.trimmedoutput == nil {
@@ -57,6 +58,9 @@ final class OutputProcess {
         }
         str.enumerateLines { (line, _) in
             self.output!.append(line)
+            if self.outputeverythingDelegate?.appendall() ?? false {
+                self.outputeverythingDelegate?.addline(line: line)
+            }
         }
     }
 
@@ -98,5 +102,6 @@ final class OutputProcess {
 
     init () {
         self.output = [String]()
+        self.outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
  }
