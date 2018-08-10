@@ -77,7 +77,7 @@ extension ViewControllerAllOutput: Reloadandrefresh {
         var outputcount = self.getoutputDelegate?.getalloutput().count ?? 0
         while self.lastindex < outputcount {
             self.lastindex = self.getoutputDelegate?.getalloutput().count ?? 0
-            self.delayWithSeconds(1) {
+            self.delayWithSeconds(2) {
                 outputcount = self.getoutputDelegate?.getalloutput().count ?? 0
                 if outputcount == self.lastindex {
                     self.lastindex = +1000
