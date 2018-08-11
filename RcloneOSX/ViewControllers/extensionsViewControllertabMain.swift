@@ -279,7 +279,7 @@ extension ViewControllertabMain: UpdateProgress {
             self.process = self.singletask!.process
             localprocessupdateDelegate?.fileHandler()
             
-            weak var outputeverythingDelegate: StoreAllOutput?
+            weak var outputeverythingDelegate: ViewOutputDetails?
             outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
             if outputeverythingDelegate?.appendnow() ?? false {
                 outputeverythingDelegate?.reloadtable()
@@ -687,7 +687,7 @@ extension ViewControllertabMain: GetsortedanexpandedObject {
     }
 }
 
-extension ViewControllertabMain: StoreAllOutput {
+extension ViewControllertabMain: ViewOutputDetails {
     func enableallinfobutton() {
         self.allinfobutton.isEnabled = true
         self.dynamicappend = false
