@@ -25,9 +25,9 @@ protocol UpdateProgress: class {
     func fileHandler()
 }
 
-protocol StoreAllOutput: class {
-    func addline(line: String)
-    func appendall() -> Bool
+protocol ViewOutputDetails: class {
+    func reloadtable()
+    func appendnow() -> Bool
     func getalloutput() -> [String]
     func disableallinfobutton()
     func enableallinfobutton()
@@ -79,10 +79,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var outputprocess: OutputProcess?
     // Getting output from batchrun
     var outputbatch: OutputBatch?
-    // Collecting everything
-    var outputeverything: OutputEverything?
-    var appendeverything: Bool = false
-    weak var reloadalloutputDelegate: Reloadandrefresh?
+    // Dynamic view of output
+    var dynamicappend: Bool = false
+    weak var dynamicreloadoutputDelegate: Reloadandrefresh?
     // HiddenID task, set when row is selected
     var hiddenID: Int?
     // Reference to Schedules object
