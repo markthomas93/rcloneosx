@@ -4707,7 +4707,7 @@ DQ
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RO6-3S-IJB">
-                                <rect key="frame" x="493" y="163" width="101" height="17"/>
+                                <rect key="frame" x="493" y="230" width="101" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Number of files:" id="vl8-RF-rMw">
                                     <font key="font" metaFont="system"/>
@@ -4715,17 +4715,8 @@ DQ
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3N1-Iw-pbW">
-                                <rect key="frame" x="453" y="141" width="141" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Number of directories:" id="aRg-oL-lny">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="US4-2z-BVD">
-                                <rect key="frame" x="529" y="117" width="65" height="17"/>
+                                <rect key="frame" x="529" y="207" width="65" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Total size:" id="pNN-Hm-x2G">
                                     <font key="font" metaFont="system"/>
@@ -4742,33 +4733,6 @@ DQ
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TUN-Ws-XPm">
-                                <rect key="frame" x="463" y="230" width="131" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="KB to be transferred:" id="bO8-qZ-tHd">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hNa-FF-eJX">
-                                <rect key="frame" x="530" y="210" width="64" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="New files:" id="zbr-sh-M30">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGK-nc-AZe">
-                                <rect key="frame" x="518" y="184" width="76" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Delete files:" id="ZU5-rz-GBz">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ztf-67-Cbf">
                                 <rect key="frame" x="600" y="251" width="110" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -4778,35 +4742,8 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kDU-KF-u7L">
-                                <rect key="frame" x="601" y="228" width="109" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="BUL-U6-Fod">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YKt-wK-gqL">
-                                <rect key="frame" x="601" y="205" width="109" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="Ju0-cz-VZg">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rhQ-Yv-7Ql">
-                                <rect key="frame" x="602" y="182" width="108" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="qew-y4-WVJ">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jrt-Ff-crt">
-                                <rect key="frame" x="602" y="160" width="108" height="22"/>
+                                <rect key="frame" x="602" y="227" width="108" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="lHF-wI-ywF">
                                     <font key="font" metaFont="system"/>
@@ -4814,17 +4751,8 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0RC-w0-wgM">
-                                <rect key="frame" x="602" y="138" width="108" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="3Lo-rG-41c">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4kd-st-qYK">
-                                <rect key="frame" x="603" y="114" width="107" height="22"/>
+                                <rect key="frame" x="603" y="204" width="107" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" bezelStyle="round" id="1EP-3x-sZd">
                                     <font key="font" metaFont="system"/>
@@ -4908,21 +4836,17 @@ DQ
                     </view>
                     <connections>
                         <outlet property="backupID" destination="nSh-6S-eAa" id="fXg-6q-1qS"/>
-                        <outlet property="deletefiles" destination="rhQ-Yv-7Ql" id="C4N-ly-3No"/>
                         <outlet property="gotit" destination="f9q-gT-hng" id="bQR-7V-2X1"/>
                         <outlet property="localCatalog" destination="8KP-H3-jDb" id="RZw-bk-gpo"/>
-                        <outlet property="newfiles" destination="YKt-wK-gqL" id="6RV-d9-H75"/>
                         <outlet property="offsiteCatalog" destination="EtS-js-eIA" id="yH8-QC-44R"/>
                         <outlet property="offsiteServer" destination="peT-iB-TGx" id="ROu-XD-xHj"/>
                         <outlet property="restorebutton" destination="Ky9-gC-UfI" id="puQ-Z8-qDg"/>
                         <outlet property="restoreprogress" destination="Apg-ZV-93i" id="Ufp-Mh-zBB"/>
                         <outlet property="selecttmptorestore" destination="SNe-XI-6NQ" id="vwT-0G-Exi"/>
                         <outlet property="tmprestore" destination="2M8-b4-fYB" id="pUd-Lc-yyx"/>
-                        <outlet property="totalDirs" destination="0RC-w0-wgM" id="aag-H9-ns4"/>
                         <outlet property="totalNumber" destination="jrt-Ff-crt" id="H8n-tV-cL7"/>
                         <outlet property="totalNumberSizebytes" destination="4kd-st-qYK" id="8p2-N5-Fm0"/>
                         <outlet property="transferredNumber" destination="Ztf-67-Cbf" id="rn3-fZ-7wm"/>
-                        <outlet property="transferredNumberSizebytes" destination="kDU-KF-u7L" id="naq-rj-04y"/>
                         <outlet property="working" destination="IQF-E7-Ym0" id="F2f-uz-HKR"/>
                     </connections>
                 </viewController>

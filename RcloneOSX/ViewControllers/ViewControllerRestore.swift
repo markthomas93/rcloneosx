@@ -9,6 +9,13 @@
 import Foundation
 import Cocoa
 
+enum Work {
+    case localinfoandnumbertosync
+    case getremotenumbers
+    case setremotenumbers
+    case restore
+}
+
 class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, GetIndex, AbortTask {
     
     @IBOutlet weak var localCatalog: NSTextField!
@@ -31,14 +38,13 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     @IBOutlet weak var selecttmptorestore: NSButton!
     
     var outputprocess: OutputProcess?
-    var estimation: Bool?
-    var completed: Bool?
+    var restorecompleted: Bool?
+    
+    var workqueue: [Work]?
     
     // Close and dismiss view
     @IBAction func close(_ sender: NSButton) {
-        if self.completed == false {
-            self.abort()
-        }
+        if self.restorecompleted == false { self.abort() }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
     
@@ -46,9 +52,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         guard self.tmprestore.stringValue.isEmpty == false else { return }
         if let index = self.index() {
             self.selecttmptorestore.isEnabled = false
-            self.estimation = true
             self.gotit.stringValue = "Getting remote info..."
             self.working.startAnimation(nil)
+            self.workqueue?.append(.localinfoandnumbertosync)
             switch self.selecttmptorestore.state {
             case .on:
                 self.outputprocess = OutputProcess()
@@ -60,7 +66,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
                 return
             }
         } else {
-            self.gotit.stringValue = "Probably some rsync error..."
+            self.gotit.stringValue = "Well, this did not work ..."
         }
     }
     
@@ -82,6 +88,31 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             }
         }
     }
+
+    private func getremotenumbers() {
+        if let index = self.index() {
+            self.outputprocess = OutputProcess()
+            _ = RcloneSize(index: index, outputprocess: self.outputprocess)
+        }
+    }
+    
+    private func setremoteinfo() {
+        guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
+        let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
+        guard size != nil else { return }
+        NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal)
+        self.totalNumber.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
+        self.totalNumberSizebytes.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
+        self.working.stopAnimation(nil)
+        self.restorebutton.isEnabled = true
+        self.gotit.stringValue = "Got it..."
+    }
+    
+    private func remoterclonesize(input: String) -> Size? {
+        let data: Data = input.data(using: String.Encoding.utf8)!
+        guard let size = try? JSONDecoder().decode(Size.self, from: data) else { return nil}
+        return size
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,8 +121,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.estimation = true
-        self.completed = false
+        _ = self.removework()
         self.restorebutton.isEnabled = false
         self.localCatalog.stringValue = ""
         self.offsiteCatalog.stringValue = ""
@@ -110,6 +140,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.working.startAnimation(nil)
             self.outputprocess = OutputProcess()
             self.selecttmptorestore.state = .off
+            _ = self.removework()
             _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
         }
     }
@@ -118,16 +149,26 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         globalMainQueue.async(execute: { () -> Void in
             let infotask = RemoteInfoTask(outputprocess: outputprocess)
             self.transferredNumber.stringValue = infotask.transferredNumber!
-            self.transferredNumberSizebytes.stringValue = infotask.transferredNumberSizebytes!
-            self.totalNumber.stringValue = infotask.totalNumber!
-            self.totalNumberSizebytes.stringValue = infotask.totalNumberSizebytes!
-            self.totalDirs.stringValue = infotask.totalDirs!
-            self.newfiles.stringValue = infotask.newfiles!
-            self.deletefiles.stringValue = infotask.deletefiles!
-            self.working.stopAnimation(nil)
-            self.restorebutton.isEnabled = true
-            self.gotit.stringValue = "Got it..."
         })
+    }
+
+    private func removework() -> Work? {
+        // Initialize
+        guard self.workqueue != nil else {
+            self.workqueue = [Work]()
+            self.workqueue?.append(.restore)
+            self.workqueue?.append(.setremotenumbers)
+            self.workqueue?.append(.getremotenumbers)
+            self.workqueue?.append(.localinfoandnumbertosync)
+            return nil
+        }
+        guard self.workqueue!.count > 1 else {
+            let work = self.workqueue?[0] ?? .restore
+            return work
+        }
+        let index = self.workqueue!.count - 1
+        let work = self.workqueue!.remove(at: index)
+        return work
     }
     
     // Progressbar restore
@@ -148,20 +189,31 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
 
 extension ViewControllerRestore: UpdateProgress {
     func processTermination() {
-        if estimation == true {
-            self.estimation = false
+        switch self.removework()! {
+        case .getremotenumbers:
             self.setNumbers(outputprocess: self.outputprocess)
             guard ViewControllerReference.shared.restorePath != nil else { return }
             self.selecttmptorestore.isEnabled = true
-        } else {
+            // And then collect remote numbers
+            _ = getremotenumbers()
+        case .setremotenumbers:
+            self.setremoteinfo()
+        case .restore:
             self.gotit.stringValue = "Restore is completed..."
             self.restoreprogress.isHidden = true
+            self.restorecompleted = true
+        case .localinfoandnumbertosync:
+            self.setNumbers(outputprocess: self.outputprocess)
+            guard ViewControllerReference.shared.restorePath != nil else { return }
+            self.selecttmptorestore.isEnabled = true
+            self.working.stopAnimation(nil)
+            self.restorebutton.isEnabled = true
+            self.gotit.stringValue = "Got it..."
         }
-        self.completed = true
     }
     
     func fileHandler() {
-        if self.estimation == false {
+        if self.workqueue?.count == 1 {
             self.updateProgressbar(Double(self.outputprocess!.count()))
         }
     }
