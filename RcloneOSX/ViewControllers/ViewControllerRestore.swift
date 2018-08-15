@@ -39,6 +39,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     var outputprocess: OutputProcess?
     var restorecompleted: Bool?
+    weak var sendprocess: Sendprocessreference?
     
     var workqueue: [Work]?
     
@@ -52,12 +53,13 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         guard self.tmprestore.stringValue.isEmpty == false else { return }
         if let index = self.index() {
             self.selecttmptorestore.isEnabled = false
-            self.gotit.stringValue = "Getting remote info..."
+            self.gotit.stringValue = "Getting info, please wait..."
             self.working.startAnimation(nil)
             self.workqueue?.append(.localinfoandnumbertosync)
+            self.outputprocess = OutputProcess()
+            self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
             switch self.selecttmptorestore.state {
             case .on:
-                self.outputprocess = OutputProcess()
                 _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: true)
             case .off:
                 self.outputprocess = OutputProcess()
@@ -77,6 +79,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
                 self.restorebutton.isEnabled = false
                 self.initiateProgressbar()
                 self.outputprocess = OutputProcess()
+                self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
                 switch self.selecttmptorestore.state {
                 case .on:
                     _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: false, tmprestore: true)
@@ -92,6 +95,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     private func getremotenumbers() {
         if let index = self.index() {
             self.outputprocess = OutputProcess()
+            self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
             _ = RcloneSize(index: index, outputprocess: self.outputprocess)
         }
     }
@@ -117,6 +121,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcrestore, nsviewcontroller: self)
+        self.sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
     
     override func viewDidAppear() {
@@ -139,6 +144,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             }
             self.working.startAnimation(nil)
             self.outputprocess = OutputProcess()
+            self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
             self.selecttmptorestore.state = .off
             _ = self.removework()
             _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
