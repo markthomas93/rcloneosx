@@ -346,6 +346,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
         self.displayDryRun.state = .on
+        _ = Tools().verifyrclonepath()
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
@@ -372,7 +373,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
-        self.info(num: 0)
+        // self.info(num: 0)
     }
 
     override func viewDidDisappear() {
