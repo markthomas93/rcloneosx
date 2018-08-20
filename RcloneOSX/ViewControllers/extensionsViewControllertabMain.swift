@@ -67,7 +67,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
         self.batchtaskObject = nil
-        self.setInfo(info: "Estimate", color: .green)
+        self.setinfonextaction(info: "Estimate", color: .green)
     }
 }
 
@@ -336,7 +336,7 @@ extension ViewControllertabMain: RcloneError {
     func rcloneerror() {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
-            self.setInfo(info: "Error", color: .red)
+            self.setinfonextaction(info: "Error", color: .red)
             self.showProcessInfo(info: .error)
             self.showrclonecommandmainview()
             self.deselect()
@@ -363,7 +363,7 @@ extension ViewControllertabMain: Fileerror {
             if errortype == .openlogfile {
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype)
             } else {
-                self.setInfo(info: "Error", color: .red)
+                self.setinfonextaction(info: "Error", color: .red)
                 self.showProcessInfo(info: .error)
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
@@ -383,7 +383,7 @@ extension ViewControllertabMain: AbortOperations {
             self.working.stopAnimation(nil)
             self.process = nil
             // Create workqueu and add abort
-            self.setInfo(info: "Abort", color: .red)
+            self.setinfonextaction(info: "Abort", color: .red)
             self.rcloneCommand.stringValue = ""
         } else {
             self.working.stopAnimation(nil)
@@ -397,7 +397,7 @@ extension ViewControllertabMain: AbortOperations {
             // Set reference to batchdata = nil
             self.configurations!.deleteBatchData()
             self.process = nil
-            self.setInfo(info: "Abort", color: .red)
+            self.setinfonextaction(info: "Abort", color: .red)
         }
     }
 }
@@ -473,7 +473,7 @@ extension ViewControllertabMain: SingleTaskProgress {
         localprocessupdateDelegate?.processTermination()
     }
 
-    func setInfo(info: String, color: ColorInfo) {
+    func setinfonextaction(info: String, color: ColorInfo) {
         switch color {
         case .red:
             self.dryRunOrRealRun.textColor = .red
@@ -633,7 +633,7 @@ extension ViewControllertabMain: NewProfile {
         self.outputbatch = nil
         self.singletask = nil
         self.showrclonecommandmainview()
-        self.setInfo(info: "Estimate", color: .green)
+        self.setinfonextaction(info: "Estimate", color: .green)
         self.deselect()
         // Read configurations and Scheduledata
         self.configurations = self.createconfigurationsobject(profile: profile)
