@@ -373,7 +373,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
-        // self.info(num: 0)
     }
 
     override func viewDidDisappear() {
