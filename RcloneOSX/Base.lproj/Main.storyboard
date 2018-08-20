@@ -554,9 +554,9 @@
                                 </textFieldCell>
                             </textField>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g7r-rp-4kz">
-                                <rect key="frame" x="599" y="88" width="66" height="18"/>
+                                <rect key="frame" x="599" y="88" width="51" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="dry run" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2tH-gF-ycx">
+                                <buttonCell key="cell" type="radio" title="sync" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2tH-gF-ycx">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -565,9 +565,9 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3DG-2b-5po">
-                                <rect key="frame" x="685" y="88" width="68" height="18"/>
+                                <rect key="frame" x="659" y="88" width="65" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="real run" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="dzR-DR-VEo">
+                                <buttonCell key="cell" type="radio" title="restore" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="dzR-DR-VEo">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -669,12 +669,9 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eXj-oO-jDD">
-                                <rect key="frame" x="770" y="86" width="306" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="306" id="RgT-tB-QEx"/>
-                                    <constraint firstAttribute="height" constant="22" id="d6R-iH-IKQ"/>
-                                </constraints>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXj-oO-jDD">
+                                <rect key="frame" x="730" y="86" width="346" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" bezelStyle="round" id="cJR-3g-k9z">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -799,12 +796,10 @@
                             <constraint firstItem="jA8-9b-U5I" firstAttribute="top" secondItem="7n8-es-jH6" secondAttribute="bottom" constant="2" id="IsK-Ks-Ywr"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="top" secondItem="9xL-Jl-ccr" secondAttribute="bottom" constant="2" id="JG1-cS-j5W"/>
                             <constraint firstItem="Phl-mI-nns" firstAttribute="firstBaseline" secondItem="Gg2-se-FkF" secondAttribute="baseline" id="JqB-ni-yxa"/>
-                            <constraint firstItem="jA8-9b-U5I" firstAttribute="trailing" secondItem="eXj-oO-jDD" secondAttribute="trailing" id="Jz9-P1-D4r"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="trailing" secondItem="Jud-0A-h9l" secondAttribute="trailing" id="LN1-zR-Lk9"/>
                             <constraint firstAttribute="trailing" secondItem="9xL-Jl-ccr" secondAttribute="trailing" constant="948" id="MOC-Dq-qM5"/>
                             <constraint firstAttribute="bottom" secondItem="95g-rM-8Og" secondAttribute="bottom" constant="298" id="MoT-Gi-rhV"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="leading" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="20" symbolic="YES" id="NSY-Gh-wdk"/>
-                            <constraint firstItem="eXj-oO-jDD" firstAttribute="top" secondItem="ihR-vZ-M7c" secondAttribute="bottom" constant="6" id="O57-tF-kQN"/>
                             <constraint firstItem="jA8-9b-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="20" symbolic="YES" id="PtP-fx-Ue9"/>
                             <constraint firstItem="Phl-mI-nns" firstAttribute="leading" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="51" id="U2Z-Cy-7CU"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="top" secondItem="Gg2-se-FkF" secondAttribute="bottom" constant="1" id="UIT-Xc-tY7"/>
@@ -828,8 +823,8 @@
                     </view>
                     <connections>
                         <outlet property="allinfobutton" destination="Phl-mI-nns" id="XbP-84-hgL"/>
-                        <outlet property="displayDryRun" destination="g7r-rp-4kz" id="f5g-Og-Anv"/>
                         <outlet property="displayRealRun" destination="3DG-2b-5po" id="hO9-C5-Wbp"/>
+                        <outlet property="displaysynccommand" destination="g7r-rp-4kz" id="f5g-Og-Anv"/>
                         <outlet property="dryRunOrRealRun" destination="9xL-Jl-ccr" id="mP2-1A-Kaf"/>
                         <outlet property="estimating" destination="5mv-zN-6NF" id="HL3-uo-we1"/>
                         <outlet property="executing" destination="o7z-cC-ahl" id="gg1-ty-zj0"/>

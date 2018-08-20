@@ -41,6 +41,11 @@ enum DisplayProcessInfo {
     case error
 }
 
+enum RclonecommandDisplay {
+    case sync
+    case restore
+}
+
 // Protocol for doing a refresh in main view after testing for connectivity
 protocol Connections: class {
     func displayConnections()
@@ -97,26 +102,28 @@ final class Tools: SetConfigurations {
 
     // Display the correct command to execute
     // Used for displaying the commands only
-    func rclonepathtodisplay(index: Int, dryRun: Bool) -> String {
+    
+    func displayrclonecommand(index: Int, display: RclonecommandDisplay) -> String {
         var str: String?
         let config = self.configurations!.getargumentAllConfigurations()[index]
-        if dryRun {
-            str = self.rclonepath() + " "
+        str = self.rclonepath() + " "
+        switch display {
+        case .sync:
             if let count = config.argdryRunDisplay?.count {
                 for i in 0 ..< count {
                     str = str! + config.argdryRunDisplay![i]
                 }
             }
-        } else {
-            str = self.rclonepath() + " "
-            if let count = config.argDisplay?.count {
+        case .restore:
+            if let count = config.restoredryRunDisplay?.count {
                 for i in 0 ..< count {
-                    str = str! + config.argDisplay![i]
+                    str = str! + config.restoredryRunDisplay![i]
                 }
             }
         }
-        return str!
+        return str ?? ""
     }
+        
 
     /// Function returns the correct path for rclone
     /// according to configuration set by user or

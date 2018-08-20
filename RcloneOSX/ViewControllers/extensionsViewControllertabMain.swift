@@ -67,7 +67,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
         self.batchtaskObject = nil
-        self.setInfo(info: "Estimate", color: .blue)
+        self.setInfo(info: "Estimate", color: .green)
     }
 }
 
@@ -99,7 +99,7 @@ extension ViewControllertabMain: Reloadandrefresh {
 extension ViewControllertabMain: RcloneUserParams {
     // Do a reread of all Configurations
     func rcloneuserparamsupdated() {
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
     }
 }
 
@@ -154,7 +154,7 @@ extension ViewControllertabMain: RcloneChanged {
     // If row is selected an update rclone command in view
     func rclonechanged() {
         // Update rclone command in display
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
         self.setinfoaboutrclone()
         // Setting shortstring
         self.rcloneversionshort.stringValue = ViewControllerReference.shared.rcloneversionshort ?? ""
@@ -338,7 +338,7 @@ extension ViewControllertabMain: RcloneError {
         globalMainQueue.async(execute: { () -> Void in
             self.setInfo(info: "Error", color: .red)
             self.showProcessInfo(info: .error)
-            self.setRcloneCommandDisplay()
+            self.showrclonecommandmainview()
             self.deselect()
             // Abort any operations
             if let process = self.process {
@@ -479,8 +479,8 @@ extension ViewControllertabMain: SingleTaskProgress {
             self.dryRunOrRealRun.textColor = .red
         case .black:
             self.dryRunOrRealRun.textColor = .black
-        case .blue:
-            self.dryRunOrRealRun.textColor = .blue
+        case .green:
+            self.dryRunOrRealRun.textColor = .green
         }
         self.dryRunOrRealRun.stringValue = info
     }
@@ -632,8 +632,8 @@ extension ViewControllertabMain: NewProfile {
         self.outputprocess = nil
         self.outputbatch = nil
         self.singletask = nil
-        self.setRcloneCommandDisplay()
-        self.setInfo(info: "Estimate", color: .blue)
+        self.showrclonecommandmainview()
+        self.setInfo(info: "Estimate", color: .green)
         self.deselect()
         // Read configurations and Scheduledata
         self.configurations = self.createconfigurationsobject(profile: profile)
