@@ -67,7 +67,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
         self.batchtaskObject = nil
-        self.setInfo(info: "Estimate", color: .blue)
+        self.setinfonextaction(info: "Estimate", color: .green)
     }
 }
 
@@ -99,7 +99,7 @@ extension ViewControllertabMain: Reloadandrefresh {
 extension ViewControllertabMain: RcloneUserParams {
     // Do a reread of all Configurations
     func rcloneuserparamsupdated() {
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
     }
 }
 
@@ -154,7 +154,7 @@ extension ViewControllertabMain: RcloneChanged {
     // If row is selected an update rclone command in view
     func rclonechanged() {
         // Update rclone command in display
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
         self.setinfoaboutrclone()
         // Setting shortstring
         self.rcloneversionshort.stringValue = ViewControllerReference.shared.rcloneversionshort ?? ""
@@ -336,9 +336,9 @@ extension ViewControllertabMain: RcloneError {
     func rcloneerror() {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
-            self.setInfo(info: "Error", color: .red)
+            self.setinfonextaction(info: "Error", color: .red)
             self.showProcessInfo(info: .error)
-            self.setRcloneCommandDisplay()
+            self.showrclonecommandmainview()
             self.deselect()
             // Abort any operations
             if let process = self.process {
@@ -363,7 +363,7 @@ extension ViewControllertabMain: Fileerror {
             if errortype == .openlogfile {
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype)
             } else {
-                self.setInfo(info: "Error", color: .red)
+                self.setinfonextaction(info: "Error", color: .red)
                 self.showProcessInfo(info: .error)
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
@@ -383,7 +383,7 @@ extension ViewControllertabMain: AbortOperations {
             self.working.stopAnimation(nil)
             self.process = nil
             // Create workqueu and add abort
-            self.setInfo(info: "Abort", color: .red)
+            self.setinfonextaction(info: "Abort", color: .red)
             self.rcloneCommand.stringValue = ""
         } else {
             self.working.stopAnimation(nil)
@@ -397,7 +397,7 @@ extension ViewControllertabMain: AbortOperations {
             // Set reference to batchdata = nil
             self.configurations!.deleteBatchData()
             self.process = nil
-            self.setInfo(info: "Abort", color: .red)
+            self.setinfonextaction(info: "Abort", color: .red)
         }
     }
 }
@@ -473,14 +473,14 @@ extension ViewControllertabMain: SingleTaskProgress {
         localprocessupdateDelegate?.processTermination()
     }
 
-    func setInfo(info: String, color: ColorInfo) {
+    func setinfonextaction(info: String, color: ColorInfo) {
         switch color {
         case .red:
             self.dryRunOrRealRun.textColor = .red
         case .black:
             self.dryRunOrRealRun.textColor = .black
-        case .blue:
-            self.dryRunOrRealRun.textColor = .blue
+        case .green:
+            self.dryRunOrRealRun.textColor = .green
         }
         self.dryRunOrRealRun.stringValue = info
     }
@@ -632,8 +632,8 @@ extension ViewControllertabMain: NewProfile {
         self.outputprocess = nil
         self.outputbatch = nil
         self.singletask = nil
-        self.setRcloneCommandDisplay()
-        self.setInfo(info: "Estimate", color: .blue)
+        self.showrclonecommandmainview()
+        self.setinfonextaction(info: "Estimate", color: .green)
         self.deselect()
         // Read configurations and Scheduledata
         self.configurations = self.createconfigurationsobject(profile: profile)

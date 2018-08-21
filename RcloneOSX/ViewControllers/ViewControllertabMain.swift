@@ -219,7 +219,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     func reset() {
         self.outputprocess = nil
         self.setNumbers(output: nil)
-        self.setInfo(info: "Estimate", color: .blue)
+        self.setinfonextaction(info: "Estimate", color: .green)
         self.process = nil
         self.singletask = nil
     }
@@ -312,22 +312,22 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Function for display rclone command
     // Either --dry-run or real run
-    @IBOutlet weak var displayDryRun: NSButton!
+    @IBOutlet weak var displaysynccommand: NSButton!
     @IBOutlet weak var displayRealRun: NSButton!
     @IBAction func displayRcloneCommand(_ sender: NSButton) {
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
     }
 
     // Display correct rclone command in view
-    func setRcloneCommandDisplay() {
+    func showrclonecommandmainview() {
         if let index = self.index {
             guard index <= self.configurations!.getConfigurations().count else {
                 return
             }
-            if self.displayDryRun.state == .on {
-                self.rcloneCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: true)
+            if self.displaysynccommand.state == .on {
+                self.rcloneCommand.stringValue = self.tools!.displayrclonecommand(index: index, display: .sync)
             } else {
-                self.rcloneCommand.stringValue = self.tools!.rclonepathtodisplay(index: index, dryRun: false)
+                self.rcloneCommand.stringValue = self.tools!.displayrclonecommand(index: index, display: .restore)
             }
         } else {
             self.rcloneCommand.stringValue = ""
@@ -345,7 +345,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         ViewControllerReference.shared.setvcref(viewcontroller: .vctabmain, nsviewcontroller: self)
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
-        self.displayDryRun.state = .on
+        self.displaysynccommand.state = .on
         _ = Tools().verifyrclonepath()
         // configurations and schedules
         self.createandreloadconfigurations()
@@ -363,7 +363,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.showProcessInfo(info: .blank)
         // Allow notify about Scheduled jobs
         self.configurations!.allowNotifyinMain = true
-        self.setInfo(info: "", color: .black)
+        self.setinfonextaction(info: "", color: .black)
         if self.configurations!.configurationsDataSourcecount() > 0 {
             globalMainQueue.async(execute: { () -> Void in
                 self.mainTableView.reloadData()
@@ -373,7 +373,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
-        // self.info(num: 0)
     }
 
     override func viewDidDisappear() {
@@ -450,7 +449,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         localprofileinfo2 = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
         localprofileinfo?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         localprofileinfo2?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
     }
 
     // Setting remote info
@@ -494,9 +493,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.process = nil
         self.singletask = nil
         self.batchtaskObject = nil
-        self.setInfo(info: "Estimate", color: .blue)
+        self.setinfonextaction(info: "Estimate", color: .green)
         self.showProcessInfo(info: .blank)
-        self.setRcloneCommandDisplay()
+        self.showrclonecommandmainview()
         self.reloadtabledata()
         self.configurations!.allowNotifyinMain = true
         self.remoteinfo(reset: true)
