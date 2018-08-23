@@ -92,8 +92,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var readyforexecution: Bool = true
     // Which kind of task
     var processtermination: ProcessTermination?
-    // remote info tasks
-    var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
     // Update view estimating
     weak var estimateupdateDelegate: Updateestimating?
 
@@ -273,7 +271,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     func automaticbackup() {
         self.processtermination = .automaticbackup
-        self.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue()
+        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue()
         self.presentViewControllerAsSheet(self.viewControllerEstimating!)
         self.estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
     }

@@ -124,6 +124,8 @@ class Configurations: ReloadTable {
     var quickbackuplist: [Int]?
     // Estimated backup list, all backups
     var estimatedlist: [NSMutableDictionary]?
+    // remote info tasks
+    var remoteinfotaskworkqueue: RemoteInfoTaskWorkQueue?
 
     /// Function for getting the profile
     func getProfile() -> String? {

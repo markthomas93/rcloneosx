@@ -224,7 +224,7 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="D3943C37-7DA0-4083-99A9-CD585256B282" label="batcth" paletteLabel="batch" image="batch" id="Hy6-d3-uyq">
+                                <toolbarItem implicitItemIdentifier="D3943C37-7DA0-4083-99A9-CD585256B282" label="batch" paletteLabel="batch" image="batch" id="Hy6-d3-uyq">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="40" height="25"/>
                                     <size key="maxSize" width="40" height="25"/>
@@ -240,12 +240,12 @@
                                         <action selector="executeBatch:" target="Rv5-yv-lsc" id="XR9-CZ-5ZD"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="8F2D7549-1739-464F-AF58-C62CA7EB1049" label="batcth" paletteLabel="fastforward" image="fastforward" id="B6d-En-crM" userLabel="fastforward">
+                                <toolbarItem implicitItemIdentifier="8F2D7549-1739-464F-AF58-C62CA7EB1049" label="quickbackcup" paletteLabel="quickbackcup" image="fastforward" id="B6d-En-crM" userLabel="fastforward">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="40" height="25"/>
                                     <size key="maxSize" width="40" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="IMa-qp-9FY">
-                                        <rect key="frame" x="14" y="14" width="40" height="25"/>
+                                        <rect key="frame" x="20" y="14" width="40" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="fastforward" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="z2W-S0-436">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -253,6 +253,22 @@
                                         </buttonCell>
                                         <connections>
                                             <action selector="quickbackup:" target="Rv5-yv-lsc" id="LXc-9I-8VW"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="665B9386-9314-420F-A43B-7BF5AD206EEA" label="backupnow" paletteLabel="backupnow" image="NSTouchBarTextBoldTemplate" id="87D-tu-M32" userLabel="fastforward">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="40" height="25"/>
+                                    <size key="maxSize" width="40" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="dpQ-io-QXq">
+                                        <rect key="frame" x="14" y="14" width="40" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarTextBoldTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bYt-b2-m7A">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="automaticbackup:" target="Rv5-yv-lsc" id="tld-5Q-b2Z"/>
                                         </connections>
                                     </button>
                                 </toolbarItem>
@@ -325,6 +341,7 @@
                                 <toolbarItem reference="wiK-ZO-ZDm"/>
                                 <toolbarItem reference="UJ0-tu-K1h"/>
                                 <toolbarItem reference="zs6-ub-LOa"/>
+                                <toolbarItem reference="87D-tu-M32"/>
                                 <toolbarItem reference="bjt-yn-atF"/>
                                 <toolbarItem reference="B6d-En-crM"/>
                                 <toolbarItem reference="Hy6-d3-uyq"/>
@@ -4958,6 +4975,7 @@ DQ
     </scenes>
     <resources>
         <image name="NSTouchBarBookmarksTemplate" width="22" height="30"/>
+        <image name="NSTouchBarTextBoldTemplate" width="12" height="30"/>
         <image name="abort" width="48" height="48"/>
         <image name="batch" width="48" height="48"/>
         <image name="complete" width="48" height="48"/>
