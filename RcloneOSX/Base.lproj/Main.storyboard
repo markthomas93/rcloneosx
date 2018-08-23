@@ -256,14 +256,14 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="665B9386-9314-420F-A43B-7BF5AD206EEA" label="backupnow" paletteLabel="backupnow" image="NSTouchBarTextBoldTemplate" id="87D-tu-M32" userLabel="fastforward">
+                                <toolbarItem implicitItemIdentifier="665B9386-9314-420F-A43B-7BF5AD206EEA" label="backupnow" paletteLabel="backupnow" id="87D-tu-M32" userLabel="fastforward">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="40" height="25"/>
                                     <size key="maxSize" width="40" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="dpQ-io-QXq">
                                         <rect key="frame" x="14" y="14" width="40" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarTextBoldTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bYt-b2-m7A">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bYt-b2-m7A">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -288,14 +288,14 @@
                                         <action selector="information:" target="Rv5-yv-lsc" id="sr6-jD-c05"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="09955752-074A-40BA-A23A-BC9373162982" label="info" paletteLabel="info" image="NSTouchBarBookmarksTemplate" id="UJ0-tu-K1h">
+                                <toolbarItem implicitItemIdentifier="09955752-074A-40BA-A23A-BC9373162982" label="info" paletteLabel="info" id="UJ0-tu-K1h">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="36" height="25"/>
                                     <size key="maxSize" width="40" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="jHz-RS-dUa">
                                         <rect key="frame" x="0.0" y="14" width="40" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSTouchBarBookmarksTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gye-CC-3IT">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gye-CC-3IT">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -4974,8 +4974,6 @@ DQ
         </scene>
     </scenes>
     <resources>
-        <image name="NSTouchBarBookmarksTemplate" width="22" height="30"/>
-        <image name="NSTouchBarTextBoldTemplate" width="12" height="30"/>
         <image name="abort" width="48" height="48"/>
         <image name="batch" width="48" height="48"/>
         <image name="complete" width="48" height="48"/>
