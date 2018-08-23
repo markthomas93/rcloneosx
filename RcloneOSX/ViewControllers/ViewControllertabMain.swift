@@ -29,8 +29,8 @@ protocol ViewOutputDetails: class {
     func reloadtable()
     func appendnow() -> Bool
     func getalloutput() -> [String]
-    func disableallinfobutton()
-    func enableallinfobutton()
+    func enableappend()
+    func disableappend()
 }
 
 class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractivetask, VcMain, Fileerrormessage, Remoterclonesize {
@@ -69,7 +69,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var rcloneversionshort: NSTextField!
     @IBOutlet weak var remoteinfo1: NSTextField!
     @IBOutlet weak var remoteinfo2: NSTextField!
-    @IBOutlet weak var allinfobutton: NSButton!
     
     // Reference to Process task
     var process: Process?
