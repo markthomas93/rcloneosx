@@ -693,13 +693,11 @@ extension ViewControllertabMain: GetsortedanexpandedObject {
 }
 
 extension ViewControllertabMain: ViewOutputDetails {
-    func enableallinfobutton() {
-        self.allinfobutton.isEnabled = true
+    func disableappend() {
         self.dynamicappend = false
     }
 
-    func disableallinfobutton() {
-        self.allinfobutton.isEnabled = false
+    func enableappend() {
         self.dynamicappend = true
     }
     
