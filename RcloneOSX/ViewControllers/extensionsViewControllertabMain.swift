@@ -385,6 +385,10 @@ extension ViewControllertabMain: AbortOperations {
             // Create workqueu and add abort
             self.setinfonextaction(info: "Abort", color: .red)
             self.rcloneCommand.stringValue = ""
+            if self.remoteinfotaskworkqueue != nil && self.configurations?.estimatedlist != nil {
+                self.estimateupdateDelegate?.dismissview()
+                self.remoteinfotaskworkqueue = nil
+            }
         } else {
             self.working.stopAnimation(nil)
             self.rcloneCommand.stringValue = "Selection out of range - aborting"
