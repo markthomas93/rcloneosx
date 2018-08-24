@@ -18,7 +18,7 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
     private var expandedData = [NSDictionary]()
     private var sortedschedules: [NSDictionary]?
     private var scheduleInProgress: Bool = false
-    private var tools: Tools?
+    private var dateandtime: Dateandtime?
 
     // First job to execute. Job is first element in
     func firstscheduledtask() -> NSDictionary? {
@@ -102,7 +102,7 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
 
     // Expanding and sorting Scheduledata
     private func sortAndExpandScheduleTasks() {
-        let dateformatter = Tools().setDateformat()
+        let dateformatter = Dateandtime().setDateformat()
         for i in 0 ..< self.schedulesNSDictionary!.count {
             let dict = self.schedulesNSDictionary![i]
             let dateStop: Date = dateformatter.date(from: (dict.value(forKey: "dateStop") as? String)!)!
@@ -163,7 +163,7 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
             guard sorted.count > 0 else { return "" }
             if number {
                 let firsttask = (sorted[0].value(forKey: "start") as? Date)?.timeIntervalSinceNow
-                return self.tools?.timeString(firsttask!) ?? ""
+                return self.dateandtime?.timeString(firsttask!) ?? ""
             } else {
                 let type = sorted[0].value(forKey: "schedule") as? String
                 return type ?? ""
@@ -201,6 +201,6 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
             self.setallscheduledtasksNSDictionary()
             self.sortAndExpandScheduleTasks()
         }
-        self.tools = Tools()
+        self.dateandtime = Dateandtime()
     }
 }

@@ -67,7 +67,7 @@ final class Userconfiguration {
         self.rclonechangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         self.rclonechangedDelegate?.rclonechanged()
         // Check for rclone
-        Tools().verifyrclonepath()
+        _ = Verifyrclonepath().verifyrclonepath()
         _ = RcloneVersionString()
     }
 }

@@ -40,7 +40,7 @@ struct Configuration {
         guard date != "" else {
             return nil
         }
-        let dateformatter = Tools().setDateformat()
+        let dateformatter = Dateandtime().setDateformat()
         let lastbackup = dateformatter.date(from: date)
         let seconds: TimeInterval = lastbackup!.timeIntervalSinceNow
         return seconds * (-1)

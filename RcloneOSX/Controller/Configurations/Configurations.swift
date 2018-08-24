@@ -293,7 +293,7 @@ class Configurations: ReloadTable {
     /// - parameter index: index of Configuration to update
     func setCurrentDateonConfiguration (_ index: Int) {
         let currendate = Date()
-        let dateformatter = Tools().setDateformat()
+        let dateformatter = Dateandtime().setDateformat()
         self.configurations![index].dateRun = dateformatter.string(from: currendate)
         // Saving updated configuration in memory to persistent store
         self.storageapi!.saveConfigFromMemory()
