@@ -43,6 +43,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Reference to batch taskobject
     var batchtaskObject: BatchTask?
     var tools: Tools?
+    var verifyrclonepath: Verifyrclonepath?
     // Delegate function getting batchTaskObject
     weak var batchObjectDelegate: getNewBatchTask?
     // Main tableview
@@ -103,7 +104,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.norclone()
+            self.verifyrclonepath!.norclone()
             return
         }
         guard self.configurations!.getConfigurations()[self.index!].task == "sync" else {
@@ -116,7 +117,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     @IBAction func getremoteinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.norclone()
+            self.verifyrclonepath!.norclone()
             return
         }
         if self.index != nil {
@@ -132,7 +133,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     @IBAction func totinfo(_ sender: NSButton) {
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.norclone()
+            self.verifyrclonepath!.norclone()
             return
         }
         self.processtermination = .remoteinfotask
@@ -143,7 +144,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     @IBAction func quickbackup(_ sender: NSButton) {
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.norclone()
+            self.verifyrclonepath!.norclone()
             return
         }
         self.processtermination = .quicktask
@@ -323,9 +324,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 return
             }
             if self.displaysynccommand.state == .on {
-                self.rcloneCommand.stringValue = self.tools!.displayrclonecommand(index: index, display: .sync)
+                self.rcloneCommand.stringValue = self.verifyrclonepath!.displayrclonecommand(index: index, display: .sync)
             } else {
-                self.rcloneCommand.stringValue = self.tools!.displayrclonecommand(index: index, display: .restore)
+                self.rcloneCommand.stringValue = self.verifyrclonepath!.displayrclonecommand(index: index, display: .restore)
             }
         } else {
             self.rcloneCommand.stringValue = ""
@@ -343,7 +344,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
         self.displaysynccommand.state = .on
-        _ = Tools().verifyrclonepath()
+        _ = Verifyrclonepath().verifyrclonepath()
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
@@ -370,6 +371,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.displayProfile()
         self.readyforexecution = true
         if self.tools == nil { self.tools = Tools()}
+        if self.verifyrclonepath == nil { self.verifyrclonepath = Verifyrclonepath()}
     }
 
     override func viewDidDisappear() {
@@ -394,7 +396,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.norclone()
+            self.verifyrclonepath!.norclone()
             return
         }
         guard self.index != nil else { return }
@@ -418,7 +420,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard ViewControllerReference.shared.norclone == false else {
-            self.tools!.norclone()
+            self.verifyrclonepath!.norclone()
             return
         }
         self.singletask = nil

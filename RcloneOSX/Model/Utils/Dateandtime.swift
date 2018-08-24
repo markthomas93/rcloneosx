@@ -1,54 +1,14 @@
 //
-//  Tools.swift
-//  rcloneOSX
+//  Dateandtime.swift
+//  RsyncOSX
 //
-//  Created by Thomas Evensen on 22.07.2017.
-//  Copyright © 2017 Thomas Evensen. All rights reserved.
+//  Created by Thomas Evensen on 24.08.2018.
+//  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
-//  SwiftLint: OK 31 July 2017
-//  swiftlint:disable line_length
 
 import Foundation
 
-// Used in mainTab to present info about process
-enum DisplayProcessInfo {
-    case estimating
-    case executing
-    case loggingrun
-    case changeprofile
-    case abort
-    case blank
-    case error
-}
-
-enum RclonecommandDisplay {
-    case sync
-    case restore
-}
-
-// Protocol for doing a refresh in main view after testing for connectivity
-protocol Connections: class {
-    func displayConnections()
-}
-
-protocol Setinfoaboutrclone: class {
-    func setinfoaboutrclone()
-}
-
-final class Tools: SetConfigurations {
-
-    weak var verifyrcloneDelegate: Setinfoaboutrclone?
-
-    // Setting date format
-    func setDateformat() -> DateFormatter {
-        let dateformatter = DateFormatter()
-        // We are forcing en_US format of date strings
-        dateformatter.locale = Locale(identifier: "en_US")
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        dateformatter.dateFormat = "dd MMM yyyy HH:mm"
-        return dateformatter
-    }
+final class Dateandtime {
 
     // Calculate seconds from now to startdate
     private func seconds (_ startdate: Date, enddate: Date?) -> Double {
@@ -126,7 +86,15 @@ final class Tools: SetConfigurations {
         return result ?? ""
     }
 
-    init() {
-        self.verifyrcloneDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+    // Setting date format
+    func setDateformat() -> DateFormatter {
+        let dateformatter = DateFormatter()
+        // We are forcing en_US format of date strings
+        dateformatter.locale = Locale(identifier: "en_US")
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "dd MMM yyyy HH:mm"
+        return dateformatter
     }
+
 }
