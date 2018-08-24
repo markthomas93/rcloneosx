@@ -1,6 +1,5 @@
 //
-//  Tools.swift
-//  rcloneOSX
+//  Verifyrclonepath.swift
 //
 //  Created by Thomas Evensen on 22.07.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
@@ -9,6 +8,15 @@
 //  swiftlint:disable line_length
 
 import Foundation
+
+enum RclonecommandDisplay {
+    case sync
+    case restore
+}
+
+protocol Setinfoaboutrclone: class {
+    func setinfoaboutrclone()
+}
 
 final class Verifyrclonepath: SetConfigurations {
 

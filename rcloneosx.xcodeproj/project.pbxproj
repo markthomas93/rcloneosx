@@ -65,7 +65,6 @@
 		E960CB271FB091DE0008D12E /* ExecuteTaskTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAD91FB091D80008D12E /* ExecuteTaskTimer.swift */; };
 		E960CB281FB091DE0008D12E /* ArgumentsOneConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CADA1FB091D80008D12E /* ArgumentsOneConfiguration.swift */; };
 		E960CB291FB091DE0008D12E /* BatchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CADB1FB091D80008D12E /* BatchTask.swift */; };
-		E960CB2A1FB091DE0008D12E /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CADC1FB091D80008D12E /* Tools.swift */; };
 		E960CB2B1FB091DE0008D12E /* SingleTaskWorkQueu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CADD1FB091D90008D12E /* SingleTaskWorkQueu.swift */; };
 		E960CB2C1FB091DE0008D12E /* Userconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CADE1FB091D90008D12E /* Userconfiguration.swift */; };
 		E960CB2D1FB091DE0008D12E /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CADF1FB091D90008D12E /* Alerts.swift */; };
@@ -171,7 +170,6 @@
 		E960CAD91FB091D80008D12E /* ExecuteTaskTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteTaskTimer.swift; sourceTree = "<group>"; };
 		E960CADA1FB091D80008D12E /* ArgumentsOneConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentsOneConfiguration.swift; sourceTree = "<group>"; };
 		E960CADB1FB091D80008D12E /* BatchTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchTask.swift; sourceTree = "<group>"; };
-		E960CADC1FB091D80008D12E /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		E960CADD1FB091D90008D12E /* SingleTaskWorkQueu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleTaskWorkQueu.swift; sourceTree = "<group>"; };
 		E960CADE1FB091D90008D12E /* Userconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Userconfiguration.swift; sourceTree = "<group>"; };
 		E960CADF1FB091D90008D12E /* Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
@@ -310,7 +308,6 @@
 				E960CAE71FB091DA0008D12E /* Checkfornewversion.swift */,
 				E960CACD1FB091D60008D12E /* FileDialog.swift */,
 				E960CAD31FB091D70008D12E /* Resources.swift */,
-				E960CADC1FB091D80008D12E /* Tools.swift */,
 				E960CADE1FB091D90008D12E /* Userconfiguration.swift */,
 				E93DB0C3204E6FE80008B6C2 /* Notifications.swift */,
 			);
@@ -757,7 +754,6 @@
 				E960CB1D1FB091DE0008D12E /* ViewControllerUserconfiguration.swift in Sources */,
 				E9A7958C1FBF285400AF8A5F /* ViewControllerCopyFilesSource.swift in Sources */,
 				E9BC41E52065184F001DBCC6 /* ViewControllerAllProfiles.swift in Sources */,
-				E960CB2A1FB091DE0008D12E /* Tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

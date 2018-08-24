@@ -42,7 +42,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var singletask: SingleTask?
     // Reference to batch taskobject
     var batchtaskObject: BatchTask?
-    var tools: Tools?
+    var dateandtime: Dateandtime?
     var verifyrclonepath: Verifyrclonepath?
     // Delegate function getting batchTaskObject
     weak var batchObjectDelegate: getNewBatchTask?
@@ -296,7 +296,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         let now: Date = Date()
-        let dateformatter = Tools().setDateformat()
+        let dateformatter = Dateandtime().setDateformat()
         let task: NSDictionary = [
             "start": now,
             "hiddenID": self.hiddenID!,
@@ -370,7 +370,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.rclonechanged()
         self.displayProfile()
         self.readyforexecution = true
-        if self.tools == nil { self.tools = Tools()}
+        if self.dateandtime == nil { self.dateandtime = Dateandtime()}
         if self.verifyrclonepath == nil { self.verifyrclonepath = Verifyrclonepath()}
     }
 

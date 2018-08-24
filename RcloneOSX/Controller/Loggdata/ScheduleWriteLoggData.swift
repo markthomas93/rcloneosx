@@ -53,7 +53,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
         if ViewControllerReference.shared.detailedlogging {
             // Set the current date
             let currendate = Date()
-            let dateformatter = Tools().setDateformat()
+            let dateformatter = Dateandtime().setDateformat()
             let date = dateformatter.string(from: currendate)
             var inserted: Bool = self.addloggtaskmanualexisting(hiddenID, result: result, date: date)
             // Record does not exist, create new Schedule (not inserted)
