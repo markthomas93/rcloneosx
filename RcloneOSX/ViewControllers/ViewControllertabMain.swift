@@ -68,8 +68,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Just showing process info
     @IBOutlet weak var processInfo: NSTextField!
     @IBOutlet weak var rcloneversionshort: NSTextField!
-    @IBOutlet weak var remoteinfo1: NSTextField!
-    @IBOutlet weak var remoteinfo2: NSTextField!
+    @IBOutlet weak var remoteinfonumber: NSTextField!
+    @IBOutlet weak var remoteinfosize: NSTextField!
     
     // Reference to Process task
     var process: Process?
@@ -452,15 +452,15 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Setting remote info
     func remoteinfo(reset: Bool) {
         guard self.outputprocess?.getOutput()?.count ?? 0 > 0 || reset == false else {
-            self.remoteinfo1.stringValue = ""
-            self.remoteinfo2.stringValue = ""
+            self.remoteinfonumber.stringValue = ""
+            self.remoteinfosize.stringValue = ""
             return
         }
         let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
         guard size != nil else { return }
         NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal)
-        self.remoteinfo1.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
-        self.remoteinfo2.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
+        self.remoteinfonumber.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
+        self.remoteinfosize.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
     }
 
     // setting which table row is selected
