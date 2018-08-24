@@ -290,7 +290,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.info(num: 1)
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task != "move" else {
+        guard self.configurations!.getConfigurations()[self.index!].task != "move" ||
+        self.configurations!.getConfigurations()[self.index!].task != "check" else {
             return
         }
         let now: Date = Date()
@@ -334,7 +335,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sleepandwakenotifications()
-        // Setting delegates and datasource
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.working.usesThreadedAnimation = true
@@ -397,9 +397,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.tools!.norclone()
             return
         }
-        guard self.index != nil else {
-            return
-        }
+        guard self.index != nil else { return }
         self.batchtaskObject = nil
         guard self.singletask != nil else {
             // Dry run
@@ -468,12 +466,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         guard self.scheduledJobInProgress == false else {
             return
         }
-        if self.process != nil {
-            self.abortOperations()
-        }
-        if self.readyforexecution == false {
-            self.abortOperations()
-        }
+        if self.process != nil { self.abortOperations() }
+        if self.readyforexecution == false { self.abortOperations() }
         self.readyforexecution = true
         self.info(num: 0)
         let myTableViewFromNotification = (notification.object as? NSTableView)!
