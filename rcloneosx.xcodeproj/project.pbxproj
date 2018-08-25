@@ -24,6 +24,7 @@
 /* Begin PBXBuildFile section */
 		E905FE64209836C60008450C /* RcloneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905FE63209836C60008450C /* RcloneSize.swift */; };
 		E9062E732097192D00D65748 /* ViewControllerRemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */; };
+		E914B77421311C1400FFE398 /* extensionsSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914B77321311C1400FFE398 /* extensionsSchedules.swift */; };
 		E9198C37211DC5960071DB3A /* OutputEverything.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9198C36211DC5960071DB3A /* OutputEverything.swift */; };
 		E9198C39211DC5EC0071DB3A /* ViewControllerAllOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */; };
 		E923D4C62130595F00C6BE92 /* Dispatchqueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923D4C32130595E00C6BE92 /* Dispatchqueues.swift */; };
@@ -129,6 +130,7 @@
 /* Begin PBXFileReference section */
 		E905FE63209836C60008450C /* RcloneSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RcloneSize.swift; sourceTree = "<group>"; };
 		E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRemoteInfo.swift; sourceTree = "<group>"; };
+		E914B77321311C1400FFE398 /* extensionsSchedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsSchedules.swift; sourceTree = "<group>"; };
 		E9198C36211DC5960071DB3A /* OutputEverything.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEverything.swift; sourceTree = "<group>"; };
 		E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllOutput.swift; sourceTree = "<group>"; };
 		E923D4C32130595E00C6BE92 /* Dispatchqueues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatchqueues.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 			children = (
 				E960CAF01FB091DB0008D12E /* Schedules.swift */,
 				E960CAF61FB091DC0008D12E /* ScheduleSortedAndExpanded.swift */,
+				E914B77321311C1400FFE398 /* extensionsSchedules.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				E92B18B72096F4DE001DBFAF /* RemoteInfoTask.swift in Sources */,
 				E960CB0F1FB091DE0008D12E /* ViewControllerExtensions.swift in Sources */,
 				E960CB1F1FB091DE0008D12E /* BatchTaskWorkQueu.swift in Sources */,
+				E914B77421311C1400FFE398 /* extensionsSchedules.swift in Sources */,
 				E960CB481FB091DE0008D12E /* PersistentStorageAPI.swift in Sources */,
 				E960CB1B1FB091DE0008D12E /* FileDialog.swift in Sources */,
 				E9A795921FBF2AB000AF8A5F /* CommandCopyFiles.swift in Sources */,
