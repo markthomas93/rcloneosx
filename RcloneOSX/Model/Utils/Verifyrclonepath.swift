@@ -48,9 +48,7 @@ final class Verifyrclonepath: SetConfigurations {
         self.verifyrcloneDelegate?.setinfoaboutrclone()
     }
 
-    // Display the correct command to execute
-    // Used for displaying the commands only
-    
+    // Display the correct command to execute, used for displaying the commands only
     func displayrclonecommand(index: Int, display: RclonecommandDisplay) -> String {
         var str: String?
         let config = self.configurations!.getargumentAllConfigurations()[index]
@@ -73,10 +71,7 @@ final class Verifyrclonepath: SetConfigurations {
     }
         
 
-    /// Function returns the correct path for rclone
-    /// according to configuration set by user or
-    /// default value.
-    /// - returns : full path of rclone command
+    // Function returns the correct path for rclone according to configuration set by user or default value.
     func rclonepath() -> String {
         if ViewControllerReference.shared.rcloneopt {
             if ViewControllerReference.shared.rclonePath == nil {
