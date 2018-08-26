@@ -155,6 +155,9 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
         super.viewDidAppear()
         self.indexselected = self.index
         self.index = self.index()
+        if self.index == nil {
+            self.index = self.index()
+        }
         if let index = self.index {
             self.displayRemoteserver(index: index)
             self.info(num: 4)
