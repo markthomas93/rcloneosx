@@ -565,8 +565,11 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gg2-se-FkF">
-                                <rect key="frame" x="141" y="388" width="257" height="17"/>
+                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gg2-se-FkF">
+                                <rect key="frame" x="141" y="388" width="263" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="kfI-gI-uea"/>
+                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Profile :" id="60W-M7-Vqr">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -615,7 +618,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <box misplaced="YES" title="Process info" translatesAutoresizingMaskIntoConstraints="NO" id="95g-rM-8Og">
+                            <box title="Process info" translatesAutoresizingMaskIntoConstraints="NO" id="95g-rM-8Og">
                                 <rect key="frame" x="17" y="287" width="113" height="91"/>
                                 <view key="contentView" id="g70-3I-QYo">
                                     <rect key="frame" x="2" y="2" width="109" height="74"/>
@@ -658,8 +661,12 @@
                                         </textField>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="107" id="D0Q-aN-5as"/>
+                                    <constraint firstAttribute="height" constant="87" id="pfq-As-pI0"/>
+                                </constraints>
                             </box>
-                            <box misplaced="YES" title="Edit configurations" translatesAutoresizingMaskIntoConstraints="NO" id="SLh-r7-WsT">
+                            <box title="Edit configurations" translatesAutoresizingMaskIntoConstraints="NO" id="SLh-r7-WsT">
                                 <rect key="frame" x="17" y="190" width="113" height="97"/>
                                 <view key="contentView" id="wTZ-hn-IUZ">
                                     <rect key="frame" x="2" y="2" width="109" height="80"/>
@@ -699,9 +706,8 @@
                                     <action selector="delete:" target="egt-C3-u4G" id="zai-Qy-Yqe"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ihh-RL-unb">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ihh-RL-unb">
                                 <rect key="frame" x="418" y="388" width="277" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Double click  on row or shortcut ⌘R to execute task" id="ZcE-hI-Fdm">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -794,7 +800,7 @@
                                     <action selector="restore:" target="egt-C3-u4G" id="etJ-HE-2jn"/>
                                 </connections>
                             </button>
-                            <box misplaced="YES" title="Restore" translatesAutoresizingMaskIntoConstraints="NO" id="Jud-0A-h9l">
+                            <box title="Restore" translatesAutoresizingMaskIntoConstraints="NO" id="Jud-0A-h9l">
                                 <rect key="frame" x="17" y="138" width="113" height="55"/>
                                 <view key="contentView" id="1sj-2d-hcS">
                                     <rect key="frame" x="2" y="2" width="109" height="38"/>
@@ -803,14 +809,19 @@
                             </box>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Ihh-RL-unb" firstAttribute="leading" secondItem="Gg2-se-FkF" secondAttribute="trailing" constant="18" id="4RO-q6-i8U"/>
                             <constraint firstAttribute="bottom" secondItem="Jud-0A-h9l" secondAttribute="bottom" constant="142" id="5dB-B8-Cqw"/>
+                            <constraint firstAttribute="trailing" secondItem="Ihh-RL-unb" secondAttribute="trailing" constant="399" id="67T-DK-s24"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="leading" secondItem="SLh-r7-WsT" secondAttribute="leading" id="6Dl-9F-mch"/>
+                            <constraint firstItem="Ihh-RL-unb" firstAttribute="top" secondItem="Gg2-se-FkF" secondAttribute="top" id="7Wa-WG-sbv"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="top" secondItem="akQ-LR-eTv" secondAttribute="top" constant="20" symbolic="YES" id="B5D-0V-tQd"/>
                             <constraint firstAttribute="bottom" secondItem="jA8-9b-U5I" secondAttribute="bottom" constant="-1" id="E7l-uL-40d"/>
                             <constraint firstAttribute="trailing" secondItem="ihR-vZ-M7c" secondAttribute="trailing" constant="16" id="IG4-Ob-qtk"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Gg2-se-FkF" secondAttribute="trailing" constant="20" symbolic="YES" id="ILm-YL-9ry"/>
                             <constraint firstItem="jA8-9b-U5I" firstAttribute="top" secondItem="7n8-es-jH6" secondAttribute="bottom" constant="2" id="LVD-Pn-mFw"/>
+                            <constraint firstItem="Gg2-se-FkF" firstAttribute="leading" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="143" id="MF0-dr-DEz"/>
                             <constraint firstAttribute="bottom" secondItem="95g-rM-8Og" secondAttribute="bottom" constant="291" id="MhM-6P-vf9"/>
+                            <constraint firstItem="Ihh-RL-unb" firstAttribute="baseline" secondItem="Gg2-se-FkF" secondAttribute="baseline" id="Phh-gd-hhU"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="trailing" secondItem="eXj-oO-jDD" secondAttribute="trailing" id="XTW-ER-j0O"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="leading" secondItem="Gg2-se-FkF" secondAttribute="leading" id="Xbe-R4-T4r"/>
                             <constraint firstItem="jA8-9b-U5I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="akQ-LR-eTv" secondAttribute="leading" constant="20" symbolic="YES" id="b1s-lg-7UI"/>
@@ -825,6 +836,7 @@
                             <constraint firstItem="95g-rM-8Og" firstAttribute="trailing" secondItem="SLh-r7-WsT" secondAttribute="trailing" id="rR1-Be-srR"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="trailing" secondItem="Jud-0A-h9l" secondAttribute="trailing" id="uqg-oY-fSQ"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="leading" secondItem="Jud-0A-h9l" secondAttribute="leading" id="vcP-0Y-ogA"/>
+                            <constraint firstItem="Ihh-RL-unb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="akQ-LR-eTv" secondAttribute="leading" id="vvM-fn-97T"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="top" secondItem="Gg2-se-FkF" secondAttribute="bottom" constant="1" id="yqX-dj-nmz"/>
                         </constraints>
                     </view>
