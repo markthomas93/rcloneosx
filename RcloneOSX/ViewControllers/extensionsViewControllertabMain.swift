@@ -495,7 +495,7 @@ extension ViewControllertabMain: SingleTaskProgress {
         case .black:
             self.dryRunOrRealRun.textColor = .black
         case .green:
-            self.dryRunOrRealRun.textColor = .green
+            self.dryRunOrRealRun.textColor = .gray
         }
         self.dryRunOrRealRun.stringValue = info
     }
