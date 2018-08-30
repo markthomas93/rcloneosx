@@ -354,7 +354,9 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.scheduledJobInProgress == false else {
-            self.scheduledJobworking.startAnimation(nil)
+            if self.processtermination == .singlequicktask {
+                self.scheduledJobworking.startAnimation(nil)
+            }
             self.executing.isHidden = false
             return
         }

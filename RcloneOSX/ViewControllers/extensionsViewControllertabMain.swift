@@ -126,7 +126,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
     func start() {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = true
-            self.scheduledJobworking.startAnimation(nil)
+            if self.processtermination == .singlequicktask {
+                self.scheduledJobworking.startAnimation(nil)
+            }
             self.executing.isHidden = false
         })
     }
@@ -135,7 +137,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = false
             self.info(num: 1)
-            self.scheduledJobworking.stopAnimation(nil)
+            if self.processtermination == .singlequicktask {
+                self.scheduledJobworking.stopAnimation(nil)
+            }
             self.executing.isHidden = true
         })
     }
