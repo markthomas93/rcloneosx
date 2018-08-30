@@ -45,6 +45,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     // Close and dismiss view
     @IBAction func close(_ sender: NSButton) {
+        if self.workqueue != nil && self.outputprocess != nil { self.abort() }
         if self.restorecompleted == false { self.abort() }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
@@ -126,6 +127,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        guard self.workqueue == nil && self.outputprocess == nil else { return }
         _ = self.removework()
         self.restorebutton.isEnabled = false
         self.localCatalog.stringValue = ""
