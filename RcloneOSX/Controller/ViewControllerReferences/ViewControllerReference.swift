@@ -74,6 +74,8 @@ class ViewControllerReference {
     var rcloneversionstring: String?
     // Rclone version short
     var rcloneversionshort: String?
+    // If rclone version 1.43 or more
+    var rclone143: Bool = false
     // Mac serialnumer
     var macserialnumber: String?
     // Reference to main View
