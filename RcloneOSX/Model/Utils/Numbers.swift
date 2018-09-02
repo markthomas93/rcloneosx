@@ -46,7 +46,7 @@ final class Numbers: SetConfigurations {
         case .totalNumber:
             return self.totNum ?? 0
         case .transferredNumber:
-            return Int(self.transferNum ?? "0")!
+            return Int(self.transferNum ?? "0") ?? 0
         case .totalNumberSizebytes:
             let size = self.totNumSize ?? 0
             return Int(size/1024 )
