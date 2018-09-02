@@ -51,9 +51,8 @@ final class Numbers: SetConfigurations {
             let size = self.totNumSize ?? 0
             return Int(size/1024 )
         case .transferredNumberSizebytes:
-            var size = Int(self.transferNumSize ?? "0")
-            if size == nil { size = 0 }
-            return Int(size!/1024)
+            let size = Int(self.transferNumSize ?? "0") ?? 0
+            return Int(size/1024)
         case .new:
             let num = self.newfiles ?? 0
             return Int(num)
@@ -64,28 +63,37 @@ final class Numbers: SetConfigurations {
     }
 
     private func prepareresult() {
-        let tempfiles = self.output!.filter({(($0).contains("Transferred:"))})
-        let elapsedTime = self.output!.filter({(($0).contains("Elapsed time:"))})
-        guard tempfiles.count >= 2 && elapsedTime.count >= 1  else { return }
-        let index = tempfiles.count
-        let index2 = elapsedTime.count
-        var filesPartSize = tempfiles[index-2].components(separatedBy: " ").filter {$0.isEmpty == false && $0 != "Transferred:"}
-        let filesPart = tempfiles[index-1].components(separatedBy: " ").filter {$0.isEmpty == false}
-        let elapstedTimePart = elapsedTime[index2-1].components(separatedBy: " ").filter {$0.isEmpty == false}
-        if filesPart.count > 1 { self.transferNum = filesPart[filesPart.count - 1] } else { self.transferNum = "0" }
-        if filesPartSize.count > 3 {
-            self.transferNumSize = filesPartSize[0]
-            self.transferNumSizeByte = filesPartSize[1]
+        let transferred = self.output!.filter({(($0).contains("Transferred:"))})
+        let elapsedtime = self.output!.filter({(($0).contains("Elapsed time:"))})
+        guard transferred.count >= 2 && elapsedtime.count >= 1  else { return }
+        let indextransferred = transferred.count
+        let indexelapsed = elapsedtime.count
+        let filesizessplit = transferred[indextransferred-2].components(separatedBy: " ").filter {$0.isEmpty == false && $0 != "Transferred:"}
+        let filenumberssplit = transferred[indextransferred-1].components(separatedBy: " ").filter {$0.isEmpty == false}
+        let elapstedtimesplit = elapsedtime[indexelapsed-1].components(separatedBy: " ").filter {$0.isEmpty == false}
+        if filenumberssplit.count > 1 {
+            if ViewControllerReference.shared.rclone143 {
+                // ["Transferred:","5","/","5","100%"]
+                self.transferNum = filenumberssplit[1]
+            } else {
+                // ["Transferred:","5"]
+                self.transferNum = filenumberssplit[filenumberssplit.count - 1]
+            }
+        } else {
+            self.transferNum = "0"
+        }
+        if filesizessplit.count > 3 {
+            self.transferNumSize = filesizessplit[0]
+            self.transferNumSizeByte = filesizessplit[1]
         } else {
             self.transferNumSize = "0.0"
             self.transferNumSizeByte = "bytes"
         }
-        if elapstedTimePart.count > 2 { self.time = elapstedTimePart[2] } else { self.time = "0.0" }
+        if elapstedtimesplit.count > 2 { self.time = elapstedtimesplit[2] } else { self.time = "0.0" }
     }
 
     // Collecting statistics about job
     func stats() -> String {
-        // self.prepareresult()
         let num = self.transferNum ?? "0"
         let size = self.transferNumSize ?? "0"
         let byte = self.transferNumSizeByte ?? "bytes"
