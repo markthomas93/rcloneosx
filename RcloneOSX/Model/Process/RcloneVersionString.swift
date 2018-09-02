@@ -22,8 +22,14 @@ final class RcloneVersionString: ProcessCmd {
                 guard outputprocess.getOutput()!.count > 0 else { return }
                 ViewControllerReference.shared.rcloneversionshort = outputprocess.getOutput()![0]
                 ViewControllerReference.shared.rcloneversionstring = outputprocess.getOutput()!.joined(separator: "\n")
-                if ViewControllerReference.shared.rcloneversionshort! == "rclone v1.43" {
-                    ViewControllerReference.shared.rclone143 = true
+                if let rcloneversionshort = ViewControllerReference.shared.rcloneversionshort {
+                    if rcloneversionshort == "rclone v1.43" {
+                        ViewControllerReference.shared.rclone143 = true
+                    } else {
+                        ViewControllerReference.shared.rclone143 = false
+                    }
+                } else {
+                    ViewControllerReference.shared.rclone143 = false
                 }
                 weak var shortstringDelegate: RcloneChanged?
                 shortstringDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
