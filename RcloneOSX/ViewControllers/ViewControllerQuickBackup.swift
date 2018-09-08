@@ -18,6 +18,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
     var quickbackuplist: QuickBackup?
     var executing: Bool = false
     weak var inprogresscountDelegate: Count?
+    var diddissappear: Bool = false
 
     @IBOutlet weak var mainTableView: NSTableView!
     @IBOutlet weak var executeButton: NSButton!
@@ -61,6 +62,10 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        guard self.diddissappear == false else {
+            self.reloadtabledata()
+            return
+        }
         self.executeButton.isEnabled = false
         self.progress.isHidden = true
         if let execute = self.enableexecutebutton() {
@@ -75,6 +80,11 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
         }
         self.reloadtabledata()
         _ = self.checkforestimates()
+    }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.diddissappear = true
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
