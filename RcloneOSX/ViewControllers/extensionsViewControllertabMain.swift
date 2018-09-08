@@ -197,7 +197,6 @@ extension ViewControllertabMain: DismissViewController {
             self.mainTableView.reloadData()
             self.displayProfile()
         })
-        self.showProcessInfo(info: .blank)
         self.setinfoaboutrclone()
         if viewcontroller == ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) {
             self.configurations!.allowNotifyinMain = true
@@ -352,7 +351,6 @@ extension ViewControllertabMain: RcloneError {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
             self.setinfonextaction(info: "Error", color: .red)
-            self.showProcessInfo(info: .error)
             self.showrclonecommandmainview()
             self.deselect()
             // Abort any operations
@@ -379,7 +377,6 @@ extension ViewControllertabMain: Fileerror {
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype)
             } else {
                 self.setinfonextaction(info: "Error", color: .red)
-                self.showProcessInfo(info: .error)
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
         })
@@ -391,7 +388,6 @@ extension ViewControllertabMain: AbortOperations {
     // Abort any task, either single- or batch task
     func abortOperations() {
         // Terminates the running process
-        self.showProcessInfo(info: .abort)
         if let process = self.process {
             process.terminate()
             self.index = nil
@@ -446,28 +442,6 @@ extension ViewControllertabMain: SingleTaskProgress {
 
     func getProcessReference(process: Process) {
         self.process = process
-    }
-
-    // Just for updating process info
-    func showProcessInfo(info: DisplayProcessInfo) {
-        globalMainQueue.async(execute: { () -> Void in
-            switch info {
-            case .estimating:
-                self.processInfo.stringValue = "Estimating"
-            case .executing:
-                self.processInfo.stringValue = "Executing"
-            case .loggingrun:
-                self.processInfo.stringValue = "Logging run"
-            case .changeprofile:
-                self.processInfo.stringValue = "Change profile"
-            case .abort:
-                self.processInfo.stringValue = "Abort"
-            case .error:
-                self.processInfo.stringValue = "Rclone error"
-            case .blank:
-                self.processInfo.stringValue = ""
-            }
-        })
     }
 
     func presentViewProgress() {
