@@ -156,24 +156,24 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     @IBAction func edit(_ sender: NSButton) {
         self.reset()
-        if self.index != nil {
-            globalMainQueue.async(execute: { () -> Void in
-                self.presentViewControllerAsSheet(self.editViewController!)
-            })
-        } else {
+        guard self.index != nil else {
             self.info(num: 1)
+            return
         }
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.editViewController!)
+        })
     }
 
     @IBAction func rcloneparams(_ sender: NSButton) {
         self.reset()
-        if self.index != nil {
-            globalMainQueue.async(execute: { () -> Void in
-                self.presentViewControllerAsSheet(self.viewControllerRcloneParams!)
-            })
-        } else {
+        guard self.index != nil else {
             self.info(num: 1)
+            return
         }
+        globalMainQueue.async(execute: { () -> Void in
+            self.presentViewControllerAsSheet(self.viewControllerRcloneParams!)
+        })
     }
 
     @IBAction func delete(_ sender: NSButton) {
