@@ -65,8 +65,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Showing info about profile
     @IBOutlet weak var profilInfo: NSTextField!
     // Showing info about double clik or not
-    // Just showing process info
-    @IBOutlet weak var processInfo: NSTextField!
     @IBOutlet weak var rcloneversionshort: NSTextField!
     @IBOutlet weak var remoteinfonumber: NSTextField!
     @IBOutlet weak var remoteinfosize: NSTextField!
@@ -246,7 +244,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Selecting profiles
     @IBAction func profiles(_ sender: NSButton) {
-        self.showProcessInfo(info: .changeprofile)
         globalMainQueue.async(execute: { () -> Void in
             self.presentViewControllerAsSheet(self.viewControllerProfile!)
         })
@@ -360,7 +357,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.executing.isHidden = false
             return
         }
-        self.showProcessInfo(info: .blank)
         // Allow notify about Scheduled jobs
         self.configurations!.allowNotifyinMain = true
         self.setinfonextaction(info: "", color: .black)
@@ -489,7 +485,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.singletask = nil
         self.batchtaskObject = nil
         self.setinfonextaction(info: "Estimate", color: .green)
-        self.showProcessInfo(info: .blank)
         self.showrclonecommandmainview()
         self.reloadtabledata()
         self.configurations!.allowNotifyinMain = true
