@@ -57,6 +57,21 @@ final class Userconfiguration {
                 }
             }
         }
+        // No logging, minimum logging or full logging
+        if let minimumlogging = dict.value(forKey: "minimumlogging") as? Int {
+            if minimumlogging == 1 {
+                ViewControllerReference.shared.minimumlogging = true
+            } else {
+                ViewControllerReference.shared.minimumlogging = false
+            }
+        }
+        if let fulllogging = dict.value(forKey: "fulllogging") as? Int {
+            if fulllogging == 1 {
+                ViewControllerReference.shared.fulllogging = true
+            } else {
+                ViewControllerReference.shared.fulllogging = false
+            }
+        }
     }
 
     init (userconfigrcloneOSX: [NSDictionary]) {

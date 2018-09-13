@@ -23,6 +23,8 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
     func saveUserconfiguration () {
         var optionalpathrclone: Int?
         var detailedlogging: Int?
+        var minimumlogging: Int?
+        var fulllogging: Int?
         var rclonePath: String?
         var restorePath: String?
         var marknumberofdayssince: String?
@@ -37,6 +39,16 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         } else {
             detailedlogging = 0
         }
+        if ViewControllerReference.shared.minimumlogging {
+            minimumlogging = 1
+        } else {
+            minimumlogging = 0
+        }
+        if ViewControllerReference.shared.fulllogging {
+            fulllogging = 1
+        } else {
+            fulllogging = 0
+        }
         if ViewControllerReference.shared.rclonePath != nil {
             rclonePath = ViewControllerReference.shared.rclonePath!
         }
@@ -49,6 +61,8 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         let dict: NSMutableDictionary = [
             "optionalpathrclone": optionalpathrclone! as Int,
             "detailedlogging": detailedlogging! as Int,
+            "minimumlogging": minimumlogging! as Int,
+            "fulllogging": fulllogging! as Int,
             "marknumberofdayssince": marknumberofdayssince ?? "5.0"]
 
         if rclonePath != nil {

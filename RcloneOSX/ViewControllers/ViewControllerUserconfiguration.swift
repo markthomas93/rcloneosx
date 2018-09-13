@@ -84,6 +84,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             ViewControllerReference.shared.fulllogging = false
             ViewControllerReference.shared.minimumlogging = false
         }
+        self.dirty = true
     }
 
     private func setmarknumberofdayssince() {
@@ -188,6 +189,12 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             self.operation.state = .on
         case .timer:
             self.operation.state = .off
+        }
+        if ViewControllerReference.shared.minimumlogging {
+            self.minimumlogging.state = .on
+        }
+        if ViewControllerReference.shared.fulllogging {
+            self.fulllogging.state = .on
         }
     }
 }
