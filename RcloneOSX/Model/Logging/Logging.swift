@@ -17,12 +17,14 @@ class Logging: Reportfileerror {
     var fileURL: URL?
 
     private func writeloggfile() {
-        do {
-            try self.log!.write(to: self.fileURL!, atomically: true, encoding: String.Encoding.utf8)
-        } catch let e {
-            let error = e as NSError
-            self.error(error: error.description, errortype: .writelogfile)
-        }
+        globalMainQueue.async(execute: { () -> Void in
+            do {
+                try self.log!.write(to: self.fileURL!, atomically: true, encoding: String.Encoding.utf8)
+            } catch let e {
+                let error = e as NSError
+                self.error(error: error.description, errortype: .writelogfile)
+            }
+        })
     }
 
     private func readloggfile() {
@@ -35,21 +37,6 @@ class Logging: Reportfileerror {
     }
 
     private func minimumlogging() {
-        let currendate = Date()
-        let dateformatter = Dateandtime().setDateformat()
-        let date = dateformatter.string(from: currendate)
-        self.readloggfile()
-        let tmplogg: String = "\n" + "-------------------------------------------\n" + date + "\n"
-            + "-------------------------------------------\n"
-        if self.log == nil {
-            self.log = tmplogg + self.outputprocess!.getOutput()!.joined(separator: "\n")
-        } else {
-            self.log = self.log! + tmplogg  + self.outputprocess!.getOutput()!.joined(separator: "\n")
-        }
-        self.writeloggfile()
-    }
-
-    private func fulllogging() {
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
         let date = dateformatter.string(from: currendate)
@@ -73,7 +60,25 @@ class Logging: Reportfileerror {
         self.writeloggfile()
     }
 
+    private func fulllogging() {
+        let currendate = Date()
+        let dateformatter = Dateandtime().setDateformat()
+        let date = dateformatter.string(from: currendate)
+        self.readloggfile()
+        let tmplogg: String = "\n" + "-------------------------------------------\n" + date + "\n"
+            + "-------------------------------------------\n"
+        if self.log == nil {
+            self.log = tmplogg + self.outputprocess!.getOutput()!.joined(separator: "\n")
+        } else {
+            self.log = self.log! + tmplogg  + self.outputprocess!.getOutput()!.joined(separator: "\n")
+        }
+        self.writeloggfile()
+    }
+
     init(outputprocess: OutputProcess?) {
+        guard ViewControllerReference.shared.fulllogging == true || ViewControllerReference.shared.minimumlogging == true else {
+            return
+        }
         self.outputprocess = outputprocess
         self.filename = ViewControllerReference.shared.logname
         let DocumentDirURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -81,7 +86,7 @@ class Logging: Reportfileerror {
         ViewControllerReference.shared.fileURL = self.fileURL
         if ViewControllerReference.shared.fulllogging {
             self.fulllogging()
-        } else if ViewControllerReference.shared.minimumlogging {
+        }  else {
             self.minimumlogging()
         }
     }
