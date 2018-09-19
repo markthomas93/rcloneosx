@@ -846,6 +846,7 @@
                             <constraint firstItem="Jud-0A-h9l" firstAttribute="top" secondItem="SLh-r7-WsT" secondAttribute="bottom" constant="1" id="eX6-Ct-4cS"/>
                             <constraint firstItem="Fju-EK-Mx8" firstAttribute="leading" secondItem="TTa-S0-fjX" secondAttribute="trailing" constant="28" id="f4w-35-uKm"/>
                             <constraint firstItem="JJ3-k0-9od" firstAttribute="trailing" secondItem="Vug-tb-c1T" secondAttribute="trailing" id="fo1-dc-9kL"/>
+                            <constraint firstItem="g7r-rp-4kz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Fju-EK-Mx8" secondAttribute="trailing" constant="8" symbolic="YES" id="gsF-0L-fJ3"/>
                             <constraint firstItem="95g-rM-8Og" firstAttribute="top" secondItem="akQ-LR-eTv" secondAttribute="top" constant="29" id="hBs-Cx-aBf"/>
                             <constraint firstItem="Jud-0A-h9l" firstAttribute="top" secondItem="akQ-LR-eTv" secondAttribute="top" constant="214" id="hBv-1Y-SBU"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="trailing" secondItem="7n8-es-jH6" secondAttribute="trailing" id="hKH-GG-5sj"/>
@@ -870,7 +871,7 @@
                             <constraint firstItem="Hq4-Zn-A1K" firstAttribute="top" secondItem="jkA-og-5x2" secondAttribute="bottom" constant="2" id="yMr-yK-lr8"/>
                             <constraint firstItem="3DG-2b-5po" firstAttribute="leading" secondItem="g7r-rp-4kz" secondAttribute="trailing" constant="12" id="yRm-zq-48K"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="top" secondItem="Gg2-se-FkF" secondAttribute="bottom" constant="1" id="yqX-dj-nmz"/>
-                            <constraint firstItem="a0o-kn-PZd" firstAttribute="leading" secondItem="KcH-bc-xzs" secondAttribute="trailing" constant="8" symbolic="YES" id="zzj-GW-pHP"/>
+                            <constraint firstItem="a0o-kn-PZd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KcH-bc-xzs" secondAttribute="trailing" symbolic="YES" id="zzj-GW-pHP"/>
                         </constraints>
                     </view>
                     <connections>
