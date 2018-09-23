@@ -40,6 +40,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     var outputprocess: OutputProcess?
     var restorecompleted: Bool?
     weak var sendprocess: Sendprocessreference?
+    var diddissappear: Bool = false
     
     var workqueue: [Work]?
     
@@ -127,6 +128,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        guard self.diddissappear == false else { return }
         guard self.workqueue == nil && self.outputprocess == nil else { return }
         _ = self.removework()
         self.restorebutton.isEnabled = false
@@ -152,7 +154,12 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
         }
     }
-    
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.diddissappear = true
+    }
+
     private func setNumbers(outputprocess: OutputProcess?) {
         globalMainQueue.async(execute: { () -> Void in
             let infotask = RemoteInfoTask(outputprocess: outputprocess)
