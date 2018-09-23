@@ -21,6 +21,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     let checkcommand: String = "check"
     var outputprocess: OutputProcess?
     var rclonecommand: String?
+    var diddissappear: Bool = false
 
     @IBOutlet weak var viewParameter4: NSTextField!
     @IBOutlet weak var viewParameter5: NSTextField!
@@ -77,6 +78,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        guard self.diddissappear == false else { return }
         self.loadCloudServices()
         if let profile = self.configurations!.getProfile() {
             self.storageapi = PersistentStorageAPI(profile: profile)
@@ -86,6 +88,11 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
         self.setFields()
         self.rclonecommand = self.synccommand
         self.syncradio.state = .on
+    }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.diddissappear = true
     }
 
     private func loadCloudServices() {
