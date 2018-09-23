@@ -35,11 +35,6 @@ class ViewControllerEdit: NSViewController, SetConfigurations, SetDismisser, Get
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Dismisser is root controller
-    }
-
     override func viewDidAppear() {
         super.viewDidAppear()
         self.localCatalog.stringValue = ""

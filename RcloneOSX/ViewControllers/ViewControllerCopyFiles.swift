@@ -26,6 +26,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
     var rsync: Bool = false
     var estimated: Bool = false
     private var tabledata: [String]?
+    var diddissappear: Bool = false
     
     @IBOutlet weak var numberofrows: NSTextField!
     @IBOutlet weak var server: NSTextField!
@@ -153,6 +154,10 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        guard self.diddissappear == false else {
+            self.reloadtabledata()
+            return
+        }
         self.indexselected = self.index
         self.index = self.index()
         if self.index == nil {
@@ -180,7 +185,12 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, GetIndex, De
         }
         self.verifylocalCatalog()
     }
-    
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.diddissappear = true
+    }
+
     private func resetdata() {
         self.tabledata = nil
         self.copyFiles = nil
