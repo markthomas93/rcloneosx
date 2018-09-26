@@ -31,6 +31,7 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
     weak var userparamsupdatedDelegate: RcloneUserParams?
     // Reference to rclone parameters to use in combox
     var comboBoxValues = [String]()
+    var diddissappear: Bool = false
 
     @IBOutlet weak var viewParameter1: NSTextField!
     @IBOutlet weak var viewParameter2: NSTextField!
@@ -62,6 +63,7 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        guard self.diddissappear == false else { return }
         if let profile = self.configurations!.getProfile() {
             self.storageapi = PersistentStorageAPI(profile: profile)
         } else {
@@ -95,8 +97,9 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        self.parameters = nil
+        self.diddissappear = true
     }
+
 
     // Function for saving changed or new parameters for one configuration.
     @IBAction func update(_ sender: NSButton) {
