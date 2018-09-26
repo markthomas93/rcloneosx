@@ -19,6 +19,7 @@ enum Fileerrortype {
     case writelogfile
     case profilecreatedirectory
     case profiledeletedirectory
+    case filesize
 }
 
 // Protocol for reporting file errors
@@ -58,6 +59,8 @@ extension Fileerrormessage {
             return "Could not create profile directory"
         case .profiledeletedirectory:
             return "Could not delete profile directory"
+        case .filesize:
+            return "Filesize of logfile is getting bigger"
         }
     }
 }

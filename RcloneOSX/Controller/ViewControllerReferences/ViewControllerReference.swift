@@ -76,6 +76,8 @@ class ViewControllerReference {
     var rcloneversionshort: String?
     // If rclone version 1.43 or more
     var rclone143: Bool = false
+    // filsize logfile warning
+    var logfilesize: Int = 10000
     // Mac serialnumer
     var macserialnumber: String?
     // Reference to main View
