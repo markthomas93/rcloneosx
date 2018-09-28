@@ -210,7 +210,7 @@ class Configurations: ReloadTable {
     /// Function also notifies Execute view to refresh data
     /// in tableView.
     /// - parameter index: index of Configuration to update
-    func setCurrentDateonConfiguration (_ index: Int) {
+    func setCurrentDateonConfiguration (_ index: Int, outputprocess: OutputProcess?) {
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
         self.configurations![index].dateRun = dateformatter.string(from: currendate)
@@ -218,6 +218,7 @@ class Configurations: ReloadTable {
         self.storageapi!.saveConfigFromMemory()
         // Call the view and do a refresh of tableView
         self.reloadtable(vcontroller: .vctabmain)
+        _ = Logging(outputprocess: outputprocess)
     }
 
     /// Function destroys reference to object holding data and

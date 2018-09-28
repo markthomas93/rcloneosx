@@ -143,9 +143,8 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 self.transferredNumberSizebytes = self.taskDelegate?.gettransferredNumberSizebytes()
                 let hiddenID = self.configurations!.gethiddenID(index: self.index!)
                 if self.configurations!.getConfigurations()[self.index!].task != "check" {
-                    self.configurations!.setCurrentDateonConfiguration(self.index!)
+                    self.configurations!.setCurrentDateonConfiguration(self.index!, outputprocess: outputprocess)
                     self.schedules!.addlogtaskmanuel(hiddenID, result: number.stats())
-                    _ = Logging(outputprocess: self.outputprocess)
                     self.taskDelegate?.setNumbers(output: self.outputprocess)
                 }
             case .empty:
