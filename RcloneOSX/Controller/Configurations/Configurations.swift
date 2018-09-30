@@ -27,7 +27,7 @@ class Configurations: ReloadTable {
     private var profile: String?
     // Notify about scheduled process
     // Only allowed to notity by modal window when in main view
-    var allowNotifyinMain: Bool = true
+    var allowNotifyinMain: Bool = false
     // Reference to singletask object
     var singleTask: SingleTask?
     // The main structure storing all Configurations for tasks
@@ -160,17 +160,17 @@ class Configurations: ReloadTable {
         let allarguments = self.argumentAllConfigurations![index]
         switch argtype {
         case .arg:
-            return allarguments.arg!
+            return allarguments.arg ?? []
         case .argdryRun:
-            return allarguments.argdryRun!
+            return allarguments.argdryRun ?? []
         case .arglistfiles:
-            return allarguments.argslistRemotefiles!
+            return allarguments.argslistRemotefiles ?? []
         case .argrestore:
-            return allarguments.argsRestorefiles!
+            return allarguments.argsRestorefiles ?? []
         case .argrestoredryRun:
-            return allarguments.argsRestorefilesdryRun!
+            return allarguments.argsRestorefilesdryRun ?? []
         case .argrestoreDisplaydryRun:
-            return allarguments.argsRestorefilesdryRunDisplay!
+            return allarguments.argsRestorefilesdryRunDisplay ?? []
         }
     }
     
@@ -358,7 +358,7 @@ class Configurations: ReloadTable {
                 "offsiteCatalogCellID": self.configurations![i].offsiteCatalog,
                 "offsiteServerCellID": self.configurations![i].offsiteServer,
                 "backupIDCellID": self.configurations![i].backupID,
-                "runDateCellID": self.configurations![i].dateRun!,
+                "runDateCellID": self.configurations![i].dateRun ?? "",
                 "daysID": self.configurations![i].dayssincelastbackup ?? ""
             ]
             data.append(row)
