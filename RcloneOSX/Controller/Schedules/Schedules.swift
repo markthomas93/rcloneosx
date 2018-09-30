@@ -46,7 +46,7 @@ class Schedules: ScheduleWriteLoggData {
         case .weekly:
             dict.setObject("weekly", forKey: "schedule" as NSCopying)
         }
-        let newSchedule = ConfigurationSchedule(dictionary: dict, log: nil, nolog: false)
+        let newSchedule = ConfigurationSchedule(dictionary: dict, log: nil, nolog: true)
         self.schedules!.append(newSchedule)
         self.storageapi!.saveScheduleFromMemory()
         self.reloadtable(vcontroller: .vctabschedule)
