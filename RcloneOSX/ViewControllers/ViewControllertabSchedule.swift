@@ -36,7 +36,7 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
     @IBOutlet weak var dailybutton: NSButton!
     @IBOutlet weak var oncebutton: NSButton!
     @IBOutlet weak var info: NSTextField!
-
+    
     private func info (num: Int) {
         switch num {
         case 1:
@@ -73,11 +73,10 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
         self.schedulebuttonsonoff()
     }
 
+    
+    
+    
     private func addschedule() {
-        guard self.hiddenID != nil else {
-            self.info(num: 1)
-            return
-        }
         let answer = Alerts.dialogOKCancel("Add Schedule?", text: "Cancel or OK")
         if answer {
             let seconds: TimeInterval = self.starttime.dateValue.timeIntervalSinceNow
@@ -241,14 +240,6 @@ extension ViewControllertabSchedule: NSTableViewDelegate, Attributedestring {
             }
         }
         return nil
-    }
-
-    // Toggling batch
-    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        if self.configurations!.getConfigurations()[row].task == "backup" {
-            self.configurations!.getConfigurationsDataSource()![row].setObject(object!, forKey: (tableColumn?.identifier)! as NSCopying)
-            self.configurations!.setBatchYesNo(row)
-        }
     }
 
 }
