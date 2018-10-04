@@ -105,7 +105,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.verifyrclonepath!.norclone()
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task == "sync" else {
+        guard self.configurations!.getConfigurations()[self.index!].task == ViewControllerReference.shared.sync else {
                 self.info(num: 7)
                 return
         }
@@ -288,8 +288,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             self.info(num: 1)
             return
         }
-        guard self.configurations!.getConfigurations()[self.index!].task != "move" ||
-        self.configurations!.getConfigurations()[self.index!].task != "check" else {
+        guard self.configurations!.getConfigurations()[self.index!].task != ViewControllerReference.shared.move ||
+        self.configurations!.getConfigurations()[self.index!].task != ViewControllerReference.shared.check else {
             return
         }
         let now: Date = Date()

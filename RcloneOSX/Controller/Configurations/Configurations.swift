@@ -88,7 +88,7 @@ class Configurations: ReloadTable {
     /// - parameter none: none
     /// - returns : Array of NSDictionary
     func getConfigurationsDataSourcecountBackupOnly() -> [NSMutableDictionary]? {
-        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == "copy" || $0.task == "sync" )})
+        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.copy || $0.task == ViewControllerReference.shared.sync )})
         var row =  NSMutableDictionary()
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
@@ -119,7 +119,7 @@ class Configurations: ReloadTable {
     }
 
     func getConfigurationsDataSourcecountBackupOnlyRemote() -> [NSDictionary]? {
-        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == "copy" || $0.task == "sync" && $0.offsiteServer.isEmpty == false)})
+        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.copy || $0.task == ViewControllerReference.shared.sync && $0.offsiteServer.isEmpty == false)})
         var data = [NSDictionary]()
         for i in 0 ..< configurations.count {
             let row: NSDictionary = [
@@ -148,7 +148,7 @@ class Configurations: ReloadTable {
     /// Function returns all Configurations marked for backup.
     /// - returns : array of Configurations
     func getConfigurationsBatch() -> [Configuration] {
-        return self.configurations!.filter({return ($0.task == "copy" || $0.task == "sync") && ($0.batch == "yes")})
+        return self.configurations!.filter({return ($0.task == ViewControllerReference.shared.copy || $0.task == ViewControllerReference.shared.sync) && ($0.batch == "yes")})
     }
 
     /// Function computes arguments for rclone, either arguments for

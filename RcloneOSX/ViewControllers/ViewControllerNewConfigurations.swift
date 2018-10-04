@@ -13,12 +13,12 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
     var storageapi: PersistentStorageAPI?
     var newconfigurations: NewConfigurations?
     var tabledata: [NSMutableDictionary]?
-    let copycommand: String = "copy"
-    let movecommand: String = "move"
-    let synccommand: String = "sync"
+    let copycommand: String = ViewControllerReference.shared.copy
+    let movecommand: String = ViewControllerReference.shared.move
+    let synccommand: String = ViewControllerReference.shared.sync
     let verbose: String = "--verbose"
     let dryrun: String = "--dry-run"
-    let checkcommand: String = "check"
+    let checkcommand: String = ViewControllerReference.shared.check
     var outputprocess: OutputProcess?
     var rclonecommand: String?
     var diddissappear: Bool = false
@@ -129,7 +129,7 @@ class ViewControllerNewConfigurations: NSViewController, SetConfigurations, VcSc
             "localCatalog": self.localCatalog.stringValue,
             "offsiteCatalog": self.offsiteCatalog.stringValue,
             "offsiteServer": self.cloudService.stringValue,
-            "parameter1": self.rclonecommand ?? "copy",
+            "parameter1": self.rclonecommand ?? ViewControllerReference.shared.copy,
             "parameter2": self.verbose,
             "dryrun": self.dryrun,
             "dateRun": ""]

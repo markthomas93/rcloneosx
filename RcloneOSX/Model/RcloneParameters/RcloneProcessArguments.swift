@@ -138,7 +138,7 @@ class RcloneProcessArguments {
         self.offsiteCatalog = config.offsiteCatalog
         self.offsiteServer = config.offsiteServer
         self.remoteargs = self.offsiteServer! + ":" + self.offsiteCatalog!
-        self.appendParameter(parameter: "copy", forDisplay: forDisplay)
+        self.appendParameter(parameter: ViewControllerReference.shared.copy, forDisplay: forDisplay)
         self.appendParameter(parameter: self.remoteargs!, forDisplay: forDisplay)
         self.appendParameter(parameter: "--verbose", forDisplay: forDisplay)
         if dryRun {

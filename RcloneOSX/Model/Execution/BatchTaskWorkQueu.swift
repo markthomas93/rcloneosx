@@ -100,7 +100,7 @@ final class BatchTaskWorkQueu {
             for i in 0 ..< batchtasks.count {
                 let row: NSMutableDictionary = [
                     "taskCellID": String(i+1),
-                    "commandCellID": batchtasks[i].parameter1 ?? "copy",
+                    "commandCellID": batchtasks[i].parameter1 ?? ViewControllerReference.shared.copy,
                     "localCatalogCellID": batchtasks[i].localCatalog,
                     "offsiteServerCellID": batchtasks[i].offsiteServer,
                     "estimatedCellID": 0,
