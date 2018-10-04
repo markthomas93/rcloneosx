@@ -42,7 +42,7 @@ class AllConfigurations: Sorting {
     
     private func setConfigurationsDataSourcecountBackupSnapshot() {
         guard self.allconfigurations != nil else { return }
-        var configurations: [Configuration] = self.allconfigurations!.filter({return ($0.task == "sync" || $0.task == "copy" || $0.task == "move")})
+        var configurations: [Configuration] = self.allconfigurations!.filter({return ($0.task == ViewControllerReference.shared.sync || $0.task == ViewControllerReference.shared.copy || $0.task == ViewControllerReference.shared.move)})
         var data = [NSMutableDictionary]()
         for i in 0 ..< configurations.count {
             if configurations[i].offsiteServer.isEmpty == true {

@@ -63,6 +63,11 @@ class ViewControllerReference {
     var usrbinrclone: String = "/usr/bin/rclone"
     var usrlocalbinrclone: String = "/usr/local/bin/rclone"
     var configpath: String = "/Rclone/"
+    // String commands
+    var sync: String = "sync"
+    var move: String = "move"
+    var copy: String = "copy"
+    var check: String = "check"
     // Loggfile
     var minimumlogging: Bool = false
     var fulllogging: Bool = false
