@@ -114,7 +114,12 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     }
     
     override func viewDidAppear() {
-        guard self.diddissappear == false else { return }
+        guard self.diddissappear == false else {
+            globalMainQueue.async(execute: { () -> Void in
+                self.rclonetableView.reloadData()
+            })
+            return
+        }
         super.viewDidAppear()
         if let restorePath = ViewControllerReference.shared.restorePath {
             self.localCatalog.stringValue = restorePath
