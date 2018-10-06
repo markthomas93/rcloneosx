@@ -21,7 +21,7 @@ protocol GetSource: class {
 class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCopyFiles {
     
     var copyFiles: CopyFiles?
-    var rsyncindex: Int?
+    var rcloneindex: Int?
     var indexselected: Int?
     var getfiles: Bool = false
     var estimated: Bool = false
@@ -55,12 +55,12 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     }
     
     @IBOutlet weak var restoretableView: NSTableView!
-    @IBOutlet weak var rsynctableView: NSTableView!
+    @IBOutlet weak var rclonetableView: NSTableView!
     @IBOutlet weak var commandString: NSTextField!
     @IBOutlet weak var remoteCatalog: NSTextField!
     @IBOutlet weak var localCatalog: NSTextField!
     @IBOutlet weak var working: NSProgressIndicator!
-    @IBOutlet weak var workingRsync: NSProgressIndicator!
+    @IBOutlet weak var workingRclone: NSProgressIndicator!
     @IBOutlet weak var search: NSSearchField!
     @IBOutlet weak var restorebutton: NSButton!
     
@@ -72,13 +72,13 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         }
         if self.copyFiles != nil {
             self.getfiles = true
-            self.workingRsync.startAnimation(nil)
+            self.workingRclone.startAnimation(nil)
             if self.estimated == false {
                 self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: true)
                 self.estimated = true
             } else {
                 self.restorebutton.isEnabled = false
-                self.workingRsync.startAnimation(nil)
+                self.workingRclone.startAnimation(nil)
                 self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
                 self.estimated = false
             }
@@ -103,10 +103,10 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         ViewControllerReference.shared.setvcref(viewcontroller: .vccopyfiles, nsviewcontroller: self)
         self.restoretableView.delegate = self
         self.restoretableView.dataSource = self
-        self.rsynctableView.delegate = self
-        self.rsynctableView.dataSource = self
+        self.rclonetableView.delegate = self
+        self.rclonetableView.dataSource = self
         self.working.usesThreadedAnimation = true
-        self.workingRsync.usesThreadedAnimation = true
+        self.workingRclone.usesThreadedAnimation = true
         self.search.delegate = self
         self.localCatalog.delegate = self
         self.remoteCatalog.delegate = self
@@ -123,7 +123,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         }
         self.verifylocalCatalog()
         globalMainQueue.async(execute: { () -> Void in
-            self.rsynctableView.reloadData()
+            self.rclonetableView.reloadData()
         })
     }
 
@@ -140,7 +140,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             self.restorebutton.title = "Restore"
             self.restorebutton.isEnabled = false
             self.getfiles = true
-            self.workingRsync.startAnimation(nil)
+            self.workingRclone.startAnimation(nil)
             self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
         }
     }
@@ -176,14 +176,14 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
                 self.getfiles = false
                 self.restorebutton.title = "Estimate"
                 self.remoteCatalog.stringValue = ""
-                self.rsynctableView.isEnabled = false
+                self.rclonetableView.isEnabled = false
                 self.restoretableView.isEnabled = false
-                self.rsyncindex = index
+                self.rcloneindex = index
                 self.copyFiles = CopyFiles(index: index)
                 self.working.startAnimation(nil)
                 self.displayRemoteserver(index: index)
             } else {
-                self.rsyncindex = nil
+                self.rcloneindex = nil
             }
         }
     }
@@ -253,9 +253,7 @@ extension ViewControllerCopyFiles: NSTableViewDelegate {
         if tableView == self.restoretableView {
             var text: String?
             var cellIdentifier: String?
-            guard self.tabledata != nil else {
-                return nil
-            }
+            guard self.tabledata != nil else { return nil }
             var split = self.tabledata![row].components(separatedBy: " ")
             if tableColumn == tableView.tableColumns[0] {
                 let num = Double(split[0]) ?? 0
@@ -271,7 +269,7 @@ extension ViewControllerCopyFiles: NSTableViewDelegate {
                 cellIdentifier = "fileID"
             }
             if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier!), owner: self) as? NSTableCellView {
-                cell.textField?.stringValue = text!
+                cell.textField?.stringValue = text ?? ""
                 return cell
             }
         } else {
@@ -293,11 +291,11 @@ extension ViewControllerCopyFiles: UpdateProgress {
             self.copyFiles!.setRemoteFileList()
             self.reloadtabledata()
             self.working.stopAnimation(nil)
-            self.rsynctableView.isEnabled = true
+            self.rclonetableView.isEnabled = true
             self.restoretableView.isEnabled = true
         } else {
             self.restorebutton.title = "Restore"
-            self.workingRsync.stopAnimation(nil)
+            self.workingRclone.stopAnimation(nil)
             self.presentViewControllerAsSheet(self.viewControllerInformation!)
         }
     }
@@ -317,7 +315,7 @@ extension ViewControllerCopyFiles: GetPath {
 
 extension ViewControllerCopyFiles: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
-        self.rsynctableView.isEnabled = true
+        self.rclonetableView.isEnabled = true
         self.restoretableView.isEnabled = true
         self.dismissViewController(viewcontroller)
     }
