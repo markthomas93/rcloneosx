@@ -3512,7 +3512,7 @@ DQ
                                 </tableHeaderView>
                             </scrollView>
                             <textField identifier="remote" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oH0-fk-pfL">
-                                <rect key="frame" x="732" y="104" width="330" height="22"/>
+                                <rect key="frame" x="732" y="89" width="330" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" bezelStyle="round" id="2lg-c2-BEF">
                                     <font key="font" metaFont="system"/>
@@ -3521,7 +3521,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField identifier="local" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXx-da-MEn">
-                                <rect key="frame" x="732" y="127" width="330" height="22"/>
+                                <rect key="frame" x="732" y="112" width="330" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" bezelStyle="round" id="zfV-Ni-92s">
                                     <font key="font" metaFont="system"/>
@@ -3561,7 +3561,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eLe-mY-uNw">
-                                <rect key="frame" x="733" y="180" width="327" height="22"/>
+                                <rect key="frame" x="733" y="164" width="327" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" bezelStyle="round" id="HDb-dC-gLe">
                                     <font key="font" metaFont="system"/>
@@ -3570,7 +3570,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hlf-ym-eKD">
-                                <rect key="frame" x="733" y="203" width="327" height="22"/>
+                                <rect key="frame" x="733" y="188" width="327" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" bezelStyle="round" id="C8u-df-pTI">
                                     <font key="font" metaFont="system"/>
