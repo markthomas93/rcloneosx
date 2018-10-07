@@ -180,9 +180,8 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             if let index = indexes.first {
                 self.getfiles = false
                 self.restorebutton.title = "Estimate"
+                self.restorebutton.isEnabled = false
                 self.remoteCatalog.stringValue = ""
-                self.rclonetableView.isEnabled = false
-                self.restoretableView.isEnabled = false
                 self.rcloneindex = index
                 self.copyFiles = CopyFiles(index: index)
                 self.working.startAnimation(nil)
@@ -296,8 +295,7 @@ extension ViewControllerCopyFiles: UpdateProgress {
             self.copyFiles!.setRemoteFileList()
             self.reloadtabledata()
             self.working.stopAnimation(nil)
-            self.rclonetableView.isEnabled = true
-            self.restoretableView.isEnabled = true
+            self.restorebutton.isEnabled = true
         } else {
             self.restorebutton.title = "Restore"
             self.workingRclone.stopAnimation(nil)
@@ -320,8 +318,6 @@ extension ViewControllerCopyFiles: GetPath {
 
 extension ViewControllerCopyFiles: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
-        self.rclonetableView.isEnabled = true
-        self.restoretableView.isEnabled = true
         self.dismissViewController(viewcontroller)
     }
 }
