@@ -145,7 +145,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             self.restorebutton.isEnabled = false
             self.getfiles = true
             self.workingRclone.startAnimation(nil)
-            self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
+            self.copyFiles!.executeRclone(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.localCatalog!.stringValue, dryrun: false)
         }
     }
     
