@@ -26,11 +26,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     @IBOutlet weak var gotit: NSTextField!
     
     @IBOutlet weak var transferredNumber: NSTextField!
-    @IBOutlet weak var transferredNumberSizebytes: NSTextField!
-    @IBOutlet weak var newfiles: NSTextField!
-    @IBOutlet weak var deletefiles: NSTextField!
     @IBOutlet weak var totalNumber: NSTextField!
-    @IBOutlet weak var totalDirs: NSTextField!
     @IBOutlet weak var totalNumberSizebytes: NSTextField!
     @IBOutlet weak var restoreprogress: NSProgressIndicator!
     @IBOutlet weak var restorebutton: NSButton!
