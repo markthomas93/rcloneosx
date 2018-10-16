@@ -22,7 +22,6 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     
     var copyFiles: CopyFiles?
     var rcloneindex: Int?
-    var indexselected: Int?
     var getfiles: Bool = false
     var estimated: Bool = false
     private var tabledata: [String]?
@@ -78,7 +77,6 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: true)
             self.estimated = true
         } else {
-            self.workingRclone.startAnimation(nil)
             self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
             self.estimated = false
         }
@@ -141,11 +139,10 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         guard self.localCatalog.stringValue.isEmpty == false else { return }
         let answer = Alerts.dialogOKCancel("Copy single files or directory", text: "Start restore?")
         if answer {
-            self.restorebutton.title = "Restore"
             self.restorebutton.isEnabled = false
             self.getfiles = true
             self.workingRclone.startAnimation(nil)
-            self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
+            self.copyFiles!.executeRclone(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.localCatalog!.stringValue, dryrun: false)
         }
     }
     
@@ -237,6 +234,8 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
             }
             self.verifylocalCatalog()
         } else {
+            self.restorebutton.title = "Estimate"
+            self.restorebutton.isEnabled = true
             guard self.remoteCatalog.stringValue.count > 0 else { return }
             self.delayWithSeconds(0.25) {
                 self.commandString.stringValue = self.copyFiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.localCatalog.stringValue)
