@@ -26,11 +26,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     @IBOutlet weak var gotit: NSTextField!
     
     @IBOutlet weak var transferredNumber: NSTextField!
-    @IBOutlet weak var transferredNumberSizebytes: NSTextField!
-    @IBOutlet weak var newfiles: NSTextField!
-    @IBOutlet weak var deletefiles: NSTextField!
     @IBOutlet weak var totalNumber: NSTextField!
-    @IBOutlet weak var totalDirs: NSTextField!
     @IBOutlet weak var totalNumberSizebytes: NSTextField!
     @IBOutlet weak var restoreprogress: NSProgressIndicator!
     @IBOutlet weak var restorebutton: NSButton!
@@ -41,7 +37,6 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     var restorecompleted: Bool?
     weak var sendprocess: Sendprocessreference?
     var diddissappear: Bool = false
-    
     var workqueue: [Work]?
     
     // Close and dismiss view
@@ -136,6 +131,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.offsiteCatalog.stringValue = ""
         self.offsiteServer.stringValue = ""
         self.backupID.stringValue = ""
+        self.restoreprogress.isHidden = true
         if let index = self.index() {
             let config: Configuration = self.configurations!.getConfigurations()[index]
             self.localCatalog.stringValue = config.localCatalog
@@ -188,6 +184,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     
     // Progressbar restore
     private func initiateProgressbar() {
+        self.restoreprogress.isHidden = false
         if let calculatedNumberOfFiles = self.outputprocess?.getMaxcount() {
             self.restoreprogress.maxValue = Double(calculatedNumberOfFiles)
         }
@@ -217,6 +214,7 @@ extension ViewControllerRestore: UpdateProgress {
             self.gotit.stringValue = "Restore is completed..."
             self.restoreprogress.isHidden = true
             self.restorecompleted = true
+            self.restoreprogress.isHidden = true
         case .localinfoandnumbertosync:
             self.setNumbers(outputprocess: self.outputprocess)
             guard ViewControllerReference.shared.restorePath != nil else { return }
