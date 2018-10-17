@@ -311,13 +311,13 @@
                                         <action selector="userconfiguration:" target="Rv5-yv-lsc" id="Mgc-ER-sa1"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="23686C1E-F906-4DA8-87CB-B7682AA8E74F" label="totinfo" paletteLabel="totinfo" toolTip="Execute estimate and quickbackup for all tasks..." image="quickbackup" id="bjt-yn-atF" userLabel="tot">
+                                <toolbarItem implicitItemIdentifier="23686C1E-F906-4DA8-87CB-B7682AA8E74F" label="totinfo" paletteLabel="totinfo" toolTip="Execute estimate and quickbackup for all tasks..." image="fastforward" id="bjt-yn-atF" userLabel="tot">
                                     <size key="minSize" width="40" height="25"/>
                                     <size key="maxSize" width="40" height="25"/>
                                     <button key="view" verticalHuggingPriority="750" id="d6l-Ul-Hfy">
                                         <rect key="frame" x="1" y="14" width="40" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="quickbackup" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bFn-Ud-Mwm">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="fastforward" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bFn-Ud-Mwm">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -5160,6 +5160,7 @@ DQ
         <image name="batch" width="48" height="48"/>
         <image name="complete" width="48" height="48"/>
         <image name="config" width="64" height="64"/>
+        <image name="fastforward" width="64" height="64"/>
         <image name="quickbackup" width="48" height="48"/>
         <image name="report" width="64" height="64"/>
         <image name="up" width="256" height="256"/>
