@@ -13,7 +13,9 @@ final class RcloneVersionString: ProcessCmd {
     
     private func rcloneversion() -> Bool {
         if let rcloneversionshort = ViewControllerReference.shared.rcloneversionshort {
-            if rcloneversionshort == "rclone v1.43" || rcloneversionshort == "rclone v1.43.1"{
+            if rcloneversionshort == "rclone v1.43" ||
+                rcloneversionshort == "rclone v1.43.1" ||
+                rcloneversionshort == "rclone v1.44" {
                 return true
             } else {
                 return false
