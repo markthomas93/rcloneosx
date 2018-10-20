@@ -300,6 +300,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             "dateStart": dateformatter.date(from: "01 Jan 1900 00:00")!,
             "schedule": "manuel"]
         ViewControllerReference.shared.scheduledTask = task
+        self.configurations!.allowNotifyinMain = false
         _ = OperationFactory()
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
