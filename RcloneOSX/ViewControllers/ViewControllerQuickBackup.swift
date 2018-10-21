@@ -15,38 +15,27 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
     var seconds: Int?
     var row: Int?
     var filterby: Sortandfilter?
-    var quickbackuplist: QuickBackup?
+    var quickbackup: QuickBackup?
     var executing: Bool = false
     weak var inprogresscountDelegate: Count?
+    var max: Double?
     var diddissappear: Bool = false
+    var indexinitiated: Int = -1
 
     @IBOutlet weak var mainTableView: NSTableView!
-    @IBOutlet weak var executeButton: NSButton!
     @IBOutlet weak var abortbutton: NSButton!
-    @IBOutlet weak var search: NSSearchField!
-    @IBOutlet weak var progress: NSProgressIndicator!
-    @IBOutlet weak var noestimates: NSTextField!
+    @IBOutlet weak var completed: NSTextField!
 
     // Either abort or close
     @IBAction func abort(_ sender: NSButton) {
-        self.quickbackuplist = nil
+        self.quickbackup = nil
         self.abort()
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
-    // Execute batch
-    @IBAction func execute(_ sender: NSButton) {
-        self.executing = true
-        self.executeButton.isEnabled = false
-        self.quickbackuplist?.prepareandstartexecutetasks()
-        if self.checkforestimates() == true {
-            self.initiateProgressbar()
-        }
-        self.reloadtabledata()
-    }
-
     private func loadtasks() {
-        self.quickbackuplist = QuickBackup()
+        self.completed.isHidden = true
+        self.quickbackup = QuickBackup()
     }
 
     // Initial functions viewDidLoad and viewDidAppear
@@ -56,7 +45,6 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
         ViewControllerReference.shared.setvcref(viewcontroller: .vcquickbackup, nsviewcontroller: self)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        self.search.delegate = self
         self.loadtasks()
     }
 
@@ -64,24 +52,14 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
         super.viewDidAppear()
         guard self.diddissappear == false else {
             globalMainQueue.async(execute: { () -> Void in
-                self.loadtasks()
+                self.mainTableView.reloadData()
             })
             return
         }
-        self.executeButton.isEnabled = false
-        self.progress.isHidden = true
-        if let execute = self.enableexecutebutton() {
-            if execute {
-                self.executing = true
-                self.executeButton.isEnabled = false
-                self.quickbackuplist?.prepareandstartexecutetasks()
-                if self.checkforestimates() == true {
-                    self.initiateProgressbar()
-                }
-            }
-        }
-        self.reloadtabledata()
-        _ = self.checkforestimates()
+        self.quickbackup?.prepareandstartexecutetasks()
+        globalMainQueue.async(execute: { () -> Void in
+            self.mainTableView.reloadData()
+        })
     }
 
     override func viewDidDisappear() {
@@ -89,110 +67,57 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
         self.diddissappear = true
     }
 
-    func tableViewSelectionDidChange(_ notification: Notification) {
-        guard self.executing == false else { return }
-        let myTableViewFromNotification = (notification.object as? NSTableView)!
-        let column = myTableViewFromNotification.selectedColumn
-        if column == 3 {
-            self.filterby = .localcatalog
-            self.quickbackuplist?.sortbystrings(sort: .localCatalog)
-        } else if column == 4 {
-            self.filterby = .remotecatalog
-            self.quickbackuplist?.sortbystrings(sort: .offsiteCatalog)
-        } else if column == 5 {
-            self.filterby = .remoteserver
-            self.quickbackuplist?.sortbystrings(sort: .offsiteServer)
-        } else if column == 6 {
-            self.filterby = .numberofdays
-            self.quickbackuplist?.sortbydays()
-        } else {
-            return
+    private func initiateProgressbar(progress: NSProgressIndicator) {
+        progress.isHidden = false
+        if let calculatedNumberOfFiles = self.quickbackup?.maxcount {
+            progress.maxValue = Double(calculatedNumberOfFiles)
+            self.max = Double(calculatedNumberOfFiles)
         }
+        progress.minValue = 0
+        progress.doubleValue = 0
+        progress.startAnimation(self)
     }
-
-    private func enableexecutebutton() -> Bool? {
-        let backup = self.quickbackuplist?.sortedlist!.filter({$0.value(forKey: "selectCellID") as? Int == 1})
-        guard backup != nil else { return nil }
-        guard self.executing == false else { return nil }
-        if backup!.count > 0 {
-            self.executeButton.isEnabled = true
-            return true
-        } else {
-            self.executeButton.isEnabled = false
-            return false
-        }
-    }
-
-    // Progress bars
-    private func initiateProgressbar() {
-        self.progress.isHidden = false
-        if let calculatedNumberOfFiles = self.quickbackuplist?.maxcount {
-            self.progress.maxValue = Double(calculatedNumberOfFiles)
-        }
-        self.progress.minValue = 0
-        self.progress.doubleValue = 0
-        self.progress.startAnimation(self)
-    }
-
-    private func updateProgressbar() {
+    
+    private func updateProgressbar(progress: NSProgressIndicator) {
         let value = Double((self.inprogresscountDelegate?.inprogressCount())!)
-        self.progress.doubleValue = value
+        progress.doubleValue = value
     }
-
-    private func checkforestimates() -> Bool {
-        if self.quickbackuplist?.maxcount != nil && self.quickbackuplist?.maxcount ?? 0  > 0 {
-            self.noestimates.isHidden = true
-            return true
-        } else {
-            self.noestimates.isHidden = false
-            return false
-        }
-    }
-
 }
 
 extension ViewControllerQuickBackup: NSTableViewDataSource {
-    // Delegate for size of table
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.quickbackuplist?.sortedlist?.count ?? 0
+        return self.quickbackup?.sortedlist?.count ?? 0
     }
 }
 
-extension ViewControllerQuickBackup: NSTableViewDelegate, Attributedestring {
-    // TableView delegates
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard self.quickbackuplist?.sortedlist != nil else { return nil }
-        guard row < self.quickbackuplist!.sortedlist!.count else { return nil }
-        let object: NSDictionary = (self.quickbackuplist?.sortedlist![row])!
-        if tableColumn!.identifier.rawValue == "daysID" {
-            if object.value(forKey: "markdays") as? Bool == true {
-                let celltext = object[tableColumn!.identifier] as? String
-                return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
+extension ViewControllerQuickBackup: NSTableViewDelegate {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard self.quickbackup?.sortedlist != nil else { return nil }
+        guard row < self.quickbackup!.sortedlist!.count else { return nil }
+        let object: NSDictionary = self.quickbackup!.sortedlist![row]
+        let hiddenID = object.value(forKey: "hiddenID") as? Int
+        let cellIdentifier: String = tableColumn!.identifier.rawValue
+        if cellIdentifier == "percentCellID" {
+            if let cell: NSProgressIndicator = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSProgressIndicator {
+                if hiddenID == self.quickbackup?.hiddenID {
+                    if row > self.indexinitiated {
+                        self.indexinitiated = row
+                        self.initiateProgressbar(progress: cell)
+                    } else {
+                        self.updateProgressbar(progress: cell)
+                    }
+                    return cell
+                } else {
+                    return nil
+                }
+            }
+        } else {
+            if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
+                cell.textField?.stringValue = object.value(forKey: cellIdentifier) as? String ?? ""
+                return cell
             }
         }
-        if tableColumn!.identifier.rawValue == "selectCellID" {
-            return object[tableColumn!.identifier] as? Int
-        }
-        if tableColumn!.identifier.rawValue == "completeCellID" {
-            if object.value(forKey: "inprogressCellID") as? Bool == true {
-                return #imageLiteral(resourceName: "leftarrow")
-            }
-            if object.value(forKey: "completeCellID") as? Bool == true {
-                return #imageLiteral(resourceName: "complete")
-            }
-        }
-        return object[tableColumn!.identifier] as? String
-    }
-
-    // Toggling selection
-    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
-        guard  self.quickbackuplist?.sortedlist != nil else { return }
-        if tableColumn!.identifier.rawValue == "selectCellID" {
-            var select: Int = (self.quickbackuplist?.sortedlist![row].value(forKey: "selectCellID") as? Int)!
-            if select == 0 { select = 1 } else if select == 1 { select = 0 }
-            self.quickbackuplist?.sortedlist![row].setValue(select, forKey: "selectCellID")
-        }
-        _ = self.enableexecutebutton()
+        return nil
     }
 }
 
@@ -200,7 +125,6 @@ extension ViewControllerQuickBackup: Reloadandrefresh {
 
     // Updates tableview according to progress of batch
     func reloadtabledata() {
-        _ = self.enableexecutebutton()
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
@@ -209,7 +133,7 @@ extension ViewControllerQuickBackup: Reloadandrefresh {
 
 extension ViewControllerQuickBackup: CloseViewError {
     func closeerror() {
-        self.quickbackuplist = nil
+        self.quickbackup = nil
         self.abort()
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
@@ -218,45 +142,17 @@ extension ViewControllerQuickBackup: CloseViewError {
 extension ViewControllerQuickBackup: UpdateProgress {
 
     func processTermination() {
-        self.quickbackuplist?.setcompleted()
-        self.quickbackuplist?.processTermination()
-        guard self.quickbackuplist?.stackoftasktobeexecuted != nil else {
-            self.progress.isHidden = true
+        self.quickbackup?.setcompleted()
+        self.quickbackup?.processTermination()
+        guard self.quickbackup?.stackoftasktobeexecuted != nil else {
+            self.completed.isHidden = false
             return
         }
-        if self.checkforestimates() == true {
-            self.progress.stopAnimation(self)
-            self.initiateProgressbar()
-        }
     }
-
+    
     func fileHandler() {
-        self.updateProgressbar()
-    }
-}
-
-extension ViewControllerQuickBackup: NSSearchFieldDelegate {
-
-    override func controlTextDidChange(_ obj: Notification) {
-        guard self.executing == false else { return }
-        self.delayWithSeconds(0.25) {
-            let filterstring = self.search.stringValue
-            if filterstring.isEmpty {
-                globalMainQueue.async(execute: { () -> Void in
-                    self.quickbackuplist?.sortbydays()
-                })
-            } else {
-                globalMainQueue.async(execute: { () -> Void in
-                    self.quickbackuplist?.filter(search: filterstring, filterby: self.filterby)
-                })
-            }
-        }
-    }
-
-    func searchFieldDidEndSearching(_ sender: NSSearchField) {
-        guard self.executing == false else { return }
         globalMainQueue.async(execute: { () -> Void in
-            self.loadtasks()
+            self.mainTableView.reloadData()
         })
     }
 }
