@@ -77,7 +77,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         }
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
-        self.batchtaskObject = nil
+        self.batchtasks = nil
         self.setinfonextaction(info: "Estimate", color: .green)
     }
 }
@@ -228,13 +228,11 @@ extension ViewControllertabMain: UpdateProgress {
             self.process = self.singletask!.process
             self.singletask!.processTermination()
         case .batchtask:
-            // Batch run
-            self.batchObjectDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
-            self.batchtaskObject = self.batchObjectDelegate?.getbatchtaskObject()
-            guard self.batchtaskObject != nil else { return }
-            self.outputprocess = self.batchtaskObject!.outputprocess
-            self.process = self.batchtaskObject!.process
-            self.batchtaskObject!.processTermination()
+            self.batchtasksDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
+            self.batchtasks = self.batchtasksDelegate?.getbatchtaskObject()
+            self.outputprocess = self.batchtasks?.outputprocess
+            self.process = self.batchtasks?.process
+            self.batchtasks?.processTermination()
         case .quicktask:
             guard ViewControllerReference.shared.completeoperation != nil else { return }
             ViewControllerReference.shared.completeoperation!.finalizeScheduledJob(outputprocess: self.outputprocess)
@@ -274,6 +272,16 @@ extension ViewControllertabMain: UpdateProgress {
             weak var processterminationDelegate: UpdateProgress?
             processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcrestore) as? ViewControllerRestore
             processterminationDelegate?.processTermination()
+        case .estimatebatchtask:
+            guard self.configurations!.remoteinfotaskworkqueue != nil else { return }
+            // compute alle estimates
+            if self.configurations!.remoteinfotaskworkqueue!.stackoftasktobeestimated != nil {
+                self.configurations!.remoteinfotaskworkqueue?.processTermination()
+                self.estimateupdateDelegate?.updateProgressbar()
+            } else {
+                self.configurations!.remoteinfotaskworkqueue?.processTermination()
+                self.processtermination = .batchtask
+            }
         }
         
     }
@@ -298,17 +306,9 @@ extension ViewControllertabMain: UpdateProgress {
                 outputeverythingDelegate?.reloadtable()
             }
         case .batchtask:
-            guard self.batchtaskObject != nil else { return }
-            if let batchobject = self.configurations!.getbatchQueue() {
-                let work = batchobject.nextBatchCopy()
-                if work.1 == 1 {
-                    // Real work is done, must set reference to Process object in case of Abort
-                    self.process = self.batchtaskObject!.process
-                    batchobject.updateInProcess(numberOfFiles: self.batchtaskObject!.outputprocess!.count())
-                    // Refresh view in Batchwindow
-                    self.reloadtable(vcontroller: .vcbatch)
-                }
-            }
+            weak var localprocessupdateDelegate: UpdateProgress?
+            localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
+            localprocessupdateDelegate?.fileHandler()
         case .quicktask:
             weak var localprocessupdateDelegate: UpdateProgress?
             localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
@@ -332,6 +332,8 @@ extension ViewControllertabMain: UpdateProgress {
             if outputeverythingDelegate?.appendnow() ?? false {
                 outputeverythingDelegate?.reloadtable()
             }
+        case .estimatebatchtask:
+            return
         }
     }
 }
@@ -362,8 +364,8 @@ extension ViewControllertabMain: RcloneError {
             if self.singletask != nil {
                 self.singletask!.error()
             }
-            if self.batchtaskObject != nil {
-                self.batchtaskObject!.error()
+            if self.batchtasks != nil {
+                self.batchtasks!.error()
             }
         })
     }
@@ -494,26 +496,6 @@ extension ViewControllertabMain: SingleTaskProgress {
     }
 }
 
-extension ViewControllertabMain: BatchTaskProgress {
-    func progressIndicatorViewBatch(operation: BatchViewProgressIndicator) {
-        let localindicatorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
-        switch operation {
-        case .stop:
-            localindicatorDelegate?.stop()
-            self.reloadtable(vcontroller: .vcbatch)
-        case .start:
-            localindicatorDelegate?.start()
-        case .complete:
-            localindicatorDelegate?.complete()
-        case .refresh:
-            self.reloadtable(vcontroller: .vcbatch)
-        }
-    }
-
-    func setOutputBatch(outputbatch: OutputBatch?) {
-        self.outputbatch = outputbatch
-    }
-}
 
 extension ViewControllertabMain: GetConfigurationsObject {
     func getconfigurationsobject() -> Configurations? {
@@ -532,10 +514,10 @@ extension ViewControllertabMain: GetConfigurationsObject {
     // After a write, a reload is forced.
     func reloadconfigurationsobject() {
         // If batchtask keep configuration object
-        self.batchtaskObject = self.batchObjectDelegate?.getbatchtaskObject()
-        guard self.batchtaskObject == nil else {
+        self.batchtasks = self.batchtasksDelegate?.getbatchtaskObject()
+        guard self.batchtasks == nil else {
             // Batchtask, check if task is completed
-            guard self.configurations!.getbatchQueue()?.completedBatch() == false else {
+            guard self.configurations!.getbatchQueue()?.batchruniscompleted() == false else {
                 self.createandreloadconfigurations()
                 return
             }
@@ -548,9 +530,9 @@ extension ViewControllertabMain: GetConfigurationsObject {
 extension ViewControllertabMain: GetSchedulesObject {
     func reloadschedulesobject() {
         // If batchtask scedules object
-        guard self.batchtaskObject == nil else {
+        guard self.batchtasks == nil else {
             // Batchtask, check if task is completed
-            guard self.configurations!.getbatchQueue()?.completedBatch() == false else {
+            guard self.configurations!.getbatchQueue()?.batchruniscompleted() == false else {
                 self.createandreloadschedules()
                 return
             }

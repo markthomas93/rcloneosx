@@ -75,7 +75,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
             self.remoteinfotask = remoteinfotask
             self.loaded = true
         } else {
-            self.remoteinfotask = RemoteInfoTaskWorkQueue()
+            self.remoteinfotask = RemoteInfoTaskWorkQueue(inbatch: false)
             self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
         }
     }
