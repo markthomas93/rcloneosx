@@ -143,7 +143,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 self.transferredNumberSizebytes = self.taskDelegate?.gettransferredNumberSizebytes()
                 let hiddenID = self.configurations!.gethiddenID(index: self.index!)
                 if self.configurations!.getConfigurations()[self.index!].task != ViewControllerReference.shared.check {
-                    self.configurations!.setCurrentDateonConfiguration(self.index!, outputprocess: outputprocess)
+                    self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: outputprocess)
                     self.schedules!.addlogtaskmanuel(hiddenID, result: number.stats())
                     self.taskDelegate?.setNumbers(output: self.outputprocess)
                 }

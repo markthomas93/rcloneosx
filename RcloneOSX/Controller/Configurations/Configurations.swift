@@ -210,7 +210,7 @@ class Configurations: ReloadTable {
     /// Function also notifies Execute view to refresh data
     /// in tableView.
     /// - parameter index: index of Configuration to update
-    func setCurrentDateonConfiguration (_ index: Int, outputprocess: OutputProcess?) {
+    func setCurrentDateonConfiguration (index: Int, outputprocess: OutputProcess?) {
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
         self.configurations![index].dateRun = dateformatter.string(from: currendate)
@@ -265,24 +265,28 @@ class Configurations: ReloadTable {
     func createbatchQueue() {
         self.batchQueue = BatchTaskWorkQueu(configurations: self)
     }
-
+    
     /// Function return the reference to object holding data and methods
     /// for batch execution of Configurations.
     /// - returns : reference to to object holding data and methods
     func getbatchQueue() -> BatchTaskWorkQueu? {
         return self.batchQueue
     }
-
+    
     /// Function is getting the number of rows batchDataQueue
     /// - returns : the number of rows
     func batchQueuecount() -> Int {
-        return self.batchQueue?.getbatchDataQueuecount() ?? 0
+        return self.batchQueue?.getbatchtaskstodocount() ?? 0
     }
-
+    
     /// Function is getting the updated batch data queue
     /// - returns : reference to the batch data queue
     func getupdatedbatchQueue() -> [NSMutableDictionary]? {
-        return self.batchQueue?.getupdatedBatchdata()
+        return self.batchQueue?.getbatchtaskstodo()
+    }
+    
+    func getbatchlist() -> [NSMutableDictionary]? {
+        return self.batchQueue?.data
     }
 
     // Add new configurations
@@ -373,5 +377,6 @@ class Configurations: ReloadTable {
         self.profile = profile
         self.storageapi = PersistentStorageAPI(profile: self.profile)
         self.readconfigurations()
+        self.createbatchQueue()
     }
 }

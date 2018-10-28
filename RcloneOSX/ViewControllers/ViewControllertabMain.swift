@@ -41,11 +41,11 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     // Reference to the single taskobject
     var singletask: SingleTask?
     // Reference to batch taskobject
-    var batchtaskObject: BatchTask?
+    var batchtasks: BatchTask?
     var dateandtime: Dateandtime?
     var verifyrclonepath: Verifyrclonepath?
     // Delegate function getting batchTaskObject
-    weak var batchObjectDelegate: getNewBatchTask?
+    weak var batchtasksDelegate: GetNewBatchTask?
     // Main tableview
     @IBOutlet weak var mainTableView: NSTableView!
     // Progressbar indicating work
@@ -228,8 +228,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Abort button
     @IBAction func abort(_ sender: NSButton) {
-        // abortOperations is the delegate function for 
-        // aborting batch operations
         globalMainQueue.async(execute: { () -> Void in
             self.abortOperations()
             self.process = nil
@@ -269,7 +267,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     func automaticbackup() {
         self.processtermination = .automaticbackup
-        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue()
+        self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
         self.presentViewControllerAsSheet(self.viewControllerEstimating!)
         self.estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
     }
@@ -399,7 +397,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
             return
         }
         guard self.index != nil else { return }
-        self.batchtaskObject = nil
+        self.batchtasks = nil
         guard self.singletask != nil else {
             // Dry run
             self.singletask = SingleTask(index: self.index!)
@@ -413,7 +411,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     }
 
     @IBAction func executeBatch(_ sender: NSToolbarItem) {
-        self.processtermination = .batchtask
+        self.processtermination = .estimatebatchtask
         guard self.scheduledJobInProgress == false else {
             self.info(num: 4)
             return
@@ -484,7 +482,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         }
         self.process = nil
         self.singletask = nil
-        self.batchtaskObject = nil
         self.setinfonextaction(info: "Estimate", color: .green)
         self.showrclonecommandmainview()
         self.reloadtabledata()
