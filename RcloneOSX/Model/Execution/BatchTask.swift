@@ -73,6 +73,12 @@ final class BatchTask: SetSchedules, SetConfigurations {
             let config = self.configurations!.getConfigurations()[index]
             self.hiddenID = config.hiddenID
             self.configurations!.setCurrentDateonConfiguration(index: index, outputprocess: self.outputprocess)
+            let number = Numbers(output: self.outputprocess)
+            let hiddenID = self.configurations!.gethiddenID(index: index)
+            if self.configurations!.getConfigurations()[index].task != ViewControllerReference.shared.check {
+                self.configurations!.setCurrentDateonConfiguration(index: index, outputprocess: outputprocess)
+                self.schedules!.addlogtaskmanuel(hiddenID, result: number.stats())
+            }
             self.executeBatch()
         }
     }
