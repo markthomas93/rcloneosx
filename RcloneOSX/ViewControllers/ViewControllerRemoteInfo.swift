@@ -74,6 +74,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
         if let remoteinfotask = self.remoteinfotaskDelegate?.getremoteinfo() {
             self.remoteinfotask = remoteinfotask
             self.loaded = true
+            self.progress.isHidden = true
         } else {
             self.remoteinfotask = RemoteInfoTaskWorkQueue(inbatch: false)
             self.remoteinfotaskDelegate?.setremoteinfo(remoteinfotask: self.remoteinfotask)
@@ -93,10 +94,10 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
         })
         self.count.stringValue = self.number()
         self.enableexecutebutton()
-        self.initiateProgressbar()
         if self.loaded {
             self.selectalltaskswithfilestobackupbutton.isEnabled = true
         } else {
+            self.initiateProgressbar()
             self.selectalltaskswithfilestobackupbutton.isEnabled = false
         }
     }
@@ -116,7 +117,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, AbortTask {
     }
 
     private func dobackups() -> [NSMutableDictionary]? {
-        let backup = self.remoteinfotask?.records?.filter({$0.value(forKey: "backup") as? Int == 1})
+        let backup = self.remoteinfotask?.records?.filter({$0.value(forKey: "select") as? Int == 1})
         return backup
     }
 
@@ -190,7 +191,7 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
         case "deletefiles":
             let celltext = object[tableColumn!.identifier] as? String
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
-        case "backup":
+        case "select":
             return object[tableColumn!.identifier] as? Int
         default:
             return object[tableColumn!.identifier] as? String
@@ -200,10 +201,10 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
     // Toggling selection
     func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         guard  self.remoteinfotask?.records != nil else { return }
-        if tableColumn!.identifier.rawValue == "backup" {
-            var select: Int = (self.remoteinfotask?.records![row].value(forKey: "backup") as? Int)!
+        if tableColumn!.identifier.rawValue == "select" {
+            var select: Int = (self.remoteinfotask?.records![row].value(forKey: "select") as? Int)!
             if select == 0 { select = 1 } else if select == 1 { select = 0 }
-            self.remoteinfotask?.records![row].setValue(select, forKey: "backup")
+            self.remoteinfotask?.records![row].setValue(select, forKey: "select")
         }
         self.enableexecutebutton()
     }
@@ -225,6 +226,7 @@ extension ViewControllerRemoteInfo: UpdateProgress {
         self.updateProgressbar()
         if self.remoteinfotask?.stackoftasktobeestimated == nil {
             self.progress.stopAnimation(nil)
+            self.progress.isHidden = true
             self.count.stringValue = "Completed"
             self.remoteinfotask?.selectalltaskswithfilestobackup(deselect: self.selected)
             self.selected = true
