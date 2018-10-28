@@ -228,8 +228,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
 
     // Abort button
     @IBAction func abort(_ sender: NSButton) {
-        // abortOperations is the delegate function for 
-        // aborting batch operations
         globalMainQueue.async(execute: { () -> Void in
             self.abortOperations()
             self.process = nil
