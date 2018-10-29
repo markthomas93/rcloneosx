@@ -482,7 +482,7 @@ extension ViewControllertabMain: SingleTaskProgress {
                 self.totalNumber.stringValue = ""
                 return
             }
-            let number = Numbers(output: output)
+            let number = Numbers(outputprocess: output)
             self.totalNumber.stringValue = number.stats()
         })
     }
