@@ -16,7 +16,7 @@
 import Foundation
 import Cocoa
 
-class Configurations: ReloadTable {
+class Configurations: ReloadTable, SetSchedules {
 
     // Storage API
     var storageapi: PersistentStorageAPI?
@@ -211,6 +211,21 @@ class Configurations: ReloadTable {
     /// in tableView.
     /// - parameter index: index of Configuration to update
     func setCurrentDateonConfiguration (index: Int, outputprocess: OutputProcess?) {
+        let number = Numbers(outputprocess: outputprocess)
+        let hiddenID = self.gethiddenID(index: index)
+        let numbers = number.stats()
+        self.schedules!.addlogtaskmanuel(hiddenID, result: numbers)
+        let currendate = Date()
+        let dateformatter = Dateandtime().setDateformat()
+        self.configurations![index].dateRun = dateformatter.string(from: currendate)
+        // Saving updated configuration in memory to persistent store
+        self.storageapi!.saveConfigFromMemory()
+        // Call the view and do a refresh of tableView
+        self.reloadtable(vcontroller: .vctabmain)
+        _ = Logging(outputprocess: outputprocess)
+    }
+    
+    func setCurrentDateonConfigurationQuickbackup(index: Int, outputprocess: OutputProcess?) {
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
         self.configurations![index].dateRun = dateformatter.string(from: currendate)

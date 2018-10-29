@@ -29,12 +29,12 @@ final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetSche
         // Write result to Schedule
         let datestring = self.dateformatter!.string(from: date!)
         let dateStartstring = self.dateformatter!.string(from: dateStart!)
-        let number = Numbers(output: outputprocess)
+        let number = Numbers(outputprocess: outputprocess)
         let numberstring = number.stats()
         self.schedules!.addresultschedule(self.hiddenID!, dateStart: dateStartstring, result: numberstring, date: datestring, schedule: schedule!)
         self.taskDelegate?.setNumbers(output: outputprocess)
         // Writing timestamp to configuration
-        _ = self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: outputprocess)
+        _ = self.configurations!.setCurrentDateonConfigurationQuickbackup(index: self.index!, outputprocess: outputprocess)
         self.scheduleJob?.completed()
         self.startTimerDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
         self.startTimerDelegate?.startTimerNextJob()

@@ -136,15 +136,11 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 self.taskDelegate?.terminateProgressProcess()
                 // If showInfoDryrun is on present result of dryrun automatically
                 self.taskDelegate?.presentViewInformation(outputprocess: self.outputprocess!)
-                // Logg run
-                let number = Numbers(output: self.outputprocess)
                 // Get transferred numbers from view
                 self.transferredNumber = self.taskDelegate?.gettransferredNumber()
                 self.transferredNumberSizebytes = self.taskDelegate?.gettransferredNumberSizebytes()
-                let hiddenID = self.configurations!.gethiddenID(index: self.index!)
                 if self.configurations!.getConfigurations()[self.index!].task != ViewControllerReference.shared.check {
                     self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: outputprocess)
-                    self.schedules!.addlogtaskmanuel(hiddenID, result: number.stats())
                     self.taskDelegate?.setNumbers(output: self.outputprocess)
                 }
             case .empty:
