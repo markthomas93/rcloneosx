@@ -55,16 +55,17 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
                 }
             }
         } else if tableColumn!.identifier.rawValue == "statCellID" {
-            if row == self.index {
-                if self.scheduledJobInProgress == true {
-                    return #imageLiteral(resourceName: "green")
+                if row == self.index {
+                    if self.scheduledJobInProgress == true {
+                        return #imageLiteral(resourceName: "green")
+                    }
+                    if self.singletask == nil {
+                        return #imageLiteral(resourceName: "yellow")
+                    } else {
+                        return #imageLiteral(resourceName: "green")
+                    }
                 }
-                if self.singletask == nil {
-                    return #imageLiteral(resourceName: "yellow")
-                } else {
-                    return #imageLiteral(resourceName: "green")
-                }
-            }
+            
         } else {
             return object[tableColumn!.identifier] as? String
         }
@@ -482,7 +483,7 @@ extension ViewControllertabMain: SingleTaskProgress {
                 self.totalNumber.stringValue = ""
                 return
             }
-            let number = Numbers(output: output)
+            let number = Numbers(outputprocess: output)
             self.totalNumber.stringValue = number.stats()
         })
     }

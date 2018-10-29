@@ -101,8 +101,8 @@ final class Numbers: SetConfigurations {
         return  num + " files," + " " + size + " " + byte  + " in " + time
     }
 
-    init (output: OutputProcess?) {
-        self.output = output!.getOutput()
+    init (outputprocess: OutputProcess?) {
+        self.output = outputprocess!.getOutput()
         self.prepareresult()
     }
 }
