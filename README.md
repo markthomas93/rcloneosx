@@ -12,6 +12,11 @@ I am not an advanced user of `rclone`. My main use of RcloneOSX is  synchronizin
 
 To get an idea of how RcloneOSX is working please see the [intro](https://rsyncosx.github.io/Intro) to RsyncOSX. The operation and menus are mostly equal.
 
+The main view of RcloneOSX.
+![](images/main1.png)
+Automatic synchronizing in action.
+![](images/main2.png)
+
 ### Application icon
 
 The application icon is created by [Zsolt Sándor](https://github.com/graphis). All rights reserved to Zsolt Sándor.
