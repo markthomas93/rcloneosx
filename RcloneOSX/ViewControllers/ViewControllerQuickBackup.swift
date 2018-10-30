@@ -31,6 +31,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
     @IBAction func abort(_ sender: NSButton) {
         self.quickbackup = nil
         self.abort()
+        self.working.stopAnimation(nil)
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
