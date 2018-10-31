@@ -243,6 +243,7 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
             }
             self.verifylocalCatalog()
         } else {
+            self.verifylocalCatalog()
             self.restorebutton.title = "Estimate"
             self.restorebutton.isEnabled = true
             guard self.remoteCatalog.stringValue.count > 0 else { return }
