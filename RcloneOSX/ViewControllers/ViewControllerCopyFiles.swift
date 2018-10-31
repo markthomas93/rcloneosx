@@ -42,19 +42,6 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     @IBOutlet weak var search: NSSearchField!
     @IBOutlet weak var restorebutton: NSButton!
     
-    private func info(num: Int) {
-        switch num {
-        case 1:
-            self.info.stringValue = "No such local catalog for restore or set it in user config..."
-        case 2:
-            self.info.stringValue = "Not a remote task, use Finder to copy files..."
-        case 3:
-            self.info.stringValue = "Local or remote catalog cannot be empty..."
-        default:
-            self.info.stringValue = ""
-        }
-    }
-    
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
@@ -69,7 +56,20 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         self.restorebutton.isEnabled = true
         self.copyFiles!.abort()
     }
-    
+
+    private func info(num: Int) {
+        switch num {
+        case 1:
+            self.info.stringValue = "No such local catalog for restore or set it in user config..."
+        case 2:
+            self.info.stringValue = "Not a remote task, use Finder to copy files..."
+        case 3:
+            self.info.stringValue = "Local or remote catalog cannot be empty..."
+        default:
+            self.info.stringValue = ""
+        }
+    }
+
     // Do the work
     @IBAction func restore(_ sender: NSButton) {
         guard self.remoteCatalog.stringValue.isEmpty == false && self.localCatalog.stringValue.isEmpty == false else {
@@ -248,7 +248,7 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
             self.restorebutton.isEnabled = true
             guard self.remoteCatalog.stringValue.count > 0 else { return }
             self.delayWithSeconds(0.25) {
-                self.commandString.stringValue = self.copyFiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.localCatalog.stringValue)
+                self.commandString.stringValue = self.copyFiles?.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.localCatalog.stringValue) ?? ""
             }
         }
     }
@@ -332,14 +332,6 @@ extension ViewControllerCopyFiles: UpdateProgress {
     
     func fileHandler() {
         // nothing
-    }
-}
-
-extension ViewControllerCopyFiles: GetPath {
-    func pathSet(path: String?, requester: WhichPath) {
-        if let setpath = path {
-            self.localCatalog.stringValue = setpath
-        }
     }
 }
 
