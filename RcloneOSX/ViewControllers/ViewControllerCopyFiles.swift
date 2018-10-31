@@ -36,7 +36,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     @IBOutlet weak var rclonetableView: NSTableView!
     @IBOutlet weak var commandString: NSTextField!
     @IBOutlet weak var remoteCatalog: NSTextField!
-    @IBOutlet weak var localCatalog: NSTextField!
+    @IBOutlet weak var restorecatalog: NSTextField!
     @IBOutlet weak var working: NSProgressIndicator!
     @IBOutlet weak var workingRclone: NSProgressIndicator!
     @IBOutlet weak var search: NSSearchField!
@@ -72,7 +72,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
 
     // Do the work
     @IBAction func restore(_ sender: NSButton) {
-        guard self.remoteCatalog.stringValue.isEmpty == false && self.localCatalog.stringValue.isEmpty == false else {
+        guard self.remoteCatalog.stringValue.isEmpty == false && self.restorecatalog.stringValue.isEmpty == false else {
             self.info(num: 3)
             return
         }
@@ -81,10 +81,10 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         self.getfiles = true
         self.workingRclone.startAnimation(nil)
         if self.estimated == false {
-            self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: true)
+            self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: restorecatalog!.stringValue, dryrun: true)
             self.estimated = true
         } else {
-            self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: localCatalog!.stringValue, dryrun: false)
+            self.copyFiles!.executeRclone(remotefile: remoteCatalog!.stringValue, localCatalog: restorecatalog!.stringValue, dryrun: false)
             self.estimated = false
         }
     }
@@ -112,7 +112,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         self.working.usesThreadedAnimation = true
         self.workingRclone.usesThreadedAnimation = true
         self.search.delegate = self
-        self.localCatalog.delegate = self
+        self.restorecatalog.delegate = self
         self.remoteCatalog.delegate = self
         self.restoretableView.doubleAction = #selector(self.tableViewDoubleClick(sender:))
     }
@@ -124,6 +124,11 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
                 self.rclonetableView.reloadData()
             })
             return
+        }
+        if let restorePath = ViewControllerReference.shared.restorePath {
+            self.restorecatalog.stringValue = restorePath
+        } else {
+            self.restorecatalog.stringValue = ""
         }
         self.verifylocalCatalog()
         globalMainQueue.async(execute: { () -> Void in
@@ -138,24 +143,19 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
 
     @objc(tableViewDoubleClick:) func tableViewDoubleClick(sender: AnyObject) {
         guard self.remoteCatalog.stringValue.isEmpty == false else { return }
-        guard self.localCatalog.stringValue.isEmpty == false else { return }
+        guard self.restorecatalog.stringValue.isEmpty == false else { return }
         let answer = Alerts.dialogOKCancel("Copy single files or directory", text: "Start restore?")
         if answer {
             self.restorebutton.isEnabled = false
             self.getfiles = true
             self.workingRclone.startAnimation(nil)
-            self.copyFiles!.executeRclone(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.localCatalog!.stringValue, dryrun: false)
+            self.copyFiles!.executeRclone(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.restorecatalog!.stringValue, dryrun: false)
         }
     }
     
     private func verifylocalCatalog() {
         let fileManager = FileManager.default
-        if let restorePath = ViewControllerReference.shared.restorePath {
-            self.localCatalog.stringValue = restorePath
-        } else {
-            self.localCatalog.stringValue = ""
-        }
-        if fileManager.fileExists(atPath: self.localCatalog.stringValue) == false {
+        if fileManager.fileExists(atPath: self.restorecatalog.stringValue) == false {
             self.info(num: 1)
         } else {
             self.info(num: 0)
@@ -184,8 +184,8 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
                 } else {
                     self.remoteCatalog.stringValue = self.tabledata![index]
                 }
-                guard self.remoteCatalog.stringValue.isEmpty == false && self.localCatalog.stringValue.isEmpty == false else { return }
-                self.commandString.stringValue = self.copyFiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.localCatalog.stringValue)
+                guard self.remoteCatalog.stringValue.isEmpty == false && self.restorecatalog.stringValue.isEmpty == false else { return }
+                self.commandString.stringValue = self.copyFiles!.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.restorecatalog.stringValue)
                 self.estimated = false
                 self.restorebutton.title = "Estimate"
                 self.restorebutton.isEnabled = true
@@ -248,7 +248,7 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
             self.restorebutton.isEnabled = true
             guard self.remoteCatalog.stringValue.count > 0 else { return }
             self.delayWithSeconds(0.25) {
-                self.commandString.stringValue = self.copyFiles?.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.localCatalog.stringValue) ?? ""
+                self.commandString.stringValue = self.copyFiles?.getCommandDisplayinView(remotefile: self.remoteCatalog.stringValue, localCatalog: self.restorecatalog.stringValue) ?? ""
             }
         }
     }
