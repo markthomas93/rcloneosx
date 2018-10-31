@@ -56,7 +56,6 @@
 		E960CB151FB091DE0008D12E /* ViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAC71FB091D50008D12E /* ViewControllerAbout.swift */; };
 		E960CB191FB091DE0008D12E /* ProcessCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CACB1FB091D50008D12E /* ProcessCmd.swift */; };
 		E960CB1A1FB091DE0008D12E /* RcloneProcessArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CACC1FB091D50008D12E /* RcloneProcessArguments.swift */; };
-		E960CB1B1FB091DE0008D12E /* FileDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CACD1FB091D60008D12E /* FileDialog.swift */; };
 		E960CB1C1FB091DE0008D12E /* ViewControllertabSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CACE1FB091D60008D12E /* ViewControllertabSchedule.swift */; };
 		E960CB1D1FB091DE0008D12E /* ViewControllerUserconfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CACF1FB091D60008D12E /* ViewControllerUserconfiguration.swift */; };
 		E960CB1F1FB091DE0008D12E /* BatchTaskWorkQueu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAD11FB091D60008D12E /* BatchTaskWorkQueu.swift */; };
@@ -162,7 +161,6 @@
 		E960CAC71FB091D50008D12E /* ViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAbout.swift; sourceTree = "<group>"; };
 		E960CACB1FB091D50008D12E /* ProcessCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessCmd.swift; sourceTree = "<group>"; };
 		E960CACC1FB091D50008D12E /* RcloneProcessArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RcloneProcessArguments.swift; sourceTree = "<group>"; };
-		E960CACD1FB091D60008D12E /* FileDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDialog.swift; sourceTree = "<group>"; };
 		E960CACE1FB091D60008D12E /* ViewControllertabSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllertabSchedule.swift; sourceTree = "<group>"; };
 		E960CACF1FB091D60008D12E /* ViewControllerUserconfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerUserconfiguration.swift; sourceTree = "<group>"; };
 		E960CAD11FB091D60008D12E /* BatchTaskWorkQueu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchTaskWorkQueu.swift; sourceTree = "<group>"; };
@@ -308,7 +306,6 @@
 				E960CABD1FB091D30008D12E /* Numbers.swift */,
 				E960CADF1FB091D90008D12E /* Alerts.swift */,
 				E960CAE71FB091DA0008D12E /* Checkfornewversion.swift */,
-				E960CACD1FB091D60008D12E /* FileDialog.swift */,
 				E960CAD31FB091D70008D12E /* Resources.swift */,
 				E960CADE1FB091D90008D12E /* Userconfiguration.swift */,
 				E93DB0C3204E6FE80008B6C2 /* Notifications.swift */,
@@ -685,7 +682,6 @@
 				E960CB1F1FB091DE0008D12E /* BatchTaskWorkQueu.swift in Sources */,
 				E914B77421311C1400FFE398 /* extensionsSchedules.swift in Sources */,
 				E960CB481FB091DE0008D12E /* PersistentStorageAPI.swift in Sources */,
-				E960CB1B1FB091DE0008D12E /* FileDialog.swift in Sources */,
 				E9A795921FBF2AB000AF8A5F /* CommandCopyFiles.swift in Sources */,
 				E960CB491FB091DE0008D12E /* ScheduleOperationDispatch.swift in Sources */,
 				E960CB2C1FB091DE0008D12E /* Userconfiguration.swift in Sources */,

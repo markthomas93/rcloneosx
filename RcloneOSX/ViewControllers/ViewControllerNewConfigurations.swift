@@ -169,22 +169,6 @@ extension ViewControllerNewConfigurations: NSTableViewDelegate {
     }
 }
 
-extension ViewControllerNewConfigurations: GetPath {
-
-    func pathSet(path: String?, requester: WhichPath) {
-        if let setpath = path {
-            switch requester {
-            case .addLocalCatalog:
-                self.localCatalog.stringValue = setpath
-            case .addRemoteCatalog:
-                self.offsiteCatalog.stringValue = setpath
-            default:
-                break
-            }
-        }
-    }
-}
-
 extension ViewControllerNewConfigurations: DismissViewController {
 
     func dismiss_view(viewcontroller: NSViewController) {
