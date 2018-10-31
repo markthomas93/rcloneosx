@@ -13,7 +13,7 @@ import Cocoa
 protocol OperationChanged: class {
     func operationsmethod()
 }
-class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay {
+class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay, NewTemporaryRestorePath {
 
     var storageapi: PersistentStorageAPI?
     var dirty: Bool = false
@@ -31,6 +31,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
     @IBOutlet weak var fulllogging: NSButton!
     @IBOutlet weak var nologging: NSButton!
     @IBOutlet weak var marknumberofdayssince: NSTextField!
+    @IBOutlet weak var savebutton: NSButton!
 
     @IBAction func toggleDetailedlogging(_ sender: NSButton) {
         if self.detailedlogging.state == .on {
@@ -38,7 +39,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         } else {
             ViewControllerReference.shared.detailedlogging = false
         }
-        self.dirty = true
+        self.setdirty()
     }
 
     @IBAction func close(_ sender: NSButton) {
@@ -51,6 +52,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             if self.reload {
                 self.reloadconfigurationsDelegate?.createandreloadconfigurations()
             }
+            self.newtemporarypathrestore()
+            
         }
         if (self.presenting as? ViewControllertabMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
@@ -58,6 +61,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presenting as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
+        } else if (self.presenting as? ViewControllerCopyFiles) != nil {
+            self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
         }
         _ = RcloneVersionString()
     }
@@ -70,7 +75,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         }
         self.operationchangeDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
         self.operationchangeDelegate?.operationsmethod()
-        self.dirty = true
+        self.setdirty()
     }
 
     @IBAction func logging(_ sender: NSButton) {
@@ -84,7 +89,12 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             ViewControllerReference.shared.fulllogging = false
             ViewControllerReference.shared.minimumlogging = false
         }
+        self.setdirty()
+    }
+
+    private func setdirty() {
         self.dirty = true
+        self.savebutton.title = "Save"
     }
 
     private func setmarknumberofdayssince() {
@@ -201,11 +211,18 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
 
 extension ViewControllerUserconfiguration: NSTextFieldDelegate {
 
-    override func controlTextDidChange(_ obj: Notification) {
-        self.dirty = true
+    override func controlTextDidChange(_ notification: Notification) {
         delayWithSeconds(0.5) {
-            self.verifyrclone()
-            self.newrclone()
+            self.setdirty()
+            switch (notification.object as? NSTextField)! {
+            case self.rclonePath:
+                self.verifyrclone()
+                self.newrclone()
+            case self.restorePath:
+                return
+            default:
+                return
+            }
         }
     }
 }

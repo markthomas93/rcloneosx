@@ -371,6 +371,24 @@ extension NewRclone {
     }
 }
 
+protocol TemporaryRestorePath: class {
+    func temporaryrestorepathchanged()
+}
+
+protocol NewTemporaryRestorePath {
+    var newTemporaryPathDelegate: TemporaryRestorePath? { get }
+}
+
+extension NewTemporaryRestorePath {
+    weak var newTemporaryPathDelegate: TemporaryRestorePath? {
+        return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+    }
+    
+    func newtemporarypathrestore() {
+        self.newTemporaryPathDelegate?.temporaryrestorepathchanged()
+    }
+}
+
 protocol Createandreloadconfigurations: class {
     func createandreloadconfigurations()
 }
