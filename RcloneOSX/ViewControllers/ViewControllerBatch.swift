@@ -66,6 +66,7 @@ class ViewControllerBatch: NSViewController, SetDismisser, AbortTask, SetConfigu
     // Execute batch
     @IBAction func execute(_ sender: NSButton) {
         self.batchisrunning = true
+        self.estimatingbatchlabel.isHidden = true
         self.batchTask!.executeBatch()
         self.executeButton.isEnabled = false
     }
@@ -187,6 +188,7 @@ extension ViewControllerBatch: StartStopProgressIndicator {
         self.estimatingbatch.stopAnimation(nil)
         self.estimatingbatch.isHidden = true
         self.estimatingbatchlabel.stringValue = "Estimation completed..."
+        self.estimatingbatchlabel.textColor = .green
     }
     
     func start() {
@@ -196,6 +198,7 @@ extension ViewControllerBatch: StartStopProgressIndicator {
     func complete() {
         self.executeButton.isEnabled = false
         self.estimatingbatchlabel.stringValue = "Batchtasks completed..."
+        self.estimatingbatchlabel.textColor = .green
         self.batchisrunning = false
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
