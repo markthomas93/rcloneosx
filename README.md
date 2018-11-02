@@ -15,9 +15,9 @@ To get an idea of how RcloneOSX is working please see the [intro](https://rsynco
 The main view of RcloneOSX.
 ![](images/main1.png)
 Estimation of task for sync completed.
-![](images/main2.png)
-Sync of task in action.
 ![](images/main3.png)
+Sync of task in action.
+![](images/main2.png)
 
 ### Application icon
 
