@@ -14,8 +14,10 @@ To get an idea of how RcloneOSX is working please see the [intro](https://rsynco
 
 The main view of RcloneOSX.
 ![](images/main1.png)
-Automatic synchronizing in action.
+Estimation of task for sync completed.
 ![](images/main2.png)
+Sync of task in action.
+![](images/main3.png)
 
 ### Application icon
 
