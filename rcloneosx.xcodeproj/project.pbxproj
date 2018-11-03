@@ -220,6 +220,7 @@
 		E9D1F1A11FB49DB60099D25C /* GetCloudServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCloudServices.swift; sourceTree = "<group>"; };
 		E9E4DCCC21195F7600BB3F93 /* Allschedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allschedules.swift; sourceTree = "<group>"; };
 		E9E4DCCE21195FB700BB3F93 /* AllProfilenames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProfilenames.swift; sourceTree = "<group>"; };
+		E9FF26F7218D78CB009D2435 /* rcloneosx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rcloneosx.entitlements; path = rcloneosx/rcloneosx.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +475,7 @@
 		E99AA3761FAFA28900C1E86A = {
 			isa = PBXGroup;
 			children = (
+				E9FF26F7218D78CB009D2435 /* rcloneosx.entitlements */,
 				E99AA3811FAFA28900C1E86A /* RcloneOSX */,
 				E99AA3801FAFA28900C1E86A /* Products */,
 			);
@@ -596,6 +598,11 @@
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -915,6 +922,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = rcloneosx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -934,6 +942,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = rcloneosx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
