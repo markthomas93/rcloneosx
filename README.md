@@ -34,7 +34,9 @@ Processing: /Volumes/Home/thomas/GitHub/RcloneOSX/Build/Products/Release/rcloneo
 The validate action worked!
 ```
 This is the message when opening a downloaded version (from version 1.6.7).
+
 ![](images/verify.png)
+
 The message is in Norwegian: "Apple har sjekket programmet uten å finne ondsinnet programvare."  The english version of it is: "Apple checked it for malicious software and none was detected."
 
 
