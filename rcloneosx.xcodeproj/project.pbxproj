@@ -19,6 +19,17 @@
 			name = "rcloneosx-dmg";
 			productName = "rcloneosx-dmg";
 		};
+		E991A16C218D7D70007A92AE /* rcloneosx-dmg-notarize */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E991A170218D7D70007A92AE /* Build configuration list for PBXAggregateTarget "rcloneosx-dmg-notarize" */;
+			buildPhases = (
+				E991A16F218D7D70007A92AE /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "rcloneosx-dmg-notarize";
+			productName = "rcloneosx-dmg";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -594,6 +605,9 @@
 						CreatedOnToolsVersion = 9.4.1;
 						ProvisioningStyle = Automatic;
 					};
+					E991A16C218D7D70007A92AE = {
+						ProvisioningStyle = Automatic;
+					};
 					E99AA37E1FAFA28900C1E86A = {
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
@@ -621,6 +635,7 @@
 			targets = (
 				E99AA37E1FAFA28900C1E86A /* rcloneosx */,
 				E9107CAD21254B6A0030305B /* rcloneosx-dmg */,
+				E991A16C218D7D70007A92AE /* rcloneosx-dmg-notarize */,
 			);
 		};
 /* End PBXProject section */
@@ -650,6 +665,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${SOURCE_ROOT}/RcloneOSX/Scripts/create-dmg.sh";
+		};
+		E991A16F218D7D70007A92AE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${SOURCE_ROOT}/RcloneOSX/Scripts/create-dmg-notarize.sh\n";
 		};
 		E9F941661FC5FFFB005F2439 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -796,6 +824,24 @@
 			name = Debug;
 		};
 		E9107CAF21254B6B0030305B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 93M47F4H9T;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E991A171218D7D70007A92AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 93M47F4H9T;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E991A172218D7D70007A92AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -961,6 +1007,15 @@
 			buildConfigurations = (
 				E9107CAE21254B6B0030305B /* Debug */,
 				E9107CAF21254B6B0030305B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E991A170218D7D70007A92AE /* Build configuration list for PBXAggregateTarget "rcloneosx-dmg-notarize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E991A171218D7D70007A92AE /* Debug */,
+				E991A172218D7D70007A92AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
