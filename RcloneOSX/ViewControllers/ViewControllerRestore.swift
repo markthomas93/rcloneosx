@@ -24,7 +24,6 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     @IBOutlet weak var backupID: NSTextField!
     @IBOutlet weak var working: NSProgressIndicator!
     @IBOutlet weak var gotit: NSTextField!
-    
     @IBOutlet weak var transferredNumber: NSTextField!
     @IBOutlet weak var totalNumber: NSTextField!
     @IBOutlet weak var totalNumberSizebytes: NSTextField!
@@ -50,6 +49,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         guard self.tmprestore.stringValue.isEmpty == false else { return }
         if let index = self.index() {
             self.selecttmptorestore.isEnabled = false
+            self.gotit.textColor = .white
             self.gotit.stringValue = "Getting info, please wait..."
             self.working.startAnimation(nil)
             self.workqueue?.append(.localinfoandnumbertosync)
@@ -106,6 +106,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.totalNumberSizebytes.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
         self.working.stopAnimation(nil)
         self.restorebutton.isEnabled = true
+        self.gotit.textColor = .green
         self.gotit.stringValue = "Got it..."
     }
     
@@ -211,6 +212,7 @@ extension ViewControllerRestore: UpdateProgress {
         case .setremotenumbers:
             self.setremoteinfo()
         case .restore:
+            self.gotit.textColor = .green
             self.gotit.stringValue = "Restore is completed..."
             self.restoreprogress.isHidden = true
             self.restorecompleted = true
@@ -221,6 +223,7 @@ extension ViewControllerRestore: UpdateProgress {
             self.selecttmptorestore.isEnabled = true
             self.working.stopAnimation(nil)
             self.restorebutton.isEnabled = true
+            self.gotit.textColor = .green
             self.gotit.stringValue = "Got it..."
         }
     }
