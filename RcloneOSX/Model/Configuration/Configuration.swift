@@ -37,9 +37,7 @@ struct Configuration {
     var profile: String?
 
     private func calculatedays(date: String) -> Double? {
-        guard date != "" else {
-            return nil
-        }
+        guard date != "" else { return nil }
         let dateformatter = Dateandtime().setDateformat()
         let lastbackup = dateformatter.date(from: date)
         let seconds: TimeInterval = lastbackup!.timeIntervalSinceNow
@@ -48,15 +46,15 @@ struct Configuration {
 
     init(dictionary: NSDictionary) {
         // Parameters 1 - 6 is mandatory, set by rcloneOSX.
-        self.hiddenID = (dictionary.object(forKey: "hiddenID") as? Int)!
-        self.task = (dictionary.object(forKey: "task") as? String)!
-        self.localCatalog = (dictionary.object(forKey: "localCatalog") as? String)!
-        self.offsiteCatalog = (dictionary.object(forKey: "offsiteCatalog") as? String)!
-        self.offsiteUsername = (dictionary.object(forKey: "offsiteUsername") as? String) ?? ""
-        self.batch = (dictionary.object(forKey: "batch") as? String)!
-        self.dryrun = (dictionary.object(forKey: "dryrun") as? String)!
-        self.offsiteServer = (dictionary.object(forKey: "offsiteServer") as? String)!
-        self.backupID = (dictionary.object(forKey: "backupID") as? String)!
+        self.hiddenID = dictionary.object(forKey: "hiddenID") as? Int ?? 0
+        self.task = dictionary.object(forKey: "task") as? String ?? ""
+        self.localCatalog = dictionary.object(forKey: "localCatalog") as? String ?? ""
+        self.offsiteCatalog = dictionary.object(forKey: "offsiteCatalog") as? String ?? ""
+        self.offsiteUsername = dictionary.object(forKey: "offsiteUsername") as? String ?? ""
+        self.batch = dictionary.object(forKey: "batch") as? String ?? ""
+        self.dryrun = dictionary.object(forKey: "dryrun") as? String ?? ""
+        self.offsiteServer = dictionary.object(forKey: "offsiteServer") as? String ?? ""
+        self.backupID = dictionary.object(forKey: "backupID") as? String ?? ""
         // Last run of task
         if let dateRun = dictionary.object(forKey: "dateRun") {
             self.dateRun = dateRun as? String
