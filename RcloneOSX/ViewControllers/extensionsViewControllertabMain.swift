@@ -59,10 +59,15 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
                     if self.scheduledJobInProgress == true {
                         return #imageLiteral(resourceName: "green")
                     }
-                    if self.singletask == nil {
-                        return #imageLiteral(resourceName: "yellow")
+                    if self.setbatchyesno == false {
+                        if self.singletask == nil {
+                            return #imageLiteral(resourceName: "yellow")
+                        } else {
+                            return #imageLiteral(resourceName: "green")
+                        }
                     } else {
-                        return #imageLiteral(resourceName: "green")
+                        self.setbatchyesno = false
+                        return nil
                     }
                 }
             
