@@ -81,6 +81,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         if self.process != nil {
             self.abortOperations()
         }
+        self.setbatchyesno = true
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
         self.batchtasks = nil
