@@ -93,6 +93,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var processtermination: ProcessTermination?
     // Update view estimating
     weak var estimateupdateDelegate: Updateestimating?
+    // used in updating tableview
+    var setbatchyesno: Bool = false
 
     @IBOutlet weak var info: NSTextField!
     

@@ -85,7 +85,7 @@ class AllConfigurations: Sorting {
                 self.allconfigurationsasdictionary = filtereddata
             case 7:
                 let filtereddata = self.allconfigurationsasdictionary?.filter({
-                    ($0.value(forKey: "runDateCellID") as? String)!.contains(search!)
+                    ($0.value(forKey: "dateExecuted") as? String)!.contains(search!)
                 })
                 self.allconfigurationsasdictionary = filtereddata
             default:
