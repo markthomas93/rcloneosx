@@ -27,7 +27,7 @@ The application icon is created by [Zsolt Sándor](https://github.com/graphis). 
 
 ### Signing and notarizing
 
-The app is signed with my Apple ID developer certificate and [notarized](https://support.apple.com/en-us/HT202491) by Apple. If you have Xcode developer tools installed executing the following command will verify the rcloneosx.app.
+The app is signed with my Apple ID developer certificate and [notarized](https://rsyncosx.github.io/Notarized) by Apple. If you have Xcode developer tools installed executing the following command `xcrun stapler validate no.blogspot.rcloneosx rcloneosx.app` will verify the rcloneosx.app.
 ```
 xcrun stapler validate no.blogspot.rcloneosx rcloneosx.app
 Processing: /Volumes/Home/thomas/GitHub/RcloneOSX/Build/Products/Release/rcloneosx.app
