@@ -10,7 +10,7 @@ Rclone is *rsync for cloud storage*. Even if `rclone` and `rsync` are somewhat e
 
 I am not an advanced user of `rclone`. My main use of RcloneOSX is  synchronizing my GitHub catalog to Dropbox and Google. I have also implemented [encrypted](https://rsyncosx.github.io/Encrypted) backup in RsyncOSX by utilizing RcloneOSX. During this winter (2018/2019) the functions within RcloneOSX will be enhanced. But I need to learn more about rclone before enhancing RcloneOSX.
 
-About **signing** and **notarizing** of `rclonosx.app` see below.
+About signing and notarizing of RcloneOSX see below.
 
 To get an idea of how RcloneOSX is working please see the [intro](https://rsyncosx.github.io/Intro) to RsyncOSX. The operation and menus are mostly equal.
 
@@ -37,9 +37,7 @@ This is the message when opening a downloaded version (from version 1.6.7).
 
 ![](images/verify.png)
 
-The message is in Norwegian: "Apple har sjekket programmet uten å finne ondsinnet programvare.".
-
-The english version of it is: "Apple checked it for malicious software and none was detected.".
+The message is in Norwegian: "Apple har sjekket programmet uten å finne ondsinnet programvare.". The english version of it is: "Apple checked it for malicious software and none was detected.".
 
 
 ### Changelog
