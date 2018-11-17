@@ -22,9 +22,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             _ = Userconfiguration(userconfigrcloneOSX: userConfiguration)
         }
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
 }
