@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 09.08.2018.
 //  Copyright © 2018 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -17,7 +18,7 @@ enum Work {
 }
 
 class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, GetIndex, AbortTask {
-    
+
     @IBOutlet weak var localCatalog: NSTextField!
     @IBOutlet weak var offsiteCatalog: NSTextField!
     @IBOutlet weak var offsiteServer: NSTextField!
@@ -31,20 +32,20 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     @IBOutlet weak var restorebutton: NSButton!
     @IBOutlet weak var tmprestore: NSTextField!
     @IBOutlet weak var selecttmptorestore: NSButton!
-    
+
     var outputprocess: OutputProcess?
     var restorecompleted: Bool?
     weak var sendprocess: Sendprocessreference?
     var diddissappear: Bool = false
     var workqueue: [Work]?
-    
+
     // Close and dismiss view
     @IBAction func close(_ sender: NSButton) {
         if self.workqueue != nil && self.outputprocess != nil { self.abort() }
         if self.restorecompleted == false { self.abort() }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
-    
+
     @IBAction func dotmprestore(_ sender: NSButton) {
         guard self.tmprestore.stringValue.isEmpty == false else { return }
         if let index = self.index() {
@@ -68,7 +69,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.gotit.stringValue = "Well, this did not work ..."
         }
     }
-    
+
     @IBAction func restore(_ sender: NSButton) {
         let answer = Alerts.dialogOKCancel("Do you REALLY want to start a RESTORE ?", text: "Cancel or OK")
         if answer {
@@ -96,7 +97,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             _ = RcloneSize(index: index, outputprocess: self.outputprocess)
         }
     }
-    
+
     private func setremoteinfo() {
         guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
         let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
@@ -109,19 +110,19 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.gotit.textColor = .green
         self.gotit.stringValue = "Got it..."
     }
-    
+
     private func remoterclonesize(input: String) -> Size? {
         let data: Data = input.data(using: String.Encoding.utf8)!
         guard let size = try? JSONDecoder().decode(Size.self, from: data) else { return nil}
         return size
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcrestore, nsviewcontroller: self)
         self.sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.diddissappear == false else { return }
@@ -182,7 +183,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         let work = self.workqueue!.remove(at: index)
         return work
     }
-    
+
     // Progressbar restore
     private func initiateProgressbar() {
         self.restoreprogress.isHidden = false
@@ -193,11 +194,11 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.restoreprogress.doubleValue = 0
         self.restoreprogress.startAnimation(self)
     }
-    
+
     private func updateProgressbar(_ value: Double) {
         self.restoreprogress.doubleValue = value
     }
-    
+
 }
 
 extension ViewControllerRestore: UpdateProgress {

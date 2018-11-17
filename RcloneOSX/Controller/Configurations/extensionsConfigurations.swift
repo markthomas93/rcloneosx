@@ -52,7 +52,7 @@ extension ReloadTable {
     weak var reloadDelegateLogData: Reloadandrefresh? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
     }
-    
+
     func reloadtable(vcontroller: ViewController) {
         if vcontroller == .vctabmain {
             self.reloadDelegateMain?.reloadtabledata()
