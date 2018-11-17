@@ -11,14 +11,13 @@ import Foundation
 import Cocoa
 
 final class BatchTask: SetSchedules, SetConfigurations {
-    
+
     weak var closeviewerrorDelegate: CloseViewError?
-    weak var processupdateDelegate: UpdateProgress?
     var process: Process?
     var outputprocess: OutputProcess?
     var hiddenID: Int?
     var estimatedlist: [NSMutableDictionary]?
-    
+
     func executeBatch() {
         self.estimatedlist = self.configurations?.estimatedlist
         if let batchobject = self.configurations!.getbatchQueue() {
@@ -43,19 +42,19 @@ final class BatchTask: SetSchedules, SetConfigurations {
             }
         }
     }
-    
+
     func closeOperation() {
         self.process?.terminate()
         self.process = nil
         self.configurations?.estimatedlist = nil
         self.configurations!.remoteinfotaskworkqueue = nil
     }
-    
+
     func error() {
         self.closeviewerrorDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
         self.closeviewerrorDelegate?.closeerror()
     }
-    
+
     func processTermination() {
         weak var localprocessupdateDelegate: UpdateProgress?
         localprocessupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcbatch) as? ViewControllerBatch
@@ -69,19 +68,19 @@ final class BatchTask: SetSchedules, SetConfigurations {
             self.executeBatch()
         }
     }
-    
+
     func incount() -> Int {
         return self.outputprocess?.getOutput()?.count ?? 0
     }
-    
+
     func maxcountintask(hiddenID: Int) -> Int {
         let max = self.configurations?.estimatedlist?.filter({$0.value( forKey: "hiddenID") as? Int == hiddenID})
         guard max!.count > 0 else { return 0}
         let maxnumber = max![0].value(forKey: "transferredNumber") as? String ?? "0"
         return Int(maxnumber) ?? 0
     }
-    
+
     init() {
     }
-    
+
 }

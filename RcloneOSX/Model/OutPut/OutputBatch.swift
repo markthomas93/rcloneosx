@@ -12,21 +12,8 @@ class OutputBatch {
 
     var output: [String]?
 
-    func getOutputCount () -> Int {
-        return self.output?.count ?? 0
-    }
-
     func getOutput () -> [String] {
         return self.output ?? [""]
-    }
-
-    // Add line to output
-    func addLine (str: String) {
-        // Create array if == nil
-        if self.output == nil {
-            self.output = [String]()
-        }
-        self.output!.append(str)
     }
 
     init() {

@@ -49,12 +49,8 @@ final class SingleTask: SetSchedules, SetConfigurations {
     var outputprocess: OutputProcess?
     // Holding max count
     private var maxcount: Int = 0
-    // HiddenID task, set when row is selected
-    private var hiddenID: Int?
     // Single task work queu
     private var workload: SingleTaskWorkQueu?
-    // Schedules in progress
-    private var scheduledJobInProgress: Bool = false
     // Ready for execute again
     private var ready: Bool = true
     // Some max numbers

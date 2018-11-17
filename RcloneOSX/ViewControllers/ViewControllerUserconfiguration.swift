@@ -53,7 +53,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
                 self.reloadconfigurationsDelegate?.createandreloadconfigurations()
             }
             self.newtemporarypathrestore()
-            
+
         }
         if (self.presenting as? ViewControllertabMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)

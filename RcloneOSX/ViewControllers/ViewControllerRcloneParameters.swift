@@ -100,7 +100,6 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
         self.diddissappear = true
     }
 
-
     // Function for saving changed or new parameters for one configuration.
     @IBAction func update(_ sender: NSButton) {
         var configurations: [Configuration] = self.configurations!.getConfigurations()

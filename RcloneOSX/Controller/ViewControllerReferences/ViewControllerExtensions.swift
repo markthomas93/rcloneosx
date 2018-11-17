@@ -383,7 +383,7 @@ extension NewTemporaryRestorePath {
     weak var newTemporaryPathDelegate: TemporaryRestorePath? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
     }
-    
+
     func newtemporarypathrestore() {
         self.newTemporaryPathDelegate?.temporaryrestorepathchanged()
     }

@@ -36,7 +36,7 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
     @IBOutlet weak var dailybutton: NSButton!
     @IBOutlet weak var oncebutton: NSButton!
     @IBOutlet weak var info: NSTextField!
-    
+
     private func info (num: Int) {
         switch num {
         case 1:
@@ -73,9 +73,6 @@ class ViewControllertabSchedule: NSViewController, SetConfigurations, SetSchedul
         self.schedulebuttonsonoff()
     }
 
-    
-    
-    
     private func addschedule() {
         let answer = Alerts.dialogOKCancel("Add Schedule?", text: "Cancel or OK")
         if answer {

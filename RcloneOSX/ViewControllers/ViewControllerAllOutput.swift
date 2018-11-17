@@ -11,10 +11,10 @@ import Foundation
 import Cocoa
 
 class ViewControllerAllOutput: NSViewController, Delay {
-    
+
     @IBOutlet weak var detailsTable: NSTableView!
     weak var getoutputDelegate: ViewOutputDetails?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerReference.shared.setvcref(viewcontroller: .vcalloutput, nsviewcontroller: self)
@@ -22,7 +22,7 @@ class ViewControllerAllOutput: NSViewController, Delay {
         self.detailsTable.delegate = self
         self.detailsTable.dataSource = self
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         self.getoutputDelegate?.enableappend()
@@ -30,12 +30,12 @@ class ViewControllerAllOutput: NSViewController, Delay {
             self.detailsTable.reloadData()
         })
     }
-    
+
     override func viewDidDisappear() {
         super.viewDidDisappear()
         self.getoutputDelegate?.disableappend()
     }
-    
+
 }
 
 extension ViewControllerAllOutput: NSTableViewDataSource {

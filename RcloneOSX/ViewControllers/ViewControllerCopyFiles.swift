@@ -10,28 +10,20 @@
 import Foundation
 import Cocoa
 
-protocol SetIndex: class {
-    func setIndex(index: Int)
-}
-
-protocol GetSource: class {
-    func getSource(index: Int)
-}
-
 class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCopyFiles, VcSchedule {
-    
+
     var copyFiles: CopyFiles?
     var rcloneindex: Int?
     var getfiles: Bool = false
     var estimated: Bool = false
     private var tabledata: [String]?
     var diddissappear: Bool = false
-    
+
     @IBOutlet weak var numberofrows: NSTextField!
     @IBOutlet weak var server: NSTextField!
     @IBOutlet weak var rcatalog: NSTextField!
     @IBOutlet weak var info: NSTextField!
-    
+
     @IBOutlet weak var restoretableView: NSTableView!
     @IBOutlet weak var rclonetableView: NSTableView!
     @IBOutlet weak var commandString: NSTextField!
@@ -41,14 +33,14 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     @IBOutlet weak var workingRclone: NSProgressIndicator!
     @IBOutlet weak var search: NSSearchField!
     @IBOutlet weak var restorebutton: NSButton!
-    
+
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
             self.presentViewControllerAsSheet(self.viewControllerUserconfiguration!)
         })
     }
-    
+
     // Abort button
     @IBAction func abort(_ sender: NSButton) {
         self.working.stopAnimation(nil)
@@ -88,7 +80,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             self.estimated = false
         }
     }
-    
+
     private func displayRemoteserver(index: Int?) {
         guard index != nil else {
             self.server.stringValue = ""
@@ -101,7 +93,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             self.rcatalog.stringValue = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
         })
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerReference.shared.setvcref(viewcontroller: .vccopyfiles, nsviewcontroller: self)
@@ -116,7 +108,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
         self.remoteCatalog.delegate = self
         self.restoretableView.doubleAction = #selector(self.tableViewDoubleClick(sender:))
     }
-    
+
     override func viewDidAppear() {
         super.viewDidAppear()
         guard self.diddissappear == false else {
@@ -152,7 +144,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             self.copyFiles!.executeRclone(remotefile: self.remoteCatalog!.stringValue, localCatalog: self.restorecatalog!.stringValue, dryrun: false)
         }
     }
-    
+
     private func verifylocalCatalog() {
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: self.restorecatalog.stringValue) == false {
@@ -214,7 +206,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
             }
         }
     }
-    
+
     private func reloadtabledata() {
         guard self.copyFiles != nil else { return }
         globalMainQueue.async(execute: { () -> Void in
@@ -225,7 +217,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
 }
 
 extension ViewControllerCopyFiles: NSSearchFieldDelegate {
-    
+
     override func controlTextDidChange(_ notification: Notification) {
         if (notification.object as? NSTextField)! == self.search {
             self.delayWithSeconds(0.25) {
@@ -253,7 +245,7 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
             }
         }
     }
-    
+
     func searchFieldDidEndSearching(_ sender: NSSearchField) {
         globalMainQueue.async(execute: { () -> Void in
             self.tabledata = self.copyFiles?.filter(search: nil)
@@ -263,7 +255,7 @@ extension ViewControllerCopyFiles: NSSearchFieldDelegate {
 }
 
 extension ViewControllerCopyFiles: NSTableViewDataSource {
-    
+
     func numberOfRows(in tableView: NSTableView) -> Int {
         if tableView == self.restoretableView {
             guard self.tabledata != nil else {
@@ -279,7 +271,7 @@ extension ViewControllerCopyFiles: NSTableViewDataSource {
 }
 
 extension ViewControllerCopyFiles: NSTableViewDelegate {
-    
+
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if tableView == self.restoretableView {
             var text: String?
@@ -330,7 +322,7 @@ extension ViewControllerCopyFiles: UpdateProgress {
         }
          self.copyFiles?.process = nil
     }
-    
+
     func fileHandler() {
         // nothing
     }

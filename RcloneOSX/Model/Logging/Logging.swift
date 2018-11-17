@@ -95,7 +95,7 @@ class Logging: Reportfileerror {
         ViewControllerReference.shared.fileURL = self.fileURL
         if ViewControllerReference.shared.fulllogging {
             self.fulllogging()
-        }  else {
+        } else {
             self.minimumlogging()
         }
     }

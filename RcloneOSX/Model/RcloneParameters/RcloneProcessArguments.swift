@@ -146,7 +146,7 @@ class RcloneProcessArguments {
         }
         return self.arguments!
     }
-    
+
     func argumentsRestore(_ config: Configuration, dryRun: Bool, forDisplay: Bool, tmprestore: Bool) -> [String] {
         if tmprestore == false {
             self.localCatalog = config.localCatalog

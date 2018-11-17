@@ -36,7 +36,6 @@
 		E905FE64209836C60008450C /* RcloneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E905FE63209836C60008450C /* RcloneSize.swift */; };
 		E9062E732097192D00D65748 /* ViewControllerRemoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */; };
 		E914B77421311C1400FFE398 /* extensionsSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = E914B77321311C1400FFE398 /* extensionsSchedules.swift */; };
-		E9198C37211DC5960071DB3A /* OutputEverything.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9198C36211DC5960071DB3A /* OutputEverything.swift */; };
 		E9198C39211DC5EC0071DB3A /* ViewControllerAllOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */; };
 		E923D4C62130595F00C6BE92 /* Dispatchqueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923D4C32130595E00C6BE92 /* Dispatchqueues.swift */; };
 		E923D4C72130595F00C6BE92 /* Verifyrclonepath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923D4C42130595E00C6BE92 /* Verifyrclonepath.swift */; };
@@ -140,7 +139,6 @@
 		E905FE63209836C60008450C /* RcloneSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RcloneSize.swift; sourceTree = "<group>"; };
 		E9062E722097192D00D65748 /* ViewControllerRemoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRemoteInfo.swift; sourceTree = "<group>"; };
 		E914B77321311C1400FFE398 /* extensionsSchedules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionsSchedules.swift; sourceTree = "<group>"; };
-		E9198C36211DC5960071DB3A /* OutputEverything.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputEverything.swift; sourceTree = "<group>"; };
 		E9198C38211DC5EC0071DB3A /* ViewControllerAllOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAllOutput.swift; sourceTree = "<group>"; };
 		E923D4C32130595E00C6BE92 /* Dispatchqueues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatchqueues.swift; sourceTree = "<group>"; };
 		E923D4C42130595E00C6BE92 /* Verifyrclonepath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verifyrclonepath.swift; sourceTree = "<group>"; };
@@ -565,7 +563,6 @@
 			children = (
 				E960CAE91FB091DA0008D12E /* OutputBatch.swift */,
 				E960CAB61FB091D30008D12E /* OutputProcess.swift */,
-				E9198C36211DC5960071DB3A /* OutputEverything.swift */,
 			);
 			path = OutPut;
 			sourceTree = "<group>";
@@ -690,8 +687,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\nswift-scripts/unused.rb xcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -755,7 +751,6 @@
 				E92B18B92096F643001DBFAF /* ViewControllerEstimatingTasks.swift in Sources */,
 				E960CB3D1FB091DE0008D12E /* ViewControllerLoggData.swift in Sources */,
 				E9284CF821308B7D006648C1 /* extensionsConfigurations.swift in Sources */,
-				E9198C37211DC5960071DB3A /* OutputEverything.swift in Sources */,
 				E960CB501FB091DE0008D12E /* SingleTask.swift in Sources */,
 				E960CB2F1FB091DE0008D12E /* OperationFactory.swift in Sources */,
 				E960CB061FB091DE0008D12E /* Rclone.swift in Sources */,

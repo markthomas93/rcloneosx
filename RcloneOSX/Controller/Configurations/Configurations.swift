@@ -11,7 +11,7 @@
 //  Created by Thomas Evensen on 08/02/16.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length file_length
+// swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -118,33 +118,6 @@ class Configurations: ReloadTable, SetSchedules {
         return data
     }
 
-    func getConfigurationsDataSourcecountBackupOnlyRemote() -> [NSDictionary]? {
-        let configurations: [Configuration] = self.configurations!.filter({return ($0.task == ViewControllerReference.shared.copy || $0.task == ViewControllerReference.shared.sync && $0.offsiteServer.isEmpty == false)})
-        var data = [NSDictionary]()
-        for i in 0 ..< configurations.count {
-            let row: NSDictionary = [
-                "taskCellID": configurations[i].task,
-                "hiddenID": configurations[i].hiddenID,
-                "localCatalogCellID": configurations[i].localCatalog,
-                "offsiteCatalogCellID": configurations[i].offsiteCatalog,
-                "offsiteServerCellID": configurations[i].offsiteServer,
-                "backupIDCellID": configurations[i].backupID,
-                "runDateCellID": configurations[i].dateRun!,
-                "daysID": configurations[i].dayssincelastbackup ?? "",
-                "markdays": configurations[i].markdays,
-                "selectCellID": 0
-            ]
-            if self.quickbackuplist != nil {
-                let quickbackup = self.quickbackuplist!.filter({$0 == configurations[i].hiddenID})
-                if quickbackup.count > 0 {
-                    row.setValue(1, forKey: "selectCellID")
-                }
-            }
-            data.append(row)
-        }
-        return data
-    }
-
     /// Function returns all Configurations marked for backup.
     /// - returns : array of Configurations
     func getConfigurationsBatch() -> [Configuration] {
@@ -173,7 +146,7 @@ class Configurations: ReloadTable, SetSchedules {
             return allarguments.argsRestorefilesdryRunDisplay ?? []
         }
     }
-    
+
     func arguments4tmprestore(index: Int, argtype: ArgumentsRclone) -> [String] {
         let allarguments = self.argumentAllConfigurations![index]
         switch argtype {
@@ -185,7 +158,7 @@ class Configurations: ReloadTable, SetSchedules {
             return []
         }
     }
-    
+
     func arguments4restore(index: Int, argtype: ArgumentsRclone) -> [String] {
         let allarguments = self.argumentAllConfigurations![index]
         switch argtype {
@@ -224,7 +197,7 @@ class Configurations: ReloadTable, SetSchedules {
         self.reloadtable(vcontroller: .vctabmain)
         _ = Logging(outputprocess: outputprocess)
     }
-    
+
     func setCurrentDateonConfigurationQuickbackup(index: Int, outputprocess: OutputProcess?) {
         let currendate = Date()
         let dateformatter = Dateandtime().setDateformat()
@@ -274,26 +247,20 @@ class Configurations: ReloadTable, SetSchedules {
     func createbatchQueue() {
         self.batchQueue = BatchTaskWorkQueu(configurations: self)
     }
-    
+
     /// Function return the reference to object holding data and methods
     /// for batch execution of Configurations.
     /// - returns : reference to to object holding data and methods
     func getbatchQueue() -> BatchTaskWorkQueu? {
         return self.batchQueue
     }
-    
+
     /// Function is getting the number of rows batchDataQueue
     /// - returns : the number of rows
     func batchQueuecount() -> Int {
         return self.batchQueue?.getbatchtaskstodocount() ?? 0
     }
-    
-    /// Function is getting the updated batch data queue
-    /// - returns : reference to the batch data queue
-    func getupdatedbatchQueue() -> [NSMutableDictionary]? {
-        return self.batchQueue?.getbatchtaskstodo()
-    }
-    
+
     func getbatchlist() -> [NSMutableDictionary]? {
         return self.batchQueue?.data
     }

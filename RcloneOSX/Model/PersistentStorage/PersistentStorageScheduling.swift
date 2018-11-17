@@ -14,16 +14,16 @@
 import Foundation
 
 final class PersistentStorageScheduling: Readwritefiles, SetSchedules {
-    
+
     weak var readloggdataDelegate: ReadLoggdata?
     private var schedulesasdictionary: [NSDictionary]?
-    
+
     /// Function reads schedules from permanent store
     /// - returns : array of NSDictonarys, return might be nil if schedule is already in memory
     func readSchedulesFromPermanentStore() -> [NSDictionary]? {
         return self.schedulesasdictionary
     }
-    
+
     // Saving Schedules from MEMORY to persistent store
     func savescheduleInMemoryToPersistentStore() {
         var array = [NSDictionary]()
@@ -52,30 +52,7 @@ final class PersistentStorageScheduling: Readwritefiles, SetSchedules {
             self.writeToStore(array)
         }
     }
-    
-    // Saving not deleted schedule records to persistent store
-    // Deleted Schedule by hiddenID
-    func savescheduleDeletedRecordsToFile (_ hiddenID: Int) {
-        var array = [NSDictionary]()
-        let Schedule = self.schedules!.getSchedule()
-        for i in 0 ..< Schedule.count {
-            let schedule = Schedule[i]
-            if schedule.delete == nil && schedule.hiddenID != hiddenID {
-                let dict: NSMutableDictionary = [
-                    "hiddenID": schedule.hiddenID,
-                    "dateStart": schedule.dateStart,
-                    "schedule": schedule.schedule,
-                    "executed": schedule.logrecords]
-                if schedule.dateStop != nil {
-                    dict.setValue(schedule.dateStop, forKey: "dateStop")
-                }
-                array.append(dict)
-            }
-        }
-        // Write array to persistent store
-        self.writeToStore(array)
-    }
-    
+
     // Writing schedules to persistent store
     // Schedule is [NSDictionary]
     private func writeToStore (_ array: [NSDictionary]) {
@@ -84,7 +61,7 @@ final class PersistentStorageScheduling: Readwritefiles, SetSchedules {
             self.readloggdataDelegate?.readloggdata()
         }
     }
-    
+
     init (profile: String?) {
         super.init(task: .schedule, profile: profile, configpath: ViewControllerReference.shared.configpath)
         self.readloggdataDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
@@ -92,7 +69,7 @@ final class PersistentStorageScheduling: Readwritefiles, SetSchedules {
             self.schedulesasdictionary = self.getDatafromfile()
         }
     }
-    
+
     init(profile: String?, forceread: Bool) {
         super.init(task: .schedule, profile: profile, configpath: ViewControllerReference.shared.configpath)
         self.schedulesasdictionary = self.getDatafromfile()
