@@ -26,7 +26,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
     @IBOutlet weak var abortbutton: NSButton!
     @IBOutlet weak var completed: NSTextField!
     @IBOutlet weak var working: NSProgressIndicator!
-    
+
     // Either abort or close
     @IBAction func abort(_ sender: NSButton) {
         self.quickbackup = nil
@@ -82,7 +82,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, AbortTask, Dela
         progress.doubleValue = 0
         progress.startAnimation(self)
     }
-    
+
     private func updateProgressbar(progress: NSProgressIndicator) {
         let value = Double((self.inprogresscountDelegate?.inprogressCount())!)
         progress.doubleValue = value
@@ -157,7 +157,7 @@ extension ViewControllerQuickBackup: UpdateProgress {
             return
         }
     }
-    
+
     func fileHandler() {
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()

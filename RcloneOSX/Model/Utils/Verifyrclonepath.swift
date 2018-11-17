@@ -69,7 +69,6 @@ final class Verifyrclonepath: SetConfigurations {
         }
         return str ?? ""
     }
-        
 
     // Function returns the correct path for rclone according to configuration set by user or default value.
     func rclonepath() -> String {

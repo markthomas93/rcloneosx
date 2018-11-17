@@ -9,7 +9,7 @@
 import Foundation
 
 class Profiles: Files {
-    
+
     // Function for creating new profile directory
     func createProfile(profileName: String) -> Bool {
         let fileManager = FileManager.default
@@ -32,7 +32,7 @@ class Profiles: Files {
         }
         return false
     }
-    
+
     // Function for deleting profile
     // if let path = URL.init(string: profileDirectory) {
     func deleteProfile(profileName: String) {
@@ -52,7 +52,7 @@ class Profiles: Files {
             }
         }
     }
-    
+
     init () {
         super.init(root: .profileRoot, configpath: ViewControllerReference.shared.configpath)
     }

@@ -27,7 +27,6 @@ final class OutputProcess {
     private var endIndex: Int?
     private var maxNumber: Int = 0
     weak var errorDelegate: ViewControllertabMain?
-    weak var lastrecordDelegate: ViewControllertabMain?
 
     func getMaxcount() -> Int {
         if self.trimmedoutput == nil {

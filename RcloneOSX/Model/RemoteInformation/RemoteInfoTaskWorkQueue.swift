@@ -28,7 +28,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     var maxnumber: Int?
     var count: Int?
     var inbatch: Bool?
-    
+
     private func prepareandstartexecutetasks() {
         self.stackoftasktobeestimated = nil
         self.stackoftasktobeestimated = [Row]()
@@ -45,7 +45,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         }
         self.maxnumber = self.stackoftasktobeestimated?.count
     }
-    
+
     private func startestimation() {
         guard self.stackoftasktobeestimated!.count > 0 else { return }
         self.outputprocess = OutputProcess()
@@ -56,7 +56,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         self.startstopProgressIndicatorDelegate?.start()
         _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
     }
-    
+
     func processTermination() {
         self.count = self.stackoftasktobeestimated?.count
         let record = RemoteInfoTask(outputprocess: self.outputprocess).record()
@@ -83,14 +83,14 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         }
         _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
     }
-    
+
     func setbackuplist(list: [NSMutableDictionary]) {
         self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< list.count {
             self.configurations?.quickbackuplist!.append((list[i].value(forKey: "hiddenID") as? Int)!)
         }
     }
-    
+
     func sortbystrings(sort: Sort) {
         var sortby: String?
         guard self.records != nil else { return }
@@ -107,7 +107,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         let sorted = self.records!.sorted {return ($0.value(forKey: sortby!) as? String)!.localizedStandardCompare(($1.value(forKey: sortby!) as? String)!) == .orderedAscending}
         self.records = sorted
     }
-    
+
     func selectalltaskswithnumbers(deselect: Bool) {
         guard self.records != nil else { return }
         for i in 0 ..< self.records!.count {
@@ -122,7 +122,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
             }
         }
     }
-    
+
     func setbackuplist() {
         guard self.records != nil else { return }
         self.configurations?.quickbackuplist = [Int]()
@@ -132,7 +132,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
             }
         }
     }
-    
+
     func selectalltaskswithfilestobackup(deselect: Bool) {
         self.selectalltaskswithnumbers(deselect: deselect)
         self.reloadtableDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
@@ -140,7 +140,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         self.reloadtableDelegate?.reloadtabledata()
         self.enablebackupbuttonDelegate?.enablequickbackupbutton()
     }
-    
+
     init(inbatch: Bool) {
         self.inbatch = inbatch
         if inbatch {
@@ -162,7 +162,7 @@ extension RemoteInfoTaskWorkQueue: CountEstimating {
     func maxCount() -> Int {
         return self.maxnumber ?? 0
     }
-    
+
     func inprogressCount() -> Int {
         return self.stackoftasktobeestimated?.count ?? 0
     }

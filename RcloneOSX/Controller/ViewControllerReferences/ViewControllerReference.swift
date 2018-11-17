@@ -95,8 +95,6 @@ class ViewControllerReference {
     private var viewControllertabSchedule: NSViewController?
     // Which profile to use, if default nil
     private var viewControllerLoggData: NSViewController?
-    // Reference to Ssh view
-    private var viewControllerSsh: NSViewController?
     // Reference to About
     private var viewControllerAbout: NSViewController?
     //  Refereence to batchview

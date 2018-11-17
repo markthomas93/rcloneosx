@@ -10,17 +10,6 @@
 import Foundation
 import Cocoa
 
-// Used in mainTab to present info about process
-enum DisplayProcessInfo {
-    case estimating
-    case executing
-    case loggingrun
-    case changeprofile
-    case abort
-    case blank
-    case error
-}
-
 extension ViewControllertabMain: NSTableViewDataSource {
     // Delegate for size of table
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -70,7 +59,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
                         return nil
                     }
                 }
-            
+
         } else {
             return object[tableColumn!.identifier] as? String
         }
@@ -290,7 +279,7 @@ extension ViewControllertabMain: UpdateProgress {
                 self.processtermination = .batchtask
             }
         }
-        
+
     }
 
     // Function is triggered when Process outputs data in filehandler
@@ -495,7 +484,6 @@ extension ViewControllertabMain: SingleTaskProgress {
     }
 }
 
-
 extension ViewControllertabMain: GetConfigurationsObject {
     func getconfigurationsobject() -> Configurations? {
         guard self.configurations != nil else { return nil }
@@ -642,7 +630,7 @@ extension ViewControllertabMain: SetRemoteInfo {
     func getremoteinfo() -> RemoteInfoTaskWorkQueue? {
         return self.configurations!.remoteinfotaskworkqueue
     }
-    
+
     func setremoteinfo(remoteinfotask: RemoteInfoTaskWorkQueue?) {
         self.configurations!.remoteinfotaskworkqueue = remoteinfotask
     }
@@ -674,17 +662,17 @@ extension ViewControllertabMain: ViewOutputDetails {
     func enableappend() {
         self.dynamicappend = true
     }
-    
+
     func getalloutput() -> [String] {
         return self.outputprocess?.getrawOutput() ?? []
     }
-    
-    func reloadtable(){
+
+    func reloadtable() {
         weak var localreloadDelegate: Reloadandrefresh?
         localreloadDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcalloutput) as? ViewControllerAllOutput
         localreloadDelegate?.reloadtabledata()
     }
-    
+
     func appendnow() -> Bool {
         return self.dynamicappend
     }

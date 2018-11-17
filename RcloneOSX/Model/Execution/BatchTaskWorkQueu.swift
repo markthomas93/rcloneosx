@@ -9,26 +9,26 @@
 import Foundation
 
 final class BatchTaskWorkQueu {
-    
+
     // Structure holding updated data for batchrun
     var data = [NSMutableDictionary]()
     var batchQueu = [(Int, Int)]()
     var completed: Bool = false
-    
+
     func batchruniscompleted() -> Bool {
         return self.completed
     }
-    
+
     // Return data
     func getbatchtaskstodo() -> [NSMutableDictionary] {
         return self.data
     }
-    
+
     // Return the number of rows
     func getbatchtaskstodocount() -> Int {
         return self.data.count
     }
-    
+
     // Get next batch from Queue, REMOVES the first element
     // (-1,-1) indicates end of Queue
     func removenexttaskinqueue() -> (Int, Int) {
@@ -38,7 +38,7 @@ final class BatchTaskWorkQueu {
         }
         return self.batchQueu.removeFirst()
     }
-    
+
     // Get next batch from Queue, COPY ONLY the first element
     // (-1,-1) indicates end of Queue
     func copyofnexttaskinqueue() -> (Int, Int) {
@@ -48,7 +48,7 @@ final class BatchTaskWorkQueu {
         }
         return self.batchQueu[0]
     }
-    
+
     init (configurations: Configurations?) {
         if let batchtasks = configurations?.getConfigurationsBatch() {
             for i in 0 ..< batchtasks.count {

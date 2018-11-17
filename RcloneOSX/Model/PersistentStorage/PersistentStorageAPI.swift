@@ -9,12 +9,12 @@
 import Foundation
 
 final class PersistentStorageAPI: SetConfigurations, SetSchedules, NextTask {
-    
+
     var profile: String?
     var forceread: Bool = false
-    
+
     // CONFIGURATIONS
-    
+
     // Read configurations from persisten store
     func getConfigurations() -> [Configuration]? {
         var read: PersistentStorageConfiguration?
@@ -35,22 +35,22 @@ final class PersistentStorageAPI: SetConfigurations, SetSchedules, NextTask {
             return nil
         }
     }
-    
+
     // Saving configuration from memory to persistent store
     func saveConfigFromMemory() {
         let save = PersistentStorageConfiguration(profile: self.profile)
         save.saveconfigInMemoryToPersistentStore()
     }
-    
+
     // Saving added configuration
     func addandsaveNewConfigurations(dict: NSMutableDictionary) {
         let save = PersistentStorageConfiguration(profile: self.profile)
         save.newConfigurations(dict)
         save.saveconfigInMemoryToPersistentStore()
     }
-    
+
     // SCHEDULE
-    
+
     // Saving Schedules from memory to persistent store
     func saveScheduleFromMemory() {
         let store = PersistentStorageScheduling(profile: self.profile)
@@ -58,7 +58,7 @@ final class PersistentStorageAPI: SetConfigurations, SetSchedules, NextTask {
         // Kick off next task
         self.startnexttask()
     }
-    
+
     // Read schedules and history
     // If no Schedule from persistent store return nil
     func getScheduleandhistory(nolog: Bool) -> [ConfigurationSchedule]? {
@@ -85,7 +85,7 @@ final class PersistentStorageAPI: SetConfigurations, SetSchedules, NextTask {
             return nil
         }
     }
-    
+
     // Reading and writing scheduling data and results of executions.
     // StoreAPI : API to class persistentStorescheduling.
     // Readig schedules only (not sorted and expanden)
@@ -103,24 +103,24 @@ final class PersistentStorageAPI: SetConfigurations, SetSchedules, NextTask {
             return []
         }
     }
-    
+
     // USERCONFIG
-    
+
     // Saving user configuration
     func saveUserconfiguration() {
         let store = PersistentStorageUserconfiguration(readfromstorage: false)
         store.saveUserconfiguration()
     }
-    
+
     func getUserconfiguration (readfromstorage: Bool) -> [NSDictionary]? {
         let store = PersistentStorageUserconfiguration(readfromstorage: readfromstorage)
         return store.readUserconfigurationsFromPermanentStore()
     }
-    
+
     init(profile: String?) {
         self.profile = profile
     }
-    
+
     init(profile: String?, forceread: Bool) {
         self.profile = profile
         self.forceread = forceread

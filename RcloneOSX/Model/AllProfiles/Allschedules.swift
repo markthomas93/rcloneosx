@@ -10,11 +10,11 @@ import Foundation
 import Cocoa
 
 class Allschedules {
-    
+
     // Configurations object
     private var allschedules: [ConfigurationSchedule]?
     private var allprofiles: [String]?
-    
+
     private func readallschedules(nolog: Bool) {
         guard self.allprofiles != nil else { return }
         var configurationschedule: [ConfigurationSchedule]?
@@ -35,11 +35,11 @@ class Allschedules {
             }
         }
     }
-    
+
     func getallschedules() -> [ConfigurationSchedule]? {
         return self.allschedules
     }
-    
+
     init(nolog: Bool) {
         self.allprofiles = AllProfilenames().allprofiles
         self.readallschedules(nolog: nolog)

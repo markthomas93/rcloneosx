@@ -228,7 +228,7 @@ extension ViewControllerRestore: UpdateProgress {
             self.gotit.stringValue = "Got it..."
         }
     }
-    
+
     func fileHandler() {
         if self.workqueue?.count == 1 {
             self.updateProgressbar(Double(self.outputprocess!.count()))

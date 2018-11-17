@@ -9,7 +9,6 @@
 //  let str = "/Rclone/" + serialNumber + profile? + "/configRsync.plist"
 //  let str = "/Rclone/" + serialNumber + "/config.plist"
 //
-//  swiftlint:disable line_length
 
 import Foundation
 import Cocoa
@@ -22,7 +21,7 @@ enum WhatToReadWrite {
 }
 
 class Readwritefiles {
-    
+
     // Name set for schedule, configuration or config
     private var name: String?
     // key in objectForKey, e.g key for reading what
@@ -44,7 +43,7 @@ class Readwritefiles {
     // config path either
     // ViewControllerReference.shared.configpath or RcloneReference.shared.configpath
     private var configpath: String?
-    
+
     private func setnameandpath() {
         let docupath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         let docuDir = docupath.firstObject as? String ?? ""
@@ -72,15 +71,15 @@ class Readwritefiles {
             self.filepath = self.configpath! + macserialnumber! + "/"
         }
     }
-    
+
     func getfilenameandpath() -> String? {
         return self.filename
     }
-    
+
     func getpath() -> String? {
         return self.filepath
     }
-    
+
     // Function for reading data from persistent store
     func getDatafromfile () -> [NSDictionary]? {
         var data = [NSDictionary]()
@@ -97,7 +96,7 @@ class Readwritefiles {
         }
         return data
     }
-    
+
     // Function for write data to persistent store
     func writeDatatoPersistentStorage (_ array: [NSDictionary], task: WhatToReadWrite) -> Bool {
         self.setpreferences(task)
@@ -105,7 +104,7 @@ class Readwritefiles {
         guard self.filename != nil else { return false }
         return  dictionary.write(toFile: self.filename!, atomically: true)
     }
-    
+
     // Set preferences for which data to read or write
     private func setpreferences (_ task: WhatToReadWrite) {
         self.task = task
@@ -124,7 +123,7 @@ class Readwritefiles {
             self.readdisk = false
         }
     }
-    
+
     init(task: WhatToReadWrite, profile: String?, configpath: String) {
         self.configpath = configpath
         if profile != nil {
@@ -134,5 +133,5 @@ class Readwritefiles {
         self.setpreferences(task)
         self.setnameandpath()
     }
-    
+
 }

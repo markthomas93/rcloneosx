@@ -68,7 +68,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     @IBOutlet weak var rcloneversionshort: NSTextField!
     @IBOutlet weak var remoteinfonumber: NSTextField!
     @IBOutlet weak var remoteinfosize: NSTextField!
-    
+
     // Reference to Process task
     var process: Process?
     // Index to selected row, index is set when row is selected
@@ -79,7 +79,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var outputbatch: OutputBatch?
     // Dynamic view of output
     var dynamicappend: Bool = false
-    weak var dynamicreloadoutputDelegate: Reloadandrefresh?
     // HiddenID task, set when row is selected
     var hiddenID: Int?
     // Reference to Schedules object
@@ -97,7 +96,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     var setbatchyesno: Bool = false
 
     @IBOutlet weak var info: NSTextField!
-    
+
     @IBAction func restore(_ sender: NSButton) {
         guard self.index != nil else {
             self.info(num: 1)

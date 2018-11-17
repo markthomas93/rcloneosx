@@ -14,11 +14,11 @@ class AllConfigurations: Sorting {
     private var allconfigurations: [Configuration]?
     var allconfigurationsasdictionary: [NSMutableDictionary]?
     private var allprofiles: [String]?
-    
+
     func getallconfigurations() -> [Configuration]? {
         return self.allconfigurations
     }
-    
+
     private func readallconfigurations() {
         guard self.allprofiles != nil else { return }
         var configurations: [Configuration]?
@@ -39,7 +39,7 @@ class AllConfigurations: Sorting {
             }
         }
     }
-    
+
     private func setConfigurationsDataSourcecountBackupSnapshot() {
         guard self.allconfigurations != nil else { return }
         var configurations: [Configuration] = self.allconfigurations!.filter({return ($0.task == ViewControllerReference.shared.sync || $0.task == ViewControllerReference.shared.copy || $0.task == ViewControllerReference.shared.move)})
@@ -65,7 +65,7 @@ class AllConfigurations: Sorting {
         }
         self.allconfigurationsasdictionary = data
     }
-    
+
     // Function for filter
     func filter(search: String?, column: Int, filterby: Sortandfilter?) {
         guard search != nil && self.allconfigurationsasdictionary != nil && filterby != nil else { return }
@@ -93,7 +93,7 @@ class AllConfigurations: Sorting {
             }
         })
     }
-    
+
     init() {
         self.allprofiles = AllProfilenames().allprofiles
         self.readallconfigurations()

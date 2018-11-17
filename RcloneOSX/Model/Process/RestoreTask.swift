@@ -33,4 +33,3 @@ final class RestoreTask: SetConfigurations {
         taskDelegate?.getProcessReference(process: process.getProcess()!)
     }
 }
-
