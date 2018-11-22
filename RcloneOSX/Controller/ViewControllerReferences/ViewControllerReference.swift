@@ -80,7 +80,7 @@ class ViewControllerReference {
     // Rclone version short
     var rcloneversionshort: String?
     // If rclone version 1.43 or more
-    var rclone143: Bool = false
+    var rclone143: Bool?
     // filsize logfile warning
     var logfilesize: Int = 100000
     // Mac serialnumer

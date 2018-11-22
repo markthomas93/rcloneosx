@@ -13,6 +13,7 @@ import Cocoa
 protocol OperationChanged: class {
     func operationsmethod()
 }
+
 class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay, NewTemporaryRestorePath {
 
     var storageapi: PersistentStorageAPI?
@@ -22,6 +23,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false
 
+    @IBOutlet weak var version143rclone: NSButton!
     @IBOutlet weak var rclonePath: NSTextField!
     @IBOutlet weak var detailedlogging: NSButton!
     @IBOutlet weak var noRclone: NSTextField!
@@ -90,6 +92,14 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             ViewControllerReference.shared.minimumlogging = false
         }
         self.setdirty()
+    }
+
+    @IBAction func setversion143rclone(_ sender: NSButton) {
+        if self.version143rclone.state == .on {
+            ViewControllerReference.shared.rclone143 = true
+        } else {
+            ViewControllerReference.shared.rclone143 = false
+        }
     }
 
     private func setdirty() {
@@ -205,6 +215,9 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         }
         if ViewControllerReference.shared.fulllogging {
             self.fulllogging.state = .on
+        }
+        if ViewControllerReference.shared.rclone143 ?? false {
+            self.version143rclone.state = .on
         }
     }
 }

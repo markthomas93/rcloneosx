@@ -1706,7 +1706,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Raw-fd-DIw">
-                                            <rect key="frame" x="213" y="29" width="228" height="22"/>
+                                            <rect key="frame" x="213" y="25" width="228" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" bezelStyle="round" id="b2I-ky-1DA">
                                                 <font key="font" metaFont="system"/>
@@ -1715,7 +1715,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dg1-Pc-D5r">
-                                            <rect key="frame" x="36" y="102" width="149" height="18"/>
+                                            <rect key="frame" x="36" y="95" width="149" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title=" detailed logging" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="dsn-9I-wI5">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1726,16 +1726,16 @@ DQ
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cK0-aL-8M2">
-                                            <rect key="frame" x="58" y="32" width="155" height="17"/>
+                                            <rect key="frame" x="52" y="28" width="155" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="optional path for rclone:" id="m7F-8t-VwR">
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="optional path for rclone:" id="m7F-8t-VwR">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
                                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MU5-XI-9GS">
-                                            <rect key="frame" x="212" y="7" width="231" height="20"/>
+                                            <rect key="frame" x="212" y="3" width="231" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Error : no rclone in path" id="CCB-zy-XDh">
                                                 <font key="font" metaFont="system"/>
@@ -1744,7 +1744,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfE-RV-MgW">
-                                            <rect key="frame" x="36" y="80" width="342" height="18"/>
+                                            <rect key="frame" x="36" y="76" width="342" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title=" Scheduled tasks (default/on : dispatch, if off: timer) " bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oRd-hx-waI">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1755,7 +1755,7 @@ DQ
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tvd-JD-0eF">
-                                            <rect key="frame" x="213" y="54" width="228" height="22"/>
+                                            <rect key="frame" x="213" y="50" width="228" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2Gn-TA-abg">
                                                 <font key="font" metaFont="system"/>
@@ -1764,7 +1764,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twA-Cw-35r">
-                                            <rect key="frame" x="36" y="56" width="171" height="17"/>
+                                            <rect key="frame" x="36" y="52" width="171" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="temporary path restore :" id="dKh-63-V1R">
                                                 <font key="font" metaFont="system"/>
@@ -1772,6 +1772,17 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cvx-Ct-6GB">
+                                            <rect key="frame" x="36" y="114" width="152" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="version 1.43 of rclone" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UEA-dg-04x">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="setversion143rclone:" target="Psw-ga-cgO" id="9wA-fB-XQb"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </box>
@@ -1871,6 +1882,7 @@ DQ
                         <outlet property="rclonePath" destination="Raw-fd-DIw" id="9MU-5e-zvh"/>
                         <outlet property="restorePath" destination="tvd-JD-0eF" id="fCt-L4-MGJ"/>
                         <outlet property="savebutton" destination="u41-A5-KKx" id="Wvu-jT-Ows"/>
+                        <outlet property="version143rclone" destination="cvx-Ct-6GB" id="yBU-GZ-Pc2"/>
                     </connections>
                 </viewController>
                 <customObject id="mqj-jt-V17" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -4063,7 +4075,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="H8l-Hz-Ebq">
-                                                            <rect key="frame" x="375.5" y="1" width="232" height="20"/>
+                                                            <rect key="frame" x="376" y="1" width="232" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFc-I5-XsK">
@@ -4096,7 +4108,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="aVl-z1-Tec">
-                                                            <rect key="frame" x="610.5" y="1" width="91" height="20"/>
+                                                            <rect key="frame" x="611" y="1" width="91" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nck-0v-uOA">
@@ -4129,7 +4141,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="yAS-Mz-nvf">
-                                                            <rect key="frame" x="704.5" y="1" width="58" height="20"/>
+                                                            <rect key="frame" x="705" y="1" width="58" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fb1-7T-jbs">
