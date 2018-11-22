@@ -102,6 +102,7 @@ final class Numbers: SetConfigurations {
     }
 
     init (outputprocess: OutputProcess?) {
+        guard outputprocess != nil else { return }
         self.output = outputprocess!.getOutput()
         self.prepareresult()
     }
