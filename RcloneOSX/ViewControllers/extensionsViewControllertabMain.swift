@@ -74,7 +74,7 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
         self.batchtasks = nil
-        self.setinfonextaction(info: "Estimate", color: .green)
+        self.setinfonextaction(info: "Estimate", color: .gray)
     }
 }
 
@@ -238,12 +238,9 @@ extension ViewControllertabMain: UpdateProgress {
             processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
             processterminationDelegate?.processTermination()
         case .singlequicktask:
-            guard ViewControllerReference.shared.completeoperation != nil else { return }
-            ViewControllerReference.shared.completeoperation!.finalizeScheduledJob(outputprocess: self.outputprocess)
-            // After logging is done set reference to object = nil
-            ViewControllerReference.shared.completeoperation = nil
-            // Kick off next task
-            self.startfirstcheduledtask()
+            self.setinfonextaction(info: "", color: .gray)
+            self.working.stopAnimation(nil)
+            self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: self.outputprocess)
         case .remoteinfotask:
             guard self.configurations!.remoteinfotaskworkqueue != nil else { return }
             self.configurations!.remoteinfotaskworkqueue?.processTermination()
@@ -464,7 +461,7 @@ extension ViewControllertabMain: SingleTaskProgress {
             self.dryRunOrRealRun.textColor = .red
         case .black:
             self.dryRunOrRealRun.textColor = .black
-        case .green:
+        case .gray:
             self.dryRunOrRealRun.textColor = .gray
         }
         self.dryRunOrRealRun.stringValue = info
@@ -595,7 +592,7 @@ extension ViewControllertabMain: NewProfile {
         self.outputbatch = nil
         self.singletask = nil
         self.showrclonecommandmainview()
-        self.setinfonextaction(info: "Estimate", color: .green)
+        self.setinfonextaction(info: "Estimate", color: .gray)
         self.deselect()
         // Read configurations and Scheduledata
         self.configurations = self.createconfigurationsobject(profile: profile)

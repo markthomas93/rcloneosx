@@ -30,7 +30,7 @@ protocol SingleTaskProgress: class {
 
 enum ColorInfo {
     case red
-    case green
+    case gray
     case black
 }
 
@@ -97,10 +97,10 @@ final class SingleTask: SetSchedules, SetConfigurations {
             self.taskDelegate?.setinfonextaction(info: "Abort", color: .red)
         case .empty:
             self.workload = nil
-            self.taskDelegate?.setinfonextaction(info: "Estimate", color: .green)
+            self.taskDelegate?.setinfonextaction(info: "Estimate", color: .gray)
         default:
             self.workload = nil
-            self.taskDelegate?.setinfonextaction(info: "Estimate", color: .green)
+            self.taskDelegate?.setinfonextaction(info: "Estimate", color: .gray)
         }
     }
 
@@ -113,7 +113,7 @@ final class SingleTask: SetSchedules, SetConfigurations {
             // Pop topmost element of work queue
             switch workload.pop() {
             case .estimatesinglerun:
-                self.taskDelegate?.setinfonextaction(info: "Execute", color: .green)
+                self.taskDelegate?.setinfonextaction(info: "Execute", color: .gray)
                 // Stopping the working (estimation) progress indicator
                 self.indicatorDelegate?.stopIndicator()
                 // Getting and setting max file to transfer
