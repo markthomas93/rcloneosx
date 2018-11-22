@@ -98,7 +98,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         if self.version143rclone.state == .on {
             ViewControllerReference.shared.rclone143 = true
         } else {
-            ViewControllerReference.shared.rclone143 = false
+            ViewControllerReference.shared.rclone143 = nil
         }
     }
 
@@ -218,6 +218,8 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         }
         if ViewControllerReference.shared.rclone143 ?? false {
             self.version143rclone.state = .on
+        } else {
+            self.version143rclone.state = .off
         }
     }
 }
