@@ -216,7 +216,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
     func reset() {
         self.outputprocess = nil
         self.setNumbers(output: nil)
-        self.setinfonextaction(info: "Estimate", color: .green)
+        self.setinfonextaction(info: "Estimate", color: .gray)
         self.process = nil
         self.singletask = nil
     }
@@ -291,19 +291,14 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         self.configurations!.getConfigurations()[self.index!].task != ViewControllerReference.shared.check else {
             return
         }
-        let now: Date = Date()
-        let dateformatter = Dateandtime().setDateformat()
-        let task: NSDictionary = [
-            "start": now,
-            "hiddenID": self.hiddenID!,
-            "dateStart": dateformatter.date(from: "01 Jan 1900 00:00")!,
-            "schedule": "manuel"]
-        ViewControllerReference.shared.scheduledTask = task
-        self.configurations!.allowNotifyinMain = false
-        _ = OperationFactory()
-        globalMainQueue.async(execute: { () -> Void in
-            self.mainTableView.reloadData()
-        })
+        self.processtermination = .singlequicktask
+        self.setinfonextaction(info: "Execute", color: .gray)
+        self.working.startAnimation(nil)
+        let arguments = self.configurations!.arguments4rclone(index: self.index!, argtype: .arg)
+        self.outputprocess = OutputProcess()
+        let process = Rclone(arguments: arguments)
+        process.executeProcess(outputprocess: self.outputprocess)
+        self.process = process.getProcess()
     }
 
     // Function for display rclone command
@@ -483,7 +478,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
         }
         self.process = nil
         self.singletask = nil
-        self.setinfonextaction(info: "Estimate", color: .green)
+        self.setinfonextaction(info: "Estimate", color: .gray)
         self.showrclonecommandmainview()
         self.reloadtabledata()
         self.configurations!.allowNotifyinMain = true
