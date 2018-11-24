@@ -72,6 +72,13 @@ final class Userconfiguration {
                 ViewControllerReference.shared.fulllogging = false
             }
         }
+        if let rclone143 = dict.value(forKey: "rclone143") as? Int {
+            if rclone143 == 1 {
+                ViewControllerReference.shared.rclone143 = true
+            } else {
+                ViewControllerReference.shared.rclone143 = nil
+            }
+        }
     }
 
     init (userconfigrcloneOSX: [NSDictionary]) {
