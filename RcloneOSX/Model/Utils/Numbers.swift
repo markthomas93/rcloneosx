@@ -72,7 +72,7 @@ final class Numbers: SetConfigurations {
         let filenumberssplit = transferred[indextransferred-1].components(separatedBy: " ").filter {$0.isEmpty == false}
         let elapstedtimesplit = elapsedtime[indexelapsed-1].components(separatedBy: " ").filter {$0.isEmpty == false}
         if filenumberssplit.count > 1 {
-            if ViewControllerReference.shared.rclone143 {
+            if ViewControllerReference.shared.rclone143 ?? false {
                 // ["Transferred:","5","/","5","100%"]
                 self.transferNum = filenumberssplit[1]
             } else {
