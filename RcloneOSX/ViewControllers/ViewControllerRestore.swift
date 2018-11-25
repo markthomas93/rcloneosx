@@ -109,6 +109,8 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.restorebutton.isEnabled = true
         self.gotit.textColor = .green
         self.gotit.stringValue = "Got it..."
+        self.workqueue = nil
+        self.outputprocess = nil
     }
 
     private func remoterclonesize(input: String) -> Size? {
