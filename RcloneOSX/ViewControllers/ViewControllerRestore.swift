@@ -41,7 +41,6 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
 
     // Close and dismiss view
     @IBAction func close(_ sender: NSButton) {
-        if self.outputprocess != nil { self.abort() }
         if self.restorecompleted == false { self.abort() }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
@@ -109,7 +108,6 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         self.restorebutton.isEnabled = true
         self.gotit.textColor = .green
         self.gotit.stringValue = "Got it..."
-        self.outputprocess = nil
     }
 
     private func remoterclonesize(input: String) -> Size? {
@@ -148,9 +146,15 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.working.startAnimation(nil)
             self.outputprocess = OutputProcess()
             self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
-            self.selecttmptorestore.state = .off
-            _ = self.removework()
-            _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
+            if ViewControllerReference.shared.restorePath != nil {
+                self.selecttmptorestore.state = .on
+                _ = self.removework()
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: true)
+            } else {
+                self.selecttmptorestore.state = .off
+                _ = self.removework()
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
+            }
         }
     }
 
@@ -227,7 +231,6 @@ extension ViewControllerRestore: UpdateProgress {
             self.restorebutton.isEnabled = true
             self.gotit.textColor = .green
             self.gotit.stringValue = "Got it..."
-            self.outputprocess = nil
         }
     }
 
