@@ -38,10 +38,11 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     weak var sendprocess: Sendprocessreference?
     var diddissappear: Bool = false
     var workqueue: [Work]?
+    var abortandclose: Bool = true
 
     // Close and dismiss view
     @IBAction func close(_ sender: NSButton) {
-        if self.restorecompleted == false { self.abort() }
+        if self.abortandclose { self.abort() }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
@@ -49,6 +50,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         guard self.tmprestore.stringValue.isEmpty == false else { return }
         if let index = self.index() {
             self.selecttmptorestore.isEnabled = false
+            self.abortandclose = true
             self.gotit.textColor = .white
             self.gotit.stringValue = "Getting info, please wait..."
             self.working.startAnimation(nil)
@@ -74,6 +76,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         if answer {
             if let index = self.index() {
                 self.restorebutton.isEnabled = false
+                self.abortandclose = true
                 self.initiateProgressbar()
                 self.outputprocess = OutputProcess()
                 self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
@@ -208,6 +211,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
 
 extension ViewControllerRestore: UpdateProgress {
     func processTermination() {
+        self.abortandclose = false
         switch self.removework() ?? .setremotenumbers {
         case .getremotenumbers:
             self.setNumbers(outputprocess: self.outputprocess)
