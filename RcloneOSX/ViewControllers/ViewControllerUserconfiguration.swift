@@ -100,6 +100,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         } else {
             ViewControllerReference.shared.rclone143 = nil
         }
+        self.setdirty()
     }
 
     private func setdirty() {

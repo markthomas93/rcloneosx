@@ -34,14 +34,13 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     @IBOutlet weak var selecttmptorestore: NSButton!
 
     var outputprocess: OutputProcess?
-    var restorecompleted: Bool?
+    var restorecompleted: Bool = false
     weak var sendprocess: Sendprocessreference?
     var diddissappear: Bool = false
     var workqueue: [Work]?
 
     // Close and dismiss view
     @IBAction func close(_ sender: NSButton) {
-        if self.workqueue != nil && self.outputprocess != nil { self.abort() }
         if self.restorecompleted == false { self.abort() }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
@@ -147,9 +146,15 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
             self.working.startAnimation(nil)
             self.outputprocess = OutputProcess()
             self.sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
-            self.selecttmptorestore.state = .off
-            _ = self.removework()
-            _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
+            if ViewControllerReference.shared.restorePath != nil {
+                self.selecttmptorestore.state = .on
+                _ = self.removework()
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: true)
+            } else {
+                self.selecttmptorestore.state = .off
+                _ = self.removework()
+                _ = RestoreTask(index: index, outputprocess: self.outputprocess, dryrun: true, tmprestore: false)
+            }
         }
     }
 
@@ -203,7 +208,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
 
 extension ViewControllerRestore: UpdateProgress {
     func processTermination() {
-        switch self.removework()! {
+        switch self.removework() ?? .setremotenumbers {
         case .getremotenumbers:
             self.setNumbers(outputprocess: self.outputprocess)
             guard ViewControllerReference.shared.restorePath != nil else { return }

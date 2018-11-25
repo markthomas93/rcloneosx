@@ -29,6 +29,7 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         var rclonePath: String?
         var restorePath: String?
         var marknumberofdayssince: String?
+        var rclone143: Int?
 
         if ViewControllerReference.shared.rcloneopt {
             optionalpathrclone = 1
@@ -56,7 +57,11 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
         if ViewControllerReference.shared.restorePath != nil {
             restorePath = ViewControllerReference.shared.restorePath!
         }
-
+        if ViewControllerReference.shared.rclone143 != nil {
+            rclone143 = 1
+        } else {
+            rclone143 = 0
+        }
         var array = [NSDictionary]()
         marknumberofdayssince = String(ViewControllerReference.shared.marknumberofdayssince)
         let dict: NSMutableDictionary = [
@@ -64,7 +69,8 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
             "detailedlogging": detailedlogging! as Int,
             "minimumlogging": minimumlogging! as Int,
             "fulllogging": fulllogging! as Int,
-            "marknumberofdayssince": marknumberofdayssince ?? "5.0"]
+            "marknumberofdayssince": marknumberofdayssince ?? "5.0",
+            "rclone143": rclone143! as Int]
 
         if rclonePath != nil {
             dict.setObject(rclonePath!, forKey: "rclonePath" as NSCopying)
