@@ -217,9 +217,6 @@ extension ViewControllerRestore: UpdateProgress {
         switch self.removework() ?? .setremotenumbers {
         case .getremotenumbers:
             self.setNumbers(outputprocess: self.outputprocess)
-            guard ViewControllerReference.shared.restorePath != nil else { return }
-            self.selecttmptorestore.isEnabled = true
-            // And then collect remote numbers
             _ = getremotenumbers()
         case .setremotenumbers:
             self.setremoteinfo()
