@@ -112,7 +112,7 @@ class ViewControllerRemoteInfo: NSViewController, SetDismisser, Abort {
             return "Loaded cached data..."
         } else {
             let max = self.remoteinfotask?.maxnumber ?? 0
-            return "Number of tasks to estimate: " + String(describing: max) + ", this may take time..."
+            return "Estimating one task twice, number of estimats: " + String(describing: max) + " - this may take time..."
         }
     }
 
