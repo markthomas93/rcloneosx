@@ -212,7 +212,6 @@ extension ViewControllerRemoteInfo: NSTableViewDelegate, Attributedestring {
 
 extension ViewControllerRemoteInfo: Reloadandrefresh {
 
-    // Updates tableview according to progress of batch
     func reloadtabledata() {
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
