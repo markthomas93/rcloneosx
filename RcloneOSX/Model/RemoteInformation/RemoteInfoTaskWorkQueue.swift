@@ -16,6 +16,8 @@ protocol SetRemoteInfo: class {
 
 class RemoteInfoTaskWorkQueue: SetConfigurations {
     // (hiddenID, index)
+    // row 0, 2, 4 number of files
+    // row 1, 3, 5 remote size
     typealias Row = (Int, Int)
     var stackoftasktobeestimated: [Row]?
     var outputprocess: OutputProcess?
@@ -25,9 +27,11 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     weak var enablebackupbuttonDelegate: EnableQuicbackupButton?
     weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
     var index: Int?
+    var lastindex: Int?
     var maxnumber: Int?
     var count: Int?
     var inbatch: Bool?
+    var estimatefiles: Bool = true
 
     private func prepareandstartexecutetasks() {
         self.stackoftasktobeestimated = nil
@@ -37,8 +41,10 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
                 if self.inbatch! {
                     if self.configurations!.getConfigurations()[i].batch == "yes" {
                         self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
+                        self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
                     }
                 } else {
+                    self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
                     self.stackoftasktobeestimated?.append((self.configurations!.getConfigurations()[i].hiddenID, i))
                 }
             }
@@ -50,6 +56,7 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         guard self.stackoftasktobeestimated!.count > 0 else { return }
         self.outputprocess = OutputProcess()
         self.index = self.stackoftasktobeestimated?.remove(at: 0).1
+        self.estimatefiles = true
         if self.stackoftasktobeestimated?.count == 0 {
             self.stackoftasktobeestimated = nil
         }
@@ -59,29 +66,46 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
 
     func processTermination() {
         self.count = self.stackoftasktobeestimated?.count
-        let record = RemoteInfoTask(outputprocess: self.outputprocess).record()
-        record.setValue(self.configurations?.getConfigurations()[self.index!].localCatalog, forKey: "localCatalog")
-        record.setValue(self.configurations?.getConfigurations()[self.index!].offsiteCatalog, forKey: "offsiteCatalog")
-        record.setValue(self.configurations?.getConfigurations()[self.index!].hiddenID, forKey: "hiddenID")
-        if self.configurations?.getConfigurations()[self.index!].offsiteServer.isEmpty == true {
-            record.setValue("localhost", forKey: "offsiteServer")
+        if self.estimatefiles {
+            let record = RemoteInfoTask(outputprocess: self.outputprocess).record()
+            record.setValue(self.configurations?.getConfigurations()[self.index!].localCatalog, forKey: "localCatalog")
+            record.setValue(self.configurations?.getConfigurations()[self.index!].offsiteCatalog, forKey: "offsiteCatalog")
+            record.setValue(self.configurations?.getConfigurations()[self.index!].hiddenID, forKey: "hiddenID")
+            if self.configurations?.getConfigurations()[self.index!].offsiteServer.isEmpty == true {
+                record.setValue("localhost", forKey: "offsiteServer")
+            } else {
+                record.setValue(self.configurations?.getConfigurations()[self.index!].offsiteServer, forKey: "offsiteServer")
+            }
+            self.records?.append(record)
+            self.configurations?.estimatedlist?.append(record)
         } else {
-            record.setValue(self.configurations?.getConfigurations()[self.index!].offsiteServer, forKey: "offsiteServer")
+            guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
+            let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
+            guard size != nil else { return }
+            NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal)
+            let totalNumber = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
+            let totalNumberSizebytes = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
+            let index = self.records!.count - 1
+            self.records![index].setValue(totalNumber, forKey: "totalNumber")
+            self.records![index].setValue(totalNumberSizebytes, forKey: "totalNumberSizebytes")
         }
-        self.records?.append(record)
-        self.configurations?.estimatedlist?.append(record)
         self.updateprogressDelegate?.processTermination()
         guard self.stackoftasktobeestimated != nil else {
             self.startstopProgressIndicatorDelegate?.stop()
             return
         }
-        self.outputprocess = nil
         self.outputprocess = OutputProcess()
         self.index = self.stackoftasktobeestimated?.remove(at: 0).1
         if self.stackoftasktobeestimated?.count == 0 {
             self.stackoftasktobeestimated = nil
         }
-        _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
+        if self.estimatefiles {
+            self.estimatefiles = false
+            _ = RcloneSize(index: self.index!, outputprocess: self.outputprocess)
+        } else {
+            self.estimatefiles = true
+            _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
+        }
     }
 
     func setbackuplist(list: [NSMutableDictionary]) {
@@ -139,6 +163,12 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         self.enablebackupbuttonDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.reloadtableDelegate?.reloadtabledata()
         self.enablebackupbuttonDelegate?.enablequickbackupbutton()
+    }
+
+    private func remoterclonesize(input: String) -> Size? {
+        let data: Data = input.data(using: String.Encoding.utf8)!
+        guard let size = try? JSONDecoder().decode(Size.self, from: data) else { return nil}
+        return size
     }
 
     init(inbatch: Bool) {
