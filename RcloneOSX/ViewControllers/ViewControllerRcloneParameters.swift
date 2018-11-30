@@ -22,7 +22,7 @@ protocol GetSelecetedIndex: class {
     func getindex() -> Int?
 }
 
-class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDismisser, GetIndex {
+class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDismisser, Index {
 
     var storageapi: PersistentStorageAPI?
     // Object for calculating rclone parameters

@@ -22,9 +22,9 @@ final class RcloneVersionString: ProcessCmd {
                 guard outputprocess.getOutput()!.count > 0 else { return }
                 ViewControllerReference.shared.rcloneversionshort = outputprocess.getOutput()![0]
                 ViewControllerReference.shared.rcloneversionstring = outputprocess.getOutput()!.joined(separator: "\n")
-                weak var shortstringDelegate: RcloneChanged?
+                weak var shortstringDelegate: RcloneIsChanged?
                 shortstringDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                shortstringDelegate?.rclonechanged()
+                shortstringDelegate?.rcloneischanged()
             }
         }
     }

@@ -12,7 +12,7 @@ import Foundation
 // Reading userconfiguration from file into rcloneOSX
 final class Userconfiguration {
 
-    weak var rclonechangedDelegate: RcloneChanged?
+    weak var rclonechangedDelegate: RcloneIsChanged?
 
     private func readUserconfiguration(dict: NSDictionary) {
         // Detailed logging
@@ -90,7 +90,7 @@ final class Userconfiguration {
         }
         // If userconfiguration is read from disk update info in main view
         self.rclonechangedDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-        self.rclonechangedDelegate?.rclonechanged()
+        self.rclonechangedDelegate?.rcloneischanged()
         // Check for rclone
         _ = Verifyrclonepath().verifyrclonepath()
         _ = RcloneVersionString()

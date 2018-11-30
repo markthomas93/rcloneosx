@@ -254,42 +254,14 @@ extension Deselect {
     }
 }
 
-// Protocol for sending selected index in tableView
-// The protocol is implemented in ViewControllertabMain
-protocol GetIndex: class {
-    var getindexDelegateMain: GetSelecetedIndex? { get }
+protocol Index {
+     func index() -> Int?
 }
 
-extension GetIndex {
-    weak var getindexDelegateMain: GetSelecetedIndex? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-    }
-
+extension Index {
     func index() -> Int? {
-        return self.getindexDelegateMain?.getindex()
-    }
-}
-
-protocol Coloractivetask {
-    var colorindex: Int? { get }
-}
-
-extension Coloractivetask {
-
-    var colorindex: Int? {
-        return self.color()
-    }
-
-    func color() -> Int? {
-        if let dict: NSDictionary = ViewControllerReference.shared.scheduledTask {
-            if let hiddenID: Int = dict.value(forKey: "hiddenID") as? Int {
-                return hiddenID
-            } else {
-                return nil
-            }
-        } else {
-            return nil
-        }
+        let view = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        return view?.getindex()
     }
 }
 
@@ -306,86 +278,70 @@ extension Delay {
     }
 }
 
-// Protocol for aborting task
-protocol AbortOperations: class {
-    func abortOperations()
-}
-
-protocol AbortTask {
-    var abortDelegate: AbortOperations? { get }
+protocol Abort {
     func abort()
 }
 
-extension AbortTask {
-    weak var abortDelegate: AbortOperations? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-    }
-
+extension Abort {
     func abort() {
-        self.abortDelegate?.abortOperations()
+        let view = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        view?.abortOperations()
     }
 }
 
-protocol Information: class {
-    func getInformation () -> [String]
+protocol GetOutput: class {
+    func getoutput () -> [String]
 }
 
-protocol GetInformation {
-    var informationDelegateMain: Information? {get}
-    var informationDelegateCopyFiles: Information? {get}
+protocol OutPut {
+    var informationDelegateMain: GetOutput? {get}
+    var informationDelegateCopyFiles: GetOutput? {get}
 }
 
-extension GetInformation {
-    weak var informationDelegateMain: Information? {
+extension OutPut {
+    weak var informationDelegateMain: GetOutput? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-    weak var informationDelegateCopyFiles: Information? {
+    weak var informationDelegateCopyFiles: GetOutput? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
     }
 
     func getinfo(viewcontroller: ViewController) -> [String] {
         if viewcontroller == .vctabmain {
-            return self.informationDelegateMain!.getInformation()
+            return self.informationDelegateMain!.getoutput()
         } else {
-            return self.informationDelegateCopyFiles!.getInformation()
+            return self.informationDelegateCopyFiles!.getoutput()
         }
     }
 }
-// Protocol for doing updates when optional path for rclone is changed
-// or user enable or disable doubleclick to execte
-protocol RcloneChanged: class {
-    func rclonechanged()
+
+protocol RcloneIsChanged: class {
+    func rcloneischanged()
 }
 
 protocol NewRclone {
-    var newRcloneDelegate: RcloneChanged? {get}
+    func newrclone()
 }
 
 extension NewRclone {
-    weak var newRcloneDelegate: RcloneChanged? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-    }
-
     func newrclone() {
-        self.newRcloneDelegate?.rclonechanged()
+        let view = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+        view?.rcloneischanged()
     }
 }
 
 protocol TemporaryRestorePath: class {
-    func temporaryrestorepathchanged()
+    func temporaryrestorepath()
 }
 
-protocol NewTemporaryRestorePath {
-    var newTemporaryPathDelegate: TemporaryRestorePath? { get }
+protocol ChangeTemporaryRestorePath {
+    func changetemporaryrestorepath()
 }
 
-extension NewTemporaryRestorePath {
-    weak var newTemporaryPathDelegate: TemporaryRestorePath? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
-    }
-
-    func newtemporarypathrestore() {
-        self.newTemporaryPathDelegate?.temporaryrestorepathchanged()
+extension ChangeTemporaryRestorePath {
+    func changetemporaryrestorepath() {
+        let view = ViewControllerReference.shared.getvcref(viewcontroller: .vccopyfiles) as? ViewControllerCopyFiles
+        view?.temporaryrestorepath()
     }
 }
 

@@ -33,7 +33,7 @@ protocol ViewOutputDetails: class {
     func disableappend()
 }
 
-class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractivetask, VcMain, Fileerrormessage, Remoterclonesize {
+class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fileerrormessage, Remoterclonesize {
 
     // Configurations object
     var configurations: Configurations?
@@ -360,7 +360,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, Coloractiv
                 self.mainTableView.reloadData()
             })
         }
-        self.rclonechanged()
+        self.rcloneischanged()
         self.displayProfile()
         self.readyforexecution = true
         if self.dateandtime == nil { self.dateandtime = Dateandtime()}

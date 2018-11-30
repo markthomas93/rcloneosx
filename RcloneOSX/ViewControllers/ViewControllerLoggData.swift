@@ -15,7 +15,7 @@ protocol ReadLoggdata: class {
     func readloggdata()
 }
 
-class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, GetIndex {
+class ViewControllerLoggData: NSViewController, SetConfigurations, SetSchedules, Delay, Index {
 
     private var scheduleloggdata: ScheduleLoggData?
     private var row: NSDictionary?

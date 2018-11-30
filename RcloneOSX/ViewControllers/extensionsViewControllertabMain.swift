@@ -79,9 +79,9 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
 }
 
 // Get output from rclone command
-extension ViewControllertabMain: Information {
+extension ViewControllertabMain: GetOutput {
     // Get information from rclone output.
-    func getInformation() -> [String] {
+    func getoutput() -> [String] {
         if self.outputbatch != nil {
             return self.outputbatch!.getOutput()
         } else if self.outputprocess != nil {
@@ -161,9 +161,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
 }
 
 // rclone path is changed, update displayed rclone command
-extension ViewControllertabMain: RcloneChanged {
+extension ViewControllertabMain: RcloneIsChanged {
     // If row is selected an update rclone command in view
-    func rclonechanged() {
+    func rcloneischanged() {
         // Update rclone command in display
         self.showrclonecommandmainview()
         self.setinfoaboutrclone()
@@ -381,7 +381,7 @@ extension ViewControllertabMain: Fileerror {
 }
 
 // Abort task from progressview
-extension ViewControllertabMain: AbortOperations {
+extension ViewControllertabMain: Abort {
     // Abort any task, either single- or batch task
     func abortOperations() {
         // Terminates the running process

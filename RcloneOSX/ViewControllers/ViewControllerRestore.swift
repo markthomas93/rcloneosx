@@ -17,7 +17,7 @@ enum Work {
     case restore
 }
 
-class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, GetIndex, AbortTask {
+class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, Index, Abort {
 
     @IBOutlet weak var localCatalog: NSTextField!
     @IBOutlet weak var offsiteCatalog: NSTextField!

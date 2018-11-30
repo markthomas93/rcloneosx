@@ -14,7 +14,7 @@ protocol OperationChanged: class {
     func operationsmethod()
 }
 
-class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay, NewTemporaryRestorePath {
+class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay, ChangeTemporaryRestorePath {
 
     var storageapi: PersistentStorageAPI?
     var dirty: Bool = false
@@ -54,7 +54,7 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             if self.reload {
                 self.reloadconfigurationsDelegate?.createandreloadconfigurations()
             }
-            self.newtemporarypathrestore()
+            self.changetemporaryrestorepath()
 
         }
         if (self.presenting as? ViewControllertabMain) != nil {
