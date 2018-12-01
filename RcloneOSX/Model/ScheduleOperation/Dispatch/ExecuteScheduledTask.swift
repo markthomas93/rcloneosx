@@ -17,7 +17,7 @@ import Foundation
 // is set in the static object. The finalize object is invoked
 // when the job discover (observs) the termination of the process.
 
-class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledTask {
+final class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledTask {
 
     let outputprocess = OutputProcess()
     var arguments: [String]?
@@ -42,16 +42,17 @@ class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledTask {
                     arguments = RcloneProcessArguments().argumentsRclone(config!, dryRun: false, forDisplay: false)
                     // Setting reference to finalize the job, finalize job is done when rclonetask ends (in process termination)
                     ViewControllerReference.shared.completeoperation = CompleteScheduledOperation(dict: dict)
+                    if self.arguments != nil {
+                        _ = Notifications().showNotification(message: "A scheduled task is starting...")
+                        weak var sendprocess: Sendprocessreference?
+                        sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                        let process = RcloneScheduled(arguments: self.arguments)
                     globalMainQueue.async(execute: {
-                        if self.arguments != nil {
-                            weak var sendprocess: Sendprocessreference?
-                            sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                            let process = RcloneScheduled(arguments: self.arguments)
-                            process.executeProcess(outputprocess: self.outputprocess)
-                            sendprocess?.sendprocessreference(process: process.getProcess())
-                            sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
-                        }
-                    })
+                        process.executeProcess(outputprocess: self.outputprocess)
+                        sendprocess?.sendprocessreference(process: process.getProcess())
+                        sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                        })
+                    }
                 } else {
                     _ = Notifications().showNotification(message: "Scheduled backup did not execute")
                 }
