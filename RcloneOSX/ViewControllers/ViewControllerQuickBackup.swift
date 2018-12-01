@@ -25,13 +25,11 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
     @IBOutlet weak var mainTableView: NSTableView!
     @IBOutlet weak var abortbutton: NSButton!
     @IBOutlet weak var completed: NSTextField!
-    @IBOutlet weak var working: NSProgressIndicator!
 
     // Either abort or close
     @IBAction func abort(_ sender: NSButton) {
         self.quickbackup = nil
         self.abort()
-        self.working.stopAnimation(nil)
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
@@ -47,7 +45,6 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
         ViewControllerReference.shared.setvcref(viewcontroller: .vcquickbackup, nsviewcontroller: self)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        self.working.usesThreadedAnimation = true
         self.loadtasks()
     }
 
@@ -63,8 +60,6 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
-        self.working.isHidden = false
-        self.working.startAnimation(nil)
     }
 
     override func viewDidDisappear() {
@@ -139,7 +134,6 @@ extension ViewControllerQuickBackup: Reloadandrefresh {
 extension ViewControllerQuickBackup: CloseViewError {
     func closeerror() {
         self.quickbackup = nil
-        self.working.stopAnimation(nil)
         self.abort()
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
@@ -153,7 +147,6 @@ extension ViewControllerQuickBackup: UpdateProgress {
         guard self.quickbackup?.stackoftasktobeexecuted != nil else {
             self.completed.isHidden = false
             self.completed.textColor = .green
-            self.working.stopAnimation(nil)
             return
         }
     }
