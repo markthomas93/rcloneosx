@@ -30,29 +30,24 @@ final class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledT
                 let getconfigurations: [Configuration]? = configurations?.getConfigurations()
                 guard getconfigurations != nil else { return }
                 let configArray = getconfigurations!.filter({return ($0.hiddenID == hiddenID)})
-                guard configArray.count > 0 else {
-                    self.notify(config: nil)
-                    return
-                }
+                guard configArray.count > 0 else { return }
                 config = configArray[0]
-                // Inform and notify
                 self.scheduleJob?.start()
-                self.notify(config: config)
                 if hiddenID >= 0 && config != nil {
                     arguments = RcloneProcessArguments().argumentsRclone(config!, dryRun: false, forDisplay: false)
                     // Setting reference to finalize the job, finalize job is done when rclonetask ends (in process termination)
                     ViewControllerReference.shared.completeoperation = CompleteScheduledOperation(dict: dict)
-                    if self.arguments != nil {
-                        _ = Notifications().showNotification(message: "A scheduled task is starting...")
-                        weak var sendprocess: Sendprocessreference?
-                        sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-                        let process = RcloneScheduled(arguments: self.arguments)
                     globalMainQueue.async(execute: {
-                        process.executeProcess(outputprocess: self.outputprocess)
-                        sendprocess?.sendprocessreference(process: process.getProcess())
-                        sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
-                        })
-                    }
+                        if self.arguments != nil {
+                            _ = Notifications().showNotification(message: "A scheduled task is starting...")
+                            weak var sendprocess: Sendprocessreference?
+                            sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+                            let process = RcloneScheduled(arguments: self.arguments)
+                            process.executeProcess(outputprocess: self.outputprocess)
+                            sendprocess?.sendprocessreference(process: process.getProcess())
+                            sendprocess?.sendoutputprocessreference(outputprocess: self.outputprocess)
+                        }
+                     })
                 } else {
                     _ = Notifications().showNotification(message: "Scheduled backup did not execute")
                 }

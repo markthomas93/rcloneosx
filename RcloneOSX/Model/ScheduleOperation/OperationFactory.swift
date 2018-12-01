@@ -35,7 +35,6 @@ extension NextTask {
 protocol ScheduledTaskWorking: class {
     func start()
     func completed()
-    func notifyScheduledTask(config: Configuration?)
 }
 
 protocol SetScheduledTask {
@@ -45,10 +44,6 @@ protocol SetScheduledTask {
 extension SetScheduledTask {
     weak var scheduleJob: ScheduledTaskWorking? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-    }
-
-    func notify(config: Configuration?) {
-        self.scheduleJob?.notifyScheduledTask(config: config)
     }
 }
 

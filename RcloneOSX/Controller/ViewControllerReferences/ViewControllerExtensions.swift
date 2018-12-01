@@ -54,7 +54,6 @@ protocol VcMain {
     var newVersionViewController: NSViewController? { get }
     var viewControllerProfile: NSViewController? { get }
     var editViewController: NSViewController? { get }
-    var viewControllerScheduledBackupInWork: NSViewController? { get }
     var viewControllerAbout: NSViewController? { get }
     var viewControllerScheduleDetails: NSViewController? { get }
 }
@@ -117,13 +116,6 @@ extension VcMain {
     // self.presentViewControllerAsSheet(self.ViewControllerProfile)
     var viewControllerProfile: NSViewController? {
         return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ProfileID"))
-            as? NSViewController)!
-    }
-
-    // ScheduledBackupInWorkID
-    // self.presentViewControllerAsSheet(self.ViewControllerScheduledBackupInWork)
-    var viewControllerScheduledBackupInWork: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ScheduledBackupInWorkID"))
             as? NSViewController)!
     }
 
