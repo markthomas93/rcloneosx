@@ -4033,10 +4033,6 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="MhV-5x-mj6">
-                                <rect key="frame" x="725" y="23" width="16" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </progressIndicator>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jTk-bP-wIM">
                                 <rect key="frame" x="18" y="23" width="192" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -4052,7 +4048,6 @@ DQ
                         <outlet property="abortbutton" destination="ht9-Q0-cvW" id="o98-ty-L8r"/>
                         <outlet property="completed" destination="jTk-bP-wIM" id="3pg-Ks-YAt"/>
                         <outlet property="mainTableView" destination="JWD-2N-h5C" id="Ixd-2o-MSP"/>
-                        <outlet property="working" destination="MhV-5x-mj6" id="Nxu-mV-NdA"/>
                     </connections>
                 </viewController>
                 <customObject id="FYl-6m-lvB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

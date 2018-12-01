@@ -39,7 +39,7 @@ final class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledT
                     ViewControllerReference.shared.completeoperation = CompleteScheduledOperation(dict: dict)
                     globalMainQueue.async(execute: {
                         if self.arguments != nil {
-                            _ = Notifications().showNotification(message: "A scheduled task is starting...")
+                            _ = Notifications().showNotification(message: "A scheduled or quick backup task is starting...")
                             weak var sendprocess: Sendprocessreference?
                             sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
                             let process = RcloneScheduled(arguments: self.arguments)
