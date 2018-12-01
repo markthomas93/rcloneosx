@@ -193,7 +193,7 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
     }
 
     init () {
-        // Getting the Schedule and expanding all the jobs
+        ViewControllerReference.shared.previousnextscheduledTask = ViewControllerReference.shared.nextscheduledTask
         if self.schedules != nil {
             self.scheduleConfiguration = self.schedules!.getSchedule()
             self.setallscheduledtasksNSDictionary()
