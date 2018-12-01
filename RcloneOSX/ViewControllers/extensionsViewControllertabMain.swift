@@ -120,11 +120,10 @@ extension ViewControllertabMain: GetSelecetedIndex {
 // A scheduled task is executed
 extension ViewControllertabMain: ScheduledTaskWorking {
     func start() {
+        self.processtermination = .quicktask
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = true
-            if self.processtermination == .singlequicktask {
-                self.scheduledJobworking.startAnimation(nil)
-            }
+            self.scheduledJobworking.startAnimation(nil)
             self.executing.isHidden = false
         })
     }
@@ -133,30 +132,9 @@ extension ViewControllertabMain: ScheduledTaskWorking {
         globalMainQueue.async(execute: {() -> Void in
             self.scheduledJobInProgress = false
             self.info(num: 1)
-            if self.processtermination == .singlequicktask {
-                self.scheduledJobworking.stopAnimation(nil)
-            }
+            self.scheduledJobworking.stopAnimation(nil)
             self.executing.isHidden = true
         })
-    }
-
-    func notifyScheduledTask(config: Configuration?) {
-        if self.configurations!.allowNotifyinMain {
-            if config == nil {
-                globalMainQueue.async(execute: {() -> Void in
-                    Alerts.showInfo("Scheduled backup DID not execute?")
-                })
-            } else {
-                if self.processtermination == nil {
-                    self.processtermination = .singlequicktask
-                }
-                if self.processtermination! != .quicktask {
-                    globalMainQueue.async(execute: {() -> Void in
-                        self.presentViewControllerAsSheet(self.viewControllerScheduledBackupInWork!)
-                    })
-                }
-            }
-        }
     }
 }
 

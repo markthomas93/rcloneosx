@@ -274,7 +274,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     }
 
     @IBAction func executetasknow(_ sender: NSButton) {
-        self.processtermination = .singlequicktask
         guard self.scheduledJobInProgress == false else {
             self.info(num: 4)
             return
