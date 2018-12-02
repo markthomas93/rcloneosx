@@ -82,6 +82,7 @@ extension ViewControllerEstimatingTasks: Updateestimating {
     }
 
     func updateProgressbar() {
-        self.progress.doubleValue = Double(self.calculatedNumberOfFiles! - self.countDelegate!.inprogressCount())
+        let count = self.countDelegate?.inprogressCount() ?? 0
+        self.progress.doubleValue = Double(self.calculatedNumberOfFiles! - count)
     }
 }
