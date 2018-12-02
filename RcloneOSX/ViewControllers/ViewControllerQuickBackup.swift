@@ -16,7 +16,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
     var row: Int?
     var filterby: Sortandfilter?
     var quickbackup: QuickBackup?
-    var executing: Bool = false
+    var executing: Bool = true
     weak var inprogresscountDelegate: Count?
     var max: Double?
     var diddissappear: Bool = false
@@ -25,11 +25,15 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
     @IBOutlet weak var mainTableView: NSTableView!
     @IBOutlet weak var abortbutton: NSButton!
     @IBOutlet weak var completed: NSTextField!
+    @IBOutlet weak var working: NSProgressIndicator!
 
     // Either abort or close
     @IBAction func abort(_ sender: NSButton) {
-        self.quickbackup = nil
-        self.abort()
+        if self.executing {
+            self.quickbackup = nil
+            self.abort()
+            self.working.stopAnimation(nil)
+        }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
@@ -45,6 +49,7 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
         ViewControllerReference.shared.setvcref(viewcontroller: .vcquickbackup, nsviewcontroller: self)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
+        self.working.usesThreadedAnimation = true
         self.loadtasks()
     }
 
@@ -56,10 +61,19 @@ class ViewControllerQuickBackup: NSViewController, SetDismisser, Abort, Delay {
             })
             return
         }
+        guard self.quickbackup?.sortedlist?.count ?? 0 > 0 else {
+            self.completed.isHidden = false
+            self.completed.textColor = .green
+            self.completed.stringValue = "There seems to be nothing to do..."
+            self.executing = false
+            return
+        }
         self.quickbackup?.prepareandstartexecutetasks()
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
+        self.working.isHidden = false
+        self.working.startAnimation(nil)
     }
 
     override func viewDidDisappear() {
@@ -135,6 +149,7 @@ extension ViewControllerQuickBackup: CloseViewError {
     func closeerror() {
         self.quickbackup = nil
         self.abort()
+        self.working.stopAnimation(nil)
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 }
@@ -147,6 +162,8 @@ extension ViewControllerQuickBackup: UpdateProgress {
         guard self.quickbackup?.stackoftasktobeexecuted != nil else {
             self.completed.isHidden = false
             self.completed.textColor = .green
+            self.working.stopAnimation(nil)
+            self.executing = false
             return
         }
     }

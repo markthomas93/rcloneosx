@@ -148,9 +148,7 @@ class QuickBackup: SetConfigurations {
         self.estimatedlist = self.configurations?.estimatedlist
         if self.estimatedlist != nil {
             self.sortedlist = self.configurations?.getConfigurationsDataSourcecountBackupOnly()?.filter({($0.value(forKey: "selectCellID") as? Int) == 1})
-            if self.sortedlist!.count == 0 {
-                self.sortedlist = self.configurations?.getConfigurationsDataSourcecountBackupOnly()
-            }
+            guard self.sortedlist!.count > 0 else { return }
         } else {
             self.sortedlist = self.configurations?.getConfigurationsDataSourcecountBackupOnly()
         }
