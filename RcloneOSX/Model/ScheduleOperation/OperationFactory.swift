@@ -47,12 +47,13 @@ extension SetScheduledTask {
     }
 }
 
-protocol SecondsBeforeStart {
-    func secondsbeforestart() -> Double
-}
-
 protocol GetsortedanexpandedObject: class {
     func getsortedanexpandedObject() -> ScheduleSortedAndExpand?
+}
+
+protocol SecondsBeforeStart {
+    func secondsbeforestart() -> Double
+    func nextsecondsbeforestart() -> Double
 }
 
 extension SecondsBeforeStart {
@@ -69,6 +70,14 @@ extension SecondsBeforeStart {
         return secondsToWait ?? 0
     }
 
+    func nextsecondsbeforestart() -> Double {
+        var secondsToWait: Double?
+        if let dict = ViewControllerReference.shared.previousnextscheduledTask {
+            let dateStart: Date = (dict.value(forKey: "start") as? Date)!
+            secondsToWait = Dateandtime().timeDoubleSeconds(dateStart, enddate: nil)
+        }
+        return secondsToWait ?? 0
+    }
 }
 
 enum OperationObject {

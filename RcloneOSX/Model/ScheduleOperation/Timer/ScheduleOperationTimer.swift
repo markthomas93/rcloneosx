@@ -38,6 +38,14 @@ final class ScheduleOperationTimer: SetSchedules, SecondsBeforeStart {
     init() {
         if self.schedules != nil {
             let seconds = self.secondsbeforestart()
+            let nextseconds = self.nextsecondsbeforestart()
+            guard nextseconds >= 0 else {
+                _ = Notifications().showNotification(message: "Ooops, seems to start a passed task...")
+                ViewControllerReference.shared.scheduledTask = ViewControllerReference.shared.previousnextscheduledTask
+                self.timerTaskWaiting = Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(executetask),
+                                                             userInfo: nil, repeats: false)
+                return
+            }
             guard seconds > 0 else { return }
             self.timerTaskWaiting = Timer.scheduledTimer(timeInterval: seconds, target: self, selector: #selector(executetask),
                                                          userInfo: nil, repeats: false)

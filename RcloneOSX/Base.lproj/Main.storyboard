@@ -1606,7 +1606,7 @@ DQ
                                 </tableHeaderView>
                             </scrollView>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WAu-vl-Tkb">
-                                <rect key="frame" x="18" y="25" width="184" height="17"/>
+                                <rect key="frame" x="18" y="25" width="308" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Estimating task, please wait..." id="6Ak-ut-zqL">
                                     <font key="font" metaFont="system"/>

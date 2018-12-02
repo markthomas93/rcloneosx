@@ -41,6 +41,9 @@ class ViewControllerReference {
     var dispatchTaskWaiting: DispatchWorkItem?
     // Temporary storage of the first scheduled task
     var scheduledTask: NSDictionary?
+    // second scheduled task
+    var nextscheduledTask: NSDictionary?
+    var previousnextscheduledTask: NSDictionary?
     // Download URL if new version is avaliable
     var URLnewVersion: String?
     // True if rclone in /usr/local/bin
