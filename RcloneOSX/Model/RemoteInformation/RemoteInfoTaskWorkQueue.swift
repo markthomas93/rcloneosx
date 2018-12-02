@@ -34,7 +34,6 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     var estimatefiles: Bool = true
 
     private func prepareandstartexecutetasks() {
-        self.stackoftasktobeestimated = nil
         self.stackoftasktobeestimated = [Row]()
         for i in 0 ..< self.configurations!.getConfigurations().count {
             if self.configurations!.getConfigurations()[i].task == ViewControllerReference.shared.sync {
@@ -65,6 +64,10 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     }
 
     func processTermination() {
+        guard self.inbatch == false else {
+            self.processTermination_inbatch()
+            return
+        }
         self.count = self.stackoftasktobeestimated?.count
         if self.estimatefiles {
             let record = RemoteInfoTask(outputprocess: self.outputprocess).record()
@@ -108,6 +111,32 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         }
     }
 
+    func processTermination_inbatch() {
+        self.count = self.stackoftasktobeestimated?.count
+        let record = RemoteInfoTask(outputprocess: self.outputprocess).record()
+        record.setValue(self.configurations?.getConfigurations()[self.index!].localCatalog, forKey: "localCatalog")
+        record.setValue(self.configurations?.getConfigurations()[self.index!].offsiteCatalog, forKey: "offsiteCatalog")
+        record.setValue(self.configurations?.getConfigurations()[self.index!].hiddenID, forKey: "hiddenID")
+        if self.configurations?.getConfigurations()[self.index!].offsiteServer.isEmpty == true {
+            record.setValue("localhost", forKey: "offsiteServer")
+        } else {
+            record.setValue(self.configurations?.getConfigurations()[self.index!].offsiteServer, forKey: "offsiteServer")
+        }
+        self.records?.append(record)
+        self.configurations?.estimatedlist?.append(record)
+        self.updateprogressDelegate?.processTermination()
+        guard self.stackoftasktobeestimated != nil else {
+            self.startstopProgressIndicatorDelegate?.stop()
+            return
+        }
+        self.outputprocess = OutputProcess()
+        self.index = self.stackoftasktobeestimated?.remove(at: 0).1
+        if self.stackoftasktobeestimated?.count == 0 {
+            self.stackoftasktobeestimated = nil
+        }
+         _ = EstimateRemoteInformationTask(index: self.index!, outputprocess: self.outputprocess)
+    }
+
     func setbackuplist(list: [NSMutableDictionary]) {
         self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< list.count {
@@ -149,9 +178,11 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
 
     func setbackuplist() {
         guard self.records != nil else { return }
-        self.configurations?.quickbackuplist = [Int]()
         for i in 0 ..< self.records!.count {
             if self.records![i].value( forKey: "select") as? Int == 1 {
+                if self.configurations?.quickbackuplist == nil {
+                    self.configurations?.quickbackuplist = [Int]()
+                }
                 self.configurations?.quickbackuplist!.append((self.records![i].value(forKey: "hiddenID") as? Int)!)
             }
         }
