@@ -25,11 +25,6 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
             ViewControllerReference.shared.scheduledTask = nil
             return nil
         }
-        if self.sortedschedules!.count > 1 {
-            ViewControllerReference.shared.nextscheduledTask = self.sortedschedules![1]
-        } else {
-            ViewControllerReference.shared.nextscheduledTask = nil
-        }
         return self.sortedschedules![0]
     }
 
@@ -193,7 +188,6 @@ class ScheduleSortedAndExpand: SetConfigurations, SetSchedules {
     }
 
     init () {
-        ViewControllerReference.shared.previousnextscheduledTask = ViewControllerReference.shared.nextscheduledTask
         if self.schedules != nil {
             self.scheduleConfiguration = self.schedules!.getSchedule()
             self.setallscheduledtasksNSDictionary()

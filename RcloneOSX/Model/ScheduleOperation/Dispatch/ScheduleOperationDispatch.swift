@@ -23,14 +23,6 @@ class ScheduleOperationDispatch: SetSchedules, SecondsBeforeStart {
     init() {
         if self.schedules != nil {
             let seconds = self.secondsbeforestart()
-            let nextseconds = self.nextsecondsbeforestart()
-            guard nextseconds >= 0 else {
-                _ = Notifications().showNotification(message: "Ooops, seems to start a passed task...")
-                ViewControllerReference.shared.scheduledTask = ViewControllerReference.shared.previousnextscheduledTask
-                self.dispatchtask(0)
-                ViewControllerReference.shared.dispatchTaskWaiting = self.workitem
-                return
-            }
             guard seconds > 0 else { return }
             self.dispatchtask(Int(seconds))
             // Set reference to schedule for later cancel if any
