@@ -53,7 +53,7 @@ class ViewControllerReference {
     var restorePath: String?
     // Reference to the Operation object
     // Reference is set in when Scheduled task is executed
-    var completeoperation: CompleteScheduledOperation?
+    var completeoperation: CompleteRunningTask?
     // rclone command
     var rclone: String = "rclone"
     var usrbinrclone: String = "/usr/bin/rclone"

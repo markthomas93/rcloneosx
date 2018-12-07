@@ -11,17 +11,16 @@ import Foundation
 // Protocol when a Scehduled job is starting and stopping
 // Used to informed the presenting viewcontroller about what
 // is going on
-protocol ScheduledTaskWorking: class {
-    func start()
+protocol RunningTask: class {
     func completed()
 }
 
 protocol SetScheduledTask {
-    var scheduleJob: ScheduledTaskWorking? { get }
+    var runningtask: RunningTask? { get }
 }
 
 extension SetScheduledTask {
-    weak var scheduleJob: ScheduledTaskWorking? {
+    weak var runningtask: RunningTask? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
 }
@@ -33,9 +32,9 @@ protocol Sendprocessreference: class {
 
 class OperationFactory {
 
-    var operationDispatch: ScheduleOperationDispatch?
+    var operationDispatch: ExecutingTaskDispatch?
 
     init() {
-        self.operationDispatch = ScheduleOperationDispatch(seconds: 0)
+        self.operationDispatch = ExecutingTaskDispatch(seconds: 0)
     }
 }

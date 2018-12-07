@@ -17,7 +17,7 @@ import Foundation
 // is set in the static object. The finalize object is invoked
 // when the job discover (observs) the termination of the process.
 
-final class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledTask {
+final class ExecuteTask: SetSchedules, SetConfigurations, SetScheduledTask {
 
     let outputprocess = OutputProcess()
     var arguments: [String]?
@@ -32,11 +32,10 @@ final class ExecuteScheduledTask: SetSchedules, SetConfigurations, SetScheduledT
                 let configArray = getconfigurations!.filter({return ($0.hiddenID == hiddenID)})
                 guard configArray.count > 0 else { return }
                 config = configArray[0]
-                self.scheduleJob?.start()
                 if hiddenID >= 0 && config != nil {
                     arguments = RcloneProcessArguments().argumentsRclone(config!, dryRun: false, forDisplay: false)
                     // Setting reference to finalize the job, finalize job is done when rclonetask ends (in process termination)
-                    ViewControllerReference.shared.completeoperation = CompleteScheduledOperation(dict: dict)
+                    ViewControllerReference.shared.completeoperation = CompleteRunningTask(dict: dict)
                     globalMainQueue.async(execute: {
                         if self.arguments != nil {
                             weak var sendprocess: Sendprocessreference?
