@@ -53,7 +53,6 @@ protocol GetsortedanexpandedObject: class {
 
 protocol SecondsBeforeStart {
     func secondsbeforestart() -> Double
-    func nextsecondsbeforestart() -> Double
 }
 
 extension SecondsBeforeStart {
@@ -64,15 +63,6 @@ extension SecondsBeforeStart {
         schedulesDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
         let scheduledJobs = schedulesDelegate?.getsortedanexpandedObject()
         if let dict = scheduledJobs?.firstscheduledtask() {
-            let dateStart: Date = (dict.value(forKey: "start") as? Date)!
-            secondsToWait = Dateandtime().timeDoubleSeconds(dateStart, enddate: nil)
-        }
-        return secondsToWait ?? 0
-    }
-
-    func nextsecondsbeforestart() -> Double {
-        var secondsToWait: Double?
-        if let dict = ViewControllerReference.shared.previousnextscheduledTask {
             let dateStart: Date = (dict.value(forKey: "start") as? Date)!
             secondsToWait = Dateandtime().timeDoubleSeconds(dateStart, enddate: nil)
         }
