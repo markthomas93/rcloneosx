@@ -24,7 +24,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         if row > self.configurations!.configurationsDataSourcecount() - 1 { return nil }
         let object: NSDictionary = self.configurations!.getConfigurationsDataSource()![row]
         var celltext: String?
-        let hiddenID: Int = self.configurations!.getConfigurations()[row].hiddenID
         let markdays: Bool = self.configurations!.getConfigurations()[row].markdays
         celltext = object[tableColumn!.identifier] as? String
         if tableColumn!.identifier.rawValue == "batchCellID" {
@@ -33,16 +32,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
             return self.attributedstring(str: celltext!, color: NSColor.red, align: .right)
         } else if tableColumn!.identifier.rawValue == "offsiteServerCellID", ((object[tableColumn!.identifier] as? String)?.isEmpty)! {
             return "localhost"
-        } else if tableColumn!.identifier.rawValue == "schedCellID" {
-            if let obj = self.schedulesortedandexpanded {
-                if obj.numberoftasks(hiddenID).0 > 0 {
-                    if obj.numberoftasks(hiddenID).1 > 3600 {
-                        return #imageLiteral(resourceName: "yellow")
-                    } else {
-                        return #imageLiteral(resourceName: "green")
-                    }
-                }
-            }
         } else if tableColumn!.identifier.rawValue == "statCellID" {
                 if row == self.index {
                     if self.scheduledJobInProgress == true {
@@ -462,8 +451,6 @@ extension ViewControllertabMain: SingleTaskProgress {
 extension ViewControllertabMain: GetConfigurationsObject {
     func getconfigurationsobject() -> Configurations? {
         guard self.configurations != nil else { return nil }
-        // Update alle userconfigurations
-        self.configurations!.operation = ViewControllerReference.shared.operation
         return self.configurations
     }
 
@@ -510,8 +497,6 @@ extension ViewControllertabMain: GetSchedulesObject {
     func createschedulesobject(profile: String?) -> Schedules? {
         self.schedules = nil
         self.schedules = Schedules(profile: profile)
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
         return self.schedules
     }
 }
@@ -546,15 +531,6 @@ extension ViewControllertabMain: Sendprocessreference {
     }
 }
 
-extension ViewControllertabMain: StartNextTask {
-    func startfirstcheduledtask() {
-        // Cancel any schedeuled tasks first
-        ViewControllerReference.shared.timerTaskWaiting?.invalidate()
-        ViewControllerReference.shared.dispatchTaskWaiting?.cancel()
-        _ = OperationFactory(factory: self.configurations!.operation)
-    }
-}
-
 extension  ViewControllertabMain: GetHiddenID {
     func gethiddenID() -> Int? {
         return self.hiddenID
@@ -577,11 +553,6 @@ extension ViewControllertabMain: NewProfile {
         self.schedules = self.createschedulesobject(profile: profile)
         self.displayProfile()
         self.reloadtabledata()
-        // Reset in tabSchedule
-        self.reloadtable(vcontroller: .vctabschedule)
-        self.deselectrowtable(vcontroller: .vctabschedule)
-        // We have to start any Scheduled process again - if any
-        self.startfirstcheduledtask()
     }
 
     func enableProfileMenu() {
@@ -620,12 +591,6 @@ extension ViewControllertabMain: Count {
     func inprogressCount() -> Int {
         guard self.outputprocess != nil else { return 0 }
         return self.outputprocess!.count()
-    }
-}
-
-extension ViewControllertabMain: GetsortedanexpandedObject {
-    func getsortedanexpandedObject() -> ScheduleSortedAndExpand? {
-        return self.schedulesortedandexpanded
     }
 }
 

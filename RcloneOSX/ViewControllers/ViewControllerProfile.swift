@@ -60,11 +60,7 @@ class ViewControllerProfile: NSViewController, SetConfigurations, SetDismisser, 
     }
 
     private func dismissView() {
-        if self.configurations!.allowNotifyinMain == true {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabschedule)
-        }
+        self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
     }
 
     override func viewDidLoad() {

@@ -62,7 +62,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
             }
             if inserted {
                 self.storageapi!.saveScheduleFromMemory()
-                self.deselectrowtable(vcontroller: .vctabmain)
+                self.deselectrowtable()
             }
         }
     }
@@ -119,9 +119,6 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
                         dict.setObject(date, forKey: "dateExecuted" as NSCopying)
                         dict.setObject(result, forKey: "resultExecuted" as NSCopying)
                         self.schedules![i].logrecords.append(dict)
-                        if schedule == "daily" || schedule == "weekly" || schedule == "once" {
-                            _ = Notifications().showNotification(message: date + " " + result)
-                        }
                         self.storageapi!.saveScheduleFromMemory()
                         break loop
                     }

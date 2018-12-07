@@ -33,6 +33,15 @@ protocol ViewOutputDetails: class {
     func disableappend()
 }
 
+// Protocol for getting the hiddenID for a configuration
+protocol GetHiddenID: class {
+    func gethiddenID() -> Int?
+}
+
+protocol SetProfileinfo: class {
+    func setprofile(profile: String, color: NSColor)
+}
+
 class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fileerrormessage, Remoterclonesize {
 
     // Configurations object
@@ -81,8 +90,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
-    // Reference to Schedules object
-    var schedulesortedandexpanded: ScheduleSortedAndExpand?
     // Bool if one or more remote server is offline
     // Schedules in progress
     var scheduledJobInProgress: Bool = false
@@ -191,8 +198,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
                 self.hiddenID = nil
                 self.index = nil
                 self.reloadtabledata()
-                // Reset in tabSchedule
-                self.reloadtable(vcontroller: .vctabschedule)
             }
         }
     }
@@ -245,14 +250,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     @IBAction func profiles(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
             self.presentViewControllerAsSheet(self.viewControllerProfile!)
-        })
-    }
-
-    // Logg records
-    @IBAction func loggrecords(_ sender: NSButton) {
-        self.configurations!.allowNotifyinMain = true
-        globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerScheduleDetails!)
         })
     }
 
@@ -326,7 +323,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sleepandwakenotifications()
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.working.usesThreadedAnimation = true
@@ -339,7 +335,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
-        self.startfirstcheduledtask()
     }
 
     override func viewDidAppear() {
@@ -426,7 +421,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     // Function for setting profile
     func displayProfile() {
         weak var localprofileinfo: SetProfileinfo?
-        weak var localprofileinfo2: SetProfileinfo?
         if let profile = self.configurations!.getProfile() {
             self.profilInfo.stringValue = "Profile: " + profile
             self.profilInfo.textColor = .blue
@@ -434,10 +428,8 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
             self.profilInfo.stringValue = "Profile: default"
             self.profilInfo.textColor = .black
         }
-        localprofileinfo = ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
-        localprofileinfo2 = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
+        localprofileinfo = ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations ) as? ViewControllerNewConfigurations
         localprofileinfo?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
-        localprofileinfo2?.setprofile(profile: self.profilInfo.stringValue, color: self.profilInfo.textColor!)
         self.showrclonecommandmainview()
     }
 
@@ -497,8 +489,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
             self.schedules = nil
             self.schedules = Schedules(profile: nil)
         }
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
     }
 
     func createandreloadconfigurations() {
@@ -516,23 +506,5 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
-    }
-
-    @objc func onWakeNote(note: NSNotification) {
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
-        self.startfirstcheduledtask()
-    }
-
-    @objc func onSleepNote(note: NSNotification) {
-        ViewControllerReference.shared.dispatchTaskWaiting?.cancel()
-        ViewControllerReference.shared.timerTaskWaiting?.invalidate()
-    }
-
-    private func sleepandwakenotifications() {
-        NSWorkspace.shared.notificationCenter.addObserver( self, selector: #selector(onWakeNote(note:)),
-                                                           name: NSWorkspace.didWakeNotification, object: nil)
-        NSWorkspace.shared.notificationCenter.addObserver( self, selector: #selector(onSleepNote(note:)),
-                                                           name: NSWorkspace.willSleepNotification, object: nil)
     }
 }

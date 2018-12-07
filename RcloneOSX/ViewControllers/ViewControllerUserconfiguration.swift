@@ -10,15 +10,10 @@
 import Foundation
 import Cocoa
 
-protocol OperationChanged: class {
-    func operationsmethod()
-}
-
 class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay, ChangeTemporaryRestorePath {
 
     var storageapi: PersistentStorageAPI?
     var dirty: Bool = false
-    weak var operationchangeDelegate: OperationChanged?
     weak var reloadconfigurationsDelegate: Createandreloadconfigurations?
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false
@@ -27,7 +22,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
     @IBOutlet weak var rclonePath: NSTextField!
     @IBOutlet weak var detailedlogging: NSButton!
     @IBOutlet weak var noRclone: NSTextField!
-    @IBOutlet weak var operation: NSButton!
     @IBOutlet weak var restorePath: NSTextField!
     @IBOutlet weak var minimumlogging: NSButton!
     @IBOutlet weak var fulllogging: NSButton!
@@ -59,25 +53,12 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
         }
         if (self.presenting as? ViewControllertabMain) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
-        } else if (self.presenting as? ViewControllertabSchedule) != nil {
-            self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presenting as? ViewControllerNewConfigurations) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
         } else if (self.presenting as? ViewControllerCopyFiles) != nil {
             self.dismissview(viewcontroller: self, vcontroller: .vccopyfiles)
         }
         _ = RcloneVersionString()
-    }
-
-    @IBAction func toggleOperation(_ sender: NSButton) {
-        if self.operation.state == .on {
-            ViewControllerReference.shared.operation = .dispatch
-        } else {
-            ViewControllerReference.shared.operation = .timer
-        }
-        self.operationchangeDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
-        self.operationchangeDelegate?.operationsmethod()
-        self.setdirty()
     }
 
     @IBAction func logging(_ sender: NSButton) {
@@ -204,12 +185,6 @@ class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser
             self.restorePath.stringValue = ViewControllerReference.shared.restorePath!
         } else {
             self.restorePath.stringValue = ""
-        }
-        switch ViewControllerReference.shared.operation {
-        case .dispatch:
-            self.operation.state = .on
-        case .timer:
-            self.operation.state = .off
         }
         if ViewControllerReference.shared.minimumlogging {
             self.minimumlogging.state = .on

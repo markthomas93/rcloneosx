@@ -29,9 +29,3 @@ protocol GetSchedulesObject: class {
     func createschedulesobject(profile: String?) -> Schedules?
     func reloadschedulesobject()
 }
-
-enum Scheduletype {
-    case once
-    case daily
-    case weekly
-}

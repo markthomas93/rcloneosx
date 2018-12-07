@@ -14,7 +14,6 @@ enum ViewController {
     case vctabmain
     case vcloggdata
     case vcnewconfigurations
-    case vctabschedule
     case vcabout
     case vcbatch
     case vcprogressview
@@ -37,7 +36,6 @@ class ViewControllerReference {
         return Singleton.instance
     }
 
-    var timerTaskWaiting: Timer?
     var dispatchTaskWaiting: DispatchWorkItem?
     // Temporary storage of the first scheduled task
     var scheduledTask: NSDictionary?
@@ -53,8 +51,6 @@ class ViewControllerReference {
     var detailedlogging: Bool = true
     // Temporary path for restore
     var restorePath: String?
-    // Kind of Operation method. eiher Timer or DispatchWork
-    var operation: OperationObject = .dispatch
     // Reference to the Operation object
     // Reference is set in when Scheduled task is executed
     var completeoperation: CompleteScheduledOperation?
@@ -91,8 +87,6 @@ class ViewControllerReference {
     private var viewControllerCopyFiles: NSViewController?
     // Reference to the New tasks
     private var viewControllerNewConfigurations: NSViewController?
-    // Reference to the  Schedule
-    private var viewControllertabSchedule: NSViewController?
     // Which profile to use, if default nil
     private var viewControllerLoggData: NSViewController?
     // Reference to About
@@ -122,8 +116,6 @@ class ViewControllerReference {
             return self.viewControllerLoggData
         case .vcnewconfigurations:
             return self.viewControllerNewConfigurations
-        case .vctabschedule:
-            return self.viewControllertabSchedule
         case .vcabout:
             return self.viewControllerAbout
         case .vcbatch:
@@ -155,8 +147,6 @@ class ViewControllerReference {
             self.viewControllerLoggData = nsviewcontroller
         case .vcnewconfigurations:
             self.viewControllerNewConfigurations = nsviewcontroller
-        case .vctabschedule:
-            self.viewControllertabSchedule = nsviewcontroller
         case .vcabout:
             self.viewControllerAbout = nsviewcontroller
         case .vcbatch:

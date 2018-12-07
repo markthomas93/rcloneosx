@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 26/10/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable function_body_length cyclomatic_complexity
+// swiftlint:disable function_body_length 
 
 import Foundation
 
@@ -79,12 +79,6 @@ final class PersistentStorageUserconfiguration: Readwritefiles, SetConfiguration
             dict.setObject(restorePath!, forKey: "restorePath" as NSCopying)
         } else {
             dict.setObject("", forKey: "restorePath" as NSCopying)
-        }
-        switch self.configurations!.operation {
-        case .dispatch:
-            dict.setObject("dispatch", forKey: "operation" as NSCopying)
-        case .timer:
-            dict.setObject("timer", forKey: "operation" as NSCopying)
         }
         array.append(dict)
         self.writeToStore(array)
