@@ -107,7 +107,7 @@ extension ViewControllertabMain: GetSelecetedIndex {
 }
 
 // A scheduled task is executed
-extension ViewControllertabMain: ScheduledTaskWorking {
+extension ViewControllertabMain: RunningTask {
     func start() {
         self.processtermination = .quicktask
         globalMainQueue.async(execute: {() -> Void in

@@ -33,7 +33,7 @@ final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetSche
         self.schedules!.addresultschedule(self.hiddenID!, dateStart: dateStartstring, result: numberstring, date: datestring, schedule: schedule!)
         self.taskDelegate?.setNumbers(output: outputprocess)
         self.configurations!.setCurrentDateonConfigurationQuickbackup(index: self.index!, outputprocess: outputprocess)
-        self.scheduleJob?.completed()
+        self.runningtask?.completed()
         self.schedulesDelegate?.reloadschedulesobject()
     }
 
