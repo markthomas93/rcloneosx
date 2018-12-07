@@ -13,7 +13,6 @@ import Foundation
 // The object does also kicks of next scheduled job by setting new waiter time.
 final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetScheduledTask {
 
-    weak var startTimerDelegate: StartTimer?
     weak var taskDelegate: SingleTaskProgress?
     private var date: Date?
     private var dateStart: Date?
@@ -35,8 +34,6 @@ final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetSche
         self.taskDelegate?.setNumbers(output: outputprocess)
         self.configurations!.setCurrentDateonConfigurationQuickbackup(index: self.index!, outputprocess: outputprocess)
         self.scheduleJob?.completed()
-        self.startTimerDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
-        self.startTimerDelegate?.startTimerNextJob()
         self.schedulesDelegate?.reloadschedulesobject()
     }
 

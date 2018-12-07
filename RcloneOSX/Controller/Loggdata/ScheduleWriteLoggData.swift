@@ -62,7 +62,7 @@ class ScheduleWriteLoggData: SetConfigurations, ReloadTable, Deselect {
             }
             if inserted {
                 self.storageapi!.saveScheduleFromMemory()
-                self.deselectrowtable(vcontroller: .vctabmain)
+                self.deselectrowtable()
             }
         }
     }

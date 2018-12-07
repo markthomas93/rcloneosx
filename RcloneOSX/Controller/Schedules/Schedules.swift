@@ -49,7 +49,6 @@ class Schedules: ScheduleWriteLoggData {
         let newSchedule = ConfigurationSchedule(dictionary: dict, log: nil, nolog: true)
         self.schedules!.append(newSchedule)
         self.storageapi!.saveScheduleFromMemory()
-        self.reloadtable(vcontroller: .vctabschedule)
     }
 
     /// Function deletes all Schedules by hiddenID. Invoked when Configurations are

@@ -37,17 +37,12 @@ protocol Reloadandrefresh: class {
 
 protocol ReloadTable {
     var reloadDelegateMain: Reloadandrefresh? { get }
-    var reloadDelegateSchedule: Reloadandrefresh? { get }
     var reloadDelegateLogData: Reloadandrefresh? { get }
-    func reloadtable(vcontroller: ViewController)
 }
 
 extension ReloadTable {
     weak var reloadDelegateMain: Reloadandrefresh? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-    }
-    weak var reloadDelegateSchedule: Reloadandrefresh? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
     }
     weak var reloadDelegateLogData: Reloadandrefresh? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcloggdata) as? ViewControllerLoggData
@@ -56,8 +51,6 @@ extension ReloadTable {
     func reloadtable(vcontroller: ViewController) {
         if vcontroller == .vctabmain {
             self.reloadDelegateMain?.reloadtabledata()
-        } else if vcontroller == .vctabschedule {
-            self.reloadDelegateSchedule?.reloadtabledata()
         } else {
             self.reloadDelegateLogData?.reloadtabledata()
         }

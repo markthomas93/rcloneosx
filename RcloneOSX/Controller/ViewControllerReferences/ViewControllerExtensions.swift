@@ -55,7 +55,6 @@ protocol VcMain {
     var viewControllerProfile: NSViewController? { get }
     var editViewController: NSViewController? { get }
     var viewControllerAbout: NSViewController? { get }
-    var viewControllerScheduleDetails: NSViewController? { get }
 }
 
 extension VcMain {
@@ -126,13 +125,6 @@ extension VcMain {
             as? NSViewController)!
     }
 
-    // Information Schedule details
-    // self.presentViewControllerAsSheet(self.ViewControllerScheduleDetails)
-    var viewControllerScheduleDetails: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardScheduleID"))
-            as? NSViewController)!
-    }
-
     // Quick backup process
     // self.presentViewControllerAsSheet(self.viewControllerQuickBackup)
     var viewControllerQuickBackup: NSViewController? {
@@ -192,16 +184,12 @@ protocol DismissViewController: class {
 }
 protocol SetDismisser {
     var dismissDelegateMain: DismissViewController? {get}
-    var dismissDelegateSchedule: DismissViewController? {get}
     var dismissDelegateNewConfigurations: DismissViewController? {get}
 }
 
 extension SetDismisser {
     weak var dismissDelegateMain: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
-    }
-    weak var dismissDelegateSchedule: DismissViewController? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
     }
     weak var dismissDelegateNewConfigurations: DismissViewController? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vcnewconfigurations) as? ViewControllerNewConfigurations
@@ -210,8 +198,6 @@ extension SetDismisser {
     func dismissview(viewcontroller: NSViewController, vcontroller: ViewController) {
         if vcontroller == .vctabmain {
             self.dismissDelegateMain?.dismiss_view(viewcontroller: (self as? NSViewController)!)
-        } else if vcontroller == .vctabschedule {
-            self.dismissDelegateSchedule?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         } else {
             self.dismissDelegateNewConfigurations?.dismiss_view(viewcontroller: (self as? NSViewController)!)
         }
@@ -225,24 +211,15 @@ protocol DeselectRowTable: class {
 
 protocol Deselect {
     var deselectDelegateMain: DeselectRowTable? {get}
-    var deselectDelegateSchedule: DeselectRowTable? {get}
-    func deselectrowtable(vcontroller: ViewController)
 }
 
 extension Deselect {
     weak var deselectDelegateMain: DeselectRowTable? {
         return ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
     }
-    weak var deselectDelegateSchedule: DeselectRowTable? {
-        return ViewControllerReference.shared.getvcref(viewcontroller: .vctabschedule) as? ViewControllertabSchedule
-    }
 
-    func deselectrowtable(vcontroller: ViewController) {
-        if vcontroller == .vctabmain {
-            self.deselectDelegateMain?.deselect()
-        } else {
-            self.deselectDelegateSchedule?.deselect()
-        }
+    func deselectrowtable() {
+        self.deselectDelegateMain?.deselect()
     }
 }
 

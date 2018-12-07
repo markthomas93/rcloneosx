@@ -577,11 +577,6 @@ extension ViewControllertabMain: NewProfile {
         self.schedules = self.createschedulesobject(profile: profile)
         self.displayProfile()
         self.reloadtabledata()
-        // Reset in tabSchedule
-        self.reloadtable(vcontroller: .vctabschedule)
-        self.deselectrowtable(vcontroller: .vctabschedule)
-        // We have to start any Scheduled process again - if any
-        self.startfirstcheduledtask()
     }
 
     func enableProfileMenu() {

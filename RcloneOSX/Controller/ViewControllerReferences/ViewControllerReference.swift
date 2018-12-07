@@ -14,7 +14,6 @@ enum ViewController {
     case vctabmain
     case vcloggdata
     case vcnewconfigurations
-    case vctabschedule
     case vcabout
     case vcbatch
     case vcprogressview
@@ -91,8 +90,6 @@ class ViewControllerReference {
     private var viewControllerCopyFiles: NSViewController?
     // Reference to the New tasks
     private var viewControllerNewConfigurations: NSViewController?
-    // Reference to the  Schedule
-    private var viewControllertabSchedule: NSViewController?
     // Which profile to use, if default nil
     private var viewControllerLoggData: NSViewController?
     // Reference to About
@@ -122,8 +119,6 @@ class ViewControllerReference {
             return self.viewControllerLoggData
         case .vcnewconfigurations:
             return self.viewControllerNewConfigurations
-        case .vctabschedule:
-            return self.viewControllertabSchedule
         case .vcabout:
             return self.viewControllerAbout
         case .vcbatch:
@@ -155,8 +150,6 @@ class ViewControllerReference {
             self.viewControllerLoggData = nsviewcontroller
         case .vcnewconfigurations:
             self.viewControllerNewConfigurations = nsviewcontroller
-        case .vctabschedule:
-            self.viewControllertabSchedule = nsviewcontroller
         case .vcabout:
             self.viewControllerAbout = nsviewcontroller
         case .vcbatch:
