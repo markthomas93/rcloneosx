@@ -36,7 +36,6 @@ class ViewControllerReference {
         return Singleton.instance
     }
 
-    var timerTaskWaiting: Timer?
     var dispatchTaskWaiting: DispatchWorkItem?
     // Temporary storage of the first scheduled task
     var scheduledTask: NSDictionary?
@@ -52,8 +51,6 @@ class ViewControllerReference {
     var detailedlogging: Bool = true
     // Temporary path for restore
     var restorePath: String?
-    // Kind of Operation method. eiher Timer or DispatchWork
-    var operation: OperationObject = .dispatch
     // Reference to the Operation object
     // Reference is set in when Scheduled task is executed
     var completeoperation: CompleteScheduledOperation?

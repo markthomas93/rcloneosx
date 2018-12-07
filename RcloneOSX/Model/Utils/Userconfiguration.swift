@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 24/08/2016.
 //  Copyright © 2016 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length cyclomatic_complexity function_body_length
+// swiftlint:disable line_length cyclomatic_complexity
 
 import Foundation
 
@@ -34,18 +34,6 @@ final class Userconfiguration {
                 ViewControllerReference.shared.restorePath = restorePath
             } else {
                 ViewControllerReference.shared.restorePath = nil
-            }
-        }
-        // Operation object
-        // Default is dispatch
-        if let operation = dict.value(forKey: "operation") as? String {
-            switch operation {
-            case "dispatch":
-                ViewControllerReference.shared.operation = .dispatch
-            case "timer":
-                ViewControllerReference.shared.operation = .timer
-            default:
-                ViewControllerReference.shared.operation = .dispatch
             }
         }
         // Mark tasks

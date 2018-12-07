@@ -10,15 +10,10 @@
 import Foundation
 import Cocoa
 
-protocol OperationChanged: class {
-    func operationsmethod()
-}
-
 class ViewControllerUserconfiguration: NSViewController, NewRclone, SetDismisser, Delay, ChangeTemporaryRestorePath {
 
     var storageapi: PersistentStorageAPI?
     var dirty: Bool = false
-    weak var operationchangeDelegate: OperationChanged?
     weak var reloadconfigurationsDelegate: Createandreloadconfigurations?
     var oldmarknumberofdayssince: Double?
     var reload: Bool = false

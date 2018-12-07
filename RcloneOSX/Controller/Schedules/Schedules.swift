@@ -20,37 +20,6 @@ class Schedules: ScheduleWriteLoggData {
         return self.schedules ?? []
     }
 
-    /// Function adds new Shcedules (plans). Functions writes
-    /// schedule plans to permanent store.
-    /// - parameter hiddenID: hiddenID for task
-    /// - parameter schedule: schedule
-    /// - parameter start: start date and time
-    /// - parameter stop: stop date and time
-    func addschedule (_ hiddenID: Int, schedule: Scheduletype, start: Date) {
-        var stop: Date?
-        let dateformatter = Dateandtime().setDateformat()
-        if schedule == .once {
-            stop = start
-        } else {
-            stop = dateformatter.date(from: "01 Jan 2100 00:00")
-        }
-        let dict = NSMutableDictionary()
-        dict.setObject(hiddenID, forKey: "hiddenID" as NSCopying)
-        dict.setObject(dateformatter.string(from: start), forKey: "dateStart" as NSCopying)
-        dict.setObject(dateformatter.string(from: stop!), forKey: "dateStop" as NSCopying)
-        switch schedule {
-        case .once:
-            dict.setObject("once", forKey: "schedule" as NSCopying)
-        case .daily:
-            dict.setObject("daily", forKey: "schedule" as NSCopying)
-        case .weekly:
-            dict.setObject("weekly", forKey: "schedule" as NSCopying)
-        }
-        let newSchedule = ConfigurationSchedule(dictionary: dict, log: nil, nolog: true)
-        self.schedules!.append(newSchedule)
-        self.storageapi!.saveScheduleFromMemory()
-    }
-
     /// Function deletes all Schedules by hiddenID. Invoked when Configurations are
     /// deleted. When a Configuration are deleted all tasks connected to
     /// Configuration has to  be deleted.
@@ -70,78 +39,6 @@ class Schedules: ScheduleWriteLoggData {
         }
     }
 
-    /// Function reads all Schedule data for one task by hiddenID
-    /// - parameter hiddenID : hiddenID for task
-    /// - returns : array of Schedules sorted after startDate
-    func readscheduleonetask (_ hiddenID: Int?) -> [NSMutableDictionary]? {
-        guard hiddenID != nil else { return nil }
-        var row: NSMutableDictionary
-        var data = [NSMutableDictionary]()
-        for i in 0 ..< self.schedules!.count {
-            if self.schedules![i].hiddenID == hiddenID {
-                row = [
-                    "dateStart": self.schedules![i].dateStart,
-                    "stopCellID": 0,
-                    "deleteCellID": 0,
-                    "dateStop": "",
-                    "schedule": self.schedules![i].schedule,
-                    "hiddenID": schedules![i].hiddenID,
-                    "numberoflogs": String(schedules![i].logrecords.count)
-                ]
-                if self.schedules![i].dateStop == nil {
-                    row.setValue("no stop date", forKey: "dateStop")
-                } else {
-                    row.setValue(self.schedules![i].dateStop, forKey: "dateStop")
-                }
-                if self.schedules![i].schedule == "stopped" {
-                    row.setValue(1, forKey: "stopCellID")
-                }
-                data.append(row)
-            }
-            // Sorting schedule after dateStart, last startdate on top
-            data.sort { (sched1, sched2) -> Bool in
-                let dateformatter = Dateandtime().setDateformat()
-                if dateformatter.date(from: (sched1.value(forKey: "dateStart") as? String)!)! >
-                    dateformatter.date(from: (sched2.value(forKey: "dateStart") as? String)!)! {
-                    return true
-                } else {
-                    return false
-                }
-            }
-        }
-        return data
-    }
-
-    /// Function either deletes or stops Schedules.
-    /// - parameter data : array of Schedules which some of them are either marked for stop or delete
-    func deleteorstopschedule(data: [NSMutableDictionary]) {
-        var update: Bool = false
-        if (data.count) > 0 {
-            let stop = data.filter({ return (($0.value(forKey: "stopCellID") as? Int) == 1)})
-            let delete = data.filter({ return (($0.value(forKey: "deleteCellID") as? Int) == 1)})
-            // Delete Schedules
-            if delete.count > 0 {
-                update = true
-                for i in 0 ..< delete.count {
-                    self.delete(dict: delete[i])
-                }
-            }
-            // Stop Schedules
-            if stop.count > 0 {
-                update = true
-                for i in 0 ..< stop.count {
-                    self.stop(dict: stop[i])
-                }
-            }
-            if update {
-                // Saving the resulting data file
-                self.storageapi!.saveScheduleFromMemory()
-                // Send message about refresh tableView
-                self.reloadtable(vcontroller: .vctabmain)
-            }
-        }
-    }
-
     // Test if Schedule record in memory is set to delete or not
     private func delete(dict: NSDictionary) {
         loop :  for i in 0 ..< self.schedules!.count {
@@ -154,20 +51,6 @@ class Schedules: ScheduleWriteLoggData {
                     break
                 }
             }
-        }
-    }
-
-    // Test if Schedule record in memory is set to stop er not
-    private func stop(dict: NSDictionary) {
-        loop :  for i in 0 ..< self.schedules!.count where
-            dict.value(forKey: "hiddenID") as? Int == self.schedules![i].hiddenID {
-                if dict.value(forKey: "dateStop") as? String == self.schedules![i].dateStop ||
-                    self.schedules![i].dateStop == nil &&
-                    dict.value(forKey: "schedule") as? String == self.schedules![i].schedule &&
-                    dict.value(forKey: "dateStart") as? String == self.schedules![i].dateStart {
-                    self.schedules![i].schedule = "stopped"
-                    break
-                }
         }
     }
 

@@ -90,8 +90,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     var dynamicappend: Bool = false
     // HiddenID task, set when row is selected
     var hiddenID: Int?
-    // Reference to Schedules object
-    var schedulesortedandexpanded: ScheduleSortedAndExpand?
     // Bool if one or more remote server is offline
     // Schedules in progress
     var scheduledJobInProgress: Bool = false
@@ -325,7 +323,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sleepandwakenotifications()
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.working.usesThreadedAnimation = true
@@ -338,7 +335,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         // configurations and schedules
         self.createandreloadconfigurations()
         self.createandreloadschedules()
-        self.startfirstcheduledtask()
     }
 
     override func viewDidAppear() {
@@ -493,8 +489,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
             self.schedules = nil
             self.schedules = Schedules(profile: nil)
         }
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
     }
 
     func createandreloadconfigurations() {
@@ -512,23 +506,5 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         globalMainQueue.async(execute: { () -> Void in
             self.mainTableView.reloadData()
         })
-    }
-
-    @objc func onWakeNote(note: NSNotification) {
-        self.schedulesortedandexpanded = ScheduleSortedAndExpand()
-        ViewControllerReference.shared.scheduledTask = self.schedulesortedandexpanded?.firstscheduledtask()
-        self.startfirstcheduledtask()
-    }
-
-    @objc func onSleepNote(note: NSNotification) {
-        ViewControllerReference.shared.dispatchTaskWaiting?.cancel()
-        ViewControllerReference.shared.timerTaskWaiting?.invalidate()
-    }
-
-    private func sleepandwakenotifications() {
-        NSWorkspace.shared.notificationCenter.addObserver( self, selector: #selector(onWakeNote(note:)),
-                                                           name: NSWorkspace.didWakeNotification, object: nil)
-        NSWorkspace.shared.notificationCenter.addObserver( self, selector: #selector(onSleepNote(note:)),
-                                                           name: NSWorkspace.willSleepNotification, object: nil)
     }
 }

@@ -27,7 +27,6 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
     weak var enablebackupbuttonDelegate: EnableQuicbackupButton?
     weak var startstopProgressIndicatorDelegate: StartStopProgressIndicator?
     var index: Int?
-    var lastindex: Int?
     var maxnumber: Int?
     var count: Int?
     var inbatch: Bool?

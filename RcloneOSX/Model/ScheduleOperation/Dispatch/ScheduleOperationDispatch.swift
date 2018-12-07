@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ScheduleOperationDispatch: SetSchedules, SecondsBeforeStart {
+class ScheduleOperationDispatch: SetSchedules {
 
     private var workitem: DispatchWorkItem?
 
@@ -18,16 +18,6 @@ class ScheduleOperationDispatch: SetSchedules, SecondsBeforeStart {
         }
         self.workitem = scheduledtask
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds), execute: scheduledtask)
-    }
-
-    init() {
-        if self.schedules != nil {
-            let seconds = self.secondsbeforestart()
-            guard seconds > 0 else { return }
-            self.dispatchtask(Int(seconds))
-            // Set reference to schedule for later cancel if any
-            ViewControllerReference.shared.dispatchTaskWaiting = self.workitem
-        }
     }
 
     init(seconds: Int) {
