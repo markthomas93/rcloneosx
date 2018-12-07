@@ -90,7 +90,7 @@
 		E960CB401FB091DE0008D12E /* ViewControllerRcloneParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF21FB091DC0008D12E /* ViewControllerRcloneParameters.swift */; };
 		E960CB411FB091DE0008D12E /* ConfigurationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF31FB091DC0008D12E /* ConfigurationSchedule.swift */; };
 		E960CB431FB091DE0008D12E /* PersistentStorageScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF51FB091DC0008D12E /* PersistentStorageScheduling.swift */; };
-		E960CB451FB091DE0008D12E /* CompleteScheduledOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF71FB091DC0008D12E /* CompleteScheduledOperation.swift */; };
+		E960CB451FB091DE0008D12E /* CompleteRunningTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF71FB091DC0008D12E /* CompleteRunningTask.swift */; };
 		E960CB461FB091DE0008D12E /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF81FB091DD0008D12E /* Profiles.swift */; };
 		E960CB481FB091DE0008D12E /* PersistentStorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAFA1FB091DD0008D12E /* PersistentStorageAPI.swift */; };
 		E960CB491FB091DE0008D12E /* ExecutingTaskDispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAFB1FB091DD0008D12E /* ExecutingTaskDispatch.swift */; };
@@ -187,7 +187,7 @@
 		E960CAF21FB091DC0008D12E /* ViewControllerRcloneParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRcloneParameters.swift; sourceTree = "<group>"; };
 		E960CAF31FB091DC0008D12E /* ConfigurationSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedule.swift; sourceTree = "<group>"; };
 		E960CAF51FB091DC0008D12E /* PersistentStorageScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageScheduling.swift; sourceTree = "<group>"; };
-		E960CAF71FB091DC0008D12E /* CompleteScheduledOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteScheduledOperation.swift; sourceTree = "<group>"; };
+		E960CAF71FB091DC0008D12E /* CompleteRunningTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRunningTask.swift; sourceTree = "<group>"; };
 		E960CAF81FB091DD0008D12E /* Profiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
 		E960CAFA1FB091DD0008D12E /* PersistentStorageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageAPI.swift; sourceTree = "<group>"; };
 		E960CAFB1FB091DD0008D12E /* ExecutingTaskDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutingTaskDispatch.swift; sourceTree = "<group>"; };
@@ -266,7 +266,7 @@
 		E9482D201FB0AEC700AFBB0D /* ScheduleOperation */ = {
 			isa = PBXGroup;
 			children = (
-				E960CAF71FB091DC0008D12E /* CompleteScheduledOperation.swift */,
+				E960CAF71FB091DC0008D12E /* CompleteRunningTask.swift */,
 				E960CAE11FB091D90008D12E /* OperationFactory.swift */,
 				E9482D221FB0AEE200AFBB0D /* Dispatch */,
 			);
@@ -699,7 +699,7 @@
 				E9C2029C211BFD8A005E3B11 /* ViewControllerRestore.swift in Sources */,
 				E960CB431FB091DE0008D12E /* PersistentStorageScheduling.swift in Sources */,
 				E960CB151FB091DE0008D12E /* ViewControllerAbout.swift in Sources */,
-				E960CB451FB091DE0008D12E /* CompleteScheduledOperation.swift in Sources */,
+				E960CB451FB091DE0008D12E /* CompleteRunningTask.swift in Sources */,
 				E923D4C72130595F00C6BE92 /* Verifyrclonepath.swift in Sources */,
 				E960CB3F1FB091DE0008D12E /* ExecuteTask.swift in Sources */,
 				E960CB141FB091DE0008D12E /* Readwritefiles.swift in Sources */,

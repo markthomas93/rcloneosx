@@ -11,7 +11,7 @@ import Foundation
 
 // Class for completion of Operation objects when Process object termination.
 // The object does also kicks of next scheduled job by setting new waiter time.
-final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetScheduledTask {
+final class CompleteRunningTask: SetConfigurations, SetSchedules, SetScheduledTask {
 
     weak var taskDelegate: SingleTaskProgress?
     private var date: Date?
@@ -24,7 +24,7 @@ final class CompleteScheduledOperation: SetConfigurations, SetSchedules, SetSche
     // Function for finalizing the Scheduled job
     // The Operation object sets reference to the completeScheduledOperation in self.schedules!.operation
     // This function is executed when rsyn process terminates
-    func finalizeScheduledJob(outputprocess: OutputProcess?) {
+    func completerunningtask(outputprocess: OutputProcess?) {
         // Write result to Schedule
         let datestring = self.dateformatter!.string(from: date!)
         let dateStartstring = self.dateformatter!.string(from: dateStart!)

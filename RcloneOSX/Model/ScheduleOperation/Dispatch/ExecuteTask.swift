@@ -35,7 +35,7 @@ final class ExecuteTask: SetSchedules, SetConfigurations, SetScheduledTask {
                 if hiddenID >= 0 && config != nil {
                     arguments = RcloneProcessArguments().argumentsRclone(config!, dryRun: false, forDisplay: false)
                     // Setting reference to finalize the job, finalize job is done when rclonetask ends (in process termination)
-                    ViewControllerReference.shared.completeoperation = CompleteScheduledOperation(dict: dict)
+                    ViewControllerReference.shared.completeoperation = CompleteRunningTask(dict: dict)
                     globalMainQueue.async(execute: {
                         if self.arguments != nil {
                             weak var sendprocess: Sendprocessreference?

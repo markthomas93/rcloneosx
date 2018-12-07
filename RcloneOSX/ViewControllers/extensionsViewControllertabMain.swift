@@ -198,7 +198,7 @@ extension ViewControllertabMain: UpdateProgress {
             self.batchtasks?.processTermination()
         case .quicktask:
             guard ViewControllerReference.shared.completeoperation != nil else { return }
-            ViewControllerReference.shared.completeoperation!.finalizeScheduledJob(outputprocess: self.outputprocess)
+            ViewControllerReference.shared.completeoperation!.completerunningtask(outputprocess: self.outputprocess)
             // After logging is done set reference to object = nil
             ViewControllerReference.shared.completeoperation = nil
             weak var processterminationDelegate: UpdateProgress?
