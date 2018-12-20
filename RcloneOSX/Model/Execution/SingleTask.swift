@@ -21,7 +21,7 @@ protocol SingleTaskProgress: class {
     func presentViewProgress()
     func presentViewInformation(outputprocess: OutputProcess)
     func terminateProgressProcess()
-    func setinfonextaction(info: String)
+    func seterrorinfo(info: String)
     func setNumbers(output: OutputProcess?)
     func gettransferredNumber() -> String
     func gettransferredNumberSizebytes() -> String
@@ -84,11 +84,11 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 process.executeProcess(outputprocess: self.outputprocess)
                 self.process = process.getProcess()
                 self.taskDelegate?.getProcessReference(process: self.process!)
-                self.taskDelegate?.setinfonextaction(info: "")
+                self.taskDelegate?.seterrorinfo(info: "")
             }
         case .abort:
             self.workload = nil
-            self.taskDelegate?.setinfonextaction(info: "Abort")
+            self.taskDelegate?.seterrorinfo(info: "Abort")
         case .empty:
             self.workload = nil
         default:

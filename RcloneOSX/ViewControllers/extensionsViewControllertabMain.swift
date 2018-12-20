@@ -305,7 +305,7 @@ extension ViewControllertabMain: RcloneError {
     func rcloneerror() {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
-            self.setinfonextaction(info: "Error")
+            self.seterrorinfo(info: "Error")
             self.showrclonecommandmainview()
             self.deselect()
             // Abort any operations
@@ -333,7 +333,7 @@ extension ViewControllertabMain: Fileerror {
             } else if errortype == .filesize {
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + ": filesize = " + errorstr
             } else {
-                self.setinfonextaction(info: "Error")
+                self.seterrorinfo(info: "Error")
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
         })
@@ -351,7 +351,7 @@ extension ViewControllertabMain: Abort {
             self.working.stopAnimation(nil)
             self.process = nil
             // Create workqueu and add abort
-            self.setinfonextaction(info: "Abort")
+            self.seterrorinfo(info: "Abort")
             self.rcloneCommand.stringValue = ""
             if self.configurations!.remoteinfotaskworkqueue != nil && self.configurations?.estimatedlist != nil {
                 self.estimateupdateDelegate?.dismissview()
@@ -415,8 +415,13 @@ extension ViewControllertabMain: SingleTaskProgress {
         localprocessupdateDelegate?.processTermination()
     }
 
-    func setinfonextaction(info: String) {
+    func seterrorinfo(info: String) {
+        guard info != "" else {
+            self.dryRunOrRealRun.isHidden = true
+            return
+        }
         self.dryRunOrRealRun.textColor = .red
+        self.dryRunOrRealRun.isHidden = false
         self.dryRunOrRealRun.stringValue = info
     }
 

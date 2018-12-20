@@ -424,6 +424,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     // setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
+        self.seterrorinfo(info: "")
         if self.process != nil { self.abortOperations() }
         if self.readyforexecution == false { self.abortOperations() }
         self.readyforexecution = true
