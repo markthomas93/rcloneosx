@@ -21,17 +21,11 @@ protocol SingleTaskProgress: class {
     func presentViewProgress()
     func presentViewInformation(outputprocess: OutputProcess)
     func terminateProgressProcess()
-    func setinfonextaction(info: String, color: ColorInfo)
+    func setinfonextaction(info: String)
     func setNumbers(output: OutputProcess?)
     func gettransferredNumber() -> String
     func gettransferredNumberSizebytes() -> String
     func getProcessReference(process: Process)
-}
-
-enum ColorInfo {
-    case red
-    case gray
-    case black
 }
 
 final class SingleTask: SetSchedules, SetConfigurations {
@@ -90,17 +84,15 @@ final class SingleTask: SetSchedules, SetConfigurations {
                 process.executeProcess(outputprocess: self.outputprocess)
                 self.process = process.getProcess()
                 self.taskDelegate?.getProcessReference(process: self.process!)
-                self.taskDelegate?.setinfonextaction(info: "", color: .black)
+                self.taskDelegate?.setinfonextaction(info: "")
             }
         case .abort:
             self.workload = nil
-            self.taskDelegate?.setinfonextaction(info: "Abort", color: .red)
+            self.taskDelegate?.setinfonextaction(info: "Abort")
         case .empty:
             self.workload = nil
-            self.taskDelegate?.setinfonextaction(info: "Estimate", color: .gray)
         default:
             self.workload = nil
-            self.taskDelegate?.setinfonextaction(info: "Estimate", color: .gray)
         }
     }
 
@@ -113,7 +105,6 @@ final class SingleTask: SetSchedules, SetConfigurations {
             // Pop topmost element of work queue
             switch workload.pop() {
             case .estimatesinglerun:
-                self.taskDelegate?.setinfonextaction(info: "Execute", color: .gray)
                 // Stopping the working (estimation) progress indicator
                 self.indicatorDelegate?.stopIndicator()
                 // Getting and setting max file to transfer

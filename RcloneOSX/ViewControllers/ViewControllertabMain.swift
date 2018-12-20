@@ -91,8 +91,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     // HiddenID task, set when row is selected
     var hiddenID: Int?
     // Bool if one or more remote server is offline
-    // Schedules in progress
-    var scheduledJobInProgress: Bool = false
     // Ready for execute again
     var readyforexecution: Bool = true
     // Which kind of task
@@ -221,7 +219,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     func reset() {
         self.outputprocess = nil
         self.setNumbers(output: nil)
-        self.setinfonextaction(info: "Estimate", color: .gray)
         self.process = nil
         self.singletask = nil
     }
@@ -271,10 +268,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     }
 
     @IBAction func executetasknow(_ sender: NSButton) {
-        guard self.scheduledJobInProgress == false else {
-            self.info(num: 4)
-            return
-        }
         guard self.hiddenID != nil else {
             self.info(num: 1)
             return
@@ -288,7 +281,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
             return
         }
         self.processtermination = .singlequicktask
-        self.setinfonextaction(info: "Execute", color: .gray)
         self.working.startAnimation(nil)
         let arguments = self.configurations!.arguments4rclone(index: self.index!, argtype: .arg)
         self.outputprocess = OutputProcess()
@@ -339,16 +331,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     override func viewDidAppear() {
         super.viewDidAppear()
-        guard self.scheduledJobInProgress == false else {
-            if self.processtermination == .singlequicktask {
-                self.scheduledJobworking.startAnimation(nil)
-            }
-            self.executing.isHidden = false
-            return
-        }
-        // Allow notify about Scheduled jobs
         self.configurations!.allowNotifyinMain = true
-        self.setinfonextaction(info: "", color: .black)
         if self.configurations!.configurationsDataSourcecount() > 0 {
             globalMainQueue.async(execute: { () -> Void in
                 self.mainTableView.reloadData()
@@ -378,10 +361,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     // Single task can be activated by double click from table
     func executeSingleTask() {
         self.processtermination = .singletask
-        guard self.scheduledJobInProgress == false else {
-            self.info(num: 4)
-            return
-        }
         guard ViewControllerReference.shared.norclone == false else {
             self.verifyrclonepath!.norclone()
             return
@@ -402,10 +381,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     @IBAction func executeBatch(_ sender: NSToolbarItem) {
         self.processtermination = .estimatebatchtask
-        guard self.scheduledJobInProgress == false else {
-            self.info(num: 4)
-            return
-        }
         guard ViewControllerReference.shared.norclone == false else {
             self.verifyrclonepath!.norclone()
             return
@@ -449,9 +424,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     // setting which table row is selected
     func tableViewSelectionDidChange(_ notification: Notification) {
-        guard self.scheduledJobInProgress == false else {
-            return
-        }
         if self.process != nil { self.abortOperations() }
         if self.readyforexecution == false { self.abortOperations() }
         self.readyforexecution = true
@@ -469,7 +441,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         }
         self.process = nil
         self.singletask = nil
-        self.setinfonextaction(info: "Estimate", color: .gray)
         self.showrclonecommandmainview()
         self.reloadtabledata()
         self.configurations!.allowNotifyinMain = true
