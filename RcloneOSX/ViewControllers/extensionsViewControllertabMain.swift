@@ -34,9 +34,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
             return "localhost"
         } else if tableColumn!.identifier.rawValue == "statCellID" {
                 if row == self.index {
-                    if self.scheduledJobInProgress == true {
-                        return #imageLiteral(resourceName: "green")
-                    }
                     if self.setbatchyesno == false {
                         if self.singletask == nil {
                             return #imageLiteral(resourceName: "yellow")
@@ -63,7 +60,6 @@ extension ViewControllertabMain: NSTableViewDelegate, Attributedestring {
         self.configurations!.setBatchYesNo(row)
         self.singletask = nil
         self.batchtasks = nil
-        self.setinfonextaction(info: "Estimate", color: .gray)
     }
 }
 
@@ -111,7 +107,6 @@ extension ViewControllertabMain: RunningTask {
     func start() {
         self.processtermination = .quicktask
         globalMainQueue.async(execute: {() -> Void in
-            self.scheduledJobInProgress = true
             self.scheduledJobworking.startAnimation(nil)
             self.executing.isHidden = false
         })
@@ -119,7 +114,6 @@ extension ViewControllertabMain: RunningTask {
 
     func completed() {
         globalMainQueue.async(execute: {() -> Void in
-            self.scheduledJobInProgress = false
             self.info(num: 1)
             self.scheduledJobworking.stopAnimation(nil)
             self.executing.isHidden = true
@@ -205,7 +199,6 @@ extension ViewControllertabMain: UpdateProgress {
             processterminationDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcquickbackup) as? ViewControllerQuickBackup
             processterminationDelegate?.processTermination()
         case .singlequicktask:
-            self.setinfonextaction(info: "", color: .gray)
             self.working.stopAnimation(nil)
             self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: self.outputprocess)
         case .remoteinfotask:
@@ -312,7 +305,7 @@ extension ViewControllertabMain: RcloneError {
     func rcloneerror() {
         // Set on or off in user configuration
         globalMainQueue.async(execute: { () -> Void in
-            self.setinfonextaction(info: "Error", color: .red)
+            self.seterrorinfo(info: "Error")
             self.showrclonecommandmainview()
             self.deselect()
             // Abort any operations
@@ -340,7 +333,7 @@ extension ViewControllertabMain: Fileerror {
             } else if errortype == .filesize {
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + ": filesize = " + errorstr
             } else {
-                self.setinfonextaction(info: "Error", color: .red)
+                self.seterrorinfo(info: "Error")
                 self.rcloneCommand.stringValue = self.errordescription(errortype: errortype) + "\n" + errorstr
             }
         })
@@ -358,7 +351,7 @@ extension ViewControllertabMain: Abort {
             self.working.stopAnimation(nil)
             self.process = nil
             // Create workqueu and add abort
-            self.setinfonextaction(info: "Abort", color: .red)
+            self.seterrorinfo(info: "Abort")
             self.rcloneCommand.stringValue = ""
             if self.configurations!.remoteinfotaskworkqueue != nil && self.configurations?.estimatedlist != nil {
                 self.estimateupdateDelegate?.dismissview()
@@ -422,15 +415,13 @@ extension ViewControllertabMain: SingleTaskProgress {
         localprocessupdateDelegate?.processTermination()
     }
 
-    func setinfonextaction(info: String, color: ColorInfo) {
-        switch color {
-        case .red:
-            self.dryRunOrRealRun.textColor = .red
-        case .black:
-            self.dryRunOrRealRun.textColor = .black
-        case .gray:
-            self.dryRunOrRealRun.textColor = .gray
+    func seterrorinfo(info: String) {
+        guard info != "" else {
+            self.dryRunOrRealRun.isHidden = true
+            return
         }
+        self.dryRunOrRealRun.textColor = .red
+        self.dryRunOrRealRun.isHidden = false
         self.dryRunOrRealRun.stringValue = info
     }
 
@@ -546,7 +537,6 @@ extension ViewControllertabMain: NewProfile {
         self.outputbatch = nil
         self.singletask = nil
         self.showrclonecommandmainview()
-        self.setinfonextaction(info: "Estimate", color: .gray)
         self.deselect()
         // Read configurations and Scheduledata
         self.configurations = self.createconfigurationsobject(profile: profile)
