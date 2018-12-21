@@ -17,7 +17,7 @@ enum Work {
     case restore
 }
 
-class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, Index, Abort {
+class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, Index, Abort, Remoterclonesize {
 
     @IBOutlet weak var localCatalog: NSTextField!
     @IBOutlet weak var offsiteCatalog: NSTextField!
@@ -106,19 +106,12 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
         guard self.outputprocess?.getOutput()?.count ?? 0 > 0 else { return }
         let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
         guard size != nil else { return }
-        NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal)
         self.totalNumber.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.decimal))
         self.totalNumberSizebytes.stringValue = String(NumberFormatter.localizedString(from: NSNumber(value: size!.bytes/1024), number: NumberFormatter.Style.decimal))
         self.working.stopAnimation(nil)
         self.restorebutton.isEnabled = true
         self.gotit.textColor = .green
         self.gotit.stringValue = "Got it..."
-    }
-
-    private func remoterclonesize(input: String) -> Size? {
-        let data: Data = input.data(using: String.Encoding.utf8)!
-        guard let size = try? JSONDecoder().decode(Size.self, from: data) else { return nil}
-        return size
     }
 
     override func viewDidLoad() {
@@ -197,9 +190,9 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
     // Progressbar restore
     private func initiateProgressbar() {
         self.restoreprogress.isHidden = false
-        if let calculatedNumberOfFiles = self.outputprocess?.getMaxcount() {
-            self.restoreprogress.maxValue = Double(calculatedNumberOfFiles)
-        }
+        let size = self.remoterclonesize(input: self.outputprocess!.getOutput()![0])
+        let calculatedNumberOfFiles = NumberFormatter.localizedString(from: NSNumber(value: size!.count), number: NumberFormatter.Style.none)
+        self.restoreprogress.maxValue = Double(calculatedNumberOfFiles) ?? 0
         self.restoreprogress.minValue = 0
         self.restoreprogress.doubleValue = 0
         self.restoreprogress.startAnimation(self)
@@ -217,7 +210,7 @@ extension ViewControllerRestore: UpdateProgress {
         switch self.removework() ?? .setremotenumbers {
         case .getremotenumbers:
             self.setNumbers(outputprocess: self.outputprocess)
-            _ = getremotenumbers()
+            self.getremotenumbers()
         case .setremotenumbers:
             self.setremoteinfo()
         case .restore:

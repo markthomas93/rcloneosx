@@ -390,7 +390,7 @@ extension Sorting {
 }
 
 protocol Remoterclonesize: class {
-    // empty
+    func remoterclonesize(input: String) -> Size?
 }
 
 extension Remoterclonesize {
