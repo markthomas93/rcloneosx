@@ -35,7 +35,7 @@ class ViewControllerRestore: NSViewController, SetConfigurations, SetDismisser, 
 
     var outputprocess: OutputProcess?
     var restorecompleted: Bool = false
-    weak var sendprocess: Sendprocessreference?
+    weak var sendprocess: Sendoutputprocessreference?
     var diddissappear: Bool = false
     var workqueue: [Work]?
     var abortandclose: Bool = true

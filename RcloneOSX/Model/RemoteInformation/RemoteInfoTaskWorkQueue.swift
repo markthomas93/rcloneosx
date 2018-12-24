@@ -14,7 +14,7 @@ protocol SetRemoteInfo: class {
     func getremoteinfo() -> RemoteInfoTaskWorkQueue?
 }
 
-class RemoteInfoTaskWorkQueue: SetConfigurations {
+class RemoteInfoTaskWorkQueue: SetConfigurations, Remoterclonesize {
     // (hiddenID, index)
     // row 0, 2, 4 number of files
     // row 1, 3, 5 remote size
@@ -193,12 +193,6 @@ class RemoteInfoTaskWorkQueue: SetConfigurations {
         self.enablebackupbuttonDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcremoteinfo) as? ViewControllerRemoteInfo
         self.reloadtableDelegate?.reloadtabledata()
         self.enablebackupbuttonDelegate?.enablequickbackupbutton()
-    }
-
-    private func remoterclonesize(input: String) -> Size? {
-        let data: Data = input.data(using: String.Encoding.utf8)!
-        guard let size = try? JSONDecoder().decode(Size.self, from: data) else { return nil}
-        return size
     }
 
     init(inbatch: Bool) {

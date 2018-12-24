@@ -38,7 +38,7 @@ final class ExecuteTask: SetSchedules, SetConfigurations, SetScheduledTask {
                     ViewControllerReference.shared.completeoperation = CompleteRunningTask(dict: dict)
                     globalMainQueue.async(execute: {
                         if self.arguments != nil {
-                            weak var sendprocess: Sendprocessreference?
+                            weak var sendprocess: Sendoutputprocessreference?
                             sendprocess = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
                             let process = RcloneScheduled(arguments: self.arguments)
                             process.executeProcess(outputprocess: self.outputprocess)
