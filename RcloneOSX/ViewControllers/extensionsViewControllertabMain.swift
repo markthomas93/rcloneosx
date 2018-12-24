@@ -272,7 +272,10 @@ extension ViewControllertabMain: UpdateProgress {
                 outputeverythingDelegate?.reloadtable()
             }
         case .remoteinfotask:
-            return
+            outputeverythingDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vctabmain) as? ViewControllertabMain
+            if outputeverythingDelegate?.appendnow() ?? false {
+                outputeverythingDelegate?.reloadtable()
+            }
         case .automaticbackup:
             return
         case .rclonesize:
@@ -400,9 +403,7 @@ extension ViewControllertabMain: SingleTaskProgress {
     }
 
     func presentViewInformation(outputprocess: OutputProcess) {
-        guard  self.configurations!.allowNotifyinMain == true else {
-            return
-        }
+        guard  self.configurations!.allowNotifyinMain == true else { return }
         self.outputprocess = outputprocess
         globalMainQueue.async(execute: { () -> Void in
             self.presentViewControllerAsSheet(self.viewControllerInformation!)
@@ -512,7 +513,7 @@ extension ViewControllertabMain: Createandreloadconfigurations {
     // func createandreloadconfigurations()
 }
 
-extension ViewControllertabMain: Sendprocessreference {
+extension ViewControllertabMain: Sendoutputprocessreference {
     func sendoutputprocessreference(outputprocess: OutputProcess?) {
         self.outputprocess = outputprocess
     }

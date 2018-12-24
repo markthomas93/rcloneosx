@@ -25,7 +25,7 @@ extension SetScheduledTask {
     }
 }
 
-protocol Sendprocessreference: class {
+protocol Sendoutputprocessreference: class {
     func sendprocessreference(process: Process?)
     func sendoutputprocessreference(outputprocess: OutputProcess?)
 }
