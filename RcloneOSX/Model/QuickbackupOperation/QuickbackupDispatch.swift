@@ -8,13 +8,13 @@
 
 import Foundation
 
-class ExecutingTaskDispatch: SetSchedules {
+class QuickbackupDispatch: SetSchedules {
 
     private var workitem: DispatchWorkItem?
 
     private func dispatchtask(_ seconds: Int) {
         let scheduledtask = DispatchWorkItem { [weak self] in
-            _ = ExecuteTask()
+            _ = ExecuteQuickbackupTask()
         }
         self.workitem = scheduledtask
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds), execute: scheduledtask)

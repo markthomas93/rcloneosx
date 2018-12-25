@@ -857,7 +857,6 @@
                         <outlet property="rcloneversionshort" destination="jA8-9b-U5I" id="7cG-eg-57G"/>
                         <outlet property="remoteinfonumber" destination="a0o-kn-PZd" id="3Ae-Je-vjZ"/>
                         <outlet property="remoteinfosize" destination="ANf-OB-UtX" id="QMl-Ga-6cc"/>
-                        <outlet property="scheduledJobworking" destination="2TV-7g-FdW" id="uOO-MQ-NFL"/>
                         <outlet property="totalNumber" destination="IFg-Xf-ODx" id="PEU-mH-vGF"/>
                         <outlet property="working" destination="Ks0-BU-fmE" id="TJq-su-mKx"/>
                     </connections>
@@ -1932,9 +1931,9 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oS1-kC-lfI">
-                                <rect key="frame" x="393" y="13" width="59" height="32"/>
+                                <rect key="frame" x="383" y="13" width="68" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L5g-6S-at9">
+                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L5g-6S-at9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -1981,7 +1980,7 @@ DQ
                 </viewController>
                 <customObject id="cus-9G-xLk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14" y="2262"/>
+            <point key="canvasLocation" x="14" y="2261.5"/>
         </scene>
         <!--About-->
         <scene sceneID="qtg-l1-11e">

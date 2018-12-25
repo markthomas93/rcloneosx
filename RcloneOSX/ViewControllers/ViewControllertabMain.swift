@@ -66,7 +66,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     // executing the real run
     @IBOutlet weak var dryRunOrRealRun: NSTextField!
     // Progressbar scheduled task
-    @IBOutlet weak var scheduledJobworking: NSProgressIndicator!
     @IBOutlet weak var executing: NSTextField!
     // total number of files in remote volume
     @IBOutlet weak var totalNumber: NSTextField!
@@ -318,7 +317,6 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.working.usesThreadedAnimation = true
-        self.scheduledJobworking.usesThreadedAnimation = true
         ViewControllerReference.shared.setvcref(viewcontroller: .vctabmain, nsviewcontroller: self)
         self.mainTableView.target = self
         self.mainTableView.doubleAction = #selector(ViewControllertabMain.tableViewDoubleClick(sender:))
