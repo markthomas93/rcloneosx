@@ -573,30 +573,19 @@
                                     <rect key="frame" x="3" y="3" width="107" height="73"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="751" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="2TV-7g-FdW">
-                                            <rect key="frame" x="82" y="9" width="16" height="16"/>
-                                        </progressIndicator>
                                         <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="751" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Ks0-BU-fmE">
-                                            <rect key="frame" x="82" y="29" width="16" height="16"/>
+                                            <rect key="frame" x="82" y="21" width="16" height="16"/>
                                         </progressIndicator>
                                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="752" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mv-zN-6NF">
-                                            <rect key="frame" x="10" y="28" width="70" height="17"/>
+                                            <rect key="frame" x="10" y="20" width="70" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="estimating" id="lJi-A3-zQw">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o7z-cC-ahl">
-                                            <rect key="frame" x="10" y="9" width="70" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="executing" id="S51-tf-4CV">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9xL-Jl-ccr">
-                                            <rect key="frame" x="-20" y="49" width="147" height="16"/>
+                                            <rect key="frame" x="-20" y="41" width="147" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="status" id="0kY-TR-Wtk">
                                                 <font key="font" metaFont="cellTitle"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -605,15 +594,10 @@
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="5mv-zN-6NF" firstAttribute="trailing" secondItem="o7z-cC-ahl" secondAttribute="trailing" id="7zG-v8-nBb"/>
-                                        <constraint firstItem="o7z-cC-ahl" firstAttribute="top" secondItem="5mv-zN-6NF" secondAttribute="bottom" constant="2" id="8aj-w4-spA"/>
                                         <constraint firstAttribute="trailing" secondItem="Ks0-BU-fmE" secondAttribute="trailing" constant="9" id="F4i-xA-RHd"/>
-                                        <constraint firstItem="o7z-cC-ahl" firstAttribute="bottom" secondItem="2TV-7g-FdW" secondAttribute="bottom" id="INu-6C-Mh0"/>
                                         <constraint firstItem="9xL-Jl-ccr" firstAttribute="leading" secondItem="g70-3I-QYo" secondAttribute="leading" constant="-18" id="S1i-3Q-BzW"/>
-                                        <constraint firstItem="5mv-zN-6NF" firstAttribute="leading" secondItem="o7z-cC-ahl" secondAttribute="leading" id="S7O-36-3LB"/>
-                                        <constraint firstItem="Ks0-BU-fmE" firstAttribute="leading" secondItem="2TV-7g-FdW" secondAttribute="leading" id="SfJ-3B-oMK"/>
                                         <constraint firstItem="5mv-zN-6NF" firstAttribute="leading" secondItem="g70-3I-QYo" secondAttribute="leading" constant="12" id="Sqh-v4-YTq"/>
-                                        <constraint firstItem="5mv-zN-6NF" firstAttribute="centerY" secondItem="g70-3I-QYo" secondAttribute="centerY" id="WLQ-Hz-yu9"/>
+                                        <constraint firstItem="5mv-zN-6NF" firstAttribute="centerY" secondItem="g70-3I-QYo" secondAttribute="centerY" constant="8" id="WLQ-Hz-yu9"/>
                                         <constraint firstItem="9xL-Jl-ccr" firstAttribute="centerX" secondItem="g70-3I-QYo" secondAttribute="centerX" id="ggd-fT-1hF"/>
                                         <constraint firstItem="5mv-zN-6NF" firstAttribute="top" secondItem="Ks0-BU-fmE" secondAttribute="top" id="qwh-Df-95M"/>
                                         <constraint firstItem="Ks0-BU-fmE" firstAttribute="leading" secondItem="5mv-zN-6NF" secondAttribute="trailing" constant="4" id="vVi-7g-dDk"/>
@@ -841,7 +825,7 @@
                             <constraint firstItem="Hq4-Zn-A1K" firstAttribute="top" secondItem="jkA-og-5x2" secondAttribute="bottom" constant="2" id="yMr-yK-lr8"/>
                             <constraint firstItem="3DG-2b-5po" firstAttribute="leading" secondItem="g7r-rp-4kz" secondAttribute="trailing" constant="12" id="yRm-zq-48K"/>
                             <constraint firstItem="ihR-vZ-M7c" firstAttribute="top" secondItem="Gg2-se-FkF" secondAttribute="bottom" constant="1" id="yqX-dj-nmz"/>
-                            <constraint firstItem="a0o-kn-PZd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KcH-bc-xzs" secondAttribute="trailing" symbolic="YES" id="zzj-GW-pHP"/>
+                            <constraint firstItem="a0o-kn-PZd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KcH-bc-xzs" secondAttribute="trailing" constant="8" symbolic="YES" id="zzj-GW-pHP"/>
                         </constraints>
                     </view>
                     <connections>
@@ -849,7 +833,6 @@
                         <outlet property="displaysynccommand" destination="g7r-rp-4kz" id="f5g-Og-Anv"/>
                         <outlet property="dryRunOrRealRun" destination="9xL-Jl-ccr" id="mP2-1A-Kaf"/>
                         <outlet property="estimating" destination="5mv-zN-6NF" id="HL3-uo-we1"/>
-                        <outlet property="executing" destination="o7z-cC-ahl" id="gg1-ty-zj0"/>
                         <outlet property="info" destination="eXj-oO-jDD" id="wHh-aK-7sK"/>
                         <outlet property="mainTableView" destination="gd0-mk-eEg" id="V0X-hS-6qu"/>
                         <outlet property="profilInfo" destination="Gg2-se-FkF" id="XIe-l3-YkS"/>
