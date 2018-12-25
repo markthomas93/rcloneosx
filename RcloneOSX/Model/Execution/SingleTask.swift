@@ -57,15 +57,10 @@ final class SingleTask: SetSchedules, SetConfigurations {
         if self.workload == nil {
             self.workload = SingleTaskWorkQueu()
         }
-
         let arguments: [String]?
-        self.process = nil
-        self.outputprocess = nil
-
         switch self.workload!.peek() {
         case .estimatesinglerun:
             if let index = self.index {
-                // Start animation and show process info
                 self.indicatorDelegate?.startIndicator()
                 arguments = self.configurations!.arguments4rclone(index: index, argtype: .argdryRun)
                 let process = Rclone(arguments: arguments)
@@ -76,7 +71,6 @@ final class SingleTask: SetSchedules, SetConfigurations {
             }
         case .executesinglerun:
             if let index = self.index {
-                // Show progress view
                 self.taskDelegate?.presentViewProgress()
                 arguments = self.configurations!.arguments4rclone(index: index, argtype: .arg)
                 self.outputprocess = OutputProcess()
@@ -97,38 +91,23 @@ final class SingleTask: SetSchedules, SetConfigurations {
     }
 
     func processTermination() {
-
         self.ready = true
-        // Making sure no nil pointer execption
         if let workload = self.workload {
-
-            // Pop topmost element of work queue
             switch workload.pop() {
             case .estimatesinglerun:
-                // Stopping the working (estimation) progress indicator
                 self.indicatorDelegate?.stopIndicator()
-                // Getting and setting max file to transfer
                 self.taskDelegate?.setNumbers(output: self.outputprocess)
                 self.maxcount = self.outputprocess!.getMaxcount()
-                // If showInfoDryrun is on present result of dryrun automatically
                 self.taskDelegate?.presentViewInformation(outputprocess: self.outputprocess!)
             case .error:
-                // Stopping the working (estimation) progress indicator
                 self.indicatorDelegate?.stopIndicator()
-                // If showInfoDryrun is on present result of dryrun automatically
                 self.taskDelegate?.presentViewInformation(outputprocess: self.outputprocess!)
                 self.workload = nil
             case .executesinglerun:
-                // Process termination and close progress view
                 self.taskDelegate?.terminateProgressProcess()
-                // If showInfoDryrun is on present result of dryrun automatically
                 self.taskDelegate?.presentViewInformation(outputprocess: self.outputprocess!)
-                // Get transferred numbers from view
-                self.transferredNumber = self.taskDelegate?.gettransferredNumber()
-                self.transferredNumberSizebytes = self.taskDelegate?.gettransferredNumberSizebytes()
                 if self.configurations!.getConfigurations()[self.index!].task != ViewControllerReference.shared.check {
                     self.configurations!.setCurrentDateonConfiguration(index: self.index!, outputprocess: outputprocess)
-                    self.taskDelegate?.setNumbers(output: self.outputprocess)
                 }
             case .empty:
                 self.workload = nil
