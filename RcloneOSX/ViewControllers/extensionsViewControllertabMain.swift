@@ -102,25 +102,6 @@ extension ViewControllertabMain: GetSelecetedIndex {
     }
 }
 
-// A scheduled task is executed
-extension ViewControllertabMain: RunningTask {
-    func start() {
-        self.processtermination = .quicktask
-        globalMainQueue.async(execute: {() -> Void in
-            self.scheduledJobworking.startAnimation(nil)
-            self.executing.isHidden = false
-        })
-    }
-
-    func completed() {
-        globalMainQueue.async(execute: {() -> Void in
-            self.info(num: 1)
-            self.scheduledJobworking.stopAnimation(nil)
-            self.executing.isHidden = true
-        })
-    }
-}
-
 // rclone path is changed, update displayed rclone command
 extension ViewControllertabMain: RcloneIsChanged {
     // If row is selected an update rclone command in view

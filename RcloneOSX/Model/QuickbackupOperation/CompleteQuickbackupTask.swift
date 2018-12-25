@@ -11,7 +11,7 @@ import Foundation
 
 // Class for completion of Operation objects when Process object termination.
 // The object does also kicks of next scheduled job by setting new waiter time.
-final class CompleteRunningTask: SetConfigurations, SetSchedules, SetScheduledTask {
+final class CompleteQuickbackupTask: SetConfigurations, SetSchedules {
 
     weak var taskDelegate: SingleTaskProgress?
     private var date: Date?
@@ -33,7 +33,6 @@ final class CompleteRunningTask: SetConfigurations, SetSchedules, SetScheduledTa
         self.schedules!.addresultschedule(self.hiddenID!, dateStart: dateStartstring, result: numberstring, date: datestring, schedule: schedule!)
         self.taskDelegate?.setNumbers(output: outputprocess)
         self.configurations!.setCurrentDateonConfigurationQuickbackup(index: self.index!, outputprocess: outputprocess)
-        self.runningtask?.completed()
         self.schedulesDelegate?.reloadschedulesobject()
     }
 
