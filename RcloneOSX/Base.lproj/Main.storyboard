@@ -2348,7 +2348,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSk-6G-n8f">
-                                <rect key="frame" x="114" y="18" width="68" height="18"/>
+                                <rect key="frame" x="114" y="31" width="68" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Backup" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8LR-3k-3yL">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2356,6 +2356,17 @@ DQ
                                 </buttonCell>
                                 <connections>
                                     <action selector="backup:" target="K9c-yf-VMY" id="3G7-ZN-rGP"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lGo-eR-V9v">
+                                <rect key="frame" x="114" y="11" width="89" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Date string" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dQJ-wN-6Ff">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="suffix:" target="K9c-yf-VMY" id="98l-vA-fZB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2386,6 +2397,7 @@ DQ
                         <outlet property="param2" destination="VIk-S3-TCa" id="zBK-pW-1wP"/>
                         <outlet property="param8" destination="igq-DC-o5N" id="lMQ-Jb-BpF"/>
                         <outlet property="param9" destination="T5K-j8-kUZ" id="3CW-Jt-72D"/>
+                        <outlet property="suffixbutton" destination="lGo-eR-V9v" id="0Qf-0p-mHa"/>
                     </connections>
                 </viewController>
                 <customObject id="WDP-gm-I5Q" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

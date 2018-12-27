@@ -144,21 +144,28 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
     @IBAction func backup(_ sender: NSButton) {
         switch self.backupbutton.state {
         case .on:
-            self.initcombox(combobox: self.combo12, index: (self.parameters!.indexandvaluercloneparameter(self.parameters!.getBackupString()[0]).0))
-            self.param12.stringValue = self.parameters!.indexandvaluercloneparameter(self.parameters!.getBackupString()[0]).1
             let hiddenID = self.configurations!.gethiddenID(index: (self.index())!)
-            let localcatalog = self.configurations!.getResourceConfiguration(hiddenID, resource: .localCatalog)
-            let localcatalogParts = (localcatalog as AnyObject).components(separatedBy: "/")
-            self.initcombox(combobox: self.combo13, index: (self.parameters!.indexandvaluercloneparameter(self.parameters!.getBackupString()[1]).0))
-            self.param13.stringValue = "../backup" + "_" + localcatalogParts[localcatalogParts.count - 2]
+            let remoteCatalog = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
+            let offsiteServer = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
+            let backup = offsiteServer + ":" + remoteCatalog + "_backup"
+            self.param14.stringValue = backup
+            self.initcombox(combobox: self.combo14, index: (self.parameters!.indexandvaluercloneparameter(self.parameters!.backupString).0))
         case .off:
-            self.initcombox(combobox: self.combo12, index: (0))
-            self.param12.stringValue = ""
-            self.initcombox(combobox: self.combo13, index: (0))
-            self.param13.stringValue = ""
             self.initcombox(combobox: self.combo14, index: (0))
             self.param14.stringValue = ""
         default : break
         }
     }
+
+    @IBOutlet weak var suffixbutton: NSButton!
+    @IBAction func suffix(_ sender: NSButton) {
+        switch self.suffixbutton.state {
+        case .on:
+            self.param14.stringValue += "/" + self.parameters!.suffixString
+        case .off:
+            return
+        default : break
+        }
+    }
+
 }

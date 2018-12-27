@@ -16,16 +16,16 @@ final class RcloneParameters {
     private let rcloneArguments: [Argument] = [
         ("user", 1),
         ("delete", 0),
+        ("--backup-dir", 1),
         ("--bwlimit", 1),
         ("--transfers", 1),
         ("--exclude", 1),
         ("--exclude-from", 1),
-        ("--backup-dir", 1),
         ("--no-traverse", 0),
         ("--no-gzip-encoding", 0)]
 
-    private let backupString = ["--backup", "--backup-dir=../backup"]
-
+    let backupString = "--backup-dir"
+    let suffixString = "`date -I`"
     private var comboBoxValues: [String]?
     private var config: Configuration?
 
@@ -134,10 +134,6 @@ final class RcloneParameters {
             return (0, "")
         }
         return indexandvalue!
-    }
-
-    func getBackupString() -> [String] {
-        return self.backupString
     }
 
     init(config: Configuration) {
