@@ -2347,6 +2347,17 @@ DQ
                                     <action selector="close:" target="K9c-yf-VMY" id="k3k-ky-rk7"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSk-6G-n8f">
+                                <rect key="frame" x="114" y="18" width="68" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Backup" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8LR-3k-3yL">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="backup:" target="K9c-yf-VMY" id="3G7-ZN-rGP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ebN-VZ-Zqz" secondAttribute="trailing" constant="20" symbolic="YES" id="KPe-6b-tvi"/>
@@ -2358,22 +2369,23 @@ DQ
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="parameter10" destination="xiz-1A-Kua" id="Mm3-Su-yTz"/>
-                        <outlet property="parameter11" destination="G1S-Es-fdT" id="g2Z-7R-PNf"/>
-                        <outlet property="parameter12" destination="028-As-PZF" id="Naa-2Q-cw5"/>
-                        <outlet property="parameter13" destination="yDF-VC-oRJ" id="NZ6-6C-Yn5"/>
-                        <outlet property="parameter14" destination="ShF-17-cUM" id="MRG-mN-62x"/>
-                        <outlet property="parameter8" destination="Ora-4m-3w7" id="t86-DL-eSf"/>
-                        <outlet property="parameter9" destination="5I0-rR-9OO" id="Pvu-0D-Dia"/>
-                        <outlet property="viewParameter1" destination="8lV-18-VgA" id="NpZ-IK-7Vl"/>
-                        <outlet property="viewParameter10" destination="eH7-7W-QkX" id="4zd-Ig-50I"/>
-                        <outlet property="viewParameter11" destination="0II-7a-Edf" id="YeC-Vz-tjI"/>
-                        <outlet property="viewParameter12" destination="Rp5-WA-cza" id="ScT-gj-RhC"/>
-                        <outlet property="viewParameter13" destination="hnr-eU-KGd" id="o3D-M6-1m6"/>
-                        <outlet property="viewParameter14" destination="H4U-rK-bKi" id="xmf-X3-VBx"/>
-                        <outlet property="viewParameter2" destination="VIk-S3-TCa" id="zBK-pW-1wP"/>
-                        <outlet property="viewParameter8" destination="igq-DC-o5N" id="lMQ-Jb-BpF"/>
-                        <outlet property="viewParameter9" destination="T5K-j8-kUZ" id="3CW-Jt-72D"/>
+                        <outlet property="backupbutton" destination="xSk-6G-n8f" id="IAx-zM-oYg"/>
+                        <outlet property="combo10" destination="xiz-1A-Kua" id="Mm3-Su-yTz"/>
+                        <outlet property="combo11" destination="G1S-Es-fdT" id="g2Z-7R-PNf"/>
+                        <outlet property="combo12" destination="028-As-PZF" id="Naa-2Q-cw5"/>
+                        <outlet property="combo13" destination="yDF-VC-oRJ" id="NZ6-6C-Yn5"/>
+                        <outlet property="combo14" destination="ShF-17-cUM" id="MRG-mN-62x"/>
+                        <outlet property="combo8" destination="Ora-4m-3w7" id="t86-DL-eSf"/>
+                        <outlet property="combo9" destination="5I0-rR-9OO" id="Pvu-0D-Dia"/>
+                        <outlet property="param1" destination="8lV-18-VgA" id="NpZ-IK-7Vl"/>
+                        <outlet property="param10" destination="eH7-7W-QkX" id="4zd-Ig-50I"/>
+                        <outlet property="param11" destination="0II-7a-Edf" id="YeC-Vz-tjI"/>
+                        <outlet property="param12" destination="Rp5-WA-cza" id="ScT-gj-RhC"/>
+                        <outlet property="param13" destination="hnr-eU-KGd" id="o3D-M6-1m6"/>
+                        <outlet property="param14" destination="H4U-rK-bKi" id="xmf-X3-VBx"/>
+                        <outlet property="param2" destination="VIk-S3-TCa" id="zBK-pW-1wP"/>
+                        <outlet property="param8" destination="igq-DC-o5N" id="lMQ-Jb-BpF"/>
+                        <outlet property="param9" destination="T5K-j8-kUZ" id="3CW-Jt-72D"/>
                     </connections>
                 </viewController>
                 <customObject id="WDP-gm-I5Q" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
