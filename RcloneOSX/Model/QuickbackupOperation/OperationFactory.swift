@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol Sendoutputprocessreference: class {
     func sendprocessreference(process: Process?)
     func sendoutputprocessreference(outputprocess: OutputProcess?)
