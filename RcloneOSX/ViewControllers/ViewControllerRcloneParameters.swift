@@ -25,32 +25,29 @@ protocol GetSelecetedIndex: class {
 class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDismisser, Index {
 
     var storageapi: PersistentStorageAPI?
-    // Object for calculating rclone parameters
     var parameters: RcloneParameters?
-    // Delegate returning params updated or not
     weak var userparamsupdatedDelegate: RcloneUserParams?
-    // Reference to rclone parameters to use in combox
     var comboBoxValues = [String]()
     var diddissappear: Bool = false
 
-    @IBOutlet weak var viewParameter1: NSTextField!
-    @IBOutlet weak var viewParameter2: NSTextField!
+    @IBOutlet weak var param1: NSTextField!
+    @IBOutlet weak var param2: NSTextField!
     // user selected parameter
-    @IBOutlet weak var viewParameter8: NSTextField!
-    @IBOutlet weak var viewParameter9: NSTextField!
-    @IBOutlet weak var viewParameter10: NSTextField!
-    @IBOutlet weak var viewParameter11: NSTextField!
-    @IBOutlet weak var viewParameter12: NSTextField!
-    @IBOutlet weak var viewParameter13: NSTextField!
-    @IBOutlet weak var viewParameter14: NSTextField!
+    @IBOutlet weak var param8: NSTextField!
+    @IBOutlet weak var param9: NSTextField!
+    @IBOutlet weak var param10: NSTextField!
+    @IBOutlet weak var param11: NSTextField!
+    @IBOutlet weak var param12: NSTextField!
+    @IBOutlet weak var param13: NSTextField!
+    @IBOutlet weak var param14: NSTextField!
     // Comboboxes
-    @IBOutlet weak var parameter8: NSComboBox!
-    @IBOutlet weak var parameter9: NSComboBox!
-    @IBOutlet weak var parameter10: NSComboBox!
-    @IBOutlet weak var parameter11: NSComboBox!
-    @IBOutlet weak var parameter12: NSComboBox!
-    @IBOutlet weak var parameter13: NSComboBox!
-    @IBOutlet weak var parameter14: NSComboBox!
+    @IBOutlet weak var combo8: NSComboBox!
+    @IBOutlet weak var combo9: NSComboBox!
+    @IBOutlet weak var combo10: NSComboBox!
+    @IBOutlet weak var combo11: NSComboBox!
+    @IBOutlet weak var combo12: NSComboBox!
+    @IBOutlet weak var combo13: NSComboBox!
+    @IBOutlet weak var combo14: NSComboBox!
 
     @IBAction func close(_ sender: NSButton) {
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
@@ -74,25 +71,26 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
             // Create RcloneParameters object and load initial parameters
             self.parameters = RcloneParameters(config: configurations[index])
             self.comboBoxValues = parameters!.getComboBoxValues()
-            self.viewParameter1.stringValue = configurations[index].parameter1 ?? ""
-            self.viewParameter2.stringValue = configurations[index].parameter2 ?? ""
+            self.param1.stringValue = configurations[index].parameter1 ?? ""
+            self.param2.stringValue = configurations[index].parameter2 ?? ""
             // There are seven user seleected rclone parameters
-            self.setValueComboBox(combobox: self.parameter8, index: self.parameters!.getParameter(rcloneparameternumber: 8).0)
-            self.viewParameter8.stringValue = self.parameters!.getParameter(rcloneparameternumber: 8).1
-            self.setValueComboBox(combobox: self.parameter9, index: self.parameters!.getParameter(rcloneparameternumber: 9).0)
-            self.viewParameter9.stringValue = self.parameters!.getParameter(rcloneparameternumber: 9).1
-            self.setValueComboBox(combobox: self.parameter10, index: self.parameters!.getParameter(rcloneparameternumber: 10).0)
-            self.viewParameter10.stringValue = self.parameters!.getParameter(rcloneparameternumber: 10).1
-            self.setValueComboBox(combobox: self.parameter11, index: self.parameters!.getParameter(rcloneparameternumber: 11).0)
-            self.viewParameter11.stringValue = self.parameters!.getParameter(rcloneparameternumber: 11).1
-            self.setValueComboBox(combobox: self.parameter12, index: self.parameters!.getParameter(rcloneparameternumber: 12).0)
-            self.viewParameter12.stringValue = self.parameters!.getParameter(rcloneparameternumber: 12).1
-            self.setValueComboBox(combobox: self.parameter13, index: self.parameters!.getParameter(rcloneparameternumber: 13).0)
-            self.viewParameter13.stringValue = self.parameters!.getParameter(rcloneparameternumber: 13).1
-            self.setValueComboBox(combobox: self.parameter14, index: self.parameters!.getParameter(rcloneparameternumber: 14).0)
-            self.viewParameter14.stringValue = self.parameters!.getParameter(rcloneparameternumber: 14).1
-
+            self.initcombox(combobox: self.combo8, index: self.parameters!.getParameter(rcloneparameternumber: 8).0)
+            self.param8.stringValue = self.parameters!.getParameter(rcloneparameternumber: 8).1
+            self.initcombox(combobox: self.combo9, index: self.parameters!.getParameter(rcloneparameternumber: 9).0)
+            self.param9.stringValue = self.parameters!.getParameter(rcloneparameternumber: 9).1
+            self.initcombox(combobox: self.combo10, index: self.parameters!.getParameter(rcloneparameternumber: 10).0)
+            self.param10.stringValue = self.parameters!.getParameter(rcloneparameternumber: 10).1
+            self.initcombox(combobox: self.combo11, index: self.parameters!.getParameter(rcloneparameternumber: 11).0)
+            self.param11.stringValue = self.parameters!.getParameter(rcloneparameternumber: 11).1
+            self.initcombox(combobox: self.combo12, index: self.parameters!.getParameter(rcloneparameternumber: 12).0)
+            self.param12.stringValue = self.parameters!.getParameter(rcloneparameternumber: 12).1
+            self.initcombox(combobox: self.combo13, index: self.parameters!.getParameter(rcloneparameternumber: 13).0)
+            self.param13.stringValue = self.parameters!.getParameter(rcloneparameternumber: 13).1
+            self.initcombox(combobox: self.combo14, index: self.parameters!.getParameter(rcloneparameternumber: 14).0)
+            self.param14.stringValue = self.parameters!.getParameter(rcloneparameternumber: 14).1
         }
+        self.backupbutton.state = .off
+        self.suffixbutton.state = .off
     }
 
     override func viewDidDisappear() {
@@ -103,28 +101,23 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
     // Function for saving changed or new parameters for one configuration.
     @IBAction func update(_ sender: NSButton) {
         var configurations: [Configuration] = self.configurations!.getConfigurations()
-        guard configurations.count > 0 else {
-            return
-        }
-        // Get the index of selected configuration
+        guard configurations.count > 0 else { return }
         if let index = self.index() {
             configurations[index].parameter8 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter8.indexOfSelectedItem, value: getValue(value: self.viewParameter8.stringValue))
+                self.combo8.indexOfSelectedItem, value: getValue(value: self.param8.stringValue))
             configurations[index].parameter9 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter9.indexOfSelectedItem, value: getValue(value: self.viewParameter9.stringValue))
+                self.combo9.indexOfSelectedItem, value: getValue(value: self.param9.stringValue))
             configurations[index].parameter10 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter10.indexOfSelectedItem, value: getValue(value: self.viewParameter10.stringValue))
+                self.combo10.indexOfSelectedItem, value: getValue(value: self.param10.stringValue))
             configurations[index].parameter11 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter11.indexOfSelectedItem, value: getValue(value: self.viewParameter11.stringValue))
+                self.combo11.indexOfSelectedItem, value: getValue(value: self.param11.stringValue))
             configurations[index].parameter12 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter12.indexOfSelectedItem, value: getValue(value: self.viewParameter12.stringValue))
+                self.combo12.indexOfSelectedItem, value: getValue(value: self.param12.stringValue))
             configurations[index].parameter13 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter13.indexOfSelectedItem, value: getValue(value: self.viewParameter13.stringValue))
+                self.combo13.indexOfSelectedItem, value: getValue(value: self.param13.stringValue))
             configurations[index].parameter14 = self.parameters!.getRcloneParameter(indexComboBox:
-                self.parameter14.indexOfSelectedItem, value: getValue(value: self.viewParameter14.stringValue))
-            // Update configuration in memory before saving
+                self.combo14.indexOfSelectedItem, value: getValue(value: self.param14.stringValue))
             self.configurations!.updateConfigurations(configurations[index], index: index)
-            // notify an update
             self.userparamsupdatedDelegate?.rcloneuserparamsupdated()
         }
         self.dismissview(viewcontroller: self, vcontroller: .vctabmain)
@@ -133,7 +126,7 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
     // There are eight comboboxes
     // All eight are initalized during ViewDidLoad and
     // the correct index is set.
-    private func setValueComboBox (combobox: NSComboBox, index: Int) {
+    private func initcombox (combobox: NSComboBox, index: Int) {
         combobox.removeAllItems()
         combobox.addItems(withObjectValues: self.comboBoxValues)
         combobox.selectItem(at: index)
@@ -145,6 +138,36 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
             return nil
         } else {
             return value
+        }
+    }
+
+    @IBOutlet weak var backupbutton: NSButton!
+    @IBAction func backup(_ sender: NSButton) {
+        switch self.backupbutton.state {
+        case .on:
+            let hiddenID = self.configurations!.gethiddenID(index: (self.index())!)
+            let remoteCatalog = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
+            let offsiteServer = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
+            let backup = offsiteServer + ":" + remoteCatalog + "_backup"
+            self.param13.stringValue = backup
+            self.initcombox(combobox: self.combo13, index: (self.parameters!.indexandvaluercloneparameter("--backup-dir").0))
+        case .off:
+            self.initcombox(combobox: self.combo13, index: (0))
+            self.param13.stringValue = ""
+        default : break
+        }
+    }
+
+    @IBOutlet weak var suffixbutton: NSButton!
+    @IBAction func suffix(_ sender: NSButton) {
+        switch self.suffixbutton.state {
+        case .on:
+            self.param14.stringValue = self.parameters!.suffixString
+            self.initcombox(combobox: self.combo14, index: (self.parameters!.indexandvaluercloneparameter("--suffix").0))
+        case .off:
+            self.initcombox(combobox: self.combo14, index: (0))
+            self.param14.stringValue = ""
+        default : break
         }
     }
 
