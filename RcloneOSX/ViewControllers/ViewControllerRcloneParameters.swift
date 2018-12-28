@@ -88,8 +88,9 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
             self.param13.stringValue = self.parameters!.getParameter(rcloneparameternumber: 13).1
             self.initcombox(combobox: self.combo14, index: self.parameters!.getParameter(rcloneparameternumber: 14).0)
             self.param14.stringValue = self.parameters!.getParameter(rcloneparameternumber: 14).1
-
         }
+        self.backupbutton.state = .off
+        self.suffixbutton.state = .off
     }
 
     override func viewDidDisappear() {
@@ -148,11 +149,11 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
             let remoteCatalog = self.configurations!.getResourceConfiguration(hiddenID, resource: .remoteCatalog)
             let offsiteServer = self.configurations!.getResourceConfiguration(hiddenID, resource: .offsiteServer)
             let backup = offsiteServer + ":" + remoteCatalog + "_backup"
-            self.param14.stringValue = backup
-            self.initcombox(combobox: self.combo14, index: (self.parameters!.indexandvaluercloneparameter(self.parameters!.backupString).0))
+            self.param13.stringValue = backup
+            self.initcombox(combobox: self.combo13, index: (self.parameters!.indexandvaluercloneparameter("--backup-dir").0))
         case .off:
-            self.initcombox(combobox: self.combo14, index: (0))
-            self.param14.stringValue = ""
+            self.initcombox(combobox: self.combo13, index: (0))
+            self.param13.stringValue = ""
         default : break
         }
     }
@@ -161,9 +162,11 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
     @IBAction func suffix(_ sender: NSButton) {
         switch self.suffixbutton.state {
         case .on:
-            self.param14.stringValue += "/" + self.parameters!.suffixString
+            self.param14.stringValue = self.parameters!.suffixString
+            self.initcombox(combobox: self.combo14, index: (self.parameters!.indexandvaluercloneparameter("--suffix").0))
         case .off:
-            return
+            self.initcombox(combobox: self.combo14, index: (0))
+            self.param14.stringValue = ""
         default : break
         }
     }
