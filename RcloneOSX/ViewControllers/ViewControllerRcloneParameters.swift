@@ -74,23 +74,22 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
             self.param1.stringValue = configurations[index].parameter1 ?? ""
             self.param2.stringValue = configurations[index].parameter2 ?? ""
             // There are seven user seleected rclone parameters
-            self.initcombox(combobox: self.combo8, index: self.parameters!.getParameter(rcloneparameternumber: 8).0)
-            self.param8.stringValue = self.parameters!.getParameter(rcloneparameternumber: 8).1
-            self.initcombox(combobox: self.combo9, index: self.parameters!.getParameter(rcloneparameternumber: 9).0)
-            self.param9.stringValue = self.parameters!.getParameter(rcloneparameternumber: 9).1
-            self.initcombox(combobox: self.combo10, index: self.parameters!.getParameter(rcloneparameternumber: 10).0)
-            self.param10.stringValue = self.parameters!.getParameter(rcloneparameternumber: 10).1
-            self.initcombox(combobox: self.combo11, index: self.parameters!.getParameter(rcloneparameternumber: 11).0)
-            self.param11.stringValue = self.parameters!.getParameter(rcloneparameternumber: 11).1
-            self.initcombox(combobox: self.combo12, index: self.parameters!.getParameter(rcloneparameternumber: 12).0)
-            self.param12.stringValue = self.parameters!.getParameter(rcloneparameternumber: 12).1
-            self.initcombox(combobox: self.combo13, index: self.parameters!.getParameter(rcloneparameternumber: 13).0)
-            self.param13.stringValue = self.parameters!.getParameter(rcloneparameternumber: 13).1
-            self.initcombox(combobox: self.combo14, index: self.parameters!.getParameter(rcloneparameternumber: 14).0)
-            self.param14.stringValue = self.parameters!.getParameter(rcloneparameternumber: 14).1
+            self.initcombox(combobox: self.combo8, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 8).0)
+            self.param8.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 8).1
+            self.initcombox(combobox: self.combo9, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 9).0)
+            self.param9.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 9).1
+            self.initcombox(combobox: self.combo10, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 10).0)
+            self.param10.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 10).1
+            self.initcombox(combobox: self.combo11, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 11).0)
+            self.param11.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 11).1
+            self.initcombox(combobox: self.combo12, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 12).0)
+            self.param12.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 12).1
+            self.initcombox(combobox: self.combo13, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 13).0)
+            self.param13.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 13).1
+            self.initcombox(combobox: self.combo14, index: self.parameters!.getrcloneparameter(rcloneparameternumber: 14).0)
+            self.param14.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 14).1
         }
         self.backupbutton.state = .off
-        self.suffixbutton.state = .off
     }
 
     override func viewDidDisappear() {
@@ -157,18 +156,4 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
         default : break
         }
     }
-
-    @IBOutlet weak var suffixbutton: NSButton!
-    @IBAction func suffix(_ sender: NSButton) {
-        switch self.suffixbutton.state {
-        case .on:
-            self.param14.stringValue = self.parameters!.suffixString
-            self.initcombox(combobox: self.combo14, index: (self.parameters!.indexandvaluercloneparameter("--suffix").0))
-        case .off:
-            self.initcombox(combobox: self.combo14, index: (0))
-            self.param14.stringValue = ""
-        default : break
-        }
-    }
-
 }

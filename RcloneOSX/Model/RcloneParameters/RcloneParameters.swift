@@ -113,7 +113,7 @@ final class RcloneParameters {
         return (returnindex!, returnvalue!)
     }
 
-    func getParameter (rcloneparameternumber: Int) -> (Int, String) {
+    func getrcloneparameter (rcloneparameternumber: Int) -> (Int, String) {
         var indexandvalue: (Int, String)?
         guard self.config != nil else { return (0, "")}
         switch rcloneparameternumber {
@@ -139,8 +139,6 @@ final class RcloneParameters {
 
     init(config: Configuration) {
         self.config = config
-        // Set string array for Comboboxes
-        self.comboBoxValues = nil
         self.comboBoxValues = [String]()
         for i in 0 ..< self.rcloneArguments.count {
             self.comboBoxValues!.append(self.rcloneArguments[i].0)
