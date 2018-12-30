@@ -90,7 +90,6 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
             self.param14.stringValue = self.parameters!.getrcloneparameter(rcloneparameternumber: 14).1
         }
         self.backupbutton.state = .off
-        self.suffixbutton.state = .off
     }
 
     override func viewDidDisappear() {
@@ -157,18 +156,4 @@ class ViewControllerRcloneParameters: NSViewController, SetConfigurations, SetDi
         default : break
         }
     }
-
-    @IBOutlet weak var suffixbutton: NSButton!
-    @IBAction func suffix(_ sender: NSButton) {
-        switch self.suffixbutton.state {
-        case .on:
-            self.param14.stringValue = self.parameters!.suffixString
-            self.initcombox(combobox: self.combo14, index: (self.parameters!.indexandvaluercloneparameter("--suffix").0))
-        case .off:
-            self.initcombox(combobox: self.combo14, index: (0))
-            self.param14.stringValue = ""
-        default : break
-        }
-    }
-
 }
