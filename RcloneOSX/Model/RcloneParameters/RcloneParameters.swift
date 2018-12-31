@@ -25,8 +25,8 @@ final class RcloneParameters {
         ("--no-gzip-encoding", 0),
         ("--suffix", 1)]
 
-    let backupString = "--backup-dir"
-    let suffixString = "`date \"+-%Y-%m-%d\"`"
+    let backupstring = "--backup-dir"
+    let suffixstringdate = "date"
     private var comboBoxValues: [String]?
     private var config: Configuration?
 
