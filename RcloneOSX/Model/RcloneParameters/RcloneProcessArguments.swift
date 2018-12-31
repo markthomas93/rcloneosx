@@ -18,6 +18,7 @@ class RcloneProcessArguments {
     var offsiteUsername: String?
     var offsiteServer: String?
     var remoteargs: String?
+    let suffixstringdate = "--suffix=date"
 
     // Brute force, check every parameter, not special elegant, but it works
     private func rclonecommand(_ config: Configuration, dryRun: Bool, forDisplay: Bool) {
@@ -61,8 +62,18 @@ class RcloneProcessArguments {
             self.appendParameter(parameter: config.parameter13!, forDisplay: forDisplay)
         }
         if config.parameter14 != nil {
-            self.appendParameter(parameter: config.parameter14!, forDisplay: forDisplay)
+            if config.parameter14! == self.suffixstringdate {
+                self.appendParameter(parameter: self.setdatesuffixlocalhost(), forDisplay: forDisplay)
+            } else {
+                 self.appendParameter(parameter: config.parameter14!, forDisplay: forDisplay)
+            }
         }
+    }
+
+    private func setdatesuffixlocalhost() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "-yyyy-MM-dd"
+        return  "--suffix=" + formatter.string(from: Date())
     }
 
     private func dryrunparameter(_ config: Configuration, forDisplay: Bool) {
