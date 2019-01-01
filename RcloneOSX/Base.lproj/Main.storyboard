@@ -1961,7 +1961,7 @@ DQ
             <objects>
                 <viewController title="About" storyboardIdentifier="AboutID" id="Fmg-bN-W4h" customClass="ViewControllerAbout" customModule="rcloneosx" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="VH8-E3-P50">
-                        <rect key="frame" x="0.0" y="0.0" width="303" height="328"/>
+                        <rect key="frame" x="0.0" y="0.0" width="303" height="302"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-iK-Od5">
@@ -1989,15 +1989,6 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="copyright" id="I48-tD-2H3">
                                     <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hyh-2j-983">
-                                <rect key="frame" x="-2" y="291" width="307" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="About RcloneOSX" id="RmT-0p-5r6">
-                                    <font key="font" metaFont="system" size="16"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -2087,7 +2078,7 @@ DQ
                 </viewController>
                 <customObject id="r6G-dy-dyg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="439.5" y="2200"/>
+            <point key="canvasLocation" x="439.5" y="2187"/>
         </scene>
         <!--RcloneOSX parameters-->
         <scene sceneID="lYn-Uy-8Sa">
