@@ -47,10 +47,6 @@ final class SingleTask: SetSchedules, SetConfigurations {
     private var workload: SingleTaskWorkQueu?
     // Ready for execute again
     private var ready: Bool = true
-    // Some max numbers
-    private var transferredNumber: String?
-    private var transferredNumberSizebytes: String?
-
     // Single task can be activated by double click from table
     func executeSingleTask() {
 
