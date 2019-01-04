@@ -91,7 +91,7 @@
 		E960CB411FB091DE0008D12E /* ConfigurationSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF31FB091DC0008D12E /* ConfigurationSchedule.swift */; };
 		E960CB431FB091DE0008D12E /* PersistentStorageScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF51FB091DC0008D12E /* PersistentStorageScheduling.swift */; };
 		E960CB451FB091DE0008D12E /* CompleteQuickbackupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF71FB091DC0008D12E /* CompleteQuickbackupTask.swift */; };
-		E960CB461FB091DE0008D12E /* Profiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF81FB091DD0008D12E /* Profiles.swift */; };
+		E960CB461FB091DE0008D12E /* CatalogProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAF81FB091DD0008D12E /* CatalogProfile.swift */; };
 		E960CB481FB091DE0008D12E /* PersistentStorageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAFA1FB091DD0008D12E /* PersistentStorageAPI.swift */; };
 		E960CB491FB091DE0008D12E /* QuickbackupDispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAFB1FB091DD0008D12E /* QuickbackupDispatch.swift */; };
 		E960CB4A1FB091DE0008D12E /* ViewControllerBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E960CAFC1FB091DD0008D12E /* ViewControllerBatch.swift */; };
@@ -188,7 +188,7 @@
 		E960CAF31FB091DC0008D12E /* ConfigurationSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationSchedule.swift; sourceTree = "<group>"; };
 		E960CAF51FB091DC0008D12E /* PersistentStorageScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageScheduling.swift; sourceTree = "<group>"; };
 		E960CAF71FB091DC0008D12E /* CompleteQuickbackupTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteQuickbackupTask.swift; sourceTree = "<group>"; };
-		E960CAF81FB091DD0008D12E /* Profiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profiles.swift; sourceTree = "<group>"; };
+		E960CAF81FB091DD0008D12E /* CatalogProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogProfile.swift; sourceTree = "<group>"; };
 		E960CAFA1FB091DD0008D12E /* PersistentStorageAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorageAPI.swift; sourceTree = "<group>"; };
 		E960CAFB1FB091DD0008D12E /* QuickbackupDispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbackupDispatch.swift; sourceTree = "<group>"; };
 		E960CAFC1FB091DD0008D12E /* ViewControllerBatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerBatch.swift; sourceTree = "<group>"; };
@@ -255,14 +255,6 @@
 			path = RcloneParameters;
 			sourceTree = "<group>";
 		};
-		E9482D1F1FB0AEBA00AFBB0D /* Userprofile */ = {
-			isa = PBXGroup;
-			children = (
-				E960CAF81FB091DD0008D12E /* Profiles.swift */,
-			);
-			path = Userprofile;
-			sourceTree = "<group>";
-		};
 		E9482D201FB0AEC700AFBB0D /* QuickbackupOperation */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,13 +308,14 @@
 			path = Process;
 			sourceTree = "<group>";
 		};
-		E9482D261FB0B10800AFBB0D /* ReadWriteFiles */ = {
+		E9482D261FB0B10800AFBB0D /* FilesandCatalogs */ = {
 			isa = PBXGroup;
 			children = (
 				E960CAC61FB091D50008D12E /* Readwritefiles.swift */,
+				E960CAF81FB091DD0008D12E /* CatalogProfile.swift */,
 				E960CABF1FB091D40008D12E /* Files.swift */,
 			);
-			path = ReadWriteFiles;
+			path = FilesandCatalogs;
 			sourceTree = "<group>";
 		};
 		E9482D271FB0B1A000AFBB0D /* Controller */ = {
@@ -437,9 +430,8 @@
 				E9482D241FB0AF4C00AFBB0D /* Execution */,
 				E9482D231FB0AEF600AFBB0D /* Utils */,
 				E9482D201FB0AEC700AFBB0D /* QuickbackupOperation */,
-				E9482D1F1FB0AEBA00AFBB0D /* Userprofile */,
 				E9482D1E1FB0AEAB00AFBB0D /* RcloneParameters */,
-				E9482D261FB0B10800AFBB0D /* ReadWriteFiles */,
+				E9482D261FB0B10800AFBB0D /* FilesandCatalogs */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -663,7 +655,7 @@
 				E960CB1A1FB091DE0008D12E /* RcloneProcessArguments.swift in Sources */,
 				E960CB4C1FB091DE0008D12E /* ViewControllertabMain.swift in Sources */,
 				E9BC41E3206517A5001DBCC6 /* AllConfigurations.swift in Sources */,
-				E960CB461FB091DE0008D12E /* Profiles.swift in Sources */,
+				E960CB461FB091DE0008D12E /* CatalogProfile.swift in Sources */,
 				E960CB3C1FB091DE0008D12E /* ViewControllerEdit.swift in Sources */,
 				E960CB0D1FB091DE0008D12E /* Files.swift in Sources */,
 				E905FE64209836C60008450C /* RcloneSize.swift in Sources */,
