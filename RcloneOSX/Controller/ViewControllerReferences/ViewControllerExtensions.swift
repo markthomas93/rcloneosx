@@ -19,27 +19,27 @@ protocol VcSchedule {
 
 extension VcSchedule {
     var storyboard: NSStoryboard? {
-        return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        return NSStoryboard(name: "Main", bundle: nil)
     }
 
     // Information Schedule details
     // self.presentViewControllerAsSheet(self.ViewControllerScheduleDetails)
     var viewControllerScheduleDetails: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardScheduleID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardScheduleID")
             as? NSViewController)!
     }
 
     // Userconfiguration
     // self.presentViewControllerAsSheet(self.ViewControllerUserconfiguration)
     var viewControllerUserconfiguration: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardUserconfigID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardUserconfigID")
             as? NSViewController)!
     }
 
     // Profile
     // self.presentViewControllerAsSheet(self.ViewControllerProfile)
     var viewControllerProfile: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ProfileID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "ProfileID")
             as? NSViewController)!
     }
 }
@@ -59,97 +59,97 @@ protocol VcMain {
 
 extension VcMain {
     var storyboard: NSStoryboard? {
-        return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        return NSStoryboard(name: "Main", bundle: nil)
     }
 
     // Information about rclone output
     // self.presentViewControllerAsSheet(self.ViewControllerInformation)
     var viewControllerInformation: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardInformationID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardInformationID")
             as? NSViewController)!
     }
 
     // Progressbar process
     // self.presentViewControllerAsSheet(self.ViewControllerProgress)
     var viewControllerProgress: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardProgressID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardProgressID")
             as? NSViewController)!
     }
 
     // Batch process
     // self.presentViewControllerAsSheet(self.ViewControllerBatch)
     var viewControllerBatch: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardBatchID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardBatchID")
             as? NSViewController)!
     }
 
     // Userconfiguration
     // self.presentViewControllerAsSheet(self.ViewControllerUserconfiguration)
     var viewControllerUserconfiguration: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardUserconfigID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardUserconfigID")
             as? NSViewController)!
     }
 
     // Rclone userparams
     // self.presentViewControllerAsSheet(self.viewControllerRcloneParams)
     var viewControllerRcloneParams: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRcloneParamsID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardRcloneParamsID")
             as? NSViewController)!
     }
 
     // New version window
     // self.presentViewControllerAsSheet(self.newVersionViewController)
     var newVersionViewController: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardnewVersionID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardnewVersionID")
             as? NSViewController)!
     }
 
     // Edit
     // self.presentViewControllerAsSheet(self.editViewController)
     var editViewController: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardEditID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardEditID")
             as? NSViewController)!
     }
 
     // Profile
     // self.presentViewControllerAsSheet(self.ViewControllerProfile)
     var viewControllerProfile: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ProfileID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "ProfileID")
             as? NSViewController)!
     }
 
     // About
     // self.presentViewControllerAsSheet(self.ViewControllerAbout)
     var viewControllerAbout: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "AboutID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "AboutID")
             as? NSViewController)!
     }
 
     // Quick backup process
     // self.presentViewControllerAsSheet(self.viewControllerQuickBackup)
     var viewControllerQuickBackup: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardQuickBackupID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardQuickBackupID")
             as? NSViewController)!
     }
 
     // Remote Info
     // self.presentViewControllerAsSheet(self.viewControllerQuickBackup)
     var viewControllerRemoteInfo: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRemoteInfoID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardRemoteInfoID")
             as? NSViewController)!
     }
 
     // Estimating
     // self.presentViewControllerAsSheet(self.viewControllerEstimating)
     var viewControllerEstimating: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardEstimatingID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardEstimatingID")
             as? NSViewController)!
     }
 
     // Restore
     // self.presentViewControllerAsSheet(self.restoreViewController)
     var restoreViewController: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardRestoreID"))
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardRestoreID")
             as? NSViewController)!
     }
 }
@@ -162,19 +162,19 @@ protocol VcCopyFiles {
 
 extension VcCopyFiles {
     var storyboard: NSStoryboard? {
-        return NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        return NSStoryboard(name: "Main", bundle: nil)
     }
 
     // Information about rclone output
     // self.presentViewControllerAsSheet(self.ViewControllerInformation)
     var viewControllerInformation: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "StoryboardInformationCopyFilesID")) as? NSViewController)!
+        return (self.storyboard!.instantiateController(withIdentifier: "StoryboardInformationCopyFilesID") as? NSViewController)!
     }
 
     // Source for CopyFiles
     // self.presentViewControllerAsSheet(self.viewControllerSource)
     var viewControllerSource: NSViewController? {
-        return (self.storyboard!.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "CopyFilesID")) as? NSViewController)!
+        return (self.storyboard!.instantiateController(withIdentifier: "CopyFilesID") as? NSViewController)!
     }
 }
 

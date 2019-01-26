@@ -115,7 +115,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
                 return
         }
         self.processtermination = .restore
-        self.presentViewControllerAsSheet(self.restoreViewController!)
+        self.presentAsSheet(self.restoreViewController!)
     }
 
     @IBAction func getremoteinfo(_ sender: NSButton) {
@@ -141,7 +141,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         }
         self.processtermination = .remoteinfotask
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerRemoteInfo!)
+            self.presentAsSheet(self.viewControllerRemoteInfo!)
         })
     }
 
@@ -153,7 +153,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         self.processtermination = .quicktask
         self.configurations!.allowNotifyinMain = false
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerQuickBackup!)
+            self.presentAsSheet(self.viewControllerQuickBackup!)
         })
     }
 
@@ -164,7 +164,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
             return
         }
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.editViewController!)
+            self.presentAsSheet(self.editViewController!)
         })
     }
 
@@ -175,7 +175,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
             return
         }
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerRcloneParams!)
+            self.presentAsSheet(self.viewControllerRcloneParams!)
         })
     }
 
@@ -224,7 +224,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     @IBAction func information(_ sender: NSToolbarItem) {
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerInformation!)
+            self.presentAsSheet(self.viewControllerInformation!)
         })
     }
 
@@ -238,20 +238,20 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
 
     @IBAction func userconfiguration(_ sender: NSToolbarItem) {
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerUserconfiguration!)
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
 
     // Selecting profiles
     @IBAction func profiles(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerProfile!)
+            self.presentAsSheet(self.viewControllerProfile!)
         })
     }
 
     // Selecting About
     @IBAction func about (_ sender: NSButton) {
-        self.presentViewControllerAsModalWindow(self.viewControllerAbout!)
+        self.presentAsModalWindow(self.viewControllerAbout!)
     }
 
     // Selecting automatic backup
@@ -262,7 +262,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
     func automaticbackup() {
         self.processtermination = .automaticbackup
         self.configurations?.remoteinfotaskworkqueue = RemoteInfoTaskWorkQueue(inbatch: false)
-        self.presentViewControllerAsSheet(self.viewControllerEstimating!)
+        self.presentAsSheet(self.viewControllerEstimating!)
         self.estimateupdateDelegate = ViewControllerReference.shared.getvcref(viewcontroller: .vcestimatingtasks) as? ViewControllerEstimatingTasks
     }
 
@@ -387,7 +387,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         self.setNumbers(output: nil)
         self.deselect()
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerBatch!)
+            self.presentAsSheet(self.viewControllerBatch!)
         })
     }
 
