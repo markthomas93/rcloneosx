@@ -37,7 +37,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
     // Userconfiguration button
     @IBAction func userconfiguration(_ sender: NSButton) {
         globalMainQueue.async(execute: { () -> Void in
-            self.presentViewControllerAsSheet(self.viewControllerUserconfiguration!)
+            self.presentAsSheet(self.viewControllerUserconfiguration!)
         })
     }
 
@@ -218,7 +218,7 @@ class ViewControllerCopyFiles: NSViewController, SetConfigurations, Delay, VcCop
 
 extension ViewControllerCopyFiles: NSSearchFieldDelegate {
 
-    override func controlTextDidChange(_ notification: Notification) {
+    func controlTextDidChange(_ notification: Notification) {
         if (notification.object as? NSTextField)! == self.search {
             self.delayWithSeconds(0.25) {
                 if self.search.stringValue.isEmpty {
@@ -317,7 +317,7 @@ extension ViewControllerCopyFiles: UpdateProgress {
         } else {
             self.restorebutton.title = "Restore"
             self.workingRclone.stopAnimation(nil)
-            self.presentViewControllerAsSheet(self.viewControllerInformation!)
+            self.presentAsSheet(self.viewControllerInformation!)
             self.restorebutton.isEnabled = true
         }
          self.copyFiles?.process = nil
@@ -330,7 +330,7 @@ extension ViewControllerCopyFiles: UpdateProgress {
 
 extension ViewControllerCopyFiles: DismissViewController {
     func dismiss_view(viewcontroller: NSViewController) {
-        self.dismissViewController(viewcontroller)
+        self.dismiss(viewcontroller)
     }
 }
 
