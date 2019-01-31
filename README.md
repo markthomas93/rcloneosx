@@ -2,7 +2,7 @@
 
 ![](icon/rcloneosx.png)
 
-This branch is for adapting to Xcode 10.12 and Swift 5 - both are still in beta and yet not released by Apple.
+This repository is updated for Xcode 10.2 and Swift 5. Both are still in beta and yet not released by Apple. The branch "v1.0.0.-fixes" is for updating fixes to the released version of RcloneOSX if the upcoming release of Xcode 10.2 and Swift 5 takes some time.
 
 The project is a adapting [RsyncOSX](https://github.com/rsyncOSX/RsyncOSX) utilizing [rclone](https://rclone.org/) for **synchronizing** and **backup** of catalogs and files to a number of cloud services. RcloneOSX utilizes `rclone copy`, `sync`, `move` and `check` commands.
 
