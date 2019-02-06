@@ -396,7 +396,7 @@ class ViewControllertabMain: NSViewController, ReloadTable, Deselect, VcMain, Fi
         weak var localprofileinfo: SetProfileinfo?
         if let profile = self.configurations!.getProfile() {
             self.profilInfo.stringValue = "Profile: " + profile
-            self.profilInfo.textColor = .blue
+            self.profilInfo.textColor = .white
         } else {
             self.profilInfo.stringValue = "Profile: default"
             self.profilInfo.textColor = .black
